@@ -1,0 +1,21 @@
+
+
+$roboto: 'Roboto', 'Helvetica Neue', helvetica, sans-serif;
+
+$h1: 5rem;
+$h2: 2.5rem;
+$h3: 1.9rem;
+$h4: 1.6rem;
+$h5: 1.25rem;
+
+body { font-family: $roboto; }
+h1 { font-size: $h1; }
+h2 { font-size: $h2; }
+h3 { font-size: $h3; }
+h4, p, li, input, button, textarea, select, label { font-size: $h4; }
+h5 { font-size: $h5; }
+
+p + p { margin-top: 1em; }
+
+strong { font-weight: 700; }
+em { font-style: italic; }
