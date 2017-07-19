@@ -47,14 +47,15 @@ app.use((req, res, next) => {
  */
 
 const publicController = require('./controllers/publicController');
+const apiController = require('./controllers/apiController');
 
 /**
  * Routes
  */
 
-// app.use('/api', apiRoutes);
 
 app.get('/', publicController.site);
+app.use('/api/all', apiController.all);
 
 /**
  * Serve

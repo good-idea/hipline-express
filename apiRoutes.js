@@ -1,5 +1,7 @@
 const apiRoutes = require('express').Router();
 
-apiRoutes.get('')
+const apiController = require('./controllers/apiController');
+
+apiRoutes.get('all', apiController.all)
 
 module.exports = apiRoutes;

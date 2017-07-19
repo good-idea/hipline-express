@@ -1,0 +1,33 @@
+figure.responsiveImage {
+	position: relative;
+
+	img {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		opacity: 0;
+		transition: 0.2s;
+	}
+
+	.loading-placeholder {
+		position: relative;
+		z-index: -1;
+		background-color: $grey1;
+		transition: 0.2s;
+	}
+
+	&.loaded {
+		img {
+			opacity: 1;
+		}
+		.loading-placeholder {
+			opacity: 0;
+		}
+	}
+}
+
+figcaption {
+	margin-top: .5rem;
+	font-style: italic;
+	position: relative;
+}

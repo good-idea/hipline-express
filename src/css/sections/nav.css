@@ -1,68 +1,23 @@
 
 nav {
-	width: $nav-width;
 	position: fixed;
-	padding: 2rem;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	background-color: white;
+	height: $nav-height;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem 2rem;
+	border-bottom: 1px solid currentColor;
 }
 
-.nav__section {
-	padding-left: 1rem;
-	margin: 0.75rem 0 0.75rem;
+.nav__item {
+	display: inline-block;
 }
 
-.nav__title {
-	margin-left: -1rem;
-	margin-bottom: 0.5rem;
-}
-
-.nav__section--categories {
-	.nav__title {
-		color: gray;
-
-		.minus {
-			display: none;
-		}
-	}
-
-	.nav__category-menu {
-		display: none;
-	}
-
-	&.open {
-		.nav__category-menu,
-		.nav__title .minus {
-			display: initial;
-		}
-		.nav__title .plus {
-			display: none;
-		}
-	}
-}
-
-input[type="checkbox"] {
-	width: .7em;
-	height: .7em;
-	margin-right: .35em;
-	margin-bottom: .1em;
-	border: 1px solid black;
-	position: relative;
-	vertical-align: text-bottom;
-
-	&:checked {
-		&:before, &:after {
-			content: '';
-			width: calc(100% - 0px);
-			height: 1px;
-			background-color: black;
-			position: absolute;
-			left: 0;
-			top: calc(50% - 1px);
-			transform: rotate(45deg);
-			transform-origin: center;
-		}
-
-		&:after {
-			transform: rotate(-45deg);
-		}
-	}
+.nav__item + .nav__item {
+	margin-left: 2em;
 }

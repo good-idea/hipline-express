@@ -1,0 +1,124 @@
+.choreographers__menu {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+}
+
+.choreographer__thumbnail {
+	width: calc(25% - 1rem);
+	border: 1px solid $orange;
+	margin: 0.5rem;
+	overflow: hidden;
+	position: relative;
+
+	.choreographer__name {
+		position: absolute;
+		top: 3rem;
+		left: 1rem;
+		text-transform: uppercase;
+		font-weight: 700;
+		color: $pink;
+		z-index: 20;
+	}
+
+	figure {
+		@mixin abs-full-size;
+		z-index: 10;
+		transition: .2s background-color;
+		cursor: pointer;
+
+		img {
+			height: 100%;
+			width: 75%;
+			left: 25%;
+			object-fit: cover;
+			mix-blend-mode: darken;
+		}
+	}
+
+	&:hover figure{
+		background-color: $yellow;
+	}
+}
+
+.choreographer__padding {
+	padding-bottom: 85%;
+}
+
+.profile:nth-of-type(2n - 1) {
+	background: $yellow;
+}
+
+.profile {
+	padding: $nav-height 0;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.profile__top,
+.profile__bottom {
+	display: flex;
+	justify-content: space-between;
+}
+
+.profile__title {
+	display: flex;
+	flex-direction: column;
+	width: 15%;
+	text-align: center;
+}
+
+.profile__name {
+	text-transform: uppercase;
+	color: $grey3;
+}
+
+.profile__photo {
+	width: 35%;
+	mix-blend-mode: darken;
+
+	figure {
+		width: 60%;
+	}
+}
+
+.profile__bio {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.profile__bottom {
+	margin-top: calc($nav-height * 2);
+}
+
+.profile__quote {
+	text-transform: uppercase;
+	margin-bottom: 2em;
+}
+
+.profile__playlist,
+.profile__classes {
+	width: 25%;
+}
+
+.profile__expectations {
+	flex-grow: 1;
+}
+
+.profile__bottom__title {
+	display: flex;
+	flex-direction: column;
+}
+
+.profile__playlist,
+.profile__classes,
+.profile__expectations {
+	display: flex;
+}
+
+.profile__bottom__content{
+	padding-left: 3rem;
+}
