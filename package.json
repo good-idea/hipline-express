@@ -28,8 +28,6 @@
     "file-loader": "^0.11.2",
     "live-reload": "^1.1.0",
     "markdown-to-jsx": "^5.4.0",
-    "mongoose": "^4.11.2",
-    "morgan": "^1.8.2",
     "npm-run-all": "^4.0.2",
     "postcss": "^6.0.2",
     "postcss-cli": "^4.1.0",
@@ -51,12 +49,15 @@
     "webpack": "^3.0.0"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "compression": "^1.7.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
+    "mongoose": "^4.11.2",
+    "morgan": "^1.8.2",
     "pug": "^2.0.0-rc.2",
     "response-time": "^2.3.2",
     "strong-soap": "^1.2.6"
