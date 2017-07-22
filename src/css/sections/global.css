@@ -12,8 +12,12 @@ body {
 	max-width: 120rem;
 }
 
+.column--narrow {
+	max-width: 45rem;
+}
+
 section {
-	margin-top: $nav-height;
+	/*padding: $nav-height 0;*/
 }
 
 .flex-column {
@@ -21,4 +25,34 @@ section {
 
 .flex-center {
 	justify-content: center;
+}
+
+.splash {
+	@mixin flex-center;
+	text-align: center;
+	height: calc(100vh - $nav-height);
+	min-height: 40rem;
+	text-transform: uppercase;
+}
+
+.thumbnail {
+	position: relative;
+	overflow: hidden;
+
+	figure {
+		@mixin abs-full-size;
+		z-index: 10;
+
+		img {
+			height: 100%;
+			width: 100%;
+			left: 0;
+			top: 0;
+			object-fit: cover;
+		}
+	}
+}
+
+.thumbnail__padding {
+	padding-bottom: 85%;
 }

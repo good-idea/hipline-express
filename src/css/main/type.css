@@ -19,10 +19,14 @@ h1 { font-size: $h1; }
 h2 { font-size: $h2; }
 h3 { font-size: $h3; }
 h4, p, li, input, button, textarea, select, label { font-size: $h4; }
-p { font-family: $serif; }
+p, li { font-family: $serif; }
 h5 { font-size: $h5; }
 
 p + p { margin-top: 1em; }
 
 strong { font-weight: 700; }
 em { font-style: italic; }
+
+li {
+	list-style-type: none;
+}

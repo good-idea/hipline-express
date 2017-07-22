@@ -1,0 +1,54 @@
+.classTypes {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.classType {
+	width: calc(33% - 4rem);
+	min-width: 20rem;
+
+	.squiggle {
+		margin: 1rem auto;
+	}
+
+	button {
+		margin: 0 auto;
+	}
+}
+
+.classType__title {
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.classType__thumbnail {
+	width: calc(25% - 1rem);
+	margin: 0.5rem;
+	overflow: hidden;
+	position: relative;
+
+	figure {
+		@mixin abs-full-size;
+	}
+}
+
+
+.classType__description {
+	margin: 2rem 0;
+}
+
+.classType__choreographers {
+	margin: 2rem 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+	h4 {
+		width: 100%;
+	}
+
+	li {
+		width: 50%;
+	}
+}

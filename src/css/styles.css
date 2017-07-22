@@ -4,7 +4,9 @@
 
 @import 'main/type';
 @import 'main/components';
+@import 'main/ui';
 
 @import 'sections/global';
 @import 'sections/nav';
 @import 'sections/choreographers';
+@import 'sections/classes';

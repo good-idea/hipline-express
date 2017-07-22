@@ -8,8 +8,6 @@
 	width: calc(25% - 1rem);
 	border: 1px solid $orange;
 	margin: 0.5rem;
-	overflow: hidden;
-	position: relative;
 
 	.choreographer__name {
 		position: absolute;
@@ -22,16 +20,12 @@
 	}
 
 	figure {
-		@mixin abs-full-size;
-		z-index: 10;
 		transition: .2s background-color;
 		cursor: pointer;
 
 		img {
-			height: 100%;
 			width: 75%;
 			left: 25%;
-			object-fit: cover;
 			mix-blend-mode: darken;
 		}
 	}

@@ -2,6 +2,7 @@ import React from 'react';
 import ResponsiveImage from '../components/ResponsiveImage';
 import Markdown, { compiler as markdownCompiler } from 'markdown-to-jsx';
 
+import Squiggle from '../components/Squiggle';
 import editJsx from '../utils/editJsx';
 
 /**
@@ -11,7 +12,7 @@ import editJsx from '../utils/editJsx';
 const ChoreographerThumbnail = ({ choreographer }) => {
 	if (choreographer.placeholder) return <div className="choreographer__thumbnail placeholder" />;
 	return (
-		<div className="choreographer__thumbnail">
+		<div className="choreographer__thumbnail thumbnail">
 			<div className="choreographer__padding" />
 			<h2 className="choreographer__name">{choreographer.title}</h2>
 			<ResponsiveImage {...choreographer.cover} sizes="25vw" />
@@ -71,7 +72,7 @@ const ChoreographerProfile = ({ choreographer }) => {
 				<div className="profile__classes">
 					<div className="profile__bottom__title">
 						<h2>Classes</h2>
-						<div className="squiggle">squiggle</div>
+						<Squiggle />
 					</div>
 					<div className="profile__bottom__content">
 						<h4>Shimmy Pop</h4>
@@ -82,7 +83,7 @@ const ChoreographerProfile = ({ choreographer }) => {
 				<div className="profile__expectations">
 					<div className="profile__bottom__title">
 						<h2>Expectations</h2>
-						<div className="squiggle">squiggle</div>
+						<Squiggle />
 					</div>
 					<div className="profile__bottom__content">
 						{expectationsBody}
@@ -91,7 +92,7 @@ const ChoreographerProfile = ({ choreographer }) => {
 				<div className="profile__playlist">
 					<div className="profile__bottom__title">
 						<h2>Playlist</h2>
-						<div className="squiggle">squiggle</div>
+						<Squiggle />
 					</div>
 					<div className="profile__bottom__content">
 						<h4>Prince</h4>
@@ -110,13 +111,14 @@ const ChoreographerProfile = ({ choreographer }) => {
  * Main Choreographer Component
  */
 
+
 const Choreographers = (props) => {
 	function makeChoreographerPlaceholders() {
 		const arr = [];
 		for (let i = 0; i < 12; i += 1) arr.push({ placeholder: true, uid: i });
 		return arr;
 	}
-	const choreographers = props.choreographers || makeChoreographerPlaceholders();
+	const choreographers = (props.content) ? props.content.children : makeChoreographerPlaceholders();
 	return (
 		<section className="choreographers">
 			<div className="choreographers__menu column column--wide">

@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 
 const config = require('./config');
-const apiRoutes = require('./apiRoutes');
 
 /**
  * Database connection
@@ -54,8 +53,8 @@ const apiController = require('./controllers/apiController');
  */
 
 
-app.get('/', publicController.site);
 app.use('/api/all', apiController.all);
+app.get('*', publicController.site);
 
 /**
  * Serve
