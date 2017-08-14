@@ -1,0 +1,61 @@
+
+.info__section > .title {
+	text-transform: uppercase;
+}
+
+.info__header {
+	text-align: center;
+}
+
+.info__title {
+	margin-bottom: 1em;
+	display: inline-block;
+	background: pink;
+}
+
+.info__section + .info__section {
+	margin-top: 6rem;
+}
+
+.cards {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	width: 27rem;
+	min-height: 35rem;
+	border: 1px solid pink;
+	margin: 3rem 1.5rem 0;
+}
+
+.card__title {
+	background: pink;
+	padding: 2rem;
+	margin-bottom: 2rem;
+}
+
+.card__description {
+	flex-grow: 1;
+}
+
+.card__icon figure {
+	margin: 2rem auto;
+	width: 9rem;
+	height: 9rem;
+
+	figure .loading-placeholder {
+		display: none;
+		padding-bottom: initial;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.card__cta {
+	margin: 2rem auto 2.5rem;
+}

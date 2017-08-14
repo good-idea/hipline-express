@@ -6,6 +6,7 @@ import Navigation from './sections/Navigation';
 // import Main from './components/Main';
 import Choreographers from './sections/Choreographers';
 import Classes from './sections/Classes';
+import InfoPage from './sections/InfoPage';
 
 class App extends React.Component {
 	constructor(props) {
@@ -16,8 +17,10 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
-		axios.get('/api/all').then((response) => {
-			console.log(response);
+		let timer = Date.now();
+		// Split the initial content & MBO requests into two: the MBO call may take longer.
+		axios.get('/api/content/initial').then((response) => {
+			console.log(`Response time of ${Date.now() - timer}`, response);
 			this.setState({
 				sections: { ...response.data },
 			});
@@ -26,6 +29,7 @@ class App extends React.Component {
 
 	render() {
 		console.log(this.state);
+		if (!this.state.sections.home) return null;
 		return (
 			<div>
 				<Navigation />
@@ -38,6 +42,11 @@ class App extends React.Component {
 					exact
 					path="/classes"
 					render={match => <Classes match={match} content={this.state.sections.classes} />}
+				/>
+				<Route
+					exact
+					path="/community"
+					render={() => <InfoPage {...this.state.sections.community} />}
 				/>
 			</div>
 		);

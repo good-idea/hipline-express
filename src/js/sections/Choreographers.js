@@ -25,6 +25,7 @@ const ChoreographerThumbnail = ({ choreographer }) => {
  */
 
 const ChoreographerProfile = ({ choreographer }) => {
+	console.log(choreographer);
 	const bioBody = editJsx(
 		markdownCompiler(choreographer.bio),
 		[
@@ -47,6 +48,12 @@ const ChoreographerProfile = ({ choreographer }) => {
 			},
 		],
 	);
+	const quote = (choreographer.quote) ? (
+		<h3 className="profile__quote">
+			{choreographer.quote[0].body} —&nbsp;<span className="citation">{choreographer.quote[0].citation}</span>
+		</h3>
+	) : null;
+
 	return (
 		<div className="profile">
 			<div className="profile__top column column--wide">
@@ -60,9 +67,7 @@ const ChoreographerProfile = ({ choreographer }) => {
 					<ResponsiveImage {...choreographer.cover} sizes="25vw" />
 				</div>
 				<div className="profile__bio">
-					<h3 className="profile__quote">
-						{choreographer.quote[0].body} —&nbsp;<span className="citation">{choreographer.quote[0].citation}</span>
-					</h3>
+					{quote}
 					<div className="profile__bio__body">
 						{bioBody}
 					</div>
@@ -115,7 +120,7 @@ const ChoreographerProfile = ({ choreographer }) => {
 const Choreographers = (props) => {
 	function makeChoreographerPlaceholders() {
 		const arr = [];
-		for (let i = 0; i < 12; i += 1) arr.push({ placeholder: true, uid: i });
+		for (let i = 0; i < 12; i += 1) arr.push({ placeholder: true, slug: i });
 		return arr;
 	}
 	const choreographers = (props.content) ? props.content.children : makeChoreographerPlaceholders();
@@ -123,12 +128,12 @@ const Choreographers = (props) => {
 		<section className="choreographers">
 			<div className="choreographers__menu column column--wide">
 				{choreographers.map(c => (
-					<ChoreographerThumbnail key={`choreographerThumb-${c.uid}`} choreographer={c} />
+					<ChoreographerThumbnail key={`choreographerThumb-${c.slug}`} choreographer={c} />
 				))}
 			</div>
 			<div className="choreographers__main">
 				{choreographers.map((c) => {
-					if (c.placeholder !== true) return <ChoreographerProfile key={`choreographerThumb-${c.uid}`} choreographer={c} />;
+					if (c.placeholder !== true) return <ChoreographerProfile key={`choreographerThumb-${c.slug}`} choreographer={c} />;
 					return null;
 				})}
 

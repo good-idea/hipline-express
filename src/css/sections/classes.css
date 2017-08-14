@@ -1,3 +1,18 @@
+.card--class {
+	@extend .card;
+	border: none;
+	width: 35rem;
+
+	.card__title {
+		background: initial;
+		padding: 0;
+	}
+
+	.responsiveImage img {
+		object-fit: cover;
+	}
+}
+
 .classTypes {
 	display: flex;
 	justify-content: space-between;

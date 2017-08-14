@@ -40,20 +40,25 @@ app.use((req, res, next) => {
 	next();
 });
 
-
 /**
  * Controllers
  */
 
 const publicController = require('./controllers/publicController');
-const apiController = require('./controllers/apiController');
+const contentController = require('./controllers/contentController');
+const mboController = require('./controllers/mboController');
 
 /**
  * Routes
  */
 
+app.get('/api/content/initial', contentController.initial);
+app.get('/api/content/sync', contentController.syncToCMS);
+// app.get('/api/content/sync/classes', contentController.syncClassDescriptions);
 
-app.use('/api/all', apiController.all);
+app.get('/api/mbo/classes', mboController.getClasses);
+app.get('/api/mbo/read/:method', mboController.readMBO);
+
 app.get('*', publicController.site);
 
 /**

@@ -9,7 +9,7 @@ const Navigation = () => (
 			<h3 className="nav__item"><Link to="/classes">Classes</Link></h3>
 			<h3 className="nav__item"><Link to="/community">Community</Link></h3>
 			<h3 className="nav__item"><Link to="/about">About</Link></h3>
-			<h3 className="nav__item"><Link to="/about">Schedule</Link></h3>
+			<h3 className="nav__item"><Link to="/schedule">Schedule</Link></h3>
 		</div>
 		<div className="nav__group">
 			<h3 className="nav__item"><Link to="/login">Login</Link></h3>

@@ -3,10 +3,10 @@
 @import 'base/variables';
 
 @import 'main/type';
-@import 'main/components';
 @import 'main/ui';
+@import 'main/global';
 
-@import 'sections/global';
 @import 'sections/nav';
+@import 'sections/info';
 @import 'sections/choreographers';
 @import 'sections/classes';

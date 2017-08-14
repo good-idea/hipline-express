@@ -42,8 +42,8 @@ class ResponsiveImage extends React.Component {
 			const commaSpace = (acc.length) ? ', ' : '';
 			return `${current.url} ${current.width}w${commaSpace}${acc}`;
 		}, '');
-		const figCaption = (this.props.meta.caption.length) ? <figCaption>{this.props.meta.caption}</figCaption> : null;
-		const ratio = (original) ? original.height / original.width : 0.56;
+		const figCaption = (this.props.meta.caption) ? <figCaption>{this.props.meta.caption}</figCaption> : null;
+		const ratio = (this.props.ratio) ? this.props.ratio : original.height / original.width;
 		return (
 			<figure
 				className={cn(this.props.classNames, this.state.classNames, 'responsiveImage')}
@@ -73,7 +73,10 @@ ResponsiveImage.propTypes = {
 	classNames: PropTypes.string,
 	sizes: PropTypes.string,
 	srcset: PropTypes.arrayOf(PropTypes.object),
-	meta: PropTypes.shape(),
+	meta: PropTypes.oneOfType([
+		PropTypes.shape(),
+		PropTypes.array,
+	]),
 };
 
 ResponsiveImage.defaultProps = {

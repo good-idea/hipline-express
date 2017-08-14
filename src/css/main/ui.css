@@ -1,5 +1,8 @@
-button {
-	display: block;
+/**
+ * "Call to action" items - Buttons or links
+ */
+
+.cta {
 	position: relative;
 	padding: 0.25em 0.75em;
 	text-transform: uppercase;
@@ -14,7 +17,9 @@ button {
 	}
 }
 
-button.primary {
+.cta--primary {
+	@extend .cta;
+	
 	&:after {
 		@mixin abs-full-size;
 		content: '';
