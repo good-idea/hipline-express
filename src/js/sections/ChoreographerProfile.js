@@ -31,7 +31,7 @@ const ChoreographerProfile = (props) => {
 			},
 		],
 	);
-	const quote = (props.quote) ? (
+	const quote = (props.quote.body.length) ? (
 		<h3 className="profile__quote">
 			“{props.quote.body}” —&nbsp;<span className="citation">{props.quote.citation}</span>
 		</h3>
