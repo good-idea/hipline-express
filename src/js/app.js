@@ -28,7 +28,6 @@ class App extends React.Component {
 	}
 
 	render() {
-		console.log(this.state);
 		if (!this.state.sections.home) return null;
 		return (
 			<div>
@@ -36,7 +35,7 @@ class App extends React.Component {
 				<Route
 					exact
 					path="/"
-					render={match => <Choreographers match={match} content={this.state.sections.choreographers} />}
+					render={match => <Choreographers match={match} choreographers={this.state.sections.choreographers.children} />}
 				/>
 				<Route
 					exact

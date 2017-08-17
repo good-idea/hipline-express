@@ -2,12 +2,18 @@
 	display: flex;
 	width: 100%;
 	flex-wrap: wrap;
-}
 
-.choreographer__thumbnail {
-	width: calc(25% - 1rem);
-	border: 1px solid $orange;
-	margin: 0.5rem;
+	.choreographer__avatar {
+		width: calc(25% - 1rem);
+		border: 1px solid $orange;
+		margin: 0.5rem;
+		position: relative;
+	}
+
+	.cover {
+		width: 80%;
+		margin-left: 20%;
+	}
 
 	.choreographer__name {
 		position: absolute;
@@ -18,25 +24,6 @@
 		color: $pink;
 		z-index: 20;
 	}
-
-	figure {
-		transition: .2s background-color;
-		cursor: pointer;
-
-		img {
-			width: 75%;
-			left: 25%;
-			mix-blend-mode: darken;
-		}
-	}
-
-	&:hover figure{
-		background-color: $yellow;
-	}
-}
-
-.choreographer__padding {
-	padding-bottom: 85%;
 }
 
 .profile:nth-of-type(2n - 1) {
@@ -59,6 +46,7 @@
 .profile__title {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	width: 15%;
 	text-align: center;
 }
@@ -68,9 +56,11 @@
 	color: $grey3;
 }
 
+
 .profile__photo {
 	width: 35%;
 	mix-blend-mode: darken;
+	padding-right: 3rem;
 
 	figure {
 		width: 60%;

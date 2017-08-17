@@ -6,6 +6,8 @@
 @import 'main/ui';
 @import 'main/global';
 
+@import 'components/avatar';
+
 @import 'sections/nav';
 @import 'sections/info';
 @import 'sections/choreographers';

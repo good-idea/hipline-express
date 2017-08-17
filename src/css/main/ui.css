@@ -19,7 +19,7 @@
 
 .cta--primary {
 	@extend .cta;
-	
+
 	&:after {
 		@mixin abs-full-size;
 		content: '';
@@ -29,4 +29,8 @@
 		z-index: -2;
 
 	}
+}
+
+button.scrollTrigger {
+	width: 100%;
 }
