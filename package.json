@@ -14,7 +14,7 @@
     "serve": "nodemon server.js --ignore public/ --ignore src/"
   },
   "engines": {
-    "node": ">=8.1.1"
+    "node": ">=8.2.1"
   },
   "keywords": [],
   "author": "",
