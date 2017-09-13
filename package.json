@@ -67,6 +67,8 @@
     "compression": "^1.7.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
+    "helmet": "^3.8.1",
+    "hpp": "^0.2.2",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
     "mongoose": "^4.11.11",

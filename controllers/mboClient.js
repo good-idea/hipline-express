@@ -1,6 +1,6 @@
-const soap = require('strong-soap').soap;
+const soap = require('strong-soap').soap
 
-const { getPropertyByString } = require('../utils/data');
+const { getPropertyByString } = require('../utils/data')
 
 /**
  * Initial config
@@ -8,13 +8,13 @@ const { getPropertyByString } = require('../utils/data');
 
 const config = {
 	apiRoot: 'https://api.mindbodyonline.com/0_5/',
-};
+}
 
 const endpoints = {
 	ClassService: `${config.apiRoot}/ClassService.asmx`,
 	StaffService: `${config.apiRoot}/StaffService.asmx`,
 	SaleService: `${config.apiRoot}/SaleService.asmx`,
-};
+}
 
 const SourceCredentials = {
 	SourceName: process.env.MBO_SOURCENAME,
@@ -22,9 +22,18 @@ const SourceCredentials = {
 	SiteIDs: {
 		int: ['4561'],
 	},
-};
+}
 
-const defaultParams = { SourceCredentials };
+const UserCredentials = {
+	Username: `_${process.env.MBO_SOURCENAME}`,
+	Password: process.env.MBO_SECRET,
+	SiteIDs: {
+		int: ['4561'],
+	},
+}
+
+const defaultParams = { SourceCredentials, UserCredentials }
+
 
 /**
  * Methods.
@@ -51,26 +60,26 @@ const makeMBORequest = ({
 	new Promise((resolve, reject) => {
 		soap.createClient(`${endpoint}?wsdl`, {}, (soapErr, client) => {
 			if (soapErr) {
-				reject(soapErr);
-				return;
+				reject(soapErr)
+				return
 			}
-			client.setEndpoint(endpoint);
+			client.setEndpoint(endpoint)
 			const params = {
 				Request: Object.assign(defaultParams, additionalParams),
-			};
-			const requestMethod = getPropertyByString(client, methodString);
+			}
+			const requestMethod = getPropertyByString(client, methodString)
 			if (!requestMethod || typeof requestMethod !== 'function') {
-				reject(`${methodString} is not a valid request method`);
-				return;
+				reject(`${methodString} is not a valid request method`)
+				return
 			}
 			requestMethod(params, (soapErrs, response) => {
-				if (soapErrs) reject(soapErrs);
-				const result = getPropertyByString(response, resultString);
-				resolve(result);
-			});
-		});
+				if (soapErrs) reject(soapErrs)
+				const result = getPropertyByString(response, resultString)
+				resolve(result)
+			})
+		})
 	})
-);
+)
 
 /**
  * Basic requests
@@ -81,39 +90,40 @@ const getClassDescriptions = function getClassDescriptions() {
 		endpoint: endpoints.ClassService,
 		methodString: 'Class_x0020_Service.Class_x0020_ServiceSoap.GetClassDescriptions',
 		resultString: 'GetClassDescriptionsResult.ClassDescriptions.ClassDescription',
-	});
-};
+	})
+}
 
 const getPasses = function getPackages() {
 	return makeMBORequest({
 		endpoint: endpoints.SaleService,
 		methodString: 'Sale_x0020_Service.Sale_x0020_ServiceSoap.GetServices',
 		resultString: 'GetServicesResult.Services.Service',
-	});
-};
+	})
+}
 
 const getStaff = function getStaff() {
 	return makeMBORequest({
 		endpoint: endpoints.StaffService,
 		methodString: 'Staff_x0020_Service.Staff_x0020_ServiceSoap.GetStaff',
 		resultString: 'GetStaffResult.StaffMembers.Staff',
-	});
-};
+	})
+}
 
 const getClasses = function getClasses(week = 0, length = 1) {
-	const today = new Date();
-	const StartDateTime = new Date(today.getFullYear(), today.getMonth(), today.getDate() + (7 * week));
-	const EndDateTime = new Date(StartDateTime.getFullYear(), StartDateTime.getMonth(), StartDateTime.getDate() + (7 * length));
+	const today = new Date()
+	const StartDateTime = new Date(today.getFullYear(), today.getMonth(), today.getDate() + (7 * week))
+	const EndDateTime = new Date(StartDateTime.getFullYear(), StartDateTime.getMonth(), StartDateTime.getDate() + (7 * length))
 	return makeMBORequest({
 		endpoint: endpoints.ClassService,
+		methodString: 'Class_x0020_Service.Class_x0020_ServiceSoap.GetClasses',
+		resultString: 'GetClassesResult.Classes.Class',
 		additionalParams: {
+			Fields: 'Classes.Resource',
 			StartDateTime: StartDateTime.toISOString(),
 			EndDateTime: EndDateTime.toISOString(),
 		},
-		methodString: 'Class_x0020_Service.Class_x0020_ServiceSoap.GetClasses',
-		resultString: 'GetClassesResult.Classes.Class',
-	});
-};
+	})
+}
 
 /**
  * Additional methods
@@ -125,20 +135,20 @@ const getClasses = function getClasses(week = 0, length = 1) {
 
 const getActiveStaff = function getActiveStaff() {
 	return new Promise((resolve, reject) => {
-		const allStaff = getStaff();
-		const upcomingClasses = getClasses(0, 4);
+		const allStaff = getStaff()
+		const upcomingClasses = getClasses(0, 4)
 		Promise.all([allStaff, upcomingClasses]).then(([staff, classes]) => {
 			const activeStaffIDs = classes.reduce((prev, next) => {
-				if (!prev.includes(next.Staff.ID)) prev.push(next.Staff.ID);
-				return prev;
-			}, []);
+				if (!prev.includes(next.Staff.ID)) prev.push(next.Staff.ID)
+				return prev
+			}, [])
 			const activeStaff = staff.reduce((prev, next) => {
-				if (activeStaffIDs.includes(next.ID)) prev.push(next);
-				return prev;
-			}, []);
-			resolve(activeStaff);
-		}).catch(err => reject(err));
-	});
-};
+				if (activeStaffIDs.includes(next.ID)) prev.push(next)
+				return prev
+			}, [])
+			resolve(activeStaff)
+		}).catch(err => reject(err))
+	})
+}
 
-module.exports = { getClasses, getPasses, getActiveStaff, getClassDescriptions };
+module.exports = { getClasses, getPasses, getActiveStaff, getClassDescriptions }

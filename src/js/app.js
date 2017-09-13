@@ -29,7 +29,7 @@ class App extends React.Component {
 		axios.get('/api/mbo/classes').then((response) => {
 			console.log(`Response time for 'api/mbo/classes': ${Date.now() - timer}`, response)
 			this.setState({
-				schedule: { ...response.data },
+				schedule: [ ...response.data ]
 			})
 		})
 	}

@@ -10,9 +10,10 @@ class Schedule extends React.Component {
 	}
 
 	render() {
+		console.log(this.props)
 		return (
 			<section className="schedule">
-				<h1></h1>
+				<h1>!!?</h1>
 			</section>
 		)
 	}

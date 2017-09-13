@@ -7,8 +7,9 @@ const mongoose = require('mongoose')
 const logger = require('morgan')
 
 const config = require('./config')
-const hotMiddleware = require('./middleware/hot')
-
+const securityMiddleware = require('./middleware/security')
+const hotMiddleware = require('./middleware/hotReload')
+const errorHandlersMiddleware = require('./middleware/errorHandlers')
 
 /**
  * Database connection
@@ -24,10 +25,7 @@ mongoose.createConnection(mongoURI)
 
 const app = express()
 
-if (config.environment === 'development') {
-	app.use(logger('dev'))
-	app.use(hotMiddleware)
-}
+if (config.environment === 'development') app.use(logger('dev'))
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -45,6 +43,12 @@ app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Credentials', 'true')
 	next()
 })
+
+/**
+ * Middleware
+ */
+
+app.use(securityMiddleware)
 
 /**
  * Controllers
@@ -65,7 +69,11 @@ app.get('/api/content/sync', contentController.syncToCMS)
 app.get('/api/mbo/classes', mboController.getClasses)
 app.get('/api/mbo/read/:method', mboController.readMBO)
 
+if (config.environment === 'development') app.use(hotMiddleware)
+
 app.get('*', publicController.site)
+
+app.use(errorHandlersMiddleware)
 
 /**
  * Serve

@@ -5,9 +5,6 @@ import { AppContainer } from 'react-hot-loader'
 import App from './App'
 
 const render = (Component) => {
-	console.log('')
-	console.log('')
-	console.log('************ RENDER ***********')
 	ReactDOM.render((
 		<AppContainer>
 			<BrowserRouter>
@@ -20,11 +17,3 @@ const render = (Component) => {
 render(App)
 
 if (module.hot) module.hot.accept()
-//
-// if (module.hot) {
-// 	module.hot.accept('./App', (a, b) => {
-// 		console.log({a, b})
-// 		console.log('HOTT')
-// 		render(App)
-// 	})
-// }

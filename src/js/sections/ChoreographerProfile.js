@@ -1,41 +1,43 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { compiler as markdownCompiler } from 'markdown-to-jsx';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { compiler as markdownCompiler } from 'markdown-to-jsx'
 
-import Avatar from '../components/Avatar';
-import Squiggle from '../components/Squiggle';
-import editJsx from '../utils/editJsx';
-import { ScrollableChild } from '../UI/Scroll';
+import Avatar from '../components/Avatar'
+import Squiggle from '../components/Squiggle'
+import { ScrollableChild } from '../UI/Scroll'
 
 
 const ChoreographerProfile = (props) => {
-	const bioBody = editJsx(
-		markdownCompiler(props.bio),
-		[
-			{
-				type: 'removeByTag',
-				config: {
-					tags: ['h1', 'h2', 'h3'],
-				},
-			},
-		],
-	);
-	const expectationsBody = editJsx(
-		markdownCompiler(props.expectations),
-		[
-			{
-				type: 'replaceTag',
-				config: {
-					replacements: [{ from: 'p', to: 'h4' }],
-				},
-			},
-		],
-	);
+	const bioBody = props.bio
+	// const bioBody = editJsx(
+	// 	markdownCompiler(props.bio),
+	// 	[
+	// 		{
+	// 			type: 'removeByTag',
+	// 			config: {
+	// 				tags: ['h1', 'h2', 'h3'],
+	// 			},
+	// 		},
+	// 	],
+	// )
+	// TODO: Make 'replaceTag' and 'removeByTag' methods in text helper
+	const expectationsBody = props.expectations
+	// const expectationsBody = editJsx(
+	// 	markdownCompiler(props.expectations),
+	// 	[
+	// 		{
+	// 			type: 'replaceTag',
+	// 			config: {
+	// 				replacements: [{ from: 'p', to: 'h4' }],
+	// 			},
+	// 		},
+	// 	],
+	// )
 	const quote = (props.quote.body) ? (
 		<h3 className="profile__quote">
 			“{props.quote.body}” —&nbsp;<span className="citation">{props.quote.citation}</span>
 		</h3>
-	) : null;
+	) : null
 
 	return (
 		<ScrollableChild slug={`profile-${props.slug}`} >
@@ -98,8 +100,8 @@ const ChoreographerProfile = (props) => {
 				</div>
 			</div>
 		</ScrollableChild>
-	);
-};
+	)
+}
 
 ChoreographerProfile.propTypes = {
 	bio: PropTypes.string,
@@ -119,12 +121,12 @@ ChoreographerProfile.propTypes = {
 			PropTypes.array,
 		]),
 	}).isRequired,
-};
+}
 
 ChoreographerProfile.defaultProps = {
 	bio: '',
 	expectations: '',
 	quote: '',
-};
+}
 
-export default ChoreographerProfile;
+export default ChoreographerProfile
