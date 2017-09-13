@@ -1,7 +1,7 @@
 {
   apps : [{
-    name        : "Hipline",
-    script      : "./index.js",
+    name        : "hipline",
+    script      : "./server.js",
     watch       : true,
     ignore_watch: ["node_modules", ".git", "html/.git", "html/node_modules"],
     watch_options: {
