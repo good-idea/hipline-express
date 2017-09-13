@@ -8,7 +8,6 @@ const logger = require('morgan')
 
 const config = require('./config')
 const securityMiddleware = require('./middleware/security')
-const hotMiddleware = require('./middleware/hotReload')
 const errorHandlersMiddleware = require('./middleware/errorHandlers')
 
 /**
@@ -69,7 +68,10 @@ app.get('/api/content/sync', contentController.syncToCMS)
 app.get('/api/mbo/classes', mboController.getClasses)
 app.get('/api/mbo/read/:method', mboController.readMBO)
 
-if (config.environment === 'development') app.use(hotMiddleware)
+if (config.environment === 'development') {
+	const hotMiddleware = require('./middleware/hotReload')
+	app.use(hotMiddleware)
+}
 
 app.get('*', publicController.site)
 
