@@ -21,6 +21,7 @@ const getClasses = (req, res, next) => {
 			const startTime = moment.tz(classSource.StartDateTime, 'America/Los_Angeles')
 			const endTime = moment.tz(classSource.EndDateTime, 'America/Los_Angeles')
 			const newClass = {
+				id: classSource.ClassScheduleID,
 				siteID: classSource.Location.SiteID,
 				location: classSource.Location.Name,
 				title: classSource.ClassDescription.Name,

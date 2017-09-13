@@ -18,18 +18,18 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
-		const timer = Date.now()
+		// const timer = Date.now()
 		// Split the initial content & MBO requests into two: the MBO call may take longer.
 		axios.get('/api/content/initial').then((response) => {
-			console.log(`Response time for 'api/content/initial': ${Date.now() - timer}`, response)
+			// console.log(`Response time for 'api/content/initial': ${Date.now() - timer}`, response)
 			this.setState({
 				sections: { ...response.data },
 			})
 		})
 		axios.get('/api/mbo/classes').then((response) => {
-			console.log(`Response time for 'api/mbo/classes': ${Date.now() - timer}`, response)
+			// console.log(`Response time for 'api/mbo/classes': ${Date.now() - timer}`, response)
 			this.setState({
-				schedule: [ ...response.data ]
+				schedule: [...response.data],
 			})
 		})
 	}

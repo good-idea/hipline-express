@@ -90,3 +90,15 @@ figcaption {
 	margin: .5em;
 	text-align: right;
 }
+
+
+.avatar {
+	width: 7rem;
+	height: 7rem;
+	margin: 0 auto;
+
+	img {
+		border-radius: 50%;
+		object-fit: cover;
+	}
+}

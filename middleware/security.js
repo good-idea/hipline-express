@@ -38,6 +38,13 @@ const cspConfig = {
 	},
 }
 
+if (environment === 'development') {
+	cspConfig.scriptSrc = [
+		...defaults,
+		'unsafe-inline',
+	]
+}
+
 const securityMiddleware = [
 	hpp(),
 	helmet(),

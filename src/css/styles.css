@@ -1,7 +1,7 @@
 @import 'base/reset';
 @import 'base/mixins';
-@import 'base/variables';
 
+@import 'main/variables';
 @import 'main/type';
 @import 'main/ui';
 @import 'main/global';
@@ -12,3 +12,4 @@
 @import 'sections/info';
 @import 'sections/choreographers';
 @import 'sections/classes';
+@import 'sections/schedule';

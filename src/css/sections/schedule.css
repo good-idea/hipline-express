@@ -1,0 +1,56 @@
+
+/*
+$purple-light: #e9e8ff;
+$seafoam: #00FF81;
+$seafoam-light: #c3ffe2;
+$orange: #FF8000;
+$pink: #FF0DCB;
+$pink-light: #FF7be3;
+$yellow: #FFFC00;
+$grey1: rgb(220, 220, 220);
+$grey3: #9b9b9b;
+$grey5: #4a4a4a;
+*/
+
+
+.schedule__class {
+	border: 1px solid $orange;
+	border-raduis: 0.3rem;
+	padding: 1rem;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+
+	& + .schedule__class {
+		margin-top: 1rem;
+	}
+}
+
+.class-power-pop {
+	border-color: $pink;
+}
+
+.class-shimmy-pop {
+	border-color: $purple;
+}
+
+.class-jungle-playroom-childcare {
+	border-color: $seafoam;
+}
+
+.class__title {
+	flex-basis: 100%;
+	text-transform: uppercase;
+}
+
+.class__teacher,
+.class__signup {
+	flex-basis: 12rem;
+}
+
+
+.class__info {
+	flex-grow: 1;
+}
