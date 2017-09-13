@@ -1,17 +1,24 @@
-const path = require('path');
-
-const entries = {
-	bundle: './src/js/bundle.js',
-};
+const path = require('path')
+const webpack = require('webpack')
 
 const config = () => (
 	{
-		entry: entries,
+		entry: [
+			'webpack-hot-middleware/client',
+			'react-hot-loader/patch',
+			'./src/js/bundle.js',
+		],
 		output: {
 			path: path.resolve(__dirname, 'public/js'),
-			filename: '[name].js',
-			sourceMapFilename: '[name].js.map',
+			filename: 'bundle.js',
+			publicPath: '/',
+			sourceMapFilename: 'bundle.js.map',
 		},
+		plugins: [
+			new webpack.HotModuleReplacementPlugin(),
+			new webpack.NamedModulesPlugin(),
+			new webpack.NoEmitOnErrorsPlugin(),
+		],
 		devtool: 'cheap-module-source-map',
 		module: {
 			rules: [
@@ -23,6 +30,6 @@ const config = () => (
 			],
 		},
 	}
-);
+)
 
-module.exports = config;
+module.exports = config

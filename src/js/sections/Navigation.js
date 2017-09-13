@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Navigation = () => (
 	<nav>
@@ -16,6 +16,6 @@ const Navigation = () => (
 			<h3 className="nav__item"><Link to="/register">Sign Up</Link></h3>
 		</div>
 	</nav>
-);
+)
 
-export default Navigation;
+export default Navigation

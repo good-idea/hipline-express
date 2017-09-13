@@ -1,9 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
-import { ScrollableContainer, ScrollableChild, ScrollTrigger } from '../UI/Scroll';
-import { slugify } from '../utils/helpers';
+import ResponsiveImage from '../components/ResponsiveImage'
+import { ScrollableContainer, ScrollableChild, ScrollTrigger } from '../UI/Scroll'
+import { slugify } from '../utils/helpers'
+import { markdownToJSX } from '../utils/text'
 
 /**
  * Sub-components
@@ -11,7 +13,8 @@ import { slugify } from '../utils/helpers';
 
 class InfoNavItem extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
+		console.log('!')
 	}
 
 	render() {
@@ -23,7 +26,7 @@ class InfoNavItem extends React.Component {
 					</button>
 				</ScrollTrigger>
 			</div>
-		);
+		)
 	}
 }
 
@@ -31,7 +34,7 @@ const InfoBlock = (props) => {
 	return (
 		<div className="info__block">
 			<h2>{props.header}</h2>
-			<p>{props.body}</p>
+			<p>{markdownToJSX(props.body)}</p>
 		</div>
 	)
 }
@@ -53,12 +56,17 @@ const InfoButton = (props) => {
 
 class InfoSection extends React.Component {
 	render() {
+		const cover = (this.props.cover) ?
+			<ResponsiveImage classNames='info__cover' {...this.props.cover } /> :
+			null
+
 		return (
 			<ScrollableChild slug={`info-${this.props.slug}`}>
 				<div className="info__section">
 					<div className="info__header">
 						<h2>{this.props.headline}</h2>
-						<h3>{this.props.intro}</h3>
+						{cover}
+						<h3>{markdownToJSX(this.props.intro)}</h3>
 					</div>
 					<div className="info__blocks">
 						{this.props.blocks.map(c => <InfoBlock key={`infoBlock-${slugify(c.header)}`} {...c} />)}
@@ -79,10 +87,11 @@ class InfoSection extends React.Component {
 
 class InfoPage extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 	}
 
 	render() {
+		console.log(this.props)
 		return (
 			<ScrollableContainer>
 				<section className="info">
@@ -116,4 +125,4 @@ class InfoPage extends React.Component {
 	}
 }
 
-export default InfoPage;
+export default InfoPage
