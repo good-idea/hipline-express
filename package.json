@@ -62,6 +62,7 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "babel-plugin-ramda": "^1.4.3",
     "body-parser": "^1.18.1",
     "compression": "^1.7.0",
     "dotenv": "^4.0.0",
