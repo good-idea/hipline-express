@@ -7,5 +7,5 @@ module.exports = {
 	server,
 	database,
 	cms,
-	environment: process.env.NODE_ENV || environment.ENV,
+	environment: environment.ENV || process.env.ENV,
 }
