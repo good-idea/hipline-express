@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { compiler as markdownCompiler } from 'markdown-to-jsx'
 
 import Avatar from '../components/Avatar'
 import Squiggle from '../components/Squiggle'
 import { ScrollableChild } from '../UI/Scroll'
-
+import { markdownToJSX } from '../utils/text'
 
 const ChoreographerProfile = (props) => {
-	const bioBody = props.bio
+	const bioBody = markdownToJSX(props.bio)
 	// const bioBody = editJsx(
 	// 	markdownCompiler(props.bio),
 	// 	[
@@ -21,7 +20,7 @@ const ChoreographerProfile = (props) => {
 	// 	],
 	// )
 	// TODO: Make 'replaceTag' and 'removeByTag' methods in text helper
-	const expectationsBody = props.expectations
+	const expectationsBody = markdownToJSX(props.expectations)
 	// const expectationsBody = editJsx(
 	// 	markdownCompiler(props.expectations),
 	// 	[
