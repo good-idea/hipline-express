@@ -5,8 +5,6 @@ const hpp = require('hpp')
 
 const environment = require('../config').environment
 
-console.log(environment)
-
 const defaultsByEnv = {
 	production: ["'self'", '*.myhipline.com'],
 	staging: ["'self'", '*.standard-quality.biz', '*.myhipline.com'],
