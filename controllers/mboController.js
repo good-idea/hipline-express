@@ -154,7 +154,7 @@ const getClasses = (req, res, next) => {
 const readMBO = (req, res, next) => {
 	const method = req.params.method
 	if (mboClient[method]) {
-		mboClient[method]().then(response => res.json(response))
+		mboClient[method]().then(response => res.json(response)).catch(err => next(err))
 	} else {
 		res.status(400)
 		return res.json({

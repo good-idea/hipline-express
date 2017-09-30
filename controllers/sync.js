@@ -47,22 +47,22 @@ const syncClassPasses = () => (
 
 const syncClassDescriptions = () => (
 	new Promise((resolve, reject) => {
-		mboClient.getClasses(0, 4).then((classData) => {
-			const classes = []
-			for (const classSource of classData) {
-				if (R.path(['ClassDescription', 'Description'], classSource) !== undefined) {
-					classSource.ClassDescription.Description = HTMLToMarkdown(classSource.ClassDescription.Description)
+		mboClient.getClassDescriptionsByProgram(0, 4).then((classTypes) => {
+			for (const classProgram of classTypes) {
+				for (const classSource of classProgram.classes) {
+					if (R.path(['Description'], classSource) !== undefined) {
+						classSource.Description = HTMLToMarkdown(classSource.Description)
+					}
 				}
-				if (!classes.find(c => c.ID === classSource.ClassDescription.ID)) classes.push(classSource.ClassDescription)
 			}
 			axios({
 				method: 'post',
 				url: `${apiRoot}/sync/classes`,
-				data: Qs.stringify({ classes }),
+				data: Qs.stringify({ classTypes }),
 			}).then((classResponse) => {
 				resolve(classResponse.data)
 			}).catch(err => reject(err))
-		}).catch(err => reject(err))
+		}).catch(err => { console.log(err); return reject(err) })
 	})
 )
 

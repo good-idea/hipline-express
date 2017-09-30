@@ -24,7 +24,7 @@ const errorHandlersMiddleware = [
 	function unexpectedErrorMiddleware(err, req, res, next) {
 		if (err) {
 			// console.log(err)
-			// console.log(err.stack)
+			console.log(err.stack)
 		}
 		res.status(R.path(['response', 'status'], err) || 500).send('Sorry, an unexpected error occurred.')
 	},

@@ -2,6 +2,7 @@ const soap = require('strong-soap').soap
 const R = require('ramda')
 
 const { getPropertyByString } = require('../utils/data')
+const { slugify } = require('../utils/text')
 
 /**
  * Initial config
@@ -61,34 +62,42 @@ const groupClassesByProgram = R.groupBy(danceClass => (
 	getProgramNameByID(R.path(['ClassDescription', 'Program', 'ID'], danceClass))
 ))
 
-const getStaffFromClasses = R.pipe(
-	R.pluck('Staff'),
-	R.filter(staffMember => (
-		staffMember.Name !== 'Co-Work' &&
-		staffMember.Name !== 'Hipline'
-	)),
-	R.pluck('ID'),
-	R.uniq,
-)
+// const getStaffFromClasses = R.pipe(
+// 	R.pluck('Staff'),
+// 	R.filter(staffMember => (
+// 		staffMember.Name !== 'Co-Work' &&
+// 		staffMember.Name !== 'Hipline'
+// 	)),
+// 	R.pluck('ID'),
+// 	R.uniq,
+// )
 
-const getStaffWithClasstypes = (classes) => {
-	const staffMembers = [];
-	// classes.map((danceClass) => {
-	// 	let staffMember = staffMembers.find(s => s.ID === R.path('Staff', 'ID'))
-	// 	if (!staffMember)
-	// })
-	//
-	// R.map((class) => {
-	//
-	// 	const staffMember = staffMembers.find(s => s.ID === R.path('Staff', 'ID')) || R.prop('Staff', class)
-	// 	staffMember.classTypes = {};
-	//
-	// 	R.assoc('classTypes', )
-	//
-	// })(classes)
+const getStaffFromClasses = (classes) => {
+	const staff = []
+	classes.map((danceClass) => {
+		const staffMember = R.prop('Staff')(danceClass)
+		const existingStaff = staff.find(s => s.ID === staffMember.ID)
 
+		if (existingStaff) {
+			existingStaff.roles.push(getProgramNameByID(R.path(['ClassDescription', 'Program', 'ID'], danceClass)))
+			existingStaff.classTypes.push(
+				slugify(R.path(['ClassDescription', 'SessionType', 'Name'], danceClass))
+			)
+			existingStaff.roles = R.uniq(existingStaff.roles)
+			existingStaff.classTypes = R.uniq(existingStaff.classTypes)
+		} else {
+			const newStaffMember = Object.assign({}, staffMember)
+			newStaffMember.roles = [getProgramNameByID(R.path(['ClassDescription', 'Program', 'ID'], danceClass))]
+			newStaffMember.classTypes = [
+				slugify(R.path(['ClassDescription', 'SessionType', 'Name'], danceClass))
+			]
+			newStaffMember.roles = R.uniq(newStaffMember.roles)
+			newStaffMember.classTypes = R.uniq(newStaffMember.classTypes)
+			staff.push(newStaffMember)
+		}
+	})
+	return R.filter(s => s.Name !== 'Co-Work', staff)
 }
-
 
 
 /**
@@ -183,6 +192,36 @@ const getClasses = function getClasses(week = 0, length = 1) {
 	})
 }
 
+const getClassDescriptionsByProgram = (week, length) => (
+	new Promise((resolve, reject) => {
+		getClasses(week, length).then((classes) => {
+			// resolve(classes)
+			const programs = R.uniq(R.map(c => (
+				R.path(['ClassDescription', 'Program'])(c)
+			))(classes))
+
+			const sortedClasses = R.pipe(
+				R.groupBy(R.path(['ClassDescription', 'Program', 'ID'])),
+				(groupedClasses => (
+					Object.keys(groupedClasses).map((sourceID) => {
+						const id = parseInt(sourceID, 10)
+						const title = programs.find(p => p.ID === id).Name
+						return {
+							title,
+							mboID: id,
+							slug: slugify(title),
+							classes: R.pipe(
+								R.pluck('ClassDescription'),
+								R.uniq,
+							)(groupedClasses[sourceID]),
+						}
+					}))),
+			)(classes)
+			resolve(sortedClasses)
+		}).catch(err => reject(err))
+	})
+)
+
 /**
  * User/Auth Requests
  */
@@ -235,43 +274,8 @@ const getActiveStaff = function getActiveStaff() {
 			// resolve({ staff, classes })
 			// get a list of Choreographers and JPR staff based on the upcoming schedule
 
-			const getStaffMembers = R.pipe(
-				R.pluck('Staff'),
-				R.filter(staffMember => (
-					staffMember.Name !== 'Co-Work'
-					// && staffMember.Name !== 'Hipline'
-				)),
-				R.uniq,
-			)
+			const activeStaff = getStaffFromClasses(classes)
 
-			const activeStaff = R.pipe(
-				groupClassesByProgram,
-				R.mapObjIndexed(getStaffFromClasses),
-				R.mapObjIndexed((staffIds, classType) => (
-					// R.map(staffId => ({ id: staffId, classes: [classType] }))(staffIds)
-					R.map(staffId => ({ id: staffId, classType }))(staffIds)
-				)),
-				R.values,
-				R.flatten,
-				R.reduce((staffList, current) => {
-					const existingStaffMember = staffList.find(staffMember => staffMember.ID === current.id)
-
-					if (existingStaffMember) {
-						existingStaffMember.classTypes.push(current.classType)
-					} else {
-						const newStaffMember = staff.find(s => s.ID === current.id)
-						newStaffMember.classTypes = [current.classType]
-						staffList.push(newStaffMember)
-					}
-					return staffList
-
-				}, [])
-				// R.mapObjIndexed((value, key) => (
-				// 	R.map(a => R.assoc(a, key, {}))(value)
-				// )),
-				// R.reduce((prev, current) => R.concat(prev, current), [])
-				// R.invert,
-			)(classes)
 
 			resolve(activeStaff)
 
@@ -292,6 +296,7 @@ const getActiveStaff = function getActiveStaff() {
 
 module.exports = {
 	getClasses,
+	getClassDescriptionsByProgram,
 	getPasses,
 	getActiveStaff,
 	getClassDescriptions,
