@@ -11,10 +11,10 @@ const initial = (req, res) => {
 		.catch(err => console.log(err.message));
 };
 
-const syncToCMS = (req, res) => {
+const syncToCMS = (req, res, next) => {
 	sync().then(response => {
 		return res.json(response);
-	});
+	}).catch(err => next(err));
 };
 
 module.exports = { initial, syncToCMS };

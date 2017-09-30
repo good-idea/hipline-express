@@ -27,10 +27,36 @@
 		transform: translate(0.3em, 0.3em) skew(-7deg);
 		background: white;
 		z-index: -2;
-
 	}
 }
 
 button.scrollTrigger {
 	width: 100%;
+}
+
+input {
+	border: 1px solid black;
+	padding: 0.2rem 0.5rem;
+}
+
+.form__field + .form__field {
+	margin-top: 1rem;
+}
+
+.form__field--hidden {
+	display: none;
+}
+
+button[type="submit"] {
+	@extend .cta;
+	margin-top: 2rem;
+}
+
+section.login > form {
+	padding: 2rem;
+	border: 1px solid;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }

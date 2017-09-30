@@ -10,10 +10,12 @@ body {
 }
 
 .column--wide {
-	max-width: 120rem;
+	@extend .column;
+	max-width: 110rem;
 }
 
 .column--narrow {
+	@extend .column;
 	max-width: 45rem;
 }
 

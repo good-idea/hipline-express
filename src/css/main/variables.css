@@ -2,11 +2,13 @@ $nav-height: 6rem;
 $aside-width: 16rem;
 
 
-$purple: #928DFF;
+$purple: rgba(146, 141, 255, 1);
+/*$purple-50: rgba(146, 141, 255, 0.5);*/
 $purple-light: #e9e8ff;
 $seafoam: #00FF81;
 $seafoam-light: #c3ffe2;
 $orange: #FF8000;
+$orange-light: #fdc791;
 $pink: #FF0DCB;
 $pink-light: #FF7be3;
 $yellow: #FFFC00;

@@ -6,4 +6,4 @@ module.exports = {
 	dbName: environment.DB_DBNAME,
 	host: environment.DB_HOST || 'localhost',
 	port: environment.DB_PORT || 27017,
-};
+}

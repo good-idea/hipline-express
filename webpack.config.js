@@ -18,8 +18,10 @@ const config = () => (
 			new webpack.HotModuleReplacementPlugin(),
 			new webpack.NamedModulesPlugin(),
 			new webpack.NoEmitOnErrorsPlugin(),
+			new webpack.WatchIgnorePlugin(['node_modules', './controllers', 'config', 'public', 'views'])
 		],
-		devtool: 'cheap-module-source-map',
+		watch: true,
+		devtool: 'eval-source-map',
 		module: {
 			rules: [
 				{

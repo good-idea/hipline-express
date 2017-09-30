@@ -1,3 +1,5 @@
+const R = require('ramda')
+
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 
@@ -21,10 +23,10 @@ const errorHandlersMiddleware = [
 	*/
 	function unexpectedErrorMiddleware(err, req, res, next) {
 		if (err) {
-			console.log(err)
-			console.log(err.stack)
+			// console.log(err)
+			// console.log(err.stack)
 		}
-		res.status(500).send('Sorry, an unexpected error occurred.')
+		res.status(R.path(['response', 'status'], err) || 500).send('Sorry, an unexpected error occurred.')
 	},
 ]
 

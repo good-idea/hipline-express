@@ -1,10 +1,11 @@
-const axios = require('axios');
-const Qs = require('qs');
-const { cms } = require('../config');
-const mboClient = require('./mboClient');
-const { HTMLToMarkdown } = require('../utils/data');
+const axios = require('axios')
+const Qs = require('qs')
+const R = require('ramda')
+const { cms } = require('../config')
+const mboClient = require('./mboClient')
+const { HTMLToMarkdown } = require('../utils/data')
 
-const apiRoot = `http://${cms.host}:${cms.port}/api`;
+const apiRoot = `http://${cms.host}:${cms.port}/api`
 
 /**
  * Sync methods should get raw MBO data,
@@ -15,19 +16,20 @@ const syncStaffInfo = () => (
 	new Promise((resolve, reject) => {
 		mboClient.getActiveStaff().then((staffData) => {
 			const staff = staffData.map((i) => {
-				if (i.Bio) i.Bio = HTMLToMarkdown(i.Bio);
-				return i;
-			});
+				if (i.Bio) i.Bio = HTMLToMarkdown(i.Bio)
+				return i
+			})
 			axios({
 				method: 'post',
 				url: `${apiRoot}/sync/staff`,
 				data: Qs.stringify({ staff }),
 			}).then((staffResponse) => {
-				resolve(staffResponse.data);
-			}).catch(err => reject(err));
-		});
+				console.log("Response")
+				resolve(staffResponse.data)
+			}).catch(err => { console.log('error'); return reject(err) })
+		})
 	})
-);
+)
 
 const syncClassPasses = () => (
 	new Promise((resolve, reject) => {
@@ -37,32 +39,32 @@ const syncClassPasses = () => (
 				url: `${apiRoot}/sync/passes`,
 				data: Qs.stringify({ passes }),
 			}).then((classResponse) => {
-				resolve(classResponse.data);
-			}).catch(err => reject(err));
-		}).catch(mboErr => reject(mboErr));
+				resolve(classResponse.data)
+			}).catch(err => reject(err))
+		}).catch(mboErr => reject(mboErr))
 	})
-);
+)
 
 const syncClassDescriptions = () => (
 	new Promise((resolve, reject) => {
 		mboClient.getClasses(0, 4).then((classData) => {
-			const classes = [];
+			const classes = []
 			for (const classSource of classData) {
-				if (classSource.ClassDescription !== undefined) {
-					classSource.ClassDescription.Description = HTMLToMarkdown(classSource.ClassDescription.Description);
-					if (!classes.find(c => c.ID === classSource.ClassDescription.ID)) classes.push(classSource.ClassDescription);
+				if (R.path(['ClassDescription', 'Description'], classSource) !== undefined) {
+					classSource.ClassDescription.Description = HTMLToMarkdown(classSource.ClassDescription.Description)
 				}
+				if (!classes.find(c => c.ID === classSource.ClassDescription.ID)) classes.push(classSource.ClassDescription)
 			}
 			axios({
 				method: 'post',
 				url: `${apiRoot}/sync/classes`,
 				data: Qs.stringify({ classes }),
 			}).then((classResponse) => {
-				resolve(classResponse.data);
-			}).catch(err => reject(err));
-		}).catch(err => reject(err));
+				resolve(classResponse.data)
+			}).catch(err => reject(err))
+		}).catch(err => reject(err))
 	})
-);
+)
 
 const sync = () => (
 	new Promise((resolve, reject) => {
@@ -79,9 +81,9 @@ const sync = () => (
 				staff,
 				classes,
 				passes,
-			});
-		}).catch(err => reject(err));
+			})
+		}).catch(err => reject(err))
 	})
-);
+)
 
-module.exports = sync;
+module.exports = sync

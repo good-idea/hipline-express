@@ -32,15 +32,8 @@ const cspConfig = {
 		// 	"'self'",
 		// 	"'unsafe-inline'",
 		// ],
-		reportUri: '/report-csp-violation'
+		reportUri: '/report-csp-violation',
 	},
-}
-
-if (environment === 'development') {
-	cspConfig.scriptSrc = [
-		...defaults,
-		'unsafe-inline',
-	]
 }
 
 const securityMiddleware = [

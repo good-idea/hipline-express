@@ -3,7 +3,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const responseTime = require('response-time')
 const compression = require('compression')
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 const logger = require('morgan')
 
 const config = require('./config')
@@ -14,8 +14,9 @@ const errorHandlersMiddleware = require('./middleware/errorHandlers')
  * Database connection
  */
 
-const mongoURI = `mongodb://${config.database.user}:${config.database.secret}@${config.database.host}:${config.database.port}/${config.database.dbName}`
-mongoose.createConnection(mongoURI)
+// const mongoURI = `mongodb://${config.database.user}:${config.database.secret}@${config.database.host}:${config.database.port}/${config.database.dbName}`
+// mongoose.createConnection(mongoURI)
+//
 
 
 /**
@@ -47,7 +48,7 @@ app.use((req, res, next) => {
  * Middleware
  */
 
-app.use(securityMiddleware)
+if (config.environment !== 'development') app.use(securityMiddleware)
 
 /**
  * Controllers
@@ -65,13 +66,18 @@ app.get('/api/content/initial', contentController.initial)
 app.get('/api/content/sync', contentController.syncToCMS)
 // app.get('/api/content/sync/classes', contentController.syncClassDescriptions)
 
+app.get('/api/mbo/login', mboController.loginUser)
+app.get('/api/mbo/registrationFields', mboController.getRegistrationFields)
+// app.get('/api/mbo/user', mboController.getUser)
+app.get('/api/mbo/staff', mboController.getStaff)
 app.get('/api/mbo/classes', mboController.getClasses)
 app.get('/api/mbo/read/:method', mboController.readMBO)
+// app.get('/api/*', (req, res) => (res.status(404).send()))
 
-if (config.environment === 'development') {
-	const hotMiddleware = require('./middleware/hotReload')
-	app.use(hotMiddleware)
-}
+// if (config.environment === 'development') {
+// 	const hotMiddleware = require('./middleware/hotReload')
+// 	app.use(hotMiddleware)
+// }
 
 app.get('*', publicController.site)
 
