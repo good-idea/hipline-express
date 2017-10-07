@@ -23,6 +23,13 @@ const getFieldConfig = (fieldName) => {
 		return {
 			name: fieldName,
 			label: 'Email/Login',
+			type: 'email',
+		}
+	case 'Email':
+		return {
+			name: fieldName,
+			label: 'Email/Login',
+			type: 'email'
 		}
 	case 'Password':
 		return {
@@ -30,16 +37,24 @@ const getFieldConfig = (fieldName) => {
 			label: 'Password',
 			type: 'password',
 		}
+	case 'Password2':
+		return {
+			name: fieldName,
+			label: 'Confirm Password',
+			type: 'password',
+		}
 	case 'AddressLine1':
 		return {
 			name: fieldName,
 			label: 'Address',
+			type: 'text'
 		}
 	case 'PostalCode':
 		return {
 			name: fieldName,
 			label: prepareFieldLabel(fieldName),
 			pattern: '[0-9]*',
+			type: 'text'
 		}
 	case 'ReferredBy':
 		return {
@@ -84,12 +99,13 @@ const getFieldConfig = (fieldName) => {
 const getRegistrationFields = (req, res, next) => {
 	Promise.all([mboClient.getRequiredFields(), mboClient.getReferralTypes()])
 		.then(([sourceRequiredFields, referralTypes]) => {
+			console.log(sourceRequiredFields.string)
 			const referralOptions = R.pipe(
 				R.uniq,
 				R.map(i => ({ value: i, label: i })),
 			)(referralTypes.string)
 			const requiredFields = R.pipe(
-				R.concat(['FirstName', 'LastName', 'Username', 'Password', 'EmailOptIn', 'LiabilityRelease', 'ReferredByOtherText']),
+				R.concat(['FirstName', 'LastName', 'Email', 'Password', 'Password2', 'EmailOptIn', 'LiabilityRelease', 'ReferredByOtherText']),
 				R.map(getFieldConfig),
 				R.map((i) => {
 					if (i.name === 'ReferredBy') {

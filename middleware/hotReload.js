@@ -8,12 +8,13 @@ const bundler = webpack(config)
 
 const middleware = [
 	webpackDevMiddleware(bundler, {
-		filename: config.output.filename,
+		// filename: config.output.filename,
 		publicPath: config.output.publicPath,
-		hot: true,
-		stats: {
-			colors: true,
-		},
+		// hot: true,
+		// stats: {
+			// colors: true,
+		// },
+		noInfo: true,
 	}),
 	webpackHotMiddleware(bundler, {
 		log: console.log, // eslint-disable-line no-console

@@ -9,6 +9,7 @@ const logger = require('morgan')
 const config = require('./config')
 const securityMiddleware = require('./middleware/security')
 const errorHandlersMiddleware = require('./middleware/errorHandlers')
+const hotMiddleware = require('./middleware/hotReload')
 
 /**
  * Database connection
@@ -48,7 +49,10 @@ app.use((req, res, next) => {
  * Middleware
  */
 
+
 if (config.environment !== 'development') app.use(securityMiddleware)
+
+if (config.environment === 'development') app.use(hotMiddleware)
 
 /**
  * Controllers
@@ -72,12 +76,8 @@ app.get('/api/mbo/registrationFields', mboController.getRegistrationFields)
 app.get('/api/mbo/staff', mboController.getStaff)
 app.get('/api/mbo/classes', mboController.getClasses)
 app.get('/api/mbo/read/:method', mboController.readMBO)
-// app.get('/api/*', (req, res) => (res.status(404).send()))
+app.get('/api/*', (req, res) => (res.status(404).send()))
 
-// if (config.environment === 'development') {
-// 	const hotMiddleware = require('./middleware/hotReload')
-// 	app.use(hotMiddleware)
-// }
 
 app.get('*', publicController.site)
 

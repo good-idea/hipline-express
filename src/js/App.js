@@ -8,8 +8,8 @@ import Choreographers from './sections/Choreographers'
 import Classes from './sections/Classes'
 import InfoPage from './sections/InfoPage'
 import Schedule from './sections/Schedule/Schedule'
-import Login from './sections/User/Login'
-import Register from './sections/User/Register'
+import Login from './sections/Login'
+import Register from './sections/Register'
 
 class App extends React.Component {
 	constructor(props) {
