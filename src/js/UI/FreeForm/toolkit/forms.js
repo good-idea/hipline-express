@@ -1,9 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { clone, forEach, map, reduce, assoc, reject, equals, pick } from 'ramda'
-import cn from 'classnames'
+import { assoc, forEach, path, clone, merge, prop, reject, equals } from 'ramda'
+import {
+	compose,
+	withState,
+	defaultProps,
+	withHandlers
+} from 'recompose'
 
 import { singleToArray } from '../utils/data'
+
+const emptyForm = {
+	fields: {},
+	valid: true,
+	disabled: false,
+}
+
+const enhance = compose(
+	withState('form', 'updateForm', emptyForm)
+)
 
 const withFormHelpers = (WrappedComponent) => {
 	class FreeFormWrapper extends React.Component {
@@ -11,21 +26,16 @@ const withFormHelpers = (WrappedComponent) => {
 			super(props)
 			this.addField = this.addField.bind(this)
 			this.removeField = this.removeField.bind(this)
+			this.updateField = this.updateField.bind(this)
+
 			this.subscribe = this.subscribe.bind(this)
 			this.unsubscribe = this.unsubscribe.bind(this)
 			this.emit = this.emit.bind(this)
 
-			this.getFieldValues = this.getFieldValues.bind(this)
-			this.setFieldValues = this.setFieldValues.bind(this)
+			this.handleSubmit = this.handleSubmit.bind(this)
 
-			this.onSubmit = this.onSubmit.bind(this)
-
-			this.classNamePrefix = props.classNamePrefix || 'ff__'
-			this.fields = []
 			this.listeners = new Map()
-			this.state = {
-				fields: []
-			}
+			this.initialFields = []
 		}
 
 		getChildContext() {
@@ -33,59 +43,44 @@ const withFormHelpers = (WrappedComponent) => {
 				form: {
 					addField: this.addField,
 					removeField: this.removeField,
-					setFieldValues: this.setFieldValues,
+					fields: this.props.form.fields,
+
+					updateField: this.updateField,
 					subscribe: this.subscribe,
 					unsubscribe: this.unsubscribe,
 					emit: this.emit,
-					classNamePrefix: this.classNamePrefix,
-					fields: this.fields,
+
+					classNamePrefix: this.props.classNamePrefix || 'ff_',
 				},
 			}
 		}
 
-		onSubmit(e) {
-			if (this.props.preventDefault === true) e.preventDefault()
-			const values = this.getFieldValues()
-			if (this.props.onSubmit) this.props.onSubmit(values)
+		componentDidMount() {
+			this.props.updateForm({
+				...this.props.form,
+				fields: clone(this.initialFields),
+			})
 		}
 
-		getFieldValues() {
-			return reduce(
-				(acc, f) => (
-					assoc(
-						f.props.name,
-						{
-							...f.state,
-							...pick(['initialValue'])(f.props),
-						},
-					)(acc)
-				), {})(this.fields)
-		}
+		updateField(fieldId, newValues, callback) {
 
-		setFieldValues(fieldId, values) {
-			this.fields = R.assoc(fieldId, values, this.fields)
+			const values = merge(
+				prop(fieldId, this.props.form.fields),
+				newValues
+			)
+
+			this.props.updateForm({
+				...this.props.form,
+				fields: assoc(fieldId, values, this.props.form.fields),
+			}, callback)
 		}
-		//
-		// componentDidMount() {
-		// 	this.setState({
-		// 		fields: this.fields
-		// 	})
-		// }
 
 		addField(field) {
-			console.log('add field')
-			console.log(field)
-
-			this.setState({
-				fields: this.state.fields.push(field)
-			}, () => console.log(this.state.fields))
-			// this.fields.push(field)
+			this.initialFields = assoc(field.id, field, this.initialFields)
 		}
 
-		removeField(field) {
-			// this.setState({
-			// 	fields: reject((f => f.// IDEA: ))
-			// }) = reject(equals(field), this.fields)
+		removeField(fieldId) {
+			// conso
 		}
 
 		subscribe(topics, callback) {
@@ -112,65 +107,40 @@ const withFormHelpers = (WrappedComponent) => {
 		emit(topic, fieldId) {
 			const listeners = this.listeners.get(topic)
 			if (!listeners) return false
-			const fieldValues = this.getFieldValues()
+			const fieldValues = path(['form', 'fields'], this.props)
 			forEach(
 				(listener => listener({ fieldValues, event: topic, triggerFieldId: fieldId })),
 			)(listeners)
 			return true
 		}
 
-		buildClassName() {
-			const baseClassNames = ['form']
-			if (this.state.disabled) baseClassNames.push('form--disabled')
-			if (this.state.valid !== true) baseClassNames.push('form--invalid')
-			if (this.state.valid === true) baseClassNames.push('form--valid')
-
-			const prefix = this.props.classNamePrefix || 'ff__'
-			const prefixedClassNames = map(c => `${prefix}${c}`)(baseClassNames)
-
-			return cn([...cn(this.props.classNames), ...prefixedClassNames])
+		handleSubmit(e) {
+			e.preventDefault()
+			this.props.onSubmit('some values')
 		}
 
 		render() {
 			return (
-				<WrappedComponent
-					className={this.buildClassName()}
-					{...this.props}
-					{...this.state}
-					subscribe={this.subscribe}
-					unsubscribe={this.unsubscribe}
-					emit={this.emit}
-					onChange={this.handleChange}
-					getFieldValues={this.getFieldValues}
-					onSubmit={this.onSubmit}
-				/>
+				<form onSubmit={this.handleSubmit}>
+					<WrappedComponent
+						subscribe={this.subscribe}
+						unsubscribe={this.unsubscribe}
+						// emit={this.emit} why would anything outside of the form emit?
+						updateField={this.updateField}
+						{...this.props}
+						{...this.state}
+					/>
+				</form>
 			)
 		}
 	}
 
 	FreeFormWrapper.childContextTypes = {
-		form: PropTypes.object,
+		form: PropTypes.object
 	}
 
-	FreeFormWrapper.propTypes = {
-		classNamePrefix: PropTypes.string,
-		classNames: PropTypes.oneOfType([
-			PropTypes.arrayOf(PropTypes.string),
-			PropTypes.string,
-			PropTypes.shape(),
-		]),
-		onSubmit: PropTypes.func,
-		preventDefault: PropTypes.bool,
-	}
 
-	FreeFormWrapper.defaultProps = {
-		classNamePrefix: 'ff__',
-		classNames: '',
-		onSubmit: () => {},
-		preventDefault: false,
-	}
-
-	return FreeFormWrapper
+	return enhance(FreeFormWrapper)
 }
 
 export default withFormHelpers

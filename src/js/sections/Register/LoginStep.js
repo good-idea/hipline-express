@@ -6,6 +6,23 @@ import Field from '../../UI/Field'
 
 
 /**
+ * GETTING LOST HERE AGAIN
+ * How to attach 'helpText' and other arbitrary values to a field,
+ * and also retrieve them at this level so we can put them in our own markup?
+ * Maybe we need to have a 'fieldContainer' HOC / enhancement?
+ *
+ * e.g., in the Field component..
+ *
+ * export default asFieldContainer(Field)
+ *
+ * asFieldContainer:
+ *  - requires a field ID
+ *  - reads all props from that field and applies them to the wrapped component
+ *
+ *
+ */
+
+/**
  * LoginStep
  */
 
@@ -14,6 +31,11 @@ class LoginStep extends React.Component {
 		super(props)
 		this.passwordsMustMatch = this.passwordsMustMatch.bind(this)
 		this.handleAdvance = this.handleAdvance.bind(this)
+
+		const fields = this.getMergedFieldValues(props, {})
+		this.state = {
+			fields
+		}
 	}
 
 	componentDidMount() {
@@ -24,34 +46,38 @@ class LoginStep extends React.Component {
 		this.props.unsubscribe(['fieldChanged', 'fieldBlurred'], this.passwordsMustMatch)
 	}
 
-	passwordsMustMatch({ fieldValues, event, triggerFieldId }) {
+	getMergedFieldValues(props = this.props, fieldValues = this.state.fields) {
+		return R.mergeDeepLeft(props.fieldConfig, fieldValues)
+	}
 
+	passwordsMustMatch({ fieldValues, event, triggerFieldId }) {
 		const pass1 = R.path(['Password', 'value'], fieldValues)
 		const pass2 = R.path(['Password2', 'value'], fieldValues)
 		if ((event === 'fieldBlurred' && triggerFieldId === 'Password2')
 			|| (event === 'fieldChanged' && triggerFieldId === 'Password2' && pass1 === pass2)) {
-			const helpText = (pass1 !== pass2) ? 'Passwords must match' : ''
+			const helptext = (pass1 !== pass2) ? 'Passwords must match' : ''
+			this.props.updateField('Password2', { helptext })
 			// this.setState({
 			// 	passwordsMatch: (pass1 === pass2),
 			// })
 		}
 	}
 
+	mergeFieldValues() {}
+
 	handleAdvance() {
 		const values = this.props.getFieldValues()
-
-		console.log(values, this.state)
 	}
 
 	render() {
 		const classNames = ['form__step']
 		if (this.props.active) classNames.push('form__step--active')
-		const { Email, Password, Password2 } = this.props.fieldConfig
+		const { Email, Password, Password2 } = this.getMergedFieldValues()
 		return (
 			<fieldset className={cn(classNames)}>
-				<Field field={Email} initialValue="joseph@good-idea.studio" />
-				<Field field={Password} />
-				<Field field={Password2} />
+				<Field {...Email} initialValue="joseph@good-idea.studio" />
+				<Field {...Password} />
+				<Field {...Password2} />
 				<button type="button" onClick={this.handleAdvance}>Next</button>
 			</fieldset>
 		)

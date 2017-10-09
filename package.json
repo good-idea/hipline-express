@@ -58,6 +58,7 @@
     "react-hot-loader": "^3.0.0-beta.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "recompose": "^0.26.0",
     "redis": "^2.8.0",
     "redis-delete-pattern": "^0.1.0",
     "tween-functions": "^1.2.0",

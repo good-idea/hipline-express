@@ -21,8 +21,6 @@ class RegistrationForm extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log('nextprops')
-		console.log(nextProps.fieldConfig)
 		const fieldConfig = this.sortFields(nextProps)
 		this.setState({ fieldConfig })
 	}
@@ -48,11 +46,12 @@ class RegistrationForm extends React.Component {
 		const commonProps = {
 			subscribe: this.props.subscribe,
 			unsubscribe: this.props.unsubscribe,
-			emit: this.props.emit,
+			// emit: this.props.emit,
+			updateField: this.props.updateField,
 		}
-
+		// return null
 		return (
-			<form onSubmit={this.onSubmit} >
+			<div className="form__steps">
 				<LoginStep
 					active={this.props.currentStep === 1}
 					advance={this.props.advance}
@@ -60,7 +59,7 @@ class RegistrationForm extends React.Component {
 					getFieldValues={this.props.getFieldValues}
 					{...commonProps}
 				/>
-				<ContactStep
+				{/* <ContactStep
 					active={this.props.currentStep === 2}
 					advance={this.props.advance}
 					fieldConfig={contactFields}
@@ -72,19 +71,19 @@ class RegistrationForm extends React.Component {
 					fieldConfig={acceptFields}
 					getFieldValues={this.props.getFieldValues}
 					{...commonProps}
-				/>
-			</form>
+				/> */}
+			</div>
 		)
 	}
 }
 
 RegistrationForm.propTypes = {
-	registerUser: PropTypes.func.isRequired,
-	fieldConfig: PropTypes.arrayOf(PropTypes.shape),
-	currentStep: PropTypes.number.isRequired,
-	subscribe: PropTypes.func.isRequired,
-	unsubscribe: PropTypes.func.isRequired,
-	emit: PropTypes.func.isRequired,
+	// registerUser: PropTypes.func.isRequired,
+	// fieldConfig: PropTypes.arrayOf(PropTypes.shape),
+	// currentStep: PropTypes.number.isRequired,
+	// subscribe: PropTypes.func.isRequired,
+	// unsubscribe: PropTypes.func.isRequired,
+	// emit: PropTypes.func.isRequired,
 }
 
 RegistrationForm.defaultProps = {

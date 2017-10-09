@@ -4,6 +4,7 @@ import cn from 'classnames'
 import R from 'ramda'
 
 import { Input } from './FreeForm'
+import { withFieldHelpers } from './FreeForm/toolkit/fields'
 
 const singleToArray = R.when(
 	(a => a.constructor !== Array),
@@ -11,7 +12,7 @@ const singleToArray = R.when(
 )
 
 const HelpText = ({ text, classNames }) => (
-	(text) ? <h5 className={cn('field__helpText', classNames)}>{text}</h5> : null
+	(text) ? <h5 className={cn('field__helptext', classNames)}>{text}</h5> : null
 )
 
 HelpText.propTypes = {
@@ -34,8 +35,8 @@ HelpText.defaultProps = {
 class Field extends React.Component {
 
 	renderHelpText() {
-		if (!this.props.field.helpText) return null
-		return singleToArray(this.props.field.helpText).map(text => (
+		if (!this.props.helptext) return null
+		return singleToArray(this.props.helptext).map(text => (
 			<HelpText key={text} text={text} />
 		))
 	}
@@ -44,13 +45,13 @@ class Field extends React.Component {
 		const validationText = null
 		return (
 			<div className={cn(this.props.className, 'field')}>
-				<label htmlFor={this.props.field.name}><h4>{this.props.field.label}:</h4></label>
+				<label htmlFor={this.props.name}><h4>{this.props.label}:</h4></label>
 				<div className="field__content">
 					<div className="field__inputWrapper">
 						<Input
-							{...this.props.field}
+							{...this.props}
 							initialValue={this.props.initialValue}
-							onFormChange={this.props.onFormChange}
+							// onFormChange={this.props.onFormChange}
 						/>
 						{ this.renderHelpText() }
 						{ validationText }
@@ -73,4 +74,4 @@ Field.defaultProps = {
 	classNames: ''
 }
 
-export default Field
+export default withFieldHelpers(Field)

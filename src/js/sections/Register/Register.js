@@ -31,6 +31,7 @@ class Register extends React.Component {
 
 	handleSubmit(fields) {
 		console.log(fields)
+
 		// this.props.registerUser(userInfo)
 	}
 
@@ -43,7 +44,7 @@ class Register extends React.Component {
 						classNamePrefix=""
 						advance={this.advance}
 						currentStep={this.state.currentStep}
-						registerUser={this.props.registerUser}
+						onSubmit={this.handleSubmit}
 						fieldConfig={this.props.registrationFields}
 					/>
 				</div>
