@@ -6,11 +6,11 @@ module.exports = (ctx) => {
 		parser: ctx.options.parser,
 		plugins: {
 			'postcss-import': {},
-			'postcss-simple-vars': {},
-			'postcss-mixins': {},
 			'postcss-extend': {},
+			'postcss-advanced-variables': {},
+			'postcss-cssnext': { warnForDuplicates: false },
+			'postcss-mixins': {},
 			'postcss-nested': {},
-			'postcss-cssnext': {},
 			cssnano: {},
 		},
 	});

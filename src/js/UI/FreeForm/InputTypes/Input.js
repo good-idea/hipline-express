@@ -13,8 +13,10 @@ const Input = props => (
 		name={props.name}
 		type={props.type}
 		value={props.value}
-		onChange={props.onChange}
 		className={props.className}
+		onChange={props.onChange}
+		onFocus={props.onFocus}
+		onBlur={props.onBlur}
 	/>
 )
 
@@ -23,8 +25,10 @@ Input.propTypes = {
 	name: PropTypes.string.isRequired,
 	type: PropTypes.string,
 	value: PropTypes.string,
-	onChange: PropTypes.func.isRequired,
 	className: PropTypes.string,
+	onChange: PropTypes.func.isRequired,
+	onFocus: PropTypes.func.isRequired,
+	onBlur: PropTypes.func.isRequired,
 }
 
 Input.defaultProps = {

@@ -4,22 +4,23 @@ import cn from 'classnames'
 import { map } from 'ramda'
 
 export const withInputHelpers = (WrappedComponent) => {
-	class WrappedInputComponent extends React.Component {
+	class FreeFormInputWrapper extends React.Component {
 		constructor(props) {
 			super(props)
 			this.handleChange = this.handleChange.bind(this)
-			this.onFormChange = this.onFormChange.bind(this)
-			const initialState = {
-				valid: props.valid || true,
-				disabled: props.disabled || false,
-			}
-			if (props.initialValue) initialState.value = props.initialValue
-			this.state = initialState
+			this.handleBlur = this.handleBlur.bind(this)
+			this.handleFocus = this.handleFocus.bind(this)
 		}
 
 		componentDidMount() {
 			if (this.context.form) {
-				this.context.form.addField(this)
+				this.context.form.addField({
+					id: this.props.id,
+					value: this.props.initialValue || '',
+					name: this.props.name,
+					valid: this.props.valid || true,
+					required: this.props.required || false,
+				})
 				this.context.form.subscribe('fieldChanged', this.onFormChange)
 			}
 		}
@@ -31,16 +32,8 @@ export const withInputHelpers = (WrappedComponent) => {
 			}
 		}
 
-		onFormChange(...args) {
-			if (this.props.onFormChange) {
-				const newState = this.props.onFormChange(Object.assign({}, ...args))
-				this.setState(newState)
-			}
-		}
-
-		componentDidUpdate(prevProps, prevState) {
-			if (prevState.helpText !== this.state.helpText) this.props.onHelpTextUpdate(this.state.helpText)
-			// console.log(prevState, this.state, this.props)
+		componentWillReceiveProps(nextProps) {
+			// console.log(this.props, nextProps)
 		}
 
 		validate() {
@@ -51,20 +44,28 @@ export const withInputHelpers = (WrappedComponent) => {
 		handleChange(e) {
 			const value = (e.target.type === 'checkbox') ? e.target.checked : e.target.value
 			const valid = this.validate()
-			this.setState({ value, valid }, () => {
-				if (this.context.formGroup) this.context.formGroup.emit('fieldChanged', this.props.id)
-				if (this.context.form) this.context.form.emit('fieldChanged', this.props.id)
-			})
+			if (this.context.form) {
+				this.context.form.emit('fieldChanged', this.props.id)
+				this.context.form.setFieldState(this.props.id, { value, valid })
+			}
+		}
+
+		handleBlur() {
+			if (this.context.form) this.context.form.emit('fieldBlurred', this.props.id)
+		}
+
+		handleFocus() {
+			if (this.context.form) this.context.form.emit('fieldFocused', this.props.id)
 		}
 
 		buildClassName() {
 			const baseClassNames = ['field']
-			if (this.state.disabled) baseClassNames.push('field--disabled')
-			if (this.state.valid !== true) baseClassNames.push('field--invalid')
-			if (this.state.valid === true) baseClassNames.push('field--valid')
+			if (this.props.disabled) baseClassNames.push('field--disabled')
+			if (this.props.valid !== true) baseClassNames.push('field--invalid')
+			if (this.props.valid === true) baseClassNames.push('field--valid')
 			baseClassNames.push(`field__${this.props.name}`)
 
-			const prefix = this.props.classNamePrefix || 'ff__'
+			const prefix = this.context.form.classNamePrefix || 'ff__'
 			const prefixedClassNames = map(c => `${prefix}${c}`)(baseClassNames)
 
 			return cn([...cn(this.props.classNames), ...prefixedClassNames])
@@ -74,35 +75,46 @@ export const withInputHelpers = (WrappedComponent) => {
 			return (
 				<WrappedComponent
 					onChange={this.handleChange}
+					onBlur={this.handleBlur}
+					onFocus={this.handleFocus}
 					className={this.buildClassName()}
 					{...this.props}
-					{...this.state}
 				/>
 			)
 		}
 	}
 
-	WrappedInputComponent.contextTypes = {
+	FreeFormInputWrapper.contextTypes = {
 		form: PropTypes.object,
-		formGroup: PropTypes.object,
 	}
 
-	WrappedInputComponent.propTypes = {
+	FreeFormInputWrapper.propTypes = {
+		valid: PropTypes.bool,
+		disabled: PropTypes.bool,
 		name: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
 		initialValue: PropTypes.oneOfType([
 			PropTypes.string,
-			PropTypes.bool
+			PropTypes.bool,
 		]),
 		onFormChange: PropTypes.func,
+		classNames: PropTypes.oneOfType([
+			PropTypes.arrayOf([
+				PropTypes.string,
+			]),
+			PropTypes.string,
+		]),
 	}
 
-	WrappedInputComponent.defaultProps = {
+	FreeFormInputWrapper.defaultProps = {
+		valid: true,
+		disabled: false,
 		initialValue: '',
+		classNames: '',
+		onFormChange: () => {},
 	}
 
-	return WrappedInputComponent
+	return FreeFormInputWrapper
 }
 
-
-export const somethingElse = 'nothing'
+export default withInputHelpers

@@ -9,7 +9,6 @@ const logger = require('morgan')
 const config = require('./config')
 const securityMiddleware = require('./middleware/security')
 const errorHandlersMiddleware = require('./middleware/errorHandlers')
-const hotMiddleware = require('./middleware/hotReload')
 
 /**
  * Database connection
@@ -52,7 +51,7 @@ app.use((req, res, next) => {
 
 if (config.environment !== 'development') app.use(securityMiddleware)
 
-if (config.environment === 'development') app.use(hotMiddleware)
+// if (config.environment === 'development') app.use(hotMiddleware)
 
 /**
  * Controllers

@@ -60,3 +60,21 @@ section.login > form {
 	justify-content: center;
 	align-items: center;
 }
+
+.field--invalid {
+	color: red;
+}
+
+
+/**
+ * Sequential Forms (step by step)
+ */
+
+
+.form__step {
+	display: none;
+}
+
+.form__step--active {
+	display: block;
+}

@@ -7,6 +7,10 @@ body {
 	width: calc(100% - 4rem);
 	max-width: 70rem;
 	margin: 0 auto;
+
+	&.with-aside {
+		width: calc(100% - $aside-width - $aside-width - 4rem);
+	}
 }
 
 .column--wide {
@@ -19,9 +23,6 @@ body {
 	max-width: 45rem;
 }
 
-.column.with-aside {
-	width: calc(100% - $aside-width - $aside-width - 4rem);
-}
 
 .splash {
 	@mixin flex-center;

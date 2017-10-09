@@ -1,3 +1,5 @@
-import fieldHelpers from './fields'
+import withInputHelpers from './fields'
+import withFormHelpers from './forms'
 
-export default fieldHelpers
+export const asFreeFormInput = withInputHelpers
+export const asFreeForm = withFormHelpers

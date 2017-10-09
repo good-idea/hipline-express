@@ -1,42 +1,46 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
+import R from 'ramda'
 
 import { Input } from './FreeForm'
 
-const HelpText = ({ text }) => (text) ? <h5 key={text} className="field__helpText">{text}</h5> : null
+const singleToArray = R.when(
+	(a => a.constructor !== Array),
+	(a => [a]),
+)
+
+const HelpText = ({ text, classNames }) => (
+	(text) ? <h5 className={cn('field__helpText', classNames)}>{text}</h5> : null
+)
+
+HelpText.propTypes = {
+	text: PropTypes.string,
+	classNames: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.arrayOf(PropTypes.string),
+	]),
+}
+
+HelpText.defaultProps = {
+	classNames: '',
+	text: '',
+}
 
 /**
  * Field
  */
 
 class Field extends React.Component {
-	constructor(props) {
-		super(props)
-		this.getHelpText = this.getHelpText.bind(this)
-		this.getValidationText = this.getValidationText.bind(this)
-		this.state = {}
-	}
-
-	getHelpText(helpText) {
-		this.setState({ helpText })
-	}
-
-	getValidationText() {
-
-	}
 
 	renderHelpText() {
-		return (
-			<div className="ff__helpTexts">
-				<HelpText text={this.props.helpText} />
-				<HelpText text={this.state.helpText} />
-			</div>
-		)
+		if (!this.props.field.helpText) return null
+		return singleToArray(this.props.field.helpText).map(text => (
+			<HelpText key={text} text={text} />
+		))
 	}
 
 	render() {
-		console.log(this.props)
 		const validationText = null
 		return (
 			<div className={cn(this.props.className, 'field')}>
@@ -44,10 +48,8 @@ class Field extends React.Component {
 				<div className="field__content">
 					<div className="field__inputWrapper">
 						<Input
-							something="nothing"
 							{...this.props.field}
-							onHelpTextUpdate={this.getHelpText}
-							onValidationTextUpdate={this.getValidationText}
+							initialValue={this.props.initialValue}
 							onFormChange={this.props.onFormChange}
 						/>
 						{ this.renderHelpText() }

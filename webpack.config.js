@@ -1,11 +1,8 @@
 const path = require('path')
-const webpack = require('webpack')
 
 const config = () => (
 	{
 		entry: [
-			'webpack-hot-middleware/client',
-			'react-hot-loader/patch',
 			'./src/js/bundle.js',
 		],
 		output: {
@@ -14,14 +11,7 @@ const config = () => (
 			publicPath: '/',
 			sourceMapFilename: 'bundle.js.map',
 		},
-		plugins: [
-			new webpack.optimize.OccurrenceOrderPlugin(),
-			new webpack.HotModuleReplacementPlugin(),
-			new webpack.NamedModulesPlugin(),
-			new webpack.NoEmitOnErrorsPlugin(),
-			new webpack.WatchIgnorePlugin(['node_modules', './controllers', 'config', 'public', 'views']),
-		],
-		devtool: 'eval-source-map',
+		devtool: 'cheap-module-source-map',
 		module: {
 			rules: [
 				{
