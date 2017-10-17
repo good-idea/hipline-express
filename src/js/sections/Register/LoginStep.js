@@ -2,25 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import R from 'ramda'
 import cn from 'classnames'
-import Field from '../../UI/Field'
+import FieldContainer from '../../UI/FieldContainer'
 
-
-/**
- * GETTING LOST HERE AGAIN
- * How to attach 'helpText' and other arbitrary values to a field,
- * and also retrieve them at this level so we can put them in our own markup?
- * Maybe we need to have a 'fieldContainer' HOC / enhancement?
- *
- * e.g., in the Field component..
- *
- * export default asFieldContainer(Field)
- *
- * asFieldContainer:
- *  - requires a field ID
- *  - reads all props from that field and applies them to the wrapped component
- *
- *
- */
+import { checkForRequiredFields, checkForValidFields } from '../../UI/FreeForm/utils/fields'
 
 /**
  * LoginStep
@@ -30,24 +14,31 @@ class LoginStep extends React.Component {
 	constructor(props) {
 		super(props)
 		this.passwordsMustMatch = this.passwordsMustMatch.bind(this)
+		this.checkIfReady = this.checkIfReady.bind(this)
 		this.handleAdvance = this.handleAdvance.bind(this)
 
-		const fields = this.getMergedFieldValues(props, {})
-		this.state = {
-			fields
-		}
+		this.state = {}
 	}
 
 	componentDidMount() {
 		this.props.subscribe(['fieldChanged', 'fieldBlurred'], this.passwordsMustMatch)
+		this.props.subscribe(['fieldChanged'], this.checkIfReady)
 	}
 
 	componentWillUnmount() {
 		this.props.unsubscribe(['fieldChanged', 'fieldBlurred'], this.passwordsMustMatch)
+		this.props.unsubscribe(['fieldChanged'], this.checkIfReady)
 	}
 
-	getMergedFieldValues(props = this.props, fieldValues = this.state.fields) {
-		return R.mergeDeepLeft(props.fieldConfig, fieldValues)
+	checkIfReady() {
+		const values = this.props.getFieldValues()
+		const requiredAreFilled = checkForRequiredFields(R.keys(this.props.fieldConfig), values)
+		const allFieldsAreValid = checkForValidFields(R.keys(this.props.fieldConfig), values)
+		const canAdvance = (requiredAreFilled && allFieldsAreValid)
+		this.setState({
+			canAdvance,
+		})
+		return canAdvance
 	}
 
 	passwordsMustMatch({ fieldValues, event, triggerFieldId }) {
@@ -55,39 +46,41 @@ class LoginStep extends React.Component {
 		const pass2 = R.path(['Password2', 'value'], fieldValues)
 		if ((event === 'fieldBlurred' && triggerFieldId === 'Password2')
 			|| (event === 'fieldChanged' && triggerFieldId === 'Password2' && pass1 === pass2)) {
-			const helptext = (pass1 !== pass2) ? 'Passwords must match' : ''
-			this.props.updateField('Password2', { helptext })
-			// this.setState({
-			// 	passwordsMatch: (pass1 === pass2),
-			// })
+			const helptext = (pass1 === pass2) ? '' : 'Passwords must match'
+			this.props.updateField('Password2', { helptext, valid: pass1 === pass2 }, this.checkIfReady)
 		}
 	}
 
-	mergeFieldValues() {}
-
 	handleAdvance() {
-		const values = this.props.getFieldValues()
+		const canAdvance = this.checkIfReady()
+		if (canAdvance) this.props.advance()
 	}
 
 	render() {
 		const classNames = ['form__step']
 		if (this.props.active) classNames.push('form__step--active')
-		const { Email, Password, Password2 } = this.getMergedFieldValues()
+		if (this.state.canAdvance) classNames.push('form__step--canAdvance')
+		const { Email, Password, Password2 } = this.props.fieldConfig
 		return (
-			<fieldset className={cn(classNames)}>
-				<Field {...Email} initialValue="joseph@good-idea.studio" />
-				<Field {...Password} />
-				<Field {...Password2} />
-				<button type="button" onClick={this.handleAdvance}>Next</button>
-			</fieldset>
+			<div className={cn(classNames)}>
+				<div className="fieldset horizontal">
+					<FieldContainer {...Email} initialValue="joseph@good-idea.studio" />
+					<FieldContainer {...Password} />
+					<FieldContainer {...Password2} />
+				</div>
+				<button type="button" className="cta form__step--advanceButton" onClick={this.handleAdvance}>Next</button>
+			</div>
 		)
 	}
 }
 
 LoginStep.propTypes = {
+	fieldConfig: PropTypes.shape().isRequired,
 	active: PropTypes.bool,
 	subscribe: PropTypes.func.isRequired,
 	unsubscribe: PropTypes.func.isRequired,
+	advance: PropTypes.func.isRequired,
+	getFieldValues: PropTypes.func.isRequired,
 	// emit: PropTypes.func.isRequired,
 }
 

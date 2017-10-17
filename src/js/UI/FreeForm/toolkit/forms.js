@@ -1,14 +1,19 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import { assoc, forEach, path, clone, merge, prop, reject, equals } from 'ramda'
+import R from 'ramda'
+
 import {
-	compose,
 	withState,
-	defaultProps,
-	withHandlers
+	withHandlers,
+	withContext,
+	compose,
 } from 'recompose'
 
-import { singleToArray } from '../utils/data'
+// import { forceSingleToArray } from '../../../utils/helpers'
+import { forceSingleToArray } from '../utils/data'
+
+// Set the initial state and some handlers.
+
+const emptyListeners = new Map()
 
 const emptyForm = {
 	fields: {},
@@ -16,131 +21,97 @@ const emptyForm = {
 	disabled: false,
 }
 
-const enhance = compose(
-	withState('form', 'updateForm', emptyForm)
-)
 
-const withFormHelpers = (WrappedComponent) => {
-	class FreeFormWrapper extends React.Component {
-		constructor(props) {
-			super(props)
-			this.addField = this.addField.bind(this)
-			this.removeField = this.removeField.bind(this)
-			this.updateField = this.updateField.bind(this)
-
-			this.subscribe = this.subscribe.bind(this)
-			this.unsubscribe = this.unsubscribe.bind(this)
-			this.emit = this.emit.bind(this)
-
-			this.handleSubmit = this.handleSubmit.bind(this)
-
-			this.listeners = new Map()
-			this.initialFields = []
-		}
-
-		getChildContext() {
-			return {
-				form: {
-					addField: this.addField,
-					removeField: this.removeField,
-					fields: this.props.form.fields,
-
-					updateField: this.updateField,
-					subscribe: this.subscribe,
-					unsubscribe: this.unsubscribe,
-					emit: this.emit,
-
-					classNamePrefix: this.props.classNamePrefix || 'ff_',
-				},
-			}
-		}
-
-		componentDidMount() {
-			this.props.updateForm({
-				...this.props.form,
-				fields: clone(this.initialFields),
-			})
-		}
-
-		updateField(fieldId, newValues, callback) {
-
-			const values = merge(
-				prop(fieldId, this.props.form.fields),
-				newValues
+const setInitialState = compose(
+	// Form State
+	withState('form', 'updateForm', emptyForm),
+	withHandlers({
+		addField: props => (field) => {
+			props.updateForm(currentFormState => ({
+				...currentFormState,
+				fields: R.assoc(field.id, field, currentFormState.fields),
+			}))
+		},
+		removeField: props => (field) => {
+			props.updateForm(currentFormState => ({
+				...currentFormState,
+				fields: R.reject(R.equals(field), currentFormState.fields),
+			}))
+		},
+		updateField: props => (fieldId, newValues, callback) => {
+			const values = R.merge(
+				R.prop(fieldId, props.form.fields),
+				newValues,
 			)
-
-			this.props.updateForm({
-				...this.props.form,
-				fields: assoc(fieldId, values, this.props.form.fields),
+			props.updateForm((currentFormState) => {
+				return ({
+					...currentFormState,
+					fields: R.assoc(fieldId, values, currentFormState.fields),
+				})
 			}, callback)
-		}
+		},
+		getFieldValues: props => () => R.clone(props.form.fields),
+	}),
 
-		addField(field) {
-			this.initialFields = assoc(field.id, field, this.initialFields)
-		}
-
-		removeField(fieldId) {
-			// conso
-		}
-
-		subscribe(topics, callback) {
-			singleToArray(topics).map((topic) => {
-				// if the listener does not have the topic yet, add it.
-				if (!this.listeners.has(topic)) this.listeners.set(topic, [])
-				// push the callback to the topic's array
-				this.listeners.get(topic).push(callback)
+	// Publisher State
+	withState('listeners', 'updateListeners', emptyListeners),
+	withHandlers({
+		subscribe: props => (topics, callback) => {
+			forceSingleToArray(topics).map((topic) => {
+				const listeners = R.clone(props.listeners)
+				if (!listeners.has(topic)) listeners.set(topic, [])
+				listeners.get(topic).push(callback)
+				props.updateListeners(listeners)
 			})
-		}
-
-		unsubscribe(topics, callback) {
-			singleToArray(topics).map((topic) => {
-				const listenersOfTopic = this.listeners.get(topic)
+		},
+		unsubscribe: props => (topics, callback) => {
+			forceSingleToArray(topics).map((topic) => {
+				const listeners = R.clone(props.listeners)
+				const listenersOfTopic = listeners.get(topic)
 				if (listenersOfTopic && listenersOfTopic.length) {
-					// remove the callback
-					this.listeners.set(topic, reject(equals(callback), listenersOfTopic))
-					return true
+					props.updateListeners(
+						listeners.set(topic, R.reject(R.equals(callback), listenersOfTopic)),
+					)
 				}
-				return false
 			})
-		}
-
-		emit(topic, fieldId) {
-			const listeners = this.listeners.get(topic)
+		},
+		emit: props => (topic, fieldId) => {
+			const listeners = props.listeners.get(topic)
 			if (!listeners) return false
-			const fieldValues = path(['form', 'fields'], this.props)
-			forEach(
+			const fieldValues = R.path(['form', 'fields'], props)
+			R.forEach(
 				(listener => listener({ fieldValues, event: topic, triggerFieldId: fieldId })),
 			)(listeners)
 			return true
-		}
-
-		handleSubmit(e) {
-			e.preventDefault()
-			this.props.onSubmit('some values')
-		}
-
-		render() {
-			return (
-				<form onSubmit={this.handleSubmit}>
-					<WrappedComponent
-						subscribe={this.subscribe}
-						unsubscribe={this.unsubscribe}
-						// emit={this.emit} why would anything outside of the form emit?
-						updateField={this.updateField}
-						{...this.props}
-						{...this.state}
-					/>
-				</form>
-			)
-		}
-	}
-
-	FreeFormWrapper.childContextTypes = {
-		form: PropTypes.object
-	}
+		},
+	}),
+)
 
 
-	return enhance(FreeFormWrapper)
-}
+// Set up the context
 
-export default withFormHelpers
+const setUpContext = withContext(
+	{ form: PropTypes.object },
+	(props => ({
+		form: {
+			addField: props.addField,
+			removeField: props.removeField,
+			// fields: props.form.fields,
+			updateField: props.updateField,
+			getFieldValues: props.getFieldValues,
+
+			subscribe: props.subscribe,
+			unsubscribe: props.unsubscribe,
+			emit: props.emit,
+
+			classNamePrefix: props.classNamePrefix || 'ff_',
+		},
+	})),
+)
+
+const formEnhancer = compose(
+	setInitialState,
+	setUpContext,
+)
+
+export default formEnhancer

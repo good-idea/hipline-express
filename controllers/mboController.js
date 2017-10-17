@@ -21,55 +21,71 @@ const getFieldConfig = (fieldName) => {
 	switch (fieldName) {
 	case 'UserName':
 		return {
+			required: true,
 			name: fieldName,
 			label: 'Email/Login',
 			type: 'email',
 		}
 	case 'Email':
 		return {
+			required: true,
 			name: fieldName,
 			label: 'Email/Login',
-			type: 'email'
+			type: 'email',
 		}
 	case 'Password':
 		return {
+			required: true,
 			name: fieldName,
 			label: 'Password',
 			type: 'password',
 		}
 	case 'Password2':
 		return {
+			required: true,
 			name: fieldName,
 			label: 'Confirm Password',
 			type: 'password',
 		}
 	case 'AddressLine1':
 		return {
+			required: true,
 			name: fieldName,
 			label: 'Address',
-			type: 'text'
+			type: 'text',
 		}
 	case 'PostalCode':
 		return {
+			required: true,
 			name: fieldName,
 			label: prepareFieldLabel(fieldName),
 			pattern: '[0-9]*',
-			type: 'text'
+			type: 'text',
+		}
+	case 'State':
+		return {
+			required: true,
+			name: fieldName,
+			label: prepareFieldLabel(fieldName),
+			type: 'text',
 		}
 	case 'ReferredBy':
 		return {
+			required: true,
 			name: fieldName,
 			label: prepareFieldLabel(fieldName),
 			type: 'select',
 		}
 	case 'MobilePhone':
 		return {
+			required: true,
 			name: fieldName,
 			label: 'Phone Number',
 			type: 'tel',
 		}
 	case 'EmailOptIn':
 		return {
+			required: true,
 			name: fieldName,
 			label: 'Get Email Updates',
 			help: 'Sign up for email updates',
@@ -77,6 +93,7 @@ const getFieldConfig = (fieldName) => {
 		}
 	case 'LiabilityRelease':
 		return {
+			// required: true,
 			name: fieldName,
 			label: 'I agree with the terms above',
 			type: 'checkbox',
@@ -84,12 +101,12 @@ const getFieldConfig = (fieldName) => {
 	case 'ReferredByOtherText':
 		return {
 			name: fieldName,
-			label: '',
 			type: 'text',
 		}
 	default:
 		return {
 			label: prepareFieldLabel(fieldName),
+			required: true,
 			name: fieldName,
 			type: 'text',
 		}
@@ -99,7 +116,6 @@ const getFieldConfig = (fieldName) => {
 const getRegistrationFields = (req, res, next) => {
 	Promise.all([mboClient.getRequiredFields(), mboClient.getReferralTypes()])
 		.then(([sourceRequiredFields, referralTypes]) => {
-			console.log(sourceRequiredFields.string)
 			const referralOptions = R.pipe(
 				R.uniq,
 				R.map(i => ({ value: i, label: i })),

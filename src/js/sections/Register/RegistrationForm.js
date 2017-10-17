@@ -40,8 +40,8 @@ class RegistrationForm extends React.Component {
 	render() {
 		if (!this.state.fieldConfig) return null
 		const loginFields = R.pick(['Email', 'Password', 'Password2'])(this.state.fieldConfig)
-		const contactFields = R.pick(['FirstName', 'LastName', 'BirthDate', 'MobilePhone', 'AddressLine1', 'City', 'PostalCode', 'ReferredBy', 'ReferredByOtherText'])(this.state.fieldConfig)
-		const acceptFields = R.pick(['LiabilityRelease', 'EmailOptIn'])(this.state.fieldConfig)
+		const contactFields = R.pick(['FirstName', 'LastName', 'BirthDate', 'MobilePhone', 'AddressLine1', 'City', 'State', 'PostalCode'])(this.state.fieldConfig)
+		const acceptFields = R.pick(['LiabilityRelease', 'EmailOptIn', 'ReferredBy', 'ReferredByOtherText'])(this.state.fieldConfig)
 
 		const commonProps = {
 			subscribe: this.props.subscribe,
@@ -59,7 +59,7 @@ class RegistrationForm extends React.Component {
 					getFieldValues={this.props.getFieldValues}
 					{...commonProps}
 				/>
-				{/* <ContactStep
+				<ContactStep
 					active={this.props.currentStep === 2}
 					advance={this.props.advance}
 					fieldConfig={contactFields}
@@ -70,8 +70,9 @@ class RegistrationForm extends React.Component {
 					active={this.props.currentStep === 3}
 					fieldConfig={acceptFields}
 					getFieldValues={this.props.getFieldValues}
+					liabilityText={this.props.liabilityText}
 					{...commonProps}
-				/> */}
+				/>
 			</div>
 		)
 	}

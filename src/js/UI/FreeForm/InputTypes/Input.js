@@ -17,6 +17,7 @@ const Input = props => (
 		onChange={props.onChange}
 		onFocus={props.onFocus}
 		onBlur={props.onBlur}
+		pattern={props.pattern}
 	/>
 )
 

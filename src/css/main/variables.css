@@ -1,6 +1,7 @@
 $nav-height: 6rem;
 $aside-width: 16rem;
-
+$spacing-small: 1rem;
+$spacing-medium: 2rem;
 
 $purple: rgba(146, 141, 255, 1);
 /*$purple-50: rgba(146, 141, 255, 0.5);*/
@@ -11,6 +12,7 @@ $orange: #FF8000;
 $orange-light: #fdc791;
 $pink: #FF0DCB;
 $pink-light: #FF7be3;
+$pink-extra-light: #FFECF8;
 $yellow: #FFFC00;
 $grey1: rgb(220, 220, 220);
 $grey3: #9b9b9b;

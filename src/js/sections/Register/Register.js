@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import cn from 'classnames'
 import RegistrationForm from './RegistrationForm'
 
 /**
@@ -12,10 +12,15 @@ class Register extends React.Component {
 		super(props)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.advance = this.advance.bind(this)
+		this.closeDropdown = this.closeDropdown.bind(this)
 		this.state = {
 			currentStep: 1,
 			totalSteps: 3,
 		}
+	}
+
+	closeDropdown() {
+		this.props.setDropdown(false)
 	}
 
 	advance() {
@@ -36,9 +41,12 @@ class Register extends React.Component {
 	}
 
 	render() {
+		const classNames = ['register', 'dropdown']
+		if (this.props.open) classNames.push('dropdown--open')
 		return (
-			<div>
-				<div className="sequentialForm">
+			<section className={cn(classNames)}>
+				<div className="column sequentialForm">
+					<button onClick={this.closeDropdown} className="dropdown__ex" />
 					<h5>Step {this.state.currentStep} of {this.state.totalSteps}</h5>
 					<RegistrationForm
 						classNamePrefix=""
@@ -46,9 +54,10 @@ class Register extends React.Component {
 						currentStep={this.state.currentStep}
 						onSubmit={this.handleSubmit}
 						fieldConfig={this.props.registrationFields}
+						liabilityText={this.props.liabilityText}
 					/>
 				</div>
-			</div>
+			</section>
 		)
 	}
 }

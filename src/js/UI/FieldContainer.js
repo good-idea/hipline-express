@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import R from 'ramda'
 
-import { Input } from './FreeForm'
+import { Field } from './FreeForm'
 import { withFieldHelpers } from './FreeForm/toolkit/fields'
 
 const singleToArray = R.when(
@@ -29,10 +29,10 @@ HelpText.defaultProps = {
 }
 
 /**
- * Field
+ * FieldContainer
  */
 
-class Field extends React.Component {
+class FieldContainer extends React.Component {
 
 	renderHelpText() {
 		if (!this.props.helptext) return null
@@ -43,15 +43,22 @@ class Field extends React.Component {
 
 	render() {
 		const validationText = null
+		const label = (this.props.label)
+			? <label htmlFor={this.props.name}><h4>{this.props.label}:</h4></label>
+			: null
+		const additionalClassNames = []
+		if (this.props.visible === false) additionalClassNames.push('field--hidden')
+		if (this.props.required === true) additionalClassNames.push('field--required')
+		if (this.props.disabled === true) additionalClassNames.push('field--disabled')
+		if (this.props.valid === false) additionalClassNames.push('field--invalid')
 		return (
-			<div className={cn(this.props.className, 'field')}>
-				<label htmlFor={this.props.name}><h4>{this.props.label}:</h4></label>
+			<div className={cn(this.props.classNames, 'field', additionalClassNames)}>
+				{label}
 				<div className="field__content">
 					<div className="field__inputWrapper">
-						<Input
+						<Field
 							{...this.props}
 							initialValue={this.props.initialValue}
-							// onFormChange={this.props.onFormChange}
 						/>
 						{ this.renderHelpText() }
 						{ validationText }
@@ -62,16 +69,26 @@ class Field extends React.Component {
 	}
 }
 
-Field.propTypes = {
-	className: PropTypes.oneOfType([
+FieldContainer.propTypes = {
+	label: PropTypes.string,
+	name: PropTypes.string.isRequired,
+	initialValue: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.bool,
+	]),
+	classNames: PropTypes.oneOfType([
 		PropTypes.arrayOf(PropTypes.string),
 		PropTypes.string,
 		PropTypes.shape(),
 	]),
+	visible: PropTypes.bool,
 }
 
-Field.defaultProps = {
-	classNames: ''
+FieldContainer.defaultProps = {
+	label: undefined,
+	initialValue: undefined,
+	classNames: '',
+	visible: true,
 }
 
-export default withFieldHelpers(Field)
+export default withFieldHelpers(FieldContainer)

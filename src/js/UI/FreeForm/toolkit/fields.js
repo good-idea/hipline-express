@@ -3,6 +3,8 @@ import {
 	omit,
 	pickAll,
 	path,
+	prop,
+	dissoc,
 } from 'ramda'
 
 import {
@@ -11,24 +13,32 @@ import {
 	getContext,
 	compose,
 	lifecycle,
+	defaultProps,
 } from 'recompose'
 
-const getFieldValues = a => ((a) ? pickAll(['id', 'name', 'value', 'valid'])(a) : {})
 
-const registerField = lifecycle({
+const addRegistrationToLifecycle = lifecycle({
 	componentDidMount() {
-		this.props.form.addField({...this.props})
+		this.props.form.addField({ ...this.props })
+	},
+	componentWillUnmount() {
+		// TODO: Will removing this be better:
+		// to allow the form to contain all values even if their inputs have been unmounted?
+		this.props.form.removeField({ ...this.props })
+	},
+	componentWillReceiveProps(nextProps) {
+		// console.log(this.props, nextProps)
 	}
 })
 
-
+const withDefaultProps = defaultProps({ valid: true, disabled: false })
 
 const mapFieldProps = mapProps((props) => {
-	const fieldValues = path(['fields', props.id], props.form)
+	const newFieldValues = prop(props.id, props.form.getFieldValues())
 	return {
 		value: props.initialValue,
 		...props,
-		...fieldValues,
+		...newFieldValues,
 	}
 })
 
@@ -52,13 +62,15 @@ export const getFormContext = getContext({
 
 
 export const withInputHelpers = compose(
-	getFormContext,
+	withDefaultProps,
 	mapFieldProps,
-	registerField,
+	getFormContext,
+	addRegistrationToLifecycle,
 	addFieldHandlers,
 )
 
 export const withFieldHelpers = compose(
+	withDefaultProps,
 	getFormContext,
 	mapFieldProps,
 )

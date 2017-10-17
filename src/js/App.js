@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import Navigation from './sections/Navigation'
 // import Main from './components/Main'
@@ -14,8 +14,12 @@ import Register from './sections/Register/Register'
 class App extends React.Component {
 	constructor(props) {
 		super(props)
+		this.setDropdown = this.setDropdown.bind(this)
 		this.state = {
+			loginOpen: false,
+			registerOpen: false,
 			sections: {},
+			user: {},
 		}
 	}
 
@@ -33,6 +37,10 @@ class App extends React.Component {
 					registrationFields: registrationFields.data,
 				})
 			}))
+	}
+
+	setDropdown(dropdown) {
+		this.setState({ dropdown })
 	}
 
 	loginUser(credentials) {
@@ -55,47 +63,51 @@ class App extends React.Component {
 		if (!this.state.sections.home) return null
 		return (
 			<div>
-				<Navigation />
-				<Route
-					exact
-					path="/"
-					render={match => <Choreographers match={match} choreographers={this.state.sections.choreographers.children} />}
+				<Navigation setDropdown={this.setDropdown} />
+				<Login
+					setDropdown={this.setDropdown}
+					open={this.state.dropdown === 'login'}
+					loginUser={this.loginUser}
 				/>
-				<Route
-					exact
-					path="/classes"
-					render={match => <Classes match={match} content={this.state.sections.classes} />}
+				<Register
+					setDropdown={this.setDropdown}
+					open={this.state.dropdown === 'register'}
+					registerUser={this.registerUser}
+					registrationFields={this.state.registrationFields}
+					liabilityText={this.state.sections.home.liability}
 				/>
-				<Route
-					exact
-					path="/community"
-					render={() => <InfoPage {...this.state.sections.community} />}
-				/>
-				<Route
-					exact
-					path="/about"
-					render={() => <InfoPage {...this.state.sections.about} />}
-				/>
-				<Route
-					exact
-					path="/schedule"
-					render={() => (
-						<Schedule
-							choreographers={this.state.sections.choreographers.children}
-							schedule={this.state.schedule}
-						/>
-					)}
-				/>
-				<Route
-					exact
-					path="/login"
-					render={() => <Login loginUser={this.loginUser} />}
-				/>
-				<Route
-					exact
-					path="/register"
-					render={() => <Register registerUser={this.registerUser} registrationFields={this.state.registrationFields} />}
-				/>
+				<Switch>
+					<Route
+						exact
+						path="/"
+						render={match => <Choreographers match={match} choreographers={this.state.sections.choreographers.children} />}
+					/>
+					<Route
+						exact
+						path="/classes"
+						render={match => <Classes match={match} content={this.state.sections.classes} />}
+					/>
+					<Route
+						exact
+						path="/community"
+						render={() => <InfoPage {...this.state.sections.community} />}
+					/>
+					<Route
+						exact
+						path="/about"
+						render={() => <InfoPage {...this.state.sections.about} />}
+					/>
+					<Route
+						exact
+						path="/schedule"
+						render={() => (
+							<Schedule
+								choreographers={this.state.sections.choreographers.children}
+								schedule={this.state.schedule}
+							/>
+						)}
+					/>
+				</Switch>
 			</div>
 		)
 	}

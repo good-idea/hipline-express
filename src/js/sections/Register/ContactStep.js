@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import R from 'ramda'
-import Field from '../../UI/Field'
+import cn from 'classnames'
+import FieldContainer from '../../UI/FieldContainer'
 
+import { checkForRequiredFields, checkForValidFields } from '../../UI/FreeForm/utils/fields'
 
 /**
  * ContactStep
@@ -11,24 +13,44 @@ import Field from '../../UI/Field'
 class ContactStep extends React.Component {
 	constructor(props) {
 		super(props)
-		this.showOtherText = this.showOtherText.bind(this)
+		this.handleAdvance = this.handleAdvance.bind(this)
+		this.checkIfReady = this.checkIfReady.bind(this)
+
+		this.state = {
+			referralIsOther: false
+		}
 	}
 
 	componentDidMount() {
-		this.props.subscribe(['fieldChanged', 'fieldBlurred'], this.showOtherText)
+		this.props.subscribe(['fieldChanged'], this.checkIfReady)
 	}
 
 	componentWillUnmount() {
-		this.props.unsubscribe(['fieldChanged', 'fieldBlurred'], this.showOtherText)
+		this.props.subscribe(['fieldChanged'], this.checkIfReady)
 	}
 
-	showOtherText({ fieldValues, event, triggerFieldId }) {
+	checkIfReady() {
+		if (!this.props.active) return false
+		const values = this.props.getFieldValues()
+		const requiredAreFilled = checkForRequiredFields(R.keys(this.props.fieldConfig), values)
+		const allFieldsAreValid = checkForValidFields(R.keys(this.props.fieldConfig), values)
+		const canAdvance = (requiredAreFilled && allFieldsAreValid)
+		this.setState({
+			canAdvance
+		})
+		return canAdvance
+	}
 
+
+	handleAdvance() {
+		const canAdvance = this.checkIfReady()
+		if (canAdvance) this.props.advance()
 	}
 
 	render() {
-		const classNames = ['form__step']
+		const classNames = ['form__step', 'form__step--contactStep']
 		if (this.props.active) classNames.push('form__step--active')
+		if (this.state.canAdvance) classNames.push('form__step--canAdvance')
 
 		const {
 			FirstName,
@@ -37,36 +59,38 @@ class ContactStep extends React.Component {
 			MobilePhone,
 			AddressLine1,
 			City,
+			State,
 			PostalCode,
-			ReferredBy,
-			ReferredByOtherText
 		} = this.props.fieldConfig
 		return (
-			<fieldset className="form__step">
-				<Field field={FirstName} />
-				<Field field={LastName} />
-				<Field field={BirthDate} />
-				<Field field={MobilePhone} />
-				<Field field={AddressLine1} />
-				<Field field={City} />
-				<Field field={PostalCode} />
-				<Field field={ReferredBy} />
-				<Field field={ReferredByOtherText} />
-				<button type="button" onClick={this.props.advance}>Next</button>
-			</fieldset>
+			<div className={cn(classNames)}>
+				<div className="fieldset horizontal--four">
+					<FieldContainer {...FirstName} />
+					<FieldContainer {...LastName} />
+					<FieldContainer {...BirthDate} />
+					<FieldContainer {...MobilePhone} />
+					<FieldContainer {...AddressLine1} />
+					<FieldContainer {...City} />
+					<FieldContainer {...State} />
+					<FieldContainer {...PostalCode} />
+				</div>
+				<button type="button" className="cta form__step--advanceButton" onClick={this.handleAdvance}>Next</button>
+			</div>
 		)
 	}
 }
 
 ContactStep.propTypes = {
+	fieldConfig: PropTypes.shape().isRequired,
 	active: PropTypes.bool,
 	subscribe: PropTypes.func.isRequired,
 	unsubscribe: PropTypes.func.isRequired,
-	emit: PropTypes.func.isRequired,
+	advance: PropTypes.func.isRequired,
+	getFieldValues: PropTypes.func.isRequired,
 }
 
 ContactStep.defaultProps = {
-	active: false
+	active: false,
 }
 
 export default ContactStep

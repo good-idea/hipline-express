@@ -9,6 +9,7 @@
 @import 'components/avatar';
 
 @import 'sections/nav';
+@import 'sections/login';
 @import 'sections/info';
 @import 'sections/choreographers';
 @import 'sections/classes';
