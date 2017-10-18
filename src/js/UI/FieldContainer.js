@@ -44,13 +44,15 @@ class FieldContainer extends React.Component {
 	render() {
 		const validationText = null
 		const label = (this.props.label)
-			? <label htmlFor={this.props.name}><h4>{this.props.label}:</h4></label>
+			? <label htmlFor={this.props.name}><h4>{this.props.label}</h4></label>
 			: null
 		const additionalClassNames = []
+		additionalClassNames.push(`field--${this.props.type}`)
 		if (this.props.visible === false) additionalClassNames.push('field--hidden')
 		if (this.props.required === true) additionalClassNames.push('field--required')
 		if (this.props.disabled === true) additionalClassNames.push('field--disabled')
 		if (this.props.valid === false) additionalClassNames.push('field--invalid')
+		if (this.props.id === 'ReferredByOtherText') console.log('container: ', this.props.visible)
 		return (
 			<div className={cn(this.props.classNames, 'field', additionalClassNames)}>
 				{label}
@@ -79,7 +81,7 @@ FieldContainer.propTypes = {
 	classNames: PropTypes.oneOfType([
 		PropTypes.arrayOf(PropTypes.string),
 		PropTypes.string,
-		PropTypes.shape(),
+		PropTypes.shape,
 	]),
 	visible: PropTypes.bool,
 }

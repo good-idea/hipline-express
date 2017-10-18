@@ -16,16 +16,19 @@ class LoginStep extends React.Component {
 		this.passwordsMustMatch = this.passwordsMustMatch.bind(this)
 		this.checkIfReady = this.checkIfReady.bind(this)
 		this.handleAdvance = this.handleAdvance.bind(this)
+		this.handleEnterKey = this.handleEnterKey.bind(this)
 
 		this.state = {}
 	}
 
 	componentDidMount() {
+		this.props.subscribe('enterKeyPressed', this.handleEnterKey)
 		this.props.subscribe(['fieldChanged', 'fieldBlurred'], this.passwordsMustMatch)
 		this.props.subscribe(['fieldChanged'], this.checkIfReady)
 	}
 
 	componentWillUnmount() {
+		this.props.unsubscribe('enterKeyPressed', this.handleEnterKey)
 		this.props.unsubscribe(['fieldChanged', 'fieldBlurred'], this.passwordsMustMatch)
 		this.props.unsubscribe(['fieldChanged'], this.checkIfReady)
 	}
@@ -34,7 +37,8 @@ class LoginStep extends React.Component {
 		const values = this.props.getFieldValues()
 		const requiredAreFilled = checkForRequiredFields(R.keys(this.props.fieldConfig), values)
 		const allFieldsAreValid = checkForValidFields(R.keys(this.props.fieldConfig), values)
-		const canAdvance = (requiredAreFilled && allFieldsAreValid)
+		const passwordsMatch = (R.path(['Password', 'value'], values) === R.path(['Password2', 'value'], values))
+		const canAdvance = (requiredAreFilled && allFieldsAreValid && passwordsMatch)
 		this.setState({
 			canAdvance,
 		})
@@ -51,6 +55,14 @@ class LoginStep extends React.Component {
 		}
 	}
 
+	handleEnterKey({ event }) {
+		if (this.props.active) {
+			event.preventDefault()
+			event.stopPropagation()
+			this.handleAdvance()
+		}
+	}
+
 	handleAdvance() {
 		const canAdvance = this.checkIfReady()
 		if (canAdvance) this.props.advance()
@@ -64,7 +76,7 @@ class LoginStep extends React.Component {
 		return (
 			<div className={cn(classNames)}>
 				<div className="fieldset horizontal">
-					<FieldContainer {...Email} initialValue="joseph@good-idea.studio" />
+					<FieldContainer {...Email} />
 					<FieldContainer {...Password} />
 					<FieldContainer {...Password2} />
 				</div>

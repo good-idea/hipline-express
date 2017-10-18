@@ -1,8 +1,5 @@
 import PropTypes from 'prop-types'
 import {
-	omit,
-	pickAll,
-	path,
 	prop,
 	dissoc,
 } from 'ramda'
@@ -14,10 +11,10 @@ import {
 	compose,
 	lifecycle,
 	defaultProps,
+	pure,
 } from 'recompose'
 
-
-const addRegistrationToLifecycle = lifecycle({
+const addLifecycleRegistrationMethods = lifecycle({
 	componentDidMount() {
 		this.props.form.addField({ ...this.props })
 	},
@@ -26,9 +23,6 @@ const addRegistrationToLifecycle = lifecycle({
 		// to allow the form to contain all values even if their inputs have been unmounted?
 		this.props.form.removeField({ ...this.props })
 	},
-	componentWillReceiveProps(nextProps) {
-		// console.log(this.props, nextProps)
-	}
 })
 
 const withDefaultProps = defaultProps({ valid: true, disabled: false })
@@ -43,16 +37,27 @@ const mapFieldProps = mapProps((props) => {
 })
 
 const addFieldHandlers = withHandlers({
-	onChange: props => (e) => {
-		props.form.updateField(props.id, { ...props, value: e.target.value }, () => {
-			props.form.emit('fieldChanged', props.id)
+	onChange: props => (event) => {
+		event.persist()
+		const value = (props.type === 'checkbox')
+			? event.target.checked
+			: event.target.value
+		props.form.updateField(props.id, { ...props, value }, () => {
+			props.form.emit({ topic: 'fieldChanged', triggerFieldId: props.id, event })
 		})
 	},
-	onFocus: props => () => {
-		props.form.emit('fieldFocused', props.id)
+	onFocus: props => (event) => {
+		props.form.emit({ topic: 'fieldFocused', triggerFieldId: props.id, event })
 	},
-	onBlur: props => () => {
-		props.form.emit('fieldBlurred', props.id)
+	onBlur: props => (event) => {
+		event.target.checkValidity()
+		props.form.emit({ topic: 'fieldBlurred', triggerFieldId: props.id, event })
+	},
+	onKeyDown: props => (event) => {
+		event.persist()
+		if (event.keyCode === 13) {
+			props.form.emit({ topic: 'enterKeyPressed', triggerFieldId: props.id, event })
+		}
 	},
 })
 
@@ -63,14 +68,16 @@ export const getFormContext = getContext({
 
 export const withInputHelpers = compose(
 	withDefaultProps,
-	mapFieldProps,
+	addLifecycleRegistrationMethods,
+	pure,
 	getFormContext,
-	addRegistrationToLifecycle,
 	addFieldHandlers,
+	mapFieldProps,
 )
 
 export const withFieldHelpers = compose(
 	withDefaultProps,
 	getFormContext,
+	pure,
 	mapFieldProps,
 )

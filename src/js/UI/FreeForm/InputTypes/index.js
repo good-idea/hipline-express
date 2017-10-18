@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import Input from './Input'
 import Select from './Select'
 import Checkbox from './Checkbox'
+import Masked from './Masked'
 
 const Field = (props) => {
+	if (props.mask) return <Masked {...props} />
 	switch (props.type) {
 	case 'select':
 		return <Select {...props} />

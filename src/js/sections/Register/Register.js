@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import RegistrationForm from './RegistrationForm'
+import FormStepsHeader from '../../components/Forms/FormStepsHeader'
 
 /**
  * Register
@@ -12,6 +13,7 @@ class Register extends React.Component {
 		super(props)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.advance = this.advance.bind(this)
+		this.goBack = this.goBack.bind(this)
 		this.closeDropdown = this.closeDropdown.bind(this)
 		this.state = {
 			currentStep: 1,
@@ -31,7 +33,6 @@ class Register extends React.Component {
 	goBack() {
 		const currentStep = Math.max(this.state.currentStep - 1, 1)
 		this.setState({ currentStep })
-
 	}
 
 	handleSubmit(fields) {
@@ -47,7 +48,7 @@ class Register extends React.Component {
 			<section className={cn(classNames)}>
 				<div className="column sequentialForm">
 					<button onClick={this.closeDropdown} className="dropdown__ex" />
-					<h5>Step {this.state.currentStep} of {this.state.totalSteps}</h5>
+					<FormStepsHeader {...this.state} advance={this.advance} goBack={this.goBack} />
 					<RegistrationForm
 						classNamePrefix=""
 						advance={this.advance}

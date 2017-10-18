@@ -1,17 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { pickHTMLProps } from 'pick-react-known-prop'
+import MaskedInput from 'react-text-mask'
 import R from 'ramda'
+import { pickHTMLProps } from 'pick-react-known-prop'
 
 import { withInputHelpers } from '../toolkit/fields'
 
 /**
- * Input
+ * Masked
  */
 
-const Input = props => <input {...pickHTMLProps(R.dissoc('form', props))} />
+const Masked = props => (
+	<MaskedInput
+		{...pickHTMLProps(R.dissoc('form', props))}
+		mask={props.mask}
+		placeholderChar=" "
+		guide={props.guide}
+		// keepCharPositions={this.props.keepCharPositions}
+	/>
+)
 
-Input.propTypes = {
+
+Masked.propTypes = {
 	id: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
 	type: PropTypes.string,
@@ -22,11 +32,11 @@ Input.propTypes = {
 	onBlur: PropTypes.func.isRequired,
 }
 
-Input.defaultProps = {
+Masked.defaultProps = {
 	type: 'text',
 	value: '',
 	className: '',
 }
 
 
-export default withInputHelpers(Input)
+export default withInputHelpers(Masked)

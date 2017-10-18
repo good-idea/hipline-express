@@ -2,10 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import R from 'ramda'
 import cn from 'classnames'
+import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
+
 import FieldContainer from '../../UI/FieldContainer'
 
 import { checkForRequiredFields, checkForValidFields } from '../../UI/FreeForm/utils/fields'
 
+const formatBirthDate = (input) => {
+	console.log('NEEDS TRANSFORM', input)
+	return input
+}
 /**
  * ContactStep
  */
@@ -14,19 +20,19 @@ class ContactStep extends React.Component {
 	constructor(props) {
 		super(props)
 		this.handleAdvance = this.handleAdvance.bind(this)
+		this.handleEnterKey = this.handleEnterKey.bind(this)
 		this.checkIfReady = this.checkIfReady.bind(this)
-
-		this.state = {
-			referralIsOther: false
-		}
+		this.state = {}
 	}
 
 	componentDidMount() {
+		this.props.subscribe('enterKeyPressed', this.handleEnterKey)
 		this.props.subscribe(['fieldChanged'], this.checkIfReady)
 	}
 
 	componentWillUnmount() {
-		this.props.subscribe(['fieldChanged'], this.checkIfReady)
+		this.props.unsubscribe('enterKeyPressed', this.handleEnterKey)
+		this.props.unsubscribe(['fieldChanged'], this.checkIfReady)
 	}
 
 	checkIfReady() {
@@ -35,12 +41,17 @@ class ContactStep extends React.Component {
 		const requiredAreFilled = checkForRequiredFields(R.keys(this.props.fieldConfig), values)
 		const allFieldsAreValid = checkForValidFields(R.keys(this.props.fieldConfig), values)
 		const canAdvance = (requiredAreFilled && allFieldsAreValid)
-		this.setState({
-			canAdvance
-		})
+		this.setState({ canAdvance })
 		return canAdvance
 	}
 
+	handleEnterKey({ event }) {
+		if (this.props.active) {
+			event.preventDefault()
+			event.stopPropagation()
+			this.handleAdvance()
+		}
+	}
 
 	handleAdvance() {
 		const canAdvance = this.checkIfReady()
@@ -67,12 +78,27 @@ class ContactStep extends React.Component {
 				<div className="fieldset horizontal--four">
 					<FieldContainer {...FirstName} />
 					<FieldContainer {...LastName} />
-					<FieldContainer {...BirthDate} />
-					<FieldContainer {...MobilePhone} />
+					<FieldContainer
+						{...BirthDate}
+						guide
+						transform={formatBirthDate}
+						placeholder="MM/DD/YYYY"
+						mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
+						pipe={createAutoCorrectedDatePipe('mm/dd/yyyy')}
+					/>
+					<FieldContainer
+						{...MobilePhone}
+						guide
+						mask={['(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+					/>
 					<FieldContainer {...AddressLine1} />
 					<FieldContainer {...City} />
 					<FieldContainer {...State} />
-					<FieldContainer {...PostalCode} />
+					<FieldContainer
+						{...PostalCode}
+						guide={false}
+						mask={[/\d/, /\d/, /\d/, /\d/, /\d/]}
+					/>
 				</div>
 				<button type="button" className="cta form__step--advanceButton" onClick={this.handleAdvance}>Next</button>
 			</div>

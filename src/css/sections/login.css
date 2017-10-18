@@ -73,3 +73,9 @@
 		color: black;
 	}
 }
+
+section.register .column--mini {
+	.field, select {
+		width: 100%;
+	}
+}

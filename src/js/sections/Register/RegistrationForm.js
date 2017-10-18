@@ -25,16 +25,17 @@ class RegistrationForm extends React.Component {
 		this.setState({ fieldConfig })
 	}
 
-	onSubmit(values) {
-		this.props.registerUser(values)
-	}
-
 	sortFields(props = this.props) {
 		if (!props.fieldConfig) return false
 		return R.pipe(
 			R.map(f => R.assoc('id', f.name, f)),
 			R.reduce((acc, f) => R.assoc(f.name, f, acc), {}),
 		)(props.fieldConfig)
+	}
+
+	onSubmit = (e) => {
+		console.log(e)
+		// this.props.onSubmit(e)
 	}
 
 	render() {
@@ -51,29 +52,31 @@ class RegistrationForm extends React.Component {
 		}
 		// return null
 		return (
-			<div className="form__steps">
-				<LoginStep
-					active={this.props.currentStep === 1}
-					advance={this.props.advance}
-					fieldConfig={loginFields}
-					getFieldValues={this.props.getFieldValues}
-					{...commonProps}
-				/>
-				<ContactStep
-					active={this.props.currentStep === 2}
-					advance={this.props.advance}
-					fieldConfig={contactFields}
-					getFieldValues={this.props.getFieldValues}
-					{...commonProps}
-				/>
-				<AcceptStep
-					active={this.props.currentStep === 3}
-					fieldConfig={acceptFields}
-					getFieldValues={this.props.getFieldValues}
-					liabilityText={this.props.liabilityText}
-					{...commonProps}
-				/>
-			</div>
+			<form onSubmit={this.onSubmit}>
+				<div className="form__steps">
+					<LoginStep
+						active={this.props.currentStep === 1}
+						advance={this.props.advance}
+						fieldConfig={loginFields}
+						getFieldValues={this.props.getFieldValues}
+						{...commonProps}
+					/>
+					<ContactStep
+						active={this.props.currentStep === 2}
+						advance={this.props.advance}
+						fieldConfig={contactFields}
+						getFieldValues={this.props.getFieldValues}
+						{...commonProps}
+					/>
+					<AcceptStep
+						active={this.props.currentStep === 3}
+						fieldConfig={acceptFields}
+						getFieldValues={this.props.getFieldValues}
+						liabilityText={this.props.liabilityText}
+						{...commonProps}
+					/>
+				</div>
+			</form>
 		)
 	}
 }

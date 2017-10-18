@@ -87,7 +87,7 @@ const getFieldConfig = (fieldName) => {
 		return {
 			required: true,
 			name: fieldName,
-			label: 'Get Email Updates',
+			label: 'Sign me up for email updates',
 			help: 'Sign up for email updates',
 			type: 'checkbox',
 		}

@@ -23,6 +23,12 @@ body {
 	max-width: 45rem;
 }
 
+.column--mini {
+	@extend .column;
+	max-width: 30rem;
+}
+
+
 
 .splash {
 	@mixin flex-center;

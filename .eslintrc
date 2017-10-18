@@ -10,12 +10,15 @@
     // in CommonJS
     "node": true
   },
+  "parser": "babel-eslint",
+  "plugins": [
+    "class-property"
+  ],
   "extends" : "airbnb",
   "rules": {
     "no-console": 0,
-    "no-return-assign": 0,
-    "semi": [1, "never"],
     "indent": ["error", "tab"],
+    "semi": [1, "never"],
     "react/jsx-indent": [2, "tab"],
     "max-len": [2, 200],
     "array-callback-return": 0,
@@ -27,6 +30,7 @@
     "no-tabs": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     'consistent-return': 0,
+    "object-curly-newline": 0,
     'no-restricted-syntax': [
       'error',
       'ForInStatement',

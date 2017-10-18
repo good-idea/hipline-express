@@ -6,10 +6,10 @@ import FieldContainer from '../../UI/FieldContainer'
 
 
 /**
- * LoginStep
+ * AcceptStep
  */
 
-class LoginStep extends React.Component {
+class AcceptStep extends React.Component {
 	constructor(props) {
 		super(props)
 		this.showOtherText = this.showOtherText.bind(this)
@@ -33,16 +33,10 @@ class LoginStep extends React.Component {
 	showOtherText({ fieldValues, event, triggerFieldId }) {
 		// console.log(triggerFieldId, R.path(['ReferredBy', 'value'], fieldValues), R.path(['ReferredBy', 'value'], fieldValues) === 'Other')
 		if (triggerFieldId === 'ReferredBy') {
-			const isVis = (R.path(['ReferredBy', 'value'], fieldValues) === 'Other')
-			this.setState({ referralIsOther: R.path(['ReferredBy', 'value'], fieldValues) === 'Other' })
-			// console.log(isVis)
-			// this.props.updateField('ReferredByOtherText', { enabled: isVis, disabled: !isVis })
+			const referralIsOther = (R.path(['ReferredBy', 'value'], fieldValues) === 'Other')
+			// this.setState({ referralIsOther })
+			this.props.updateField('ReferredByOtherText', { visible: referralIsOther, disabled: !referralIsOther })
 		}
-	}
-
-
-	handleSubmit() {
-
 	}
 
 	render() {
@@ -53,10 +47,12 @@ class LoginStep extends React.Component {
 			<div className={cn(classNames)}>
 				<div className="fieldset">
 					<h5 className="liabilityRelease">{this.props.liabilityText}</h5>
-					<FieldContainer {...LiabilityRelease} />
-					<FieldContainer {...EmailOptIn} />
-					<FieldContainer {...ReferredBy} />
-					<FieldContainer {...ReferredByOtherText} />
+					<div className="column--mini">
+						<FieldContainer {...LiabilityRelease} />
+						<FieldContainer {...EmailOptIn} />
+						<FieldContainer {...ReferredBy} />
+						<FieldContainer {...ReferredByOtherText} placeholder="Referred by..." disabled visible={false} />
+					</div>
 				</div>
 
 				<button className="cta" onClick={this.props.handleSubmit}>Let's Go!</button>
@@ -65,14 +61,14 @@ class LoginStep extends React.Component {
 	}
 }
 
-LoginStep.propTypes = {
+AcceptStep.propTypes = {
 	active: PropTypes.bool,
 	subscribe: PropTypes.func.isRequired,
 	unsubscribe: PropTypes.func.isRequired,
 }
 
-LoginStep.defaultProps = {
+AcceptStep.defaultProps = {
 	active: false,
 }
 
-export default LoginStep
+export default AcceptStep

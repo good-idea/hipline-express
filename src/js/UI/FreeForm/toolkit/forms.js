@@ -6,6 +6,7 @@ import {
 	withHandlers,
 	withContext,
 	compose,
+	lifecycle,
 } from 'recompose'
 
 // import { forceSingleToArray } from '../../../utils/helpers'
@@ -20,7 +21,6 @@ const emptyForm = {
 	valid: true,
 	disabled: false,
 }
-
 
 const setInitialState = compose(
 	// Form State
@@ -75,12 +75,12 @@ const setInitialState = compose(
 				}
 			})
 		},
-		emit: props => (topic, fieldId) => {
+		emit: props => ({ topic, fieldId, ...rest }) => {
 			const listeners = props.listeners.get(topic)
 			if (!listeners) return false
 			const fieldValues = R.path(['form', 'fields'], props)
 			R.forEach(
-				(listener => listener({ fieldValues, event: topic, triggerFieldId: fieldId })),
+				(listener => listener({ fieldValues, topic, triggerFieldId: fieldId, ...rest })),
 			)(listeners)
 			return true
 		},
@@ -109,9 +109,25 @@ const setUpContext = withContext(
 	})),
 )
 
+
+// Set up some event handlers and watch them in the lifecycle
+
+const addOnSubmitHandler = withHandlers({
+	onInvalid: props => (e) => {
+		console.log('invalid')
+	},
+	onSubmit: props => (e) => {
+		e.preventDefault()
+		// console.log(e.isPropagationStopped)
+		console.log(props.onSubmit)
+
+	}
+})
+
 const formEnhancer = compose(
 	setInitialState,
 	setUpContext,
+	addOnSubmitHandler,
 )
 
 export default formEnhancer
