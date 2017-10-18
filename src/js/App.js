@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Route, Switch } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 import Navigation from './sections/Navigation'
 // import Main from './components/Main'
@@ -8,18 +9,19 @@ import Choreographers from './sections/Choreographers'
 import Classes from './sections/Classes'
 import InfoPage from './sections/InfoPage'
 import Schedule from './sections/Schedule/Schedule'
-import Login from './sections/Login'
-import Register from './sections/Register/Register'
+
+import { sortMBOFields, attemptGUIDLogin } from './utils/mbo'
 
 class App extends React.Component {
 	constructor(props) {
 		super(props)
 		this.setDropdown = this.setDropdown.bind(this)
+		this.loginUser = this.loginUser.bind(this)
 		this.state = {
 			loginOpen: false,
 			registerOpen: false,
 			sections: {},
-			user: {},
+			user: undefined,
 		}
 	}
 
@@ -34,45 +36,42 @@ class App extends React.Component {
 				this.setState({
 					sections: { ...content.data },
 					schedule: [...classes.data],
-					registrationFields: registrationFields.data,
-				})
-			}))
+					registrationFields: sortMBOFields(registrationFields.data),
+				}, this.attemptLogin)
+			})).catch(err => console.warn(err))
 	}
 
 	setDropdown(dropdown) {
 		this.setState({ dropdown })
 	}
 
-	loginUser(credentials) {
-		axios.post('/api/mbo/login', credentials).then((response) => {
+	attemptLogin() {
+		const guid = Cookies.get('mbo-guid')
+		console.log(guid)
+		axios.get(`https://clients.mindbodyonline.com/ASP/ws.asp?studioid=4561&guid=${guid}`).then((response) => {
 			console.log(response)
-		}).catch((err) => {
-			console.log(err)
+			this.setState({ user: response.data.Client })
+		}).catch(() => {
+			this.setState({ user: false })
 		})
 	}
 
-	registerUser(userInfo) {
-		axios.post('/api/mbo/register', userInfo).then((response) => {
-			console.log(response)
-		}).catch((err) => {
-			console.log(err)
-		})
+	loginUser(user, GUID) {
+		if (GUID) Cookies.set('mbo-guid', GUID, { expires: 7 })
+		console.log(Cookies.get('mbo-guid'))
+		if (user === false) Cookies.remove('mbo-guid')
+		this.setState({ user })
 	}
 
 	render() {
 		if (!this.state.sections.home) return null
 		return (
 			<div>
-				<Navigation setDropdown={this.setDropdown} />
-				<Login
+				<Navigation
+					user={this.state.user}
 					setDropdown={this.setDropdown}
-					open={this.state.dropdown === 'login'}
+					dropdown={this.state.dropdown}
 					loginUser={this.loginUser}
-				/>
-				<Register
-					setDropdown={this.setDropdown}
-					open={this.state.dropdown === 'register'}
-					registerUser={this.registerUser}
 					registrationFields={this.state.registrationFields}
 					liabilityText={this.state.sections.home.liability}
 				/>

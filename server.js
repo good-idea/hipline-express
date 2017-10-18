@@ -51,8 +51,6 @@ app.use((req, res, next) => {
 
 if (config.environment !== 'development') app.use(securityMiddleware)
 
-// if (config.environment === 'development') app.use(hotMiddleware)
-
 /**
  * Controllers
  */
@@ -69,7 +67,9 @@ app.get('/api/content/initial', contentController.initial)
 app.get('/api/content/sync', contentController.syncToCMS)
 // app.get('/api/content/sync/classes', contentController.syncClassDescriptions)
 
-app.get('/api/mbo/login', mboController.loginUser)
+app.post('/api/mbo/login', mboController.loginUser)
+app.post('/api/mbo/guidlogin', mboController.loginUserWithGUID)
+app.post('/api/mbo/register', mboController.registerUser)
 app.get('/api/mbo/registrationFields', mboController.getRegistrationFields)
 // app.get('/api/mbo/user', mboController.getUser)
 app.get('/api/mbo/staff', mboController.getStaff)

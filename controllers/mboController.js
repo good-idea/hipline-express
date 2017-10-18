@@ -19,18 +19,11 @@ const getStaff = (req, res, next) => {
 
 const getFieldConfig = (fieldName) => {
 	switch (fieldName) {
-	case 'UserName':
+	case 'Username':
 		return {
 			required: true,
 			name: fieldName,
-			label: 'Email/Login',
-			type: 'email',
-		}
-	case 'Email':
-		return {
-			required: true,
-			name: fieldName,
-			label: 'Email/Login',
+			label: 'Email Address',
 			type: 'email',
 		}
 	case 'Password':
@@ -121,7 +114,7 @@ const getRegistrationFields = (req, res, next) => {
 				R.map(i => ({ value: i, label: i })),
 			)(referralTypes.string)
 			const requiredFields = R.pipe(
-				R.concat(['FirstName', 'LastName', 'Email', 'Password', 'Password2', 'EmailOptIn', 'LiabilityRelease', 'ReferredByOtherText']),
+				R.concat(['FirstName', 'LastName', 'Username', 'Password', 'Password2', 'EmailOptIn', 'LiabilityRelease', 'ReferredByOtherText']),
 				R.map(getFieldConfig),
 				R.map((i) => {
 					if (i.name === 'ReferredBy') {
@@ -136,11 +129,29 @@ const getRegistrationFields = (req, res, next) => {
 }
 
 /**
+ * Register User
+ */
+
+const registerUser = (req, res, next) => {
+	mboClient.registerUser(req.body).then((user) => {
+		return res.json(user)
+	}).catch(err => next(err))
+}
+
+
+
+/**
  * Login User
  */
 
 const loginUser = (req, res, next) => {
 	mboClient.loginUser(req.body).then((user) => {
+		return res.json(user)
+	}).catch(err => next(err))
+}
+
+const loginUserWithGUID = (req, res, next) => {
+	mboClient.loginUserWithGUID(req.body).then((user) => {
 		return res.json(user)
 	}).catch(err => next(err))
 }
@@ -195,4 +206,4 @@ const readMBO = (req, res, next) => {
 	}
 }
 
-module.exports = { getStaff, getClasses, readMBO, loginUser, getRegistrationFields }
+module.exports = { getStaff, getClasses, readMBO, loginUser, loginUserWithGUID, registerUser, getRegistrationFields }

@@ -1,8 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
+import axios from 'axios'
+
 import RegistrationForm from './RegistrationForm'
 import FormStepsHeader from '../../components/Forms/FormStepsHeader'
+
+import { serializeForSoap } from '../../utils/mbo'
 
 /**
  * Register
@@ -35,10 +39,14 @@ class Register extends React.Component {
 		this.setState({ currentStep })
 	}
 
-	handleSubmit(fields) {
-		console.log(fields)
-
-		// this.props.registerUser(userInfo)
+	handleSubmit(userInfo) {
+		const serializedUserInfo = serializeForSoap(userInfo)
+		axios.post('/api/mbo/register', serializedUserInfo).then((response) => {
+			console.log(response)
+			this.props.loginUser(response.data.Client)
+		}).catch((err) => {
+			console.log(err)
+		})
 	}
 
 	render() {
@@ -54,7 +62,7 @@ class Register extends React.Component {
 						advance={this.advance}
 						currentStep={this.state.currentStep}
 						onSubmit={this.handleSubmit}
-						fieldConfig={this.props.registrationFields}
+						fieldConfig={this.props.fieldConfig}
 						liabilityText={this.props.liabilityText}
 					/>
 				</div>
@@ -64,7 +72,7 @@ class Register extends React.Component {
 }
 
 Register.propTypes = {
-	registerUser: PropTypes.func.isRequired,
+	loginUser: PropTypes.func.isRequired,
 	registrationFields: PropTypes.arrayOf(PropTypes.shape),
 }
 

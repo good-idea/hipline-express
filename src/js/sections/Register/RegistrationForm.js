@@ -14,35 +14,16 @@ import AcceptStep from './AcceptStep'
  */
 
 class RegistrationForm extends React.Component {
-	constructor(props) {
-		super(props)
-		const fieldConfig = this.sortFields(props)
-		this.state = { fieldConfig }
-	}
-
-	componentWillReceiveProps(nextProps) {
-		const fieldConfig = this.sortFields(nextProps)
-		this.setState({ fieldConfig })
-	}
-
-	sortFields(props = this.props) {
-		if (!props.fieldConfig) return false
-		return R.pipe(
-			R.map(f => R.assoc('id', f.name, f)),
-			R.reduce((acc, f) => R.assoc(f.name, f, acc), {}),
-		)(props.fieldConfig)
-	}
-
 	onSubmit = (e) => {
 		console.log(e)
 		// this.props.onSubmit(e)
 	}
 
 	render() {
-		if (!this.state.fieldConfig) return null
-		const loginFields = R.pick(['Email', 'Password', 'Password2'])(this.state.fieldConfig)
-		const contactFields = R.pick(['FirstName', 'LastName', 'BirthDate', 'MobilePhone', 'AddressLine1', 'City', 'State', 'PostalCode'])(this.state.fieldConfig)
-		const acceptFields = R.pick(['LiabilityRelease', 'EmailOptIn', 'ReferredBy', 'ReferredByOtherText'])(this.state.fieldConfig)
+		if (!this.props.fieldConfig) return null
+		const loginFields = R.pick(['Username', 'Password', 'Password2'])(this.props.fieldConfig)
+		const contactFields = R.pick(['FirstName', 'LastName', 'BirthDate', 'MobilePhone', 'AddressLine1', 'City', 'State', 'PostalCode'])(this.props.fieldConfig)
+		const acceptFields = R.pick(['LiabilityRelease', 'EmailOptIn', 'ReferredBy', 'ReferredByOtherText'])(this.props.fieldConfig)
 
 		const commonProps = {
 			subscribe: this.props.subscribe,

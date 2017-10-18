@@ -74,11 +74,11 @@ class LoginStep extends React.Component {
 		const classNames = ['form__step']
 		if (this.props.active) classNames.push('form__step--active')
 		if (this.state.canAdvance) classNames.push('form__step--canAdvance')
-		const { Email, Password, Password2 } = this.props.fieldConfig
+		const { Username, Password, Password2 } = this.props.fieldConfig
 		return (
 			<div className={cn(classNames)}>
 				<div className="fieldset horizontal">
-					<FieldContainer {...Email} />
+					<FieldContainer {...Username} />
 					<FieldContainer {...Password} />
 					<FieldContainer {...Password2} />
 				</div>

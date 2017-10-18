@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import Login from './Login/Login'
+import Register from './Register/Register'
 
 /**
  * Navigation
@@ -11,6 +13,7 @@ class Navigation extends React.Component {
 		super(props)
 		this.showLogin = this.showLogin.bind(this)
 		this.showRegister = this.showRegister.bind(this)
+		this.logoutUser = this.logoutUser.bind(this)
 	}
 
 	showLogin() {
@@ -19,6 +22,30 @@ class Navigation extends React.Component {
 
 	showRegister() {
 		this.props.setDropdown('register')
+	}
+
+	logoutUser() {
+		this.props.loginUser(false)
+	}
+
+	renderUserMenu() {
+		if (this.props.user === false) {
+			return (
+				<div className="nav__group">
+					<h3 className="nav__item"><button onClick={this.showLogin} >Login</button></h3>
+					<h3 className="nav__item"><button onClick={this.showRegister} >Sign Up</button></h3>
+				</div>
+			)
+		}
+		if (this.props.user) {
+			return (
+				<div className="nav__group">
+					<h3>Hi, {this.props.user.FirstName}!</h3>
+					<h3><button onClick={this.logoutUser}>Log Out</button></h3>
+				</div>
+			)
+		}
+		return null
 	}
 
 	render() {
@@ -32,10 +59,20 @@ class Navigation extends React.Component {
 					<h3 className="nav__item"><Link to="/about">About</Link></h3>
 					<h3 className="nav__item"><Link to="/schedule">Schedule</Link></h3>
 				</div>
-				<div className="nav__group">
-					<h3 className="nav__item"><button onClick={this.showLogin} >Login</button></h3>
-					<h3 className="nav__item"><button onClick={this.showRegister} >Sign Up</button></h3>
-				</div>
+				{this.renderUserMenu()}
+				<Login
+					setDropdown={this.props.setDropdown}
+					open={this.props.dropdown === 'login'}
+					loginUser={this.props.loginUser}
+					fieldConfig={this.props.registrationFields}
+				/>
+				<Register
+					setDropdown={this.props.setDropdown}
+					open={this.props.dropdown === 'register'}
+					loginUser={this.props.loginUser}
+					fieldConfig={this.props.registrationFields}
+					liabilityText={this.props.liabilityText}
+				/>
 			</nav>
 		)
 	}

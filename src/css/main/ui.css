@@ -120,32 +120,12 @@ select {
 		calc(100% - 1.1rem) calc(50% + 0.1rem),
 		calc(100% - 0.6rem) calc(50% + 0.1rem),
 		calc(100% - 2.25rem) center;
-		/*calc(100% - 20px) calc(1em + 2px),
-		calc(100% - 15px) calc(1em + 2px),
-		calc(100% - 2.5em) 0.5em;*/
 	background-size:
 		0.5rem 0.5rem,
 		0.5rem 0.5rem,
 		0.1rem 1.5em;
 	background-repeat: no-repeat;
-/*
-	&::before,
-	&::after {
-		position: absolute;
-		right: 0.2rem;
-	}
-
-	&::before {
-		content: '▲'
-	}
-
-	&::after {
-		content: '▼'
-	}*/
-
 }
-
-
 
 
 /**
@@ -192,6 +172,11 @@ section.login > form {
 
 $gutter: 2rem;
 
+.fieldset + button {
+	margin: 2rem 0 0 auto;
+	display: block;
+}
+
 .fieldset.horizontal {
 	padding-top: 2rem;
 	display: grid;
@@ -201,7 +186,6 @@ $gutter: 2rem;
 	.field + .field {
 		margin-top: 0;
 	}
-
 }
 
 .fieldset.horizontal--two {
@@ -216,22 +200,12 @@ $gutter: 2rem;
 }
 
 
-
-
-
-
 /**
  * Sequential Forms (step by step)
  */
 
-
 .form__step {
 	display: none;
-
-	button {
-		margin: 2rem 0 0 auto;
-		display: block;
-	}
 }
 
 .form__step--active {

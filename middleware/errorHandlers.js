@@ -12,6 +12,7 @@ const errorHandlersMiddleware = [
 	* example you may bind a /api path to express.
 	*/
 	function notFoundMiddlware(req, res, next) {
+		console.log('here')
 		res.status(404).send('Sorry, that resource was not found.')
 	},
 
@@ -26,7 +27,8 @@ const errorHandlersMiddleware = [
 			// console.log(err)
 			console.log(err.stack)
 		}
-		res.status(R.path(['response', 'status'], err) || 500).send('Sorry, an unexpected error occurred.')
+		res.status(R.path(['response', 'status'], err) || 500)
+			.send(R.path(['response', 'message'], err) || 'Sorry, an unexpected error occurred.')
 	},
 ]
 

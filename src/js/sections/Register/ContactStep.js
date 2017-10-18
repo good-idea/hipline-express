@@ -81,9 +81,10 @@ class ContactStep extends React.Component {
 					<FieldContainer
 						{...BirthDate}
 						guide
+						type="date"
 						transform={formatBirthDate}
-						placeholder="MM/DD/YYYY"
-						mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
+						placeholder="YYYY-MM-DD"
+						mask={[/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
 						pipe={createAutoCorrectedDatePipe('mm/dd/yyyy')}
 					/>
 					<FieldContainer

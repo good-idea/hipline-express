@@ -1,5 +1,6 @@
 const soap = require('strong-soap').soap
 const R = require('ramda')
+const axios = require('axios')
 
 const { getPropertyByString } = require('../utils/data')
 const { slugify } = require('../utils/text')
@@ -7,17 +8,6 @@ const { slugify } = require('../utils/text')
 /**
  * Initial config
  */
-
-const config = {
-	apiRoot: 'https://api.mindbodyonline.com/0_5/',
-}
-
-const endpoints = {
-	ClassService: `${config.apiRoot}/ClassService.asmx`,
-	StaffService: `${config.apiRoot}/StaffService.asmx`,
-	SaleService: `${config.apiRoot}/SaleService.asmx`,
-	ClientService: `${config.apiRoot}/ClientService.asmx`,
-}
 
 const SourceCredentials = {
 	SourceName: process.env.MBO_SOURCENAME,
@@ -33,6 +23,19 @@ const UserCredentials = {
 	SiteIDs: {
 		int: ['4561'],
 	},
+}
+
+
+const config = {
+	apiRoot: 'https://api.mindbodyonline.com/0_5/',
+	guidLogin: `https://clients.mindbodyonline.com/ASP/ws.asp?studioid=${SourceCredentials.SiteIDs.int[0]}`
+}
+
+const endpoints = {
+	ClassService: `${config.apiRoot}/ClassService.asmx`,
+	StaffService: `${config.apiRoot}/StaffService.asmx`,
+	SaleService: `${config.apiRoot}/SaleService.asmx`,
+	ClientService: `${config.apiRoot}/ClientService.asmx`,
 }
 
 /**
@@ -61,16 +64,6 @@ const getProgramNameByID = (id) => {
 const groupClassesByProgram = R.groupBy(danceClass => (
 	getProgramNameByID(R.path(['ClassDescription', 'Program', 'ID'], danceClass))
 ))
-
-// const getStaffFromClasses = R.pipe(
-// 	R.pluck('Staff'),
-// 	R.filter(staffMember => (
-// 		staffMember.Name !== 'Co-Work' &&
-// 		staffMember.Name !== 'Hipline'
-// 	)),
-// 	R.pluck('ID'),
-// 	R.uniq,
-// )
 
 const getStaffFromClasses = (classes) => {
 	const staff = []
@@ -226,9 +219,24 @@ const getClassDescriptionsByProgram = (week, length) => (
  * User/Auth Requests
  */
 
-const loginUser = ({ email, password }) => {
+const loginUser = ({ Username, Password }) => makeMBORequest({
+	endpoint: endpoints.ClientService,
+	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.ValidateLogin',
+	resultString: 'ValidateLoginResult',
+	additionalParams: { Username, Password },
+})
 
-}
+
+const loginUserWithGUID = ({ guid }) => new Promise((resolve, reject) => {
+	if (!guid) {
+		reject({ response: { status: 403, message: 'no guid' } })
+		return
+	}
+	axios.get(`${config.guidLogin}guid=${guid}`).then((response) => {
+		console.log(response.data)
+		resolve(response.data)
+	}).catch(err => reject(err))
+})
 
 const getRequiredFields = () => makeMBORequest({
 	endpoint: endpoints.ClientService,
@@ -244,8 +252,9 @@ const getReferralTypes = () => makeMBORequest({
 
 const registerUser = (clientInfo) => {
 	return makeMBORequest({
-		endpoint: endpoints.ClienentService,
+		endpoint: endpoints.ClientService,
 		methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.AddOrUpdateClients',
+		resultString: 'AddOrUpdateClientsResult.Clients',
 		additionalParams: {
 			XMLDetail: 'Full',
 			Clients: [
@@ -271,25 +280,10 @@ const getActiveStaff = function getActiveStaff() {
 		const allStaff = getStaff()
 		const upcomingClasses = getClasses(0, 4)
 		Promise.all([allStaff, upcomingClasses]).then(([staff, classes]) => {
-			// resolve({ staff, classes })
 			// get a list of Choreographers and JPR staff based on the upcoming schedule
 
 			const activeStaff = getStaffFromClasses(classes)
-
-
 			resolve(activeStaff)
-
-
-			// const activeStaffIDs = classes.reduce((prev, next) => {
-			// 	// if (!prev.includes(next.staff.ID))
-			// 	if (R.path(['ClassDescription', 'ID'], next) !== 101 && !prev.includes(next.Staff.ID)) prev.push(next.Staff.ID)
-			// 	return prev
-			// }, [])
-			// const activeStaff = staff.reduce((prev, next) => {
-			// 	if (activeStaffIDs.includes(next.ID)) prev.push(next)
-			// 	return prev
-			// }, [])
-			// resolve(activeStaff)
 		}).catch(err => reject(err))
 	})
 }
@@ -301,6 +295,8 @@ module.exports = {
 	getActiveStaff,
 	getClassDescriptions,
 	loginUser,
+	loginUserWithGUID,
+	registerUser,
 	getRequiredFields,
 	getReferralTypes,
 }
