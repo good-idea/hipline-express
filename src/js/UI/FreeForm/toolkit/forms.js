@@ -113,15 +113,15 @@ const setUpContext = withContext(
 // Set up some event handlers and watch them in the lifecycle
 
 const addOnSubmitHandler = withHandlers({
-	onInvalid: props => (e) => {
-		console.log('invalid')
-	},
 	onSubmit: props => (e) => {
 		e.preventDefault()
 		// console.log(e.isPropagationStopped)
-		console.log(props.onSubmit)
-
-	}
+		const values = R.compose(
+			R.values,
+			R.map(R.pickAll(['name', 'value'])),
+		)(props.getFieldValues())
+		props.onSubmit(values)
+	},
 })
 
 const formEnhancer = compose(

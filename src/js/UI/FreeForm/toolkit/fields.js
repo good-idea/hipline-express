@@ -1,17 +1,14 @@
 import PropTypes from 'prop-types'
-import {
-	prop,
-	dissoc,
-} from 'ramda'
+import R from 'ramda'
 
 import {
-	mapProps,
 	withHandlers,
 	getContext,
 	compose,
 	lifecycle,
 	defaultProps,
 	pure,
+	withProps,
 } from 'recompose'
 
 const addLifecycleRegistrationMethods = lifecycle({
@@ -24,17 +21,18 @@ const addLifecycleRegistrationMethods = lifecycle({
 		this.props.form.removeField({ ...this.props })
 	},
 })
+//
 
 const withDefaultProps = defaultProps({ valid: true, disabled: false })
 
-const mapFieldProps = mapProps((props) => {
-	const newFieldValues = prop(props.id, props.form.getFieldValues())
+const mapFieldProps = withProps((props) => {
+	const newFieldValues = R.prop(props.id, props.form.getFieldValues())
 	return {
 		value: props.initialValue,
-		...props,
 		...newFieldValues,
 	}
 })
+
 
 const addFieldHandlers = withHandlers({
 	onChange: props => (event) => {
@@ -69,8 +67,8 @@ export const getFormContext = getContext({
 export const withInputHelpers = compose(
 	withDefaultProps,
 	addLifecycleRegistrationMethods,
-	pure,
 	getFormContext,
+	pure,
 	addFieldHandlers,
 	mapFieldProps,
 )
@@ -78,6 +76,6 @@ export const withInputHelpers = compose(
 export const withFieldHelpers = compose(
 	withDefaultProps,
 	getFormContext,
-	pure,
 	mapFieldProps,
+	pure,
 )

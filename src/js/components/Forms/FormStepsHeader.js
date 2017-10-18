@@ -10,7 +10,6 @@ import { cn } from '../../utils/helpers'
 const FormStepsHeader = (props) => {
 	const classNames = ['formStepsHeader']
 	if (props.currentStep === 1) classNames.push('formStepsHeader--firstStep')
-	console.log(props.currentStep - 1, props.totalSteps - 1, (props.currentStep - 1)/(props.totalSteps - 1))
 	return (
 		<div className={cn(classNames)}>
 			<div className="formStepsHeader__top">

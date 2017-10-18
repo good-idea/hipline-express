@@ -52,7 +52,6 @@ class FieldContainer extends React.Component {
 		if (this.props.required === true) additionalClassNames.push('field--required')
 		if (this.props.disabled === true) additionalClassNames.push('field--disabled')
 		if (this.props.valid === false) additionalClassNames.push('field--invalid')
-		if (this.props.id === 'ReferredByOtherText') console.log('container: ', this.props.visible)
 		return (
 			<div className={cn(this.props.classNames, 'field', additionalClassNames)}>
 				{label}

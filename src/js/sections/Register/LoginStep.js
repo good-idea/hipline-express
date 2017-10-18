@@ -45,11 +45,13 @@ class LoginStep extends React.Component {
 		return canAdvance
 	}
 
-	passwordsMustMatch({ fieldValues, event, triggerFieldId }) {
+	passwordsMustMatch(args) {
+		const { fieldValues, topic, triggerFieldId } = args
+		// console.log(args)
 		const pass1 = R.path(['Password', 'value'], fieldValues)
 		const pass2 = R.path(['Password2', 'value'], fieldValues)
-		if ((event === 'fieldBlurred' && triggerFieldId === 'Password2')
-			|| (event === 'fieldChanged' && triggerFieldId === 'Password2' && pass1 === pass2)) {
+		if ((topic === 'fieldBlurred' && triggerFieldId === 'Password2')
+			|| (topic === 'fieldChanged' && pass1 === pass2)) {
 			const helptext = (pass1 === pass2) ? '' : 'Passwords must match'
 			this.props.updateField('Password2', { helptext, valid: pass1 === pass2 }, this.checkIfReady)
 		}

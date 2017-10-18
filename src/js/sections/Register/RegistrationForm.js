@@ -52,7 +52,7 @@ class RegistrationForm extends React.Component {
 		}
 		// return null
 		return (
-			<form onSubmit={this.onSubmit}>
+			<form onSubmit={this.props.onSubmit}>
 				<div className="form__steps">
 					<LoginStep
 						active={this.props.currentStep === 1}
