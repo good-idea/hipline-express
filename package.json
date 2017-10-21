@@ -12,7 +12,8 @@
     "build:js": "webpack -p --progress --colors",
     "build:css": "./node_modules/.bin/postcss src/css/*.css --dir public/css/ -c postcss.config.js",
     "livereload": "livereload 'public/css'",
-    "serve": "nodemon server.js --ignore public/ --ignore src/"
+    "serve": "nodemon server.js --ignore public/ --ignore src/",
+		"precommit": "echo 'Husky needs to be set up...'"
   },
   "engines": {
     "node": ">=8.2.1"
@@ -40,6 +41,7 @@
     "eslint-plugin-react": "^7.4.0",
     "file-loader": "^1.1.5",
     "html-react-parser": "^0.4.0",
+    "husky": "^0.14.3",
     "js-cookie": "^2.1.4",
     "live-reload": "^1.1.0",
     "markdown": "^0.5.0",
