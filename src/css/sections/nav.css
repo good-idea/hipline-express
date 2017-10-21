@@ -15,9 +15,28 @@ nav {
 }
 
 .nav__item {
+	transition: 0.2s;
 	display: inline-block;
+}
+
+.nav__item--secondary {
+	color: $grey3;
+
+	&:hover {
+		color: black;
+	}
 }
 
 .nav__item + .nav__item {
 	margin-left: 2em;
+}
+
+.nav__item--username {
+	animation: fall-in 0.8s forwards;
+}
+
+@keyframes fall-in {
+	0% { opacity: 0; transform: translateY(-3rem); }
+	70% { opacity: 1; }
+	100% { opacity: 1; transform: none; }
 }

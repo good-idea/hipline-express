@@ -16,7 +16,6 @@ class App extends React.Component {
 	constructor(props) {
 		super(props)
 		this.setDropdown = this.setDropdown.bind(this)
-		this.loginUser = this.loginUser.bind(this)
 		this.state = {
 			loginOpen: false,
 			registerOpen: false,
@@ -31,35 +30,33 @@ class App extends React.Component {
 		const fetchContent = axios.get('/api/content/initial')
 		const fetchClasses = axios.get('/api/mbo/classes')
 		const fetchRegistrationFields = axios.get('/api/mbo/registrationFields')
-		axios.all([fetchContent, fetchClasses, fetchRegistrationFields])
-			.then(axios.spread((content, classes, registrationFields) => {
+		const checkToken = axios.get('/api/mbo/checktoken', {
+			headers: { 'x-access-token': Cookies.get('jwt') || false },
+		})
+		axios.all([fetchContent, fetchClasses, fetchRegistrationFields, checkToken])
+			.then(axios.spread((content, classes, registrationFields, tokenResponse) => {
 				this.setState({
 					sections: { ...content.data },
 					schedule: [...classes.data],
 					registrationFields: sortMBOFields(registrationFields.data),
+					user: tokenResponse.data.user,
 				}, this.attemptLogin)
-			})).catch(err => console.warn(err))
+			})).catch(err => console.warn(err.response))
 	}
 
 	setDropdown(dropdown) {
 		this.setState({ dropdown })
 	}
 
-	attemptLogin() {
-		const guid = Cookies.get('mbo-guid')
-		console.log(guid)
-		axios.get(`https://clients.mindbodyonline.com/ASP/ws.asp?studioid=4561&guid=${guid}`).then((response) => {
-			console.log(response)
-			this.setState({ user: response.data.Client })
-		}).catch(() => {
-			this.setState({ user: false })
-		})
+	logoutUser = () => {
+		Cookies.remove('jwt')
+		this.setState({ user: false })
 	}
 
-	loginUser(user, GUID) {
-		if (GUID) Cookies.set('mbo-guid', GUID, { expires: 7 })
-		console.log(Cookies.get('mbo-guid'))
-		if (user === false) Cookies.remove('mbo-guid')
+	loginUser = ({ user, token }) => {
+		console.log(user, token)
+		Cookies.set('jwt', token)
+		if (user === false) this.logoutUser()
 		this.setState({ user })
 	}
 
@@ -72,6 +69,7 @@ class App extends React.Component {
 					setDropdown={this.setDropdown}
 					dropdown={this.state.dropdown}
 					loginUser={this.loginUser}
+					logoutUser={this.logoutUser}
 					registrationFields={this.state.registrationFields}
 					liabilityText={this.state.sections.home.liability}
 				/>

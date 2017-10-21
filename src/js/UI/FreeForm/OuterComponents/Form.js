@@ -14,7 +14,7 @@ class Form extends React.Component {
 	render() {
 		const children = filterFalsyChildren(this.props.children)
 		return (
-			<form className={cn(this.props.classNames, `${this.classNamePrefix}form`)} onSubmit={this.props.onSubmit}>
+			<form className={this.props.className} onSubmit={this.props.onSubmit}>
 				{ React.Children.map(children, (c) => {
 					const extraProps = (typeof c.type !== 'string') ? { emit: this.emit, subscribe: this.subscribe, unsubscribe: this.unsubscribe } : {}
 					return React.cloneElement(c, extraProps)

@@ -5,6 +5,7 @@ import axios from 'axios'
 import R from 'ramda'
 
 import LoginForm from './LoginForm'
+import ForgotForm from './ForgotForm'
 import { serializeForSoap } from '../../utils/mbo'
 
 /**
@@ -12,33 +13,79 @@ import { serializeForSoap } from '../../utils/mbo'
  */
 
 class Login extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			loginMessage: undefined,
+			showForgot: false,
+			forgotMessage: undefined,
+			disableForgotForm: false,
+		}
+	}
+
 	closeDropdown = () => {
 		this.props.setDropdown(false)
+	}
+
+	handleUserForgot = (userInfo) => {
+		const serializedUserInfo = serializeForSoap(userInfo)
+		axios.post('/api/mbo/forgot', serializedUserInfo).then((response) => {
+			this.setState({
+				forgotMessage: 'Check your email for instructions on resetting your password on the MindBodyOnline website.\nAfter creating a new password, you can return here to log in.',
+				disableForgotForm: true,
+			})
+			console.log(response)
+		}).catch((err) => {
+			this.setState({ disableForgotForm: true })
+			console.log(err)
+		})
+
 	}
 
 	handleUserLogin = (userInfo) => {
 		const serializedUserInfo = serializeForSoap(userInfo)
 		axios.post('/api/mbo/login', serializedUserInfo).then((response) => {
-			console.log(response)
-			this.props.loginUser(response.data.Client, response.data.GUID)
+			const { user, token } = response.data
+			this.props.loginUser({ user, token })
+			this.closeDropdown()
 		}).catch((err) => {
-			console.log(err)
+			this.setState({
+				loginMessage:  R.path(['response', 'data', 'message'], err) || ''
+			})
 		})
+	}
+
+	toggleForgot = () => {
+		this.setState({ showForgot: !this.state.showForgot })
 	}
 
 	render() {
 		const classNames = ['login', 'dropdown']
 		if (this.props.open) classNames.push('dropdown--open')
+		if (this.state.showForgot) classNames.push('login--forgot')
 		const loginFields = R.pick(['Username', 'Password'])(this.props.fieldConfig)
+		const forgotFields = R.pick(['Username', 'FirstName', 'LastName'])(this.props.fieldConfig)
 
+		const form = (this.state.showForgot)
+			? (<ForgotForm
+				message={this.state.forgotMessage}
+				disabled={this.state.disableForgotForm}
+				onSubmit={this.handleUserForgot}
+				fieldConfig={forgotFields}
+			/>)
+			: (<LoginForm
+				message={this.state.loginMessage}
+				onSubmit={this.handleUserLogin}
+				fieldConfig={loginFields}
+			/>)
+
+		const toggleText = (this.state.showForgot) ? 'Return to Login' : 'Forgot your password?'
 		return (
 			<section className={cn(classNames)}>
-				<div className="column--narrow">
+				<div className="column">
 					<button onClick={this.closeDropdown} className="dropdown__ex" />
-					<LoginForm
-						onSubmit={this.handleUserLogin}
-						fieldConfig={loginFields}
-					/>
+					{form}
+					<button className="secondary login__toggleForgot" onClick={this.toggleForgot}>{toggleText}</button>
 				</div>
 			</section>
 		)

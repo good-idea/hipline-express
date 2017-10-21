@@ -1,6 +1,9 @@
 const mboClient = require('./mboClient')
 const moment = require('moment-timezone')
 const R = require('ramda')
+const jwt = require('jsonwebtoken')
+
+const config = require('../config')
 
 const { prepareFieldLabel } = require('../utils/text')
 
@@ -128,16 +131,43 @@ const getRegistrationFields = (req, res, next) => {
 		.catch(err => next(err))
 }
 
+// Extract only the useful information from the user
+
+const getUserInfo = R.pickAll([
+	'Username',
+	'IsCompany',
+	'Liability',
+	'UniqueID',
+	'ID',
+	'FirstName',
+	'LastName',
+	'Email',
+	'AddressLine1',
+	'City',
+	'State',
+	'PostalCode',
+	'Country',
+	'MobilePhone',
+	'BirthDate',
+])
+
 /**
  * Register User
  */
 
 const registerUser = (req, res, next) => {
-	mboClient.registerUser(req.body).then((user) => {
-		return res.json(user)
+	mboClient.registerUser(req.body).then((response) => {
+		const user = getUserInfo(response.Client)
+		return res.json({
+			user,
+		})
 	}).catch(err => next(err))
 }
 
+const forgotPassword = (req, res, next) => {
+	mboClient.forgotPassword(req.body).then(() => res.json({ success: true }))
+		.catch(err => next(err))
+}
 
 
 /**
@@ -145,15 +175,42 @@ const registerUser = (req, res, next) => {
  */
 
 const loginUser = (req, res, next) => {
-	mboClient.loginUser(req.body).then((user) => {
-		return res.json(user)
+	mboClient.loginUser(req.body).then((response) => {
+		if (response.Status === 'InvalidParameters') {
+			next({ status: 403, message: response.Message })
+			return
+		}
+		const user = getUserInfo(response.Client)
+		// Create a JWT Token with minimal user data
+		const token = jwt.sign(
+			{
+				user: R.pickAll(['Username', 'UniqueID', 'FirstName', 'LastName'])(user),
+			},
+			config.jwtSecret,
+			{
+				expiresIn: '7d',
+			},
+		)
+
+		return res.json({
+			success: true,
+			token,
+			user,
+		})
 	}).catch(err => next(err))
 }
 
-const loginUserWithGUID = (req, res, next) => {
-	mboClient.loginUserWithGUID(req.body).then((user) => {
-		return res.json(user)
-	}).catch(err => next(err))
+const checkToken = (req, res, next) => res.json({
+	user: req.user,
+})
+
+
+const getUserData = (req, res, next) => {
+	if (!req.user) return next({ response: { status: 403, message: 'No valid token present' } })
+	return res.status(200).json({
+		success: true,
+	})
+
 }
 
 
@@ -206,4 +263,14 @@ const readMBO = (req, res, next) => {
 	}
 }
 
-module.exports = { getStaff, getClasses, readMBO, loginUser, loginUserWithGUID, registerUser, getRegistrationFields }
+module.exports = {
+	getStaff,
+	getClasses,
+	readMBO,
+	loginUser,
+	getUserData,
+	registerUser,
+	getRegistrationFields,
+	checkToken,
+	forgotPassword,
+}

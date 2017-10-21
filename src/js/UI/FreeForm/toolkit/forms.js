@@ -1,16 +1,26 @@
 import PropTypes from 'prop-types'
 import R from 'ramda'
+import cn from 'classnames'
 
 import {
 	withState,
 	withHandlers,
 	withContext,
 	compose,
-	lifecycle,
+	withProps,
+	defaultProps,
 } from 'recompose'
 
 // import { forceSingleToArray } from '../../../utils/helpers'
 import { forceSingleToArray } from '../utils/data'
+
+
+const withDefaultProps = defaultProps({
+	valid: true,
+	disabled: false,
+	classNames: [],
+	classNamePrefix: 'ff_',
+})
 
 // Set the initial state and some handlers.
 
@@ -104,7 +114,7 @@ const setUpContext = withContext(
 			unsubscribe: props.unsubscribe,
 			emit: props.emit,
 
-			classNamePrefix: props.classNamePrefix || 'ff_',
+			classNamePrefix: props.classNamePrefix,
 		},
 	})),
 )
@@ -124,10 +134,21 @@ const addOnSubmitHandler = withHandlers({
 	},
 })
 
+export const addFormClassNames = withProps((props) => {
+	const ffClassNames = ['form']
+	if (props.disabled) ffClassNames.push('form--disabled')
+	if (props.valid === false) ffClassNames.push('form--invalid')
+	const prefixedClassNames = R.map(c => `${props.classNamePrefix}${c}`, ffClassNames)
+	return R.assoc('className', cn([...props.classNames, ...prefixedClassNames]), props)
+})
+
+
 const formEnhancer = compose(
+	withDefaultProps,
 	setInitialState,
 	setUpContext,
 	addOnSubmitHandler,
+	addFormClassNames,
 )
 
 export default formEnhancer

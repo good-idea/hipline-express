@@ -7,10 +7,6 @@ import FieldContainer from '../../UI/FieldContainer'
  * LoginForm
  */
 
-/**
- * LoginForm
- */
-
 const LoginForm = (props) => {
 	const { Username, Password } = props.fieldConfig
 	return (
@@ -20,6 +16,9 @@ const LoginForm = (props) => {
 				<FieldContainer {...Password} />
 			</div>
 			<button className="cta" type="submit">Log In</button>
+			<div className="form__message">
+				<h4>{props.message}</h4>
+			</div>
 		</form>
 	)
 }

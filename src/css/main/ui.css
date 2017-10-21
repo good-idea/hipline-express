@@ -21,6 +21,18 @@ button {
 	}
 }
 
+button.secondary {
+	color: $grey3;
+	font-style: italic;
+	margin-left: auto;
+	display: block;
+	margin-top: 2rem;
+
+	&:hover {
+		color: black;
+	}
+}
+
 .cta--primary {
 	@extend .cta;
 
@@ -42,6 +54,13 @@ button.scrollTrigger {
  * Forms
  */
 
+.ff_form--disabled {
+	button, input, label {
+		opacity: 0.3;
+		pointer-events: none;
+	}
+}
+
 input, select {
 	border: 1px solid black;
 	background: white;
@@ -54,6 +73,10 @@ input {
 label {
 	display: block;
 	margin-bottom: 0.5rem;
+}
+
+.form__message {
+	text-align: center;
 }
 
 .field input {

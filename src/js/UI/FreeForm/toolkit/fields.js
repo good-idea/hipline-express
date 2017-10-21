@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import R from 'ramda'
+import cn from 'classnames'
 
 import {
 	withHandlers,
@@ -23,7 +24,7 @@ const addLifecycleRegistrationMethods = lifecycle({
 })
 //
 
-const withDefaultProps = defaultProps({ valid: true, disabled: false })
+const withDefaultProps = defaultProps({ valid: true, disabled: false, classNames: [] })
 
 const mapFieldProps = withProps((props) => {
 	const newFieldValues = R.prop(props.id, props.form.getFieldValues())
@@ -63,6 +64,14 @@ export const getFormContext = getContext({
 	form: PropTypes.object,
 })
 
+export const addFieldClassNames = withProps((props) => {
+	const ffClassNames = ['input']
+	if (props.disabled) ffClassNames.push('input--disabled')
+	if (props.valid === false) ffClassNames.push('input--invalid')
+	const prefixedClassNames = R.map(c => `${props.form.classNamePrefix}${c}`, ffClassNames)
+	return R.assoc('className', cn([...props.classNames, ...prefixedClassNames]), props)
+})
+
 
 export const withInputHelpers = compose(
 	withDefaultProps,
@@ -71,6 +80,7 @@ export const withInputHelpers = compose(
 	pure,
 	addFieldHandlers,
 	mapFieldProps,
+	addFieldClassNames,
 )
 
 export const withFieldHelpers = compose(

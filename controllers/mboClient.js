@@ -28,7 +28,6 @@ const UserCredentials = {
 
 const config = {
 	apiRoot: 'https://api.mindbodyonline.com/0_5/',
-	guidLogin: `https://clients.mindbodyonline.com/ASP/ws.asp?studioid=${SourceCredentials.SiteIDs.int[0]}`
 }
 
 const endpoints = {
@@ -226,18 +225,6 @@ const loginUser = ({ Username, Password }) => makeMBORequest({
 	additionalParams: { Username, Password },
 })
 
-
-const loginUserWithGUID = ({ guid }) => new Promise((resolve, reject) => {
-	if (!guid) {
-		reject({ response: { status: 403, message: 'no guid' } })
-		return
-	}
-	axios.get(`${config.guidLogin}guid=${guid}`).then((response) => {
-		console.log(response.data)
-		resolve(response.data)
-	}).catch(err => reject(err))
-})
-
 const getRequiredFields = () => makeMBORequest({
 	endpoint: endpoints.ClientService,
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetRequiredClientFields',
@@ -260,9 +247,22 @@ const registerUser = (clientInfo) => {
 			Clients: [
 				{
 					Client: clientInfo,
-				}
-			]
-		}
+				},
+			],
+		},
+	})
+}
+
+const forgotPassword = ({ Username, FirstName, LastName }) => {
+	return makeMBORequest({
+		endpoint: endpoints.ClientService,
+		methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.SendUserNewPassword',
+		resultString: 'SendUserNewPasswordResult',
+		additionalParams: {
+			UserFirstName: FirstName,
+			UserLastName: LastName,
+			UserEmail: Username,
+		},
 	})
 }
 
@@ -295,8 +295,8 @@ module.exports = {
 	getActiveStaff,
 	getClassDescriptions,
 	loginUser,
-	loginUserWithGUID,
 	registerUser,
 	getRequiredFields,
 	getReferralTypes,
+	forgotPassword,
 }

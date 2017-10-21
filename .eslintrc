@@ -1,9 +1,4 @@
 {
-  "globals": {
-    // Put things like jQuery, etc
-    "jQuery": true,
-    "$": true
-  },
   "env": {
     // I write for browser
     "browser": true,

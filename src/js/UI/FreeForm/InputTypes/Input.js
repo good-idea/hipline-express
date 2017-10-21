@@ -9,7 +9,7 @@ import { withInputHelpers } from '../toolkit/fields'
  * Input
  */
 
-const Input = props => <input {...pickHTMLProps(R.dissoc('form', props))} />
+const Input = props => <input {...pickHTMLProps(R.dissoc('form', props))} className={props.className} />
 
 Input.propTypes = {
 	id: PropTypes.string.isRequired,

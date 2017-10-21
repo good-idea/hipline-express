@@ -25,23 +25,23 @@ class Navigation extends React.Component {
 	}
 
 	logoutUser() {
-		this.props.loginUser(false)
+		this.props.logoutUser()
 	}
 
 	renderUserMenu() {
 		if (this.props.user === false) {
 			return (
 				<div className="nav__group">
-					<h3 className="nav__item"><button onClick={this.showLogin} >Login</button></h3>
-					<h3 className="nav__item"><button onClick={this.showRegister} >Sign Up</button></h3>
+					<h3 className="nav__item"><button onClick={this.showLogin}>Login</button></h3>
+					<h3 className="nav__item"><button onClick={this.showRegister}>Sign Up</button></h3>
 				</div>
 			)
 		}
 		if (this.props.user) {
 			return (
 				<div className="nav__group">
-					<h3>Hi, {this.props.user.FirstName}!</h3>
-					<h3><button onClick={this.logoutUser}>Log Out</button></h3>
+					<h3 className="nav__item nav__item--username">Hi, {this.props.user.FirstName}!</h3>
+					<h3 className="nav__item nav__item--secondary"><button onClick={this.logoutUser}>Log Out</button></h3>
 				</div>
 			)
 		}

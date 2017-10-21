@@ -6,6 +6,8 @@ const compression = require('compression')
 // const mongoose = require('mongoose')
 const logger = require('morgan')
 
+const router = require('./router')
+
 const config = require('./config')
 const securityMiddleware = require('./middleware/security')
 const errorHandlersMiddleware = require('./middleware/errorHandlers')
@@ -32,6 +34,7 @@ app.use(bodyParser.json())
 app.use(responseTime())
 app.use(compression())
 
+app.set('jwtSecret', config.jwtSecret)
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
 app.use(express.static(path.join(__dirname, 'public'), { maxage: '14d' }))
@@ -45,40 +48,13 @@ app.use((req, res, next) => {
 })
 
 /**
- * Middleware
+ * Middleware & Routes
  */
 
 
 if (config.environment !== 'development') app.use(securityMiddleware)
 
-/**
- * Controllers
- */
-
-const publicController = require('./controllers/publicController')
-const contentController = require('./controllers/contentController')
-const mboController = require('./controllers/mboController')
-
-/**
- * Routes
- */
-
-app.get('/api/content/initial', contentController.initial)
-app.get('/api/content/sync', contentController.syncToCMS)
-// app.get('/api/content/sync/classes', contentController.syncClassDescriptions)
-
-app.post('/api/mbo/login', mboController.loginUser)
-app.post('/api/mbo/guidlogin', mboController.loginUserWithGUID)
-app.post('/api/mbo/register', mboController.registerUser)
-app.get('/api/mbo/registrationFields', mboController.getRegistrationFields)
-// app.get('/api/mbo/user', mboController.getUser)
-app.get('/api/mbo/staff', mboController.getStaff)
-app.get('/api/mbo/classes', mboController.getClasses)
-app.get('/api/mbo/read/:method', mboController.readMBO)
-app.get('/api/*', (req, res) => (res.status(404).send()))
-
-
-app.get('*', publicController.site)
+app.use(router)
 
 app.use(errorHandlersMiddleware)
 
