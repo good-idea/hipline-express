@@ -12,7 +12,6 @@ const errorHandlersMiddleware = [
 	* example you may bind a /api path to express.
 	*/
 	function notFoundMiddlware(req, res, next) {
-		console.log('here')
 		res.status(404).send('Sorry, that resource was not found.')
 	},
 

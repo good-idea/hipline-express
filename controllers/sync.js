@@ -24,7 +24,6 @@ const syncStaffInfo = () => (
 				url: `${apiRoot}/sync/staff`,
 				data: Qs.stringify({ staff }),
 			}).then((staffResponse) => {
-				console.log("Response")
 				resolve(staffResponse.data)
 			}).catch(err => { console.log('error'); return reject(err) })
 		})

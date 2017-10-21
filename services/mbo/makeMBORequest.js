@@ -1,7 +1,7 @@
-const soap = require('strong-soap').soap
+const { soap } = require('strong-soap')
 const R = require('ramda')
 
-const { getPropertyByString } = require('../../utils/data')
+const { getPropertyByString, forceArrayOfOne } = require('../../utils/data')
 
 /**
  * Initial config
@@ -53,27 +53,29 @@ const makeMBORequest = ({
 				reject(soapErr)
 				return
 			}
-			client.setEndpoint(endpoint)
+			client.setEndpoint(endpoints[service])
 			const defaultParams = { SourceCredentials }
 
-			const params = R.pipe(
-				R.mergeDeepRight(additionalParams),
-				R.when(withUserCredentials, R.assoc('UserCredentials', UserCredentials)),
-			)(defaultParams)
+			const params = {
+				Request: R.pipe(
+					R.mergeDeepRight(additionalParams),
+					R.when(() => (withUserCredentials === true), R.assoc('UserCredentials', UserCredentials)),
+				)(defaultParams),
+			}
 
 			const requestMethod = getPropertyByString(client, methodString)
 			if (!requestMethod || typeof requestMethod !== 'function') {
 				reject(new Error(`${methodString} is not a valid request method`))
 				return
 			}
-			// console.log(client.describe())
 			requestMethod(params, (soapErrs, response) => {
 				// console.log(client.lastRequest)
 				if (soapErrs) reject(soapErrs)
 				// console.log(params)
-				const result = getPropertyByString(response, resultString)
-
-				// TODO: Force into array of one if configured. (Services, classes, sales..)
+				const result = R.when(
+					parsedResult => (parsedResult && forceArray === true),
+					forceArrayOfOne
+				)(getPropertyByString(response, resultString))
 				resolve(result)
 			})
 		})
@@ -81,4 +83,4 @@ const makeMBORequest = ({
 )
 
 
-module.exports.default = makeMBORequest
+module.exports = makeMBORequest

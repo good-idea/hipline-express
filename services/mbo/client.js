@@ -8,12 +8,14 @@ const getRequiredFields = () => makeMBORequest({
 	service: 'Client',
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetRequiredClientFields',
 	resultString: 'GetRequiredClientFieldsResult.RequiredClientFields',
+	forceArray: true,
 })
 
 const getReferralTypes = () => makeMBORequest({
 	service: 'Client',
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetClientReferralTypes',
 	resultString: 'GetClientReferralTypesResult.ReferralTypes',
+	forceArray: true,
 })
 
 
@@ -81,6 +83,7 @@ const getAccountSchedule = UniqueID => makeMBORequest({
 		ClientID: UniqueID,
 		EndDate: new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * 14)).toISOString(),
 	},
+	forceArray: true,
 })
 
 const getAccountPurchases = UniqueID => makeMBORequest({
@@ -91,6 +94,7 @@ const getAccountPurchases = UniqueID => makeMBORequest({
 		ClientID: UniqueID,
 		StartDate: new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 100)).toISOString(),
 	},
+	forceArray: true,
 })
 
 const getAccountServices = UniqueID => makeMBORequest({
@@ -104,8 +108,38 @@ const getAccountServices = UniqueID => makeMBORequest({
 		],
 	},
 	withUserCredentials: true,
+	forceArray: true,
 })
 
+const getAccountBalances = UniqueID => makeMBORequest({
+	service: 'Client',
+	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetClientAccountBalances',
+	resultString: 'GetClientAccountBalancesResult',
+	forceArray: true,
+	additionalParams: {
+		ClientID: UniqueID,
+	},
+})
+
+const getAccountMemberships = UniqueID => makeMBORequest({
+	service: 'Client',
+	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetActiveClientMemberships',
+	resultString: 'GetActiveClientMembershipsResult.ClientMemberships.ClientMembership',
+	forceArray: true,
+	additionalParams: {
+		ClientID: UniqueID,
+	},
+})
+
+const getAccountContracts = UniqueID => makeMBORequest({
+	service: 'Client',
+	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetClientContracts',
+	resultString: 'GetClientContractsResult.Contracts.ClientContract',
+	forceArray: true,
+	additionalParams: {
+		ClientID: UniqueID,
+	},
+})
 
 module.exports = {
 	getRequiredFields,
@@ -119,4 +153,7 @@ module.exports = {
 	getAccountSchedule,
 	getAccountPurchases,
 	getAccountServices,
+	getAccountBalances,
+	getAccountMemberships,
+	getAccountContracts,
 }

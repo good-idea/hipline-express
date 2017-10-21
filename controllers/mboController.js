@@ -3,7 +3,6 @@ const moment = require('moment-timezone')
 const R = require('ramda')
 const jwt = require('jsonwebtoken')
 
-console.log(Object.keys(mboClient))
 const config = require('../config')
 
 const { prepareFieldLabel } = require('../utils/text')
@@ -220,17 +219,16 @@ const getUserByID = (req, res, next) => {
 
 const getUserAccountData = (req, res, next) => {
 	const { UniqueID } = req.user
-	console.log(req.user)
 	const requests = [
 		mboClient.getAccountSchedule(UniqueID),
 		mboClient.getAccountPurchases(UniqueID),
 		mboClient.getAccountServices(UniqueID),
-		// mboClient.getBalances(UniqueID),
-		// mboClient.getMemberships(UniqueID),
+		mboClient.getAccountBalances(UniqueID),
+		mboClient.getAccountMemberships(UniqueID),
+		mboClient.getAccountContracts(UniqueID),
 	]
 	Promise.all(requests)
-		.then(R.zipObj(['schedule', 'purchases', 'services']))
-		// .then(R.zipObj(['schedule', 'purchases', 'services', 'balances', 'memberships']))
+		.then(R.zipObj(['schedule', 'purchases', 'services', 'balances', 'memberships', 'contracts']))
 		.then(responses => res.json({ responses }))
 		.catch(err => next(err))
 }

@@ -41,7 +41,6 @@ const requireFreshAuth = (req, res, next) => {
 const requireAdmin = (req, res, next) => {
 	const suppliedSecret = req.body.suppliedSecret || req.query.suppliedSecret || req.headers['x-admin-secret']
 	if (suppliedSecret !== adminSecret) return next({ status: 403, message: 'Invalid admin key' })
-	console.log(req.query)
 	req.user = {
 		UniqueID: req.body.userId || req.query.userId
 	}
