@@ -1,8 +1,9 @@
-const mboClient = require('./mboClient')
+const mboClient = require('../services/mbo/mbo')
 const moment = require('moment-timezone')
 const R = require('ramda')
 const jwt = require('jsonwebtoken')
 
+console.log(Object.keys(mboClient))
 const config = require('../config')
 
 const { prepareFieldLabel } = require('../utils/text')
@@ -205,14 +206,34 @@ const checkToken = (req, res, next) => res.json({
 })
 
 
-const getUserData = (req, res, next) => {
-	if (!req.user) return next({ response: { status: 403, message: 'No valid token present' } })
-	return res.status(200).json({
-		success: true,
-	})
-
+const getCurrentUserData = (req, res, next) => {
+	mboClient.getUserByID(req.user.UniqueID).then((userData) => {
+		return res.json({ user: getUserInfo(userData) })
+	}).catch(err => next(err))
 }
 
+const getUserByID = (req, res, next) => {
+	mboClient.getUserByID(req.query.userid).then((userData) => {
+		return res.json({ user: getUserInfo(userData) })
+	}).catch(err => next(err))
+}
+
+const getUserAccountData = (req, res, next) => {
+	const { UniqueID } = req.user
+	console.log(req.user)
+	const requests = [
+		mboClient.getAccountSchedule(UniqueID),
+		mboClient.getAccountPurchases(UniqueID),
+		mboClient.getAccountServices(UniqueID),
+		// mboClient.getBalances(UniqueID),
+		// mboClient.getMemberships(UniqueID),
+	]
+	Promise.all(requests)
+		.then(R.zipObj(['schedule', 'purchases', 'services']))
+		// .then(R.zipObj(['schedule', 'purchases', 'services', 'balances', 'memberships']))
+		.then(responses => res.json({ responses }))
+		.catch(err => next(err))
+}
 
 /**
  * Get Classes
@@ -268,9 +289,11 @@ module.exports = {
 	getClasses,
 	readMBO,
 	loginUser,
-	getUserData,
+	getCurrentUserData,
 	registerUser,
 	getRegistrationFields,
 	checkToken,
 	forgotPassword,
+	getUserAccountData,
+	getUserByID,
 }

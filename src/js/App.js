@@ -9,16 +9,15 @@ import Choreographers from './sections/Choreographers'
 import Classes from './sections/Classes'
 import InfoPage from './sections/InfoPage'
 import Schedule from './sections/Schedule/Schedule'
+import Dashboard from './sections/Dashboard/Dashboard'
 
-import { sortMBOFields, attemptGUIDLogin } from './utils/mbo'
+import { sortMBOFields } from './utils/mbo'
 
 class App extends React.Component {
 	constructor(props) {
 		super(props)
 		this.setDropdown = this.setDropdown.bind(this)
 		this.state = {
-			loginOpen: false,
-			registerOpen: false,
 			sections: {},
 			user: undefined,
 		}
@@ -30,7 +29,7 @@ class App extends React.Component {
 		const fetchContent = axios.get('/api/content/initial')
 		const fetchClasses = axios.get('/api/mbo/classes')
 		const fetchRegistrationFields = axios.get('/api/mbo/registrationFields')
-		const checkToken = axios.get('/api/mbo/checktoken', {
+		const checkToken = axios.get('/api/mbo/user', {
 			headers: { 'x-access-token': Cookies.get('jwt') || false },
 		})
 		axios.all([fetchContent, fetchClasses, fetchRegistrationFields, checkToken])
@@ -54,9 +53,12 @@ class App extends React.Component {
 	}
 
 	loginUser = ({ user, token }) => {
-		console.log(user, token)
 		Cookies.set('jwt', token)
 		if (user === false) this.logoutUser()
+		this.setState({ user })
+	}
+
+	setUserData = (user) => {
 		this.setState({ user })
 	}
 
@@ -93,6 +95,17 @@ class App extends React.Component {
 						exact
 						path="/about"
 						render={() => <InfoPage {...this.state.sections.about} />}
+					/>
+					<Route
+						path="/dashboard"
+						render={(routeProps => (
+							<Dashboard
+								{...routeProps}
+								user={this.state.user}
+								setUserData={this.setUserData}
+								setDropdown={this.setDropdown}
+							/>
+						))}
 					/>
 					<Route
 						exact

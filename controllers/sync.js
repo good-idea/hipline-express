@@ -2,7 +2,7 @@ const axios = require('axios')
 const Qs = require('qs')
 const R = require('ramda')
 const { cms } = require('../config')
-const mboClient = require('./mboClient')
+const mboClient = require('../services/mbo/mbo')
 const { HTMLToMarkdown } = require('../utils/data')
 
 const apiRoot = `http://${cms.host}:${cms.port}/api`

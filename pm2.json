@@ -1,16 +1,17 @@
 {
-  apps : [{
-    name        : "hipline",
-    script      : "./server.js",
-    watch       : true,
-    ignore_watch: ["node_modules", ".git", "html/.git", "html/node_modules"],
-    watch_options: {
-        usePolling: true,
+  "apps" : [{
+    "name" : "hipline",
+    "script" : "./server.js",
+		"node_args": "--harmony",
+    "watch" : true,
+    "ignore_watch": ["node_modules", ".git", "html/.git", "html/node_modules"],
+    "watch_options": {
+      "usePolling": true,
     },
-    env: {
+    "env": {
       "NODE_ENV": "production",
     },
-    env_production : {
+    "env_production" : {
        "NODE_ENV": "production"
     }
   }]

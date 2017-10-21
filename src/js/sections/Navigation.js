@@ -40,7 +40,9 @@ class Navigation extends React.Component {
 		if (this.props.user) {
 			return (
 				<div className="nav__group">
-					<h3 className="nav__item nav__item--username">Hi, {this.props.user.FirstName}!</h3>
+					<h3 className="nav__item nav__item--username">
+						<Link to="/dashboard">Hi, {this.props.user.FirstName}!</Link>
+					</h3>
 					<h3 className="nav__item nav__item--secondary"><button onClick={this.logoutUser}>Log Out</button></h3>
 				</div>
 			)

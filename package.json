@@ -12,7 +12,7 @@
     "build:js": "webpack -p --progress --colors",
     "build:css": "./node_modules/.bin/postcss src/css/*.css --dir public/css/ -c postcss.config.js",
     "livereload": "livereload 'public/css'",
-    "serve": "nodemon server.js --ignore public/ --ignore src/",
+    "serve": "nodemon --harmony server.js --ignore public/ --ignore src/",
 		"precommit": "echo 'Husky needs to be set up...'"
   },
   "engines": {
