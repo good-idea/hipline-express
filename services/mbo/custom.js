@@ -51,4 +51,5 @@ const getActiveStaff = function getActiveStaff() {
 
 module.exports = {
 	getClassDescriptionsByProgram,
+	getActiveStaff,
 }

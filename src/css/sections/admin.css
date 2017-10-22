@@ -1,0 +1,6 @@
+
+.spoofUser {
+	position: absolute;
+	right: 2rem;
+	top: calc($nav-height + 2rem);
+}

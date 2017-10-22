@@ -95,10 +95,10 @@ class InfoPage extends React.Component {
 		return (
 			<ScrollableContainer>
 				<section className="info">
-					<aside className="scrollable__nav">
+					<aside className="aside-nav">
 						{this.props.children.map(c => (
 							<ScrollTrigger
-								className="scrollable__nav-item"
+								className="aside-nav-item"
 								key={`info-scrollableNav-${this.props.slug}-${c.slug}`}
 								slug={`info-${this.props.slug}-${c.slug}`}
 							>

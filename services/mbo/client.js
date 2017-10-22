@@ -8,14 +8,12 @@ const getRequiredFields = () => makeMBORequest({
 	service: 'Client',
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetRequiredClientFields',
 	resultString: 'GetRequiredClientFieldsResult.RequiredClientFields',
-	forceArray: true,
 })
 
 const getReferralTypes = () => makeMBORequest({
 	service: 'Client',
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetClientReferralTypes',
 	resultString: 'GetClientReferralTypesResult.ReferralTypes',
-	forceArray: true,
 })
 
 
@@ -30,7 +28,6 @@ const loginUser = ({ Username, Password }) => makeMBORequest({
 	additionalParams: { Username, Password },
 })
 
-
 const registerUser = clientInfo => makeMBORequest({
 	service: 'Client',
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.AddOrUpdateClients',
@@ -44,7 +41,6 @@ const registerUser = clientInfo => makeMBORequest({
 		],
 	},
 })
-
 
 const forgotPassword = ({ Username, FirstName, LastName }) => makeMBORequest({
 	service: 'Client',
@@ -62,8 +58,7 @@ const forgotPassword = ({ Username, FirstName, LastName }) => makeMBORequest({
  * User Account/Info requests
  */
 
-
-const getUserByID = UniqueID => makeMBORequest({
+const getUserByID = ({ UniqueID }) => makeMBORequest({
 	service: 'Client',
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetClients',
 	resultString: 'GetClientsResult.Clients.Client',
@@ -74,8 +69,7 @@ const getUserByID = UniqueID => makeMBORequest({
 	},
 })
 
-
-const getAccountSchedule = UniqueID => makeMBORequest({
+const getAccountSchedule = ({ UniqueID }) => makeMBORequest({
 	service: 'Client',
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetClientSchedule',
 	resultString: 'GetClientScheduleResult.Visits.Visit',
@@ -86,7 +80,7 @@ const getAccountSchedule = UniqueID => makeMBORequest({
 	forceArray: true,
 })
 
-const getAccountPurchases = UniqueID => makeMBORequest({
+const getAccountPurchases = ({ UniqueID }) => makeMBORequest({
 	service: 'Client',
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetClientPurchases',
 	resultString: 'GetClientPurchasesResult.Purchases.SaleItem',
@@ -97,7 +91,7 @@ const getAccountPurchases = UniqueID => makeMBORequest({
 	forceArray: true,
 })
 
-const getAccountServices = UniqueID => makeMBORequest({
+const getAccountServices = ({ UniqueID }) => makeMBORequest({
 	service: 'Client',
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetClientServices',
 	resultString: 'GetClientServicesResult.ClientServices.ClientService',
@@ -111,7 +105,7 @@ const getAccountServices = UniqueID => makeMBORequest({
 	forceArray: true,
 })
 
-const getAccountBalances = UniqueID => makeMBORequest({
+const getAccountBalances = ({ UniqueID }) => makeMBORequest({
 	service: 'Client',
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetClientAccountBalances',
 	resultString: 'GetClientAccountBalancesResult',
@@ -121,7 +115,7 @@ const getAccountBalances = UniqueID => makeMBORequest({
 	},
 })
 
-const getAccountMemberships = UniqueID => makeMBORequest({
+const getAccountMemberships = ({ UniqueID }) => makeMBORequest({
 	service: 'Client',
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetActiveClientMemberships',
 	resultString: 'GetActiveClientMembershipsResult.ClientMemberships.ClientMembership',
@@ -131,7 +125,7 @@ const getAccountMemberships = UniqueID => makeMBORequest({
 	},
 })
 
-const getAccountContracts = UniqueID => makeMBORequest({
+const getAccountContracts = ({ UniqueID }) => makeMBORequest({
 	service: 'Client',
 	methodString: 'Client_x0020_Service.Client_x0020_ServiceSoap.GetClientContracts',
 	resultString: 'GetClientContractsResult.Contracts.ClientContract',

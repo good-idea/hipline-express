@@ -206,13 +206,13 @@ const checkToken = (req, res, next) => res.json({
 
 
 const getCurrentUserData = (req, res, next) => {
-	mboClient.getUserByID(req.user.UniqueID).then((userData) => {
+	mboClient.getUserByID({ UniqueID: req.user.UniqueID }).then((userData) => {
 		return res.json({ user: getUserInfo(userData) })
 	}).catch(err => next(err))
 }
 
 const getUserByID = (req, res, next) => {
-	mboClient.getUserByID(req.query.userid).then((userData) => {
+	mboClient.getUserByID({ UniqueID: req.query.userid }).then((userData) => {
 		return res.json({ user: getUserInfo(userData) })
 	}).catch(err => next(err))
 }
@@ -220,16 +220,24 @@ const getUserByID = (req, res, next) => {
 const getUserAccountData = (req, res, next) => {
 	const { UniqueID } = req.user
 	const requests = [
-		mboClient.getAccountSchedule(UniqueID),
-		mboClient.getAccountPurchases(UniqueID),
-		mboClient.getAccountServices(UniqueID),
-		mboClient.getAccountBalances(UniqueID),
-		mboClient.getAccountMemberships(UniqueID),
-		mboClient.getAccountContracts(UniqueID),
+		mboClient.getUserByID({ UniqueID }),
+		mboClient.getAccountSchedule({ UniqueID }),
+		mboClient.getAccountPurchases({ UniqueID }),
+		mboClient.getAccountServices({ UniqueID }),
+		mboClient.getAccountBalances({ UniqueID }),
+		mboClient.getAccountMemberships({ UniqueID }),
+		mboClient.getAccountContracts({ UniqueID }),
 	]
 	Promise.all(requests)
-		.then(R.zipObj(['schedule', 'purchases', 'services', 'balances', 'memberships', 'contracts']))
-		.then(responses => res.json({ responses }))
+		.then(R.zipObj(['user', 'schedule', 'purchases', 'services', 'balances', 'memberships', 'contracts']))
+		.then((responses) => {
+			const user = R.mergeAll([
+				req.user,
+				R.prop('user', responses),
+				R.dissoc('user', responses)
+			])
+			res.json({ user })
+		})
 		.catch(err => next(err))
 }
 
@@ -239,6 +247,7 @@ const getUserAccountData = (req, res, next) => {
 const getClasses = (req, res, next) => {
 	const week = req.query.week || 0
 	const length = req.query.length || 1
+	console.log('get classes')
 	mboClient.getClasses(week, length).then((classes) => {
 		if (req.query.raw === 'true') return res.json(classes)
 		const classResponse = []
@@ -248,7 +257,9 @@ const getClasses = (req, res, next) => {
 			const newClass = {
 				id: classSource.ClassScheduleID,
 				siteID: classSource.Location.SiteID,
+				mboid: classSource.ClassDescription.ID,
 				location: classSource.Location.Name,
+				programid: classSource.ClassDescription.Program.ID,
 				title: classSource.ClassDescription.Name,
 				teacher: classSource.Staff.FirstName,
 				isCanceled: classSource.IsCanceled,
@@ -263,17 +274,17 @@ const getClasses = (req, res, next) => {
 			}
 			classResponse.push(newClass)
 		}
-		const schedule = R.sort(
-			R.ascend(R.prop('startTime')),
-		)(classResponse)
+		const schedule = R.sort(R.ascend(R.prop('startTime')))(classResponse)
 		return res.json(schedule)
 	}).catch(err => next(err))
 }
 
 const readMBO = (req, res, next) => {
-	const method = req.params.method
+	const { method } = req.params
+	const args = req.query
+	console.log(method, args)
 	if (mboClient[method]) {
-		mboClient[method]().then(response => res.json(response)).catch(err => next(err))
+		mboClient[method](args).then(response => res.json(response)).catch(err => next(err))
 	} else {
 		res.status(400)
 		return res.json({

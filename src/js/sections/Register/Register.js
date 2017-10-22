@@ -52,6 +52,14 @@ class Register extends React.Component {
 	render() {
 		const classNames = ['register', 'dropdown']
 		if (this.props.open) classNames.push('dropdown--open')
+
+		if (!this.props.fieldConfig) {
+			return (
+				<section className={cn(classNames)}>
+					<h4>error?</h4>
+				</section>
+			)
+		}
 		return (
 			<section className={cn(classNames)}>
 				<div className="column sequentialForm">

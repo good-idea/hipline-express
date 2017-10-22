@@ -13,7 +13,6 @@ class Navigation extends React.Component {
 		super(props)
 		this.showLogin = this.showLogin.bind(this)
 		this.showRegister = this.showRegister.bind(this)
-		this.logoutUser = this.logoutUser.bind(this)
 	}
 
 	showLogin() {
@@ -22,10 +21,6 @@ class Navigation extends React.Component {
 
 	showRegister() {
 		this.props.setDropdown('register')
-	}
-
-	logoutUser() {
-		this.props.logoutUser()
 	}
 
 	renderUserMenu() {
@@ -43,7 +38,7 @@ class Navigation extends React.Component {
 					<h3 className="nav__item nav__item--username">
 						<Link to="/dashboard">Hi, {this.props.user.FirstName}!</Link>
 					</h3>
-					<h3 className="nav__item nav__item--secondary"><button onClick={this.logoutUser}>Log Out</button></h3>
+					<h3 className="nav__item nav__item--secondary"><button onClick={this.props.logoutUser}>Log Out</button></h3>
 				</div>
 			)
 		}

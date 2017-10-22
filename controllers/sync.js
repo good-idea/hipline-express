@@ -32,7 +32,7 @@ const syncStaffInfo = () => (
 
 const syncClassPasses = () => (
 	new Promise((resolve, reject) => {
-		mboClient.getPasses().then((passes) => {
+		mboClient.getServices().then((passes) => {
 			axios({
 				method: 'post',
 				url: `${apiRoot}/sync/passes`,
@@ -54,6 +54,7 @@ const syncClassDescriptions = () => (
 					}
 				}
 			}
+			console.log(classTypes)
 			axios({
 				method: 'post',
 				url: `${apiRoot}/sync/classes`,

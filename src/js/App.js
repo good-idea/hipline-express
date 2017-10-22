@@ -1,17 +1,18 @@
 import React from 'react'
 import axios from 'axios'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 import Navigation from './sections/Navigation'
 // import Main from './components/Main'
 import Choreographers from './sections/Choreographers'
-import Classes from './sections/Classes'
+import Classes from './sections/Classes/Classes'
 import InfoPage from './sections/InfoPage'
 import Schedule from './sections/Schedule/Schedule'
 import Dashboard from './sections/Dashboard/Dashboard'
 
 import { sortMBOFields } from './utils/mbo'
+import { parseContent } from './utils/content'
 
 class App extends React.Component {
 	constructor(props) {
@@ -24,22 +25,26 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
-		// const timer = Date.now()
-		// Split the initial content & MBO requests into two: the MBO call may take longer.
-		const fetchContent = axios.get('/api/content/initial')
+		// Split the initial content & MBO requests into two:
+		// the MBO call may take longer, or the API server may be down
+		axios.get('/api/content/initial').then((response) => {
+			const newState = parseContent({ ...this.state, ...response.data})
+			this.setState(newState)
+		})
 		const fetchClasses = axios.get('/api/mbo/classes')
 		const fetchRegistrationFields = axios.get('/api/mbo/registrationFields')
-		const checkToken = axios.get('/api/mbo/user', {
+		const checkToken = axios.get('/api/mbo/checktoken', {
 			headers: { 'x-access-token': Cookies.get('jwt') || false },
 		})
-		axios.all([fetchContent, fetchClasses, fetchRegistrationFields, checkToken])
-			.then(axios.spread((content, classes, registrationFields, tokenResponse) => {
-				this.setState({
-					sections: { ...content.data },
-					schedule: [...classes.data],
-					registrationFields: sortMBOFields(registrationFields.data),
+		axios.all([fetchClasses, fetchRegistrationFields, checkToken])
+			.then(axios.spread((schedule, registrationFields, tokenResponse) => {
+				const newState = parseContent({
+					...this.state,
+					schedule: schedule.data,
+					registrationFields: registrationFields.data,
 					user: tokenResponse.data.user,
-				}, this.attemptLogin)
+				})
+				this.setState(newState)
 			})).catch(err => console.warn(err.response))
 	}
 
@@ -47,9 +52,8 @@ class App extends React.Component {
 		this.setState({ dropdown })
 	}
 
-	logoutUser = () => {
-		Cookies.remove('jwt')
-		this.setState({ user: false })
+	setUserData = (user) => {
+		this.setState({ user })
 	}
 
 	loginUser = ({ user, token }) => {
@@ -58,12 +62,20 @@ class App extends React.Component {
 		this.setState({ user })
 	}
 
-	setUserData = (user) => {
-		this.setState({ user })
+	logoutUser = () => {
+		Cookies.remove('jwt')
+		this.setState({ user: false }, () => {
+			this.props.history.push('/')
+		})
+	}
+
+	buildClass = () => {
+
 	}
 
 	render() {
-		if (!this.state.sections.home) return null
+		if (!this.state.home) return null
+		console.log(this.state)
 		return (
 			<div>
 				<Navigation
@@ -73,28 +85,28 @@ class App extends React.Component {
 					loginUser={this.loginUser}
 					logoutUser={this.logoutUser}
 					registrationFields={this.state.registrationFields}
-					liabilityText={this.state.sections.home.liability}
+					liabilityText={this.state.home.liability}
 				/>
 				<Switch>
 					<Route
 						exact
 						path="/"
-						render={match => <Choreographers match={match} choreographers={this.state.sections.choreographers.children} />}
+						render={match => <Choreographers match={match} choreographers={this.state.choreographers} />}
 					/>
 					<Route
 						exact
 						path="/classes"
-						render={match => <Classes match={match} content={this.state.sections.classes} />}
+						render={match => <Classes match={match} passes={this.state.passes} classtypes={this.state.classtypes} />}
 					/>
 					<Route
 						exact
 						path="/community"
-						render={() => <InfoPage {...this.state.sections.community} />}
+						render={() => <InfoPage {...this.state.community} />}
 					/>
 					<Route
 						exact
 						path="/about"
-						render={() => <InfoPage {...this.state.sections.about} />}
+						render={() => <InfoPage {...this.state.about} />}
 					/>
 					<Route
 						path="/dashboard"
@@ -112,7 +124,7 @@ class App extends React.Component {
 						path="/schedule"
 						render={() => (
 							<Schedule
-								choreographers={this.state.sections.choreographers.children}
+								choreographers={this.state.choreographers.children}
 								schedule={this.state.schedule}
 							/>
 						)}
@@ -123,4 +135,4 @@ class App extends React.Component {
 	}
 }
 
-export default App
+export default withRouter(App)

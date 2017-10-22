@@ -19,15 +19,17 @@ const errorHandlersMiddleware = [
 	* 500 errors middleware.
 	*
 	* NOTE: You must provide specify all 4 parameters on this callback function
-	* even if they aren't used, otherwise it won't be used.
+	* even if they aren't used, otherwise it won't be called.
 	*/
 	function unexpectedErrorMiddleware(err, req, res, next) {
 		if (err) {
 			// console.log(err)
 			console.log(err)
 		}
-		res.status(R.path(['response', 'status'], err) || R.prop('status', err) || 500)
-			.send({ message: R.path(['response', 'message'], err) || R.prop('message', err) || 'Sorry, an unexpected error occurred.' })
+		const status = R.path(['response', 'status'], err) || R.prop('status', err) || 500
+		const message = R.path(['response', 'message'], err) || R.prop('message', err) || 'Sorry, an unexpected error occurred.'
+
+		return res.status(status).send({ message })
 	},
 ]
 

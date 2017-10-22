@@ -27,11 +27,12 @@ router.post('/api/mbo/register', mboController.registerUser)
 router.post('/api/mbo/forgot', mboController.forgotPassword)
 
 
-router.get('/api/mbo/checktoken', mboController.checkToken)
 
 /**
  * User Routes
  */
+
+router.get('/api/mbo/checktoken', auth.withUser, mboController.checkToken)
 
 const userRoutes = express.Router()
 

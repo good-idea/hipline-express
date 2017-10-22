@@ -63,6 +63,14 @@ class Login extends React.Component {
 		const classNames = ['login', 'dropdown']
 		if (this.props.open) classNames.push('dropdown--open')
 		if (this.state.showForgot) classNames.push('login--forgot')
+
+		if (!this.props.fieldConfig) {
+			return (
+				<section className={cn(classNames)}>
+					<h4>error?</h4>
+				</section>
+			)
+		}
 		const loginFields = R.pick(['Username', 'Password'])(this.props.fieldConfig)
 		const forgotFields = R.pick(['Username', 'FirstName', 'LastName'])(this.props.fieldConfig)
 

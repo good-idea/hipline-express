@@ -8,7 +8,7 @@ const getServices = function getServices() {
 	return makeMBORequest({
 		service: 'Sale',
 		methodString: 'Sale_x0020_Service.Sale_x0020_ServiceSoap.GetServices',
-		resultString: 'GetServicesResult',
+		resultString: 'GetServicesResult.Services.Service',
 	})
 }
 
@@ -16,7 +16,7 @@ const getPackages = function getPackages() {
 	return makeMBORequest({
 		service: 'Sale',
 		methodString: 'Sale_x0020_Service.Sale_x0020_ServiceSoap.GetPackages',
-		resultString: 'GetPackagesResult',
+		resultString: 'GetPackagesResult.Packages.Package',
 	})
 }
 
@@ -24,7 +24,7 @@ const getProducts = function getProducts() {
 	return makeMBORequest({
 		service: 'Sale',
 		methodString: 'Sale_x0020_Service.Sale_x0020_ServiceSoap.GetProducts',
-		resultString: 'GetProductsResult',
+		resultString: 'GetProductsResult.Products',
 	})
 }
 

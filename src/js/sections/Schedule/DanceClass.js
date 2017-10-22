@@ -53,6 +53,7 @@ class DanceClass extends React.Component {
 
 DanceClass.propTypes = {
 	title: PropTypes.string.isRequired,
+	teacher: PropTypes.string.isRequired,
 }
 
 DanceClass.defaultProps = {

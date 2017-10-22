@@ -3,6 +3,11 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
+import DashboardNavButton from './DashboardNavButton'
+import Schedule from './Schedule'
+
+
+import SpoofUser from '../SpoofUser'
 /**
  * Dashboard
  */
@@ -10,39 +15,57 @@ import Cookies from 'js-cookie'
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			view: 'schedule'
+		}
 	}
 
 	componentDidMount() {
-		if (this.props.user) this.loadUserData()
+		if (this.props.user === false) {
+			this.props.setDropdown('login')
+		} else if (this.props.user) {
+			this.loadUserData()
+		}
 	}
 
-	componentWillReceiveProps() {
-		if (!this.props.user) this.loadUserData()
+	componentWillReceiveProps(nextProps) {
+		if (!this.props.user && nextProps.user) this.loadUserData()
 	}
 
 	loadUserData = () => {
 		axios.get('/api/mbo/user/account', {
 			headers: { 'x-access-token': Cookies.get('jwt') || false },
 		}).then((response) => {
-			console.log(response)
-			/// YO!!!!!
-			/// Some MBO methods will return an ARRAY if there are multiple results,
-			/// but an OBJECT if there are one.
+			this.props.setUserData(response.data.user)
 		}).catch((err) => console.log(err, err.response))
 	}
 
+	changeNavSection = (id) => {
+		this.setState({ view: id })
+	}
+
+	renderActiveSection() {
+		switch (this.state.view) {
+		case 'schedule':
+			return <Schedule classes={this.props.user.schedule} />
+		default:
+			return null
+		}
+	}
+
 	render() {
-		console.log(this.props.user)
 		if (!this.props.user) {
-			this.props.setDropdown('login')
 			return null
 		}
 		return (
 			<section className="dashboard">
-				<aside className="scrollable__nav">
-					<h3>nav item</h3>
+				<SpoofUser setUserData={this.props.setUserData} />
+				<aside className="aside-nav">
+					<DashboardNavButton label="My Classes" id="schedule" changeNavSection={this.changeNavSection} />
+					<DashboardNavButton label="Buy Classes" id="purchase" changeNavSection={this.changeNavSection} />
+					<DashboardNavButton label="My Account" id="account" changeNavSection={this.changeNavSection} />
 				</aside>
-
+				{this.renderActiveSection()}
 			</section>
 		)
 	}

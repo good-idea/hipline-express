@@ -84,7 +84,7 @@ figcaption {
 
 }
 
-.scrollable__nav {
+.aside-nav {
 	position: sticky;
 	top: calc($nav-height + 3rem);
 	width: $aside-width;
@@ -95,9 +95,20 @@ figcaption {
 	align-items: flex-end;
 }
 
-.scrollable__nav-item {
+.aside-nav-item {
 	margin: .5em;
 	text-align: right;
+}
+
+.aside-nav-header {
+	font-style: italic;
+	margin-right: 1em;
+	border-bottom: 1px solid currentColor;
+	color: $grey3;
+}
+
+.aside-nav-item + .aside-nav-header {
+	margin-top: 2rem;
 }
 
 
