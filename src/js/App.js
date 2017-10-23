@@ -75,7 +75,6 @@ class App extends React.Component {
 
 	render() {
 		if (!this.state.home) return null
-		console.log(this.state)
 		return (
 			<div>
 				<Navigation

@@ -14,8 +14,6 @@ import ClassDescription from './ClassDescription'
 class Classes extends React.Component {
 	constructor(props) {
 		super(props)
-		console.log(props)
-
 	}
 
 	renderPassSections() {

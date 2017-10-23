@@ -96,6 +96,7 @@ export const attachChoreographersToClassTypes = (content) => {
 			R.filter(R.propEq('mboid', cl.mboid)),
 			R.pluck('choreographer'),
 			R.uniq,
+			R.filter(a => a !== undefined)
 		)(content.schedule), cl), R.prop('children', type)), type)
 	), R.path(['classtypes', 'children'], content))
 	return {
@@ -105,7 +106,6 @@ export const attachChoreographersToClassTypes = (content) => {
 }
 
 export const attachClassTypesToChoreographers = (content) => {
-	console.log(content)
 	const choreographers = R.map(choreographer => (
 		R.assoc('classtypes', R.pipe(
 			// Go through the schedule and get the MBO ID of all classes that they teach
