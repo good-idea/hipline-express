@@ -247,7 +247,6 @@ const getUserAccountData = (req, res, next) => {
 const getClasses = (req, res, next) => {
 	const week = req.query.week || 0
 	const length = req.query.length || 1
-	console.log('get classes')
 	mboClient.getClasses(week, length).then((classes) => {
 		if (req.query.raw === 'true') return res.json(classes)
 		const classResponse = []
@@ -282,7 +281,6 @@ const getClasses = (req, res, next) => {
 const readMBO = (req, res, next) => {
 	const { method } = req.params
 	const args = req.query
-	console.log(method, args)
 	if (mboClient[method]) {
 		mboClient[method](args).then(response => res.json(response)).catch(err => next(err))
 	} else {

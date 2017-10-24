@@ -8,7 +8,6 @@ const { jwtSecret, adminSecret } = config;
  */
 
 
-
 /**
  * Middleware
  */
@@ -24,7 +23,6 @@ const withUser = (req, res, next) => {
 		jwt.verify(token, jwtSecret, (err, decoded) => {
 			// decode the user info from the token, and attach it to the request
 			req.user = (err) ? false : decoded.user
-			console.log(req.user)
 		})
 	}
 	next()
@@ -45,7 +43,6 @@ const requireAdmin = (req, res, next) => {
 		const suppliedSecret = req.body.suppliedSecret || req.query.suppliedSecret || req.headers['x-admin-secret']
 		if (suppliedSecret !== adminSecret) return next({ status: 403, message: 'Invalid admin key' })
 	}
-	console.log(req.query)
 	req.user = {
 		UniqueID: req.body.userId || req.query.userId
 	}
