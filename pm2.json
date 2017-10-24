@@ -10,9 +10,11 @@
     },
     "env": {
       "NODE_ENV": "production",
+      "TZ": "America/Los_Angeles"
     },
     "env_production" : {
-       "NODE_ENV": "production"
+       "NODE_ENV": "production",
+       "TZ": "America/Los_Angeles"
     }
   }]
 }
