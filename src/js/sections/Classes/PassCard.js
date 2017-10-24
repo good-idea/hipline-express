@@ -7,7 +7,6 @@ import { makeParagraph } from '../../utils/text'
 
 
 const PassCard = (props) => {
-	console.log(props)
 	return (
 		<div className="card card--pass">
 			<div className="card__header">

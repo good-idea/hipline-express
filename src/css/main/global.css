@@ -1,6 +1,19 @@
 
 body {
-	margin-top: calc($nav-height + 3rem);
+	padding-top: calc($nav-height);
+}
+
+html,
+body,
+#root,
+#app {
+	height: 100%;
+	overflow: hidden;
+}
+
+section {
+	height: 100%;
+	overflow-y: scroll;
 }
 
 .column {
@@ -30,7 +43,7 @@ body {
 .splash {
 	@mixin flex-center;
 	text-align: center;
-	height: calc(100vh - $nav-height - 3rem);
+	height: calc(100vh - $nav-height);
 	min-height: 40rem;
 	text-transform: uppercase;
 }
@@ -87,7 +100,8 @@ aside + main {
 
 .aside-nav {
 	position: sticky;
-	top: calc($nav-height + 3rem);
+	top: 6rem;
+	padding-left: 1rem;
 	width: $aside-width;
 	float: left;
 	border-right: 1px solid currentColor;

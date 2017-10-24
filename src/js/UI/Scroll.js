@@ -31,6 +31,7 @@ class ScrollableContainer extends React.Component {
 	}
 
 	registerContainerRef(element) {
+		console.log(element)
 		this.container = this.props.containerElement || element;
 	}
 
@@ -44,6 +45,7 @@ class ScrollableContainer extends React.Component {
 
 	scrollToElement(slug) {
 		const node = findDOMNode(this.elements[slug]);
+		console.log(this.container)
 		const config = {};
 		if (this.container)	config.container = this.container;
 		if (this.props.duration) config.duration = this.props.duration;
@@ -53,7 +55,17 @@ class ScrollableContainer extends React.Component {
 	}
 
 	render() {
-		return React.Children.only(this.props.children, c => React.cloneElement(c));
+		return (
+			React.cloneElement(this.props.children, {
+				ref: this.registerContainerRef,
+			})
+		)
+		// return React.Children.only(
+		// 	this.props.children,
+		// 	c => React.cloneElement(c, {
+		// 		ref: (e) => { console.log(e); },
+		// 	}),
+		// )
 	}
 }
 
@@ -93,7 +105,7 @@ class ScrollableChild extends React.Component {
 	render() {
 		return (
 			React.cloneElement(this.props.children, {
-				ref: (el) => { this.element = el },
+				ref: (el) => { this.element = el; console.log(el) },
 			})
 		)
 	}

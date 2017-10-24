@@ -29,6 +29,7 @@ const isEqual = (obj1, obj2) => {
  */
 
 const getOffset = (elem) => { // crossbrowser version
+	console.log(elem)
 	const box = elem.getBoundingClientRect();
 
 	const body = document.body;
@@ -52,6 +53,10 @@ const getOffset = (elem) => { // crossbrowser version
  */
 
 const scrollTo = (destination, overrides) => {
+	if (!destination) {
+		console.warn('scollTo called with no destination')
+		return
+	}
 	const defaults = {
 		container: document.body,
 		duration: 600,
@@ -68,7 +73,6 @@ const scrollTo = (destination, overrides) => {
 	const targetTop = getOffset(destination).top;
 	const destY = targetTop - containerTop;
 	const startTime = Date.now();
-	console.log(destination, config, destY);
 
 	if (config.duration === 0) {
 		config.container.scrollTop = destY;

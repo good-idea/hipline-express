@@ -23,7 +23,6 @@ class Classes extends React.Component {
 	render() {
 		if (!this.props.passes) return null
 		const visibleClasstypes = this.props.classtypes.children.filter(c => c.isVisible === true)
-		// console.log(this.props.passes)
 		return (
 			<ScrollableContainer>
 				<section className="classes with-aside">
@@ -53,7 +52,7 @@ class Classes extends React.Component {
 					<main>
 						<div className="column--wide">
 							{visibleClasstypes.map(c => (
-								<ScrollableChild key={`trigger-classSection-${c.slug}`} slug={`passSection-${c.slug}`}>
+								<ScrollableChild key={`trigger-classSection-${c.slug}`} slug={`classSection-${c.slug}`}>
 									<ClassSection {...c} />
 								</ScrollableChild>
 							))}

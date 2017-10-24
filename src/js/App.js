@@ -75,7 +75,7 @@ class App extends React.Component {
 	render() {
 		if (!this.state.home) return null
 		return (
-			<div>
+			<div id="app">
 				<Navigation
 					user={this.state.user}
 					setDropdown={this.setDropdown}

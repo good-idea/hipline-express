@@ -14,7 +14,6 @@ import { markdownToJSX } from '../utils/text'
 class InfoNavItem extends React.Component {
 	constructor(props) {
 		super(props)
-		console.log('!')
 	}
 
 	render() {
@@ -91,7 +90,6 @@ class InfoPage extends React.Component {
 	}
 
 	render() {
-		console.log(this.props)
 		return (
 			<ScrollableContainer>
 				<section className="info">
