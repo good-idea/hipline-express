@@ -16,7 +16,7 @@ const Choreographers = ({ choreographers }) => {
 	return (
 		<ScrollableContainer>
 			<section className="choreographers">
-				<div className="choreographers__menu column column--wide">
+				<div className="choreographers__menu column column--medium">
 					{choreographers.map(c => (
 						<div key={`choreographerThumb-${c.slug}`} className="choreographer__avatar">
 							<ScrollTrigger slug={`profile-${c.slug}`}>
