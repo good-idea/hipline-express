@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
+import { toClass } from 'recompose'
 
 import { scrollTo, cn } from '../utils/helpers';
 
@@ -92,9 +93,9 @@ class ScrollableChild extends React.Component {
 	render() {
 		return (
 			React.cloneElement(this.props.children, {
-				ref: (el) => { this.element = el; },
+				ref: (el) => { this.element = el },
 			})
-		);
+		)
 	}
 }
 

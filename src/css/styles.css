@@ -6,7 +6,7 @@
 @import 'main/ui';
 @import 'main/global';
 
-@import 'components/avatar';
+@import 'main/components';
 
 @import 'sections/nav';
 @import 'sections/login';

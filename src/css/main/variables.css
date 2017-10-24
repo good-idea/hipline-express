@@ -4,7 +4,7 @@ $spacing-small: 1rem;
 $spacing-medium: 2rem;
 
 $purple: rgba(146, 141, 255, 1);
-/*$purple-50: rgba(146, 141, 255, 0.5);*/
+$purple-50: rgba(146, 141, 255, 0.5);
 $purple-light: #e9e8ff;
 $seafoam: #00FF81;
 $seafoam-light: #c3ffe2;

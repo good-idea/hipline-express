@@ -51,11 +51,11 @@ class CoverVideo extends React.Component {
 	}
 
 	render() {
-		const classNames = ['cover'];
-		if (this.state.playing) classNames.push('cover--playing');
+		const classNames = ['avatar'];
+		if (this.state.playing) classNames.push('avatar--playing');
 		return (
-			<div ref={(element) => { this.container = element; }} className={cn(classNames)}>
-				<div className="cover__padding" style={{ paddingBottom: `${this.props.ratio * 100}%` }} />
+			<div ref={(element) => { this.container = element }} className={cn(classNames, this.props.classNames)}>
+				<div className="avatar__padding" style={{ paddingBottom: `${this.props.ratio * 100}%` }} />
 				{this.renderVideo()}
 				<ResponsiveImage {...this.props.image} />
 			</div>
@@ -64,6 +64,10 @@ class CoverVideo extends React.Component {
 }
 
 CoverVideo.propTypes = {
+	classNames: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.arrayOf(PropTypes.string)
+	]),
 	ratio: PropTypes.number,
 	autoPlay: PropTypes.bool,
 	playOnHover: PropTypes.bool,
@@ -82,6 +86,7 @@ CoverVideo.propTypes = {
 };
 
 CoverVideo.defaultProps = {
+	classNames: [],
 	autoPlay: false,
 	ratio: 0.56,
 	videoSrc: false,

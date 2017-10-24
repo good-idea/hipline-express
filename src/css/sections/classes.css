@@ -1,17 +1,4 @@
-.card--class {
-	@extend .card;
-	border: none;
-	width: 35rem;
 
-	.card__title {
-		background: initial;
-		padding: 0;
-	}
-
-	.responsiveImage img {
-		object-fit: cover;
-	}
-}
 
 .classTypes {
 	display: flex;
@@ -65,5 +52,77 @@
 
 	li {
 		width: 50%;
+	}
+}
+
+.card--class {
+	.card__body {
+		flex-grow: initial;
+		min-height: 12rem;
+	}
+	.card__footer {
+		flex-grow: initial;
+		flex-basis: initial;
+	}
+
+	background-color: $pink-extra-light;
+}
+
+.card--class__choreographers {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+
+	h3 {
+		flex-basis: 100%;
+		text-transform: uppercase;
+	}
+
+	.avatar {
+		width: 7rem;
+		height: 7rem;
+		color: $pink;
+		pointer-events: none;
+	}
+}
+
+.card--class__avatarButtons {
+	margin-top: 1rem;
+	flex-grow: 1;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	flex-basis: calc(100% - 9rem);
+
+	button {
+		text-align: left;
+		margin-bottom: 0.5rem;
+	}
+}
+
+.card--pass {
+	background-color: $purple-light;
+
+	.card__cover {
+		position: static;
+		padding-bottom: initial;
+
+		figure {
+			position: relative;
+			margin: 0 auto;
+			width: 10rem;
+			height: 10rem;
+		}
+
+	 	img {
+			object-fit: contain;
+		}
+	}
+	.card__body,
+	.card__footer {
+		text-align: center;
+	}
+
+	.card__footer {
+		padding-bottom: 2rem;
 	}
 }

@@ -7,15 +7,12 @@ body {
 	width: calc(100% - 4rem);
 	max-width: 70rem;
 	margin: 0 auto;
-
-	&.with-aside {
-		width: calc(100% - $aside-width - $aside-width - 4rem);
-	}
 }
+
 
 .column--wide {
 	@extend .column;
-	max-width: 110rem;
+	max-width: 120rem;
 }
 
 .column--narrow {
@@ -84,6 +81,10 @@ figcaption {
 
 }
 
+aside + main {
+	padding-left: calc($aside-width + 2rem);
+}
+
 .aside-nav {
 	position: sticky;
 	top: calc($nav-height + 3rem);
@@ -109,16 +110,4 @@ figcaption {
 
 .aside-nav-item + .aside-nav-header {
 	margin-top: 2rem;
-}
-
-
-.avatar {
-	width: 7rem;
-	height: 7rem;
-	margin: 0 auto;
-
-	img {
-		border-radius: 50%;
-		object-fit: cover;
-	}
 }

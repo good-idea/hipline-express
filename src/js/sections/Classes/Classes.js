@@ -23,11 +23,10 @@ class Classes extends React.Component {
 	render() {
 		if (!this.props.passes) return null
 		const visibleClasstypes = this.props.classtypes.children.filter(c => c.isVisible === true)
-
-		// const classTypes = this.props.content.children.find(c => c.slug === 'types')
+		// console.log(this.props.passes)
 		return (
 			<ScrollableContainer>
-				<section className="classes">
+				<section className="classes with-aside">
 					<div className="splash">
 						<div className="column column--narrow">
 							<h2>{this.props.classtypes.intro}</h2>
@@ -38,7 +37,7 @@ class Classes extends React.Component {
 							<h3>Class Types</h3>
 						</div>
 						{visibleClasstypes.map(c => (
-							<ScrollTrigger className="aside-nav-item" key={`trigger-passSection-${c.slug}`} slug={`passSection-${c.slug}`}>
+							<ScrollTrigger className="aside-nav-item" key={`trigger-classSection-${c.slug}`} slug={`classSection-${c.slug}`}>
 								<h3>{c.title}</h3>
 							</ScrollTrigger>
 						))}
@@ -51,21 +50,21 @@ class Classes extends React.Component {
 							</ScrollTrigger>
 						))}
 					</aside>
-					<div className="column with-aside column--wide">
-						{visibleClasstypes.map(c => (
-							<ScrollTrigger key={`trigger-passSection-${c.slug}`} slug={`passSection-${c.slug}`}>
-								<ClassSection {...c} />
-							</ScrollTrigger>
-						))}
-						{/* <ScrollableChild slug="classes-classTypes">
-							<div className="info__section">
-								<div className="cards">
-									{this.props.classes.children.map(c => <ClassDescription key={`classType-${c.slug}`} classType={c} />)}
-								</div>
-							</div>
-						</ScrollableChild> */}
-						{/* {this.renderPassSections()} */}
-					</div>
+					<main>
+						<div className="column--wide">
+							{visibleClasstypes.map(c => (
+								<ScrollableChild key={`trigger-classSection-${c.slug}`} slug={`passSection-${c.slug}`}>
+									<ClassSection {...c} />
+								</ScrollableChild>
+							))}
+							<h1 className="info__separator">Pricing</h1>
+							{this.props.passes.types.map(p => (
+								<ScrollableChild key={`trigger-passSection-${p.slug}`} slug={`passSection-${p.slug}`}>
+									<PassSection {...p} />
+								</ScrollableChild>
+							))}
+						</div>
+					</main>
 				</section>
 			</ScrollableContainer>
 		)

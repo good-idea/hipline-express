@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
 const Squiggle = () => (
 	<div className="squiggle">
-		<p>~squiggle~</p>
+		<img src="/public/images/squiggle.png" alt="" />
 	</div>
-);
+)
 
-export default Squiggle;
+export default Squiggle

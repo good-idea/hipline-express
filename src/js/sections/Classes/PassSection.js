@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { toClass } from 'recompose'
 
-import { ScrollableChild } from '../../UI/Scroll'
+import PassCard from './PassCard'
 
 /**
  * PassSection
@@ -9,26 +10,30 @@ import { ScrollableChild } from '../../UI/Scroll'
 
 const PassSection = (props) => {
 	return (
-		<ScrollableChild slug={`passSection-${props.slug}`}>
-			<div className="info__section">
-				<div className="info__header column column--narrow">
-					<h2 className="info__title">{props.title}</h2>
-					<p className="info__description">{props.description}</p>
-				</div>
-				<div className="cards">
-					{props.passes.map(p => <PassCard key={`passSection-passCard-${p.pass.slug}`} {...p} />)}
-				</div>
+		<div className="info__section">
+			<div className="info__header column column--narrow">
+				<h1 className="info__title">{props.title}</h1>
+				<p className="info__subtitle">{props.description}</p>
 			</div>
-		</ScrollableChild>
+			<div className="cards">
+				{props.passes.filter(p => p.isVisible === true).map(p => (
+					<PassCard key={p.slug} {...p} />
+				))}
+			</div>
+		</div>
 	)
 }
+
 PassSection.propTypes = {
-	// title: PropTypes.string
+	title: PropTypes.string.isRequired,
+	description: PropTypes.string,
+	passes: PropTypes.arrayOf(PropTypes.shape()),
 }
 
 PassSection.defaultProps = {
-	// title: 'My Title'
+	description: '',
+	passes: [],
 }
 
 
-export default PassSection
+export default toClass(PassSection)

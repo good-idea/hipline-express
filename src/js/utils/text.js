@@ -50,6 +50,14 @@ const markdownToJSX = R.pipe(
 	HTMLtoJSX,
 )
 
+const makeParagraph = R.pipe(
+	fixKirbyTextAnchors,
+	markdownToHTML,
+	externalLinks,
+	stripTags('<a><br><p>'),
+	HTMLtoJSX,
+)
+
 module.exports = {
 	fixKirbyTextAnchors,
 	markdownToHTML,
@@ -57,4 +65,5 @@ module.exports = {
 	removeWrappingTags,
 	externalLinks,
 	markdownToJSX,
+	makeParagraph,
 }

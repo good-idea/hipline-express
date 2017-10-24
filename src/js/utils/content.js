@@ -10,6 +10,7 @@ export const filterWithKeys = (pred, obj) => R.pipe(
 	R.fromPairs,
 )(obj)
 
+
 const curriedFilterWithKeys = R.curry(filterWithKeys)
 
 /**
@@ -22,9 +23,9 @@ export const sortMBOFields = (content) => {
 	const registrationFields = R.pipe(
 		R.map(f => R.assoc('id', f.name, f)),
 		R.reduce((acc, f) => R.assoc(f.name, f, acc), {}),
-	)(R.prop('registrationFields', content))
+	)(R.prop('sourceRegistrationFields', content))
 	return {
-		...content,
+		...R.dissoc('sourceRegistrationFields', content),
 		registrationFields,
 	}
 }
@@ -33,7 +34,7 @@ export const sortMBOFields = (content) => {
 // Organize Kirby CMS Pass content
 //
 export const organizePassesIntoSections = (content) => {
-	const sourcePasses = R.prop('passes', content)
+	const sourcePasses = R.prop('sourcePasses', content)
 	const sectionTitles = ['newclient', 'bundles', 'jpr', 'workshop', 'cowork', 'loveclub']
 	const types = sectionTitles.map((s) => {
 		const section = {}
@@ -49,7 +50,7 @@ export const organizePassesIntoSections = (content) => {
 		if (associatedPasses.constructor === Array) {
 			section.passes = associatedPasses.reduce((acc, current) => {
 				const pass = sourcePasses.children.find(originalPass => originalPass.slug === current.slug)
-				if (pass) acc.push({ title: current.title, pass })
+				if (pass) acc.push(R.assoc('title', current.title, pass))
 				return acc
 			}, [])
 		} else {
@@ -65,7 +66,7 @@ export const organizePassesIntoSections = (content) => {
 	)(sourcePasses)
 
 	return {
-		...content,
+		...R.dissoc('sourcePasses', content),
 		passes: newPasses,
 	}
 }
@@ -127,11 +128,69 @@ export const attachClassTypesToChoreographers = (content) => {
 	}
 }
 
+export const groupClassTypes = (content) => {
+	const newclasstypes = R.assoc(
+		'children',
+		R.map(
+			category => R.assoc(
+				'children',
+				R.reduce(
+					(all, classtype) => {
+						// While we're all the way in here, might as well mark the class as upcoming
+						classtype.isUpcoming = (content.schedule.find(sc => sc.mboid === classtype.mboid) !== undefined)
+						classtype.parsed = true
+						// If the class is included in a group, don't include it in the new array
+						const classIsGroupedElsewhere = category.children.find((c) => {
+							if (!c.groupedclasses) return false
+							if (c.groupedclasses.length === 0) return false
+							if (c.groupedclasses.find(gc => gc.class === classtype.slug)) return true
+							return false
+						}) !== undefined
+						if (classIsGroupedElsewhere) return [...all]
+
+						// If the classtype is a group and other classes have not yet been attached,
+						// attach them now and return it to the new array
+						if (classtype.isgroup === true && classtype.groupedclasses) {
+							return [
+								...all,
+								R.pipe(
+									R.assoc(
+										'grouped',
+										R.map(
+											l => R.prop('children', category).find(c => c.slug === l.class),
+											classtype.groupedclasses,
+										),
+									),
+									R.dissoc('groupedclasses'),
+								)(classtype),
+							]
+						}
+
+						// Or, just return it as is
+						return [...all, classtype]
+					},
+					[],
+					R.prop('children', category),
+				),
+				category,
+			),
+			R.path(['classtypes', 'children'], content),
+		),
+		R.prop('classtypes', content),
+	)
+	return {
+		...content,
+		classtypes: newclasstypes,
+	}
+}
+
+
 export const parseContent = R.pipe(
-	R.when(R.prop('passes'), organizePassesIntoSections),
+	R.when(R.prop('sourcePasses'), organizePassesIntoSections),
 	R.when(R.prop('registrationFields'), sortMBOFields),
 	R.when(R.path(['choreographers', 'children']), hoistChoreographers),
 	R.when(R.both(R.prop('schedule'), R.prop('choreographers')), attachChoreographersToSchedule),
 	R.when(R.both(R.prop('schedule'), R.prop('choreographers')), attachChoreographersToClassTypes),
 	R.when(R.both(R.prop('schedule'), R.prop('choreographers')), attachClassTypesToChoreographers),
+	R.when(R.both(R.prop('schedule'), R.prop('classtypes')), groupClassTypes),
 )

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { toClass } from 'recompose'
 import ClassCard from './ClassCard'
 /**
  * ClassSection
@@ -8,13 +8,15 @@ import ClassCard from './ClassCard'
 
 const ClassSection = props => (
 	<div className="info__section info__section--classtype">
-		<div className="info__header">
-			<h2>{props.title}</h2>
-			<h3>{props.description}</h3>
+		<div className="info__header column">
+			<h1 className="info__title">{props.title}</h1>
+			<h3 className="info__subtitle">{props.description}</h3>
 		</div>
-		{props.children.filter(c => c.isVisible === true)
-			.map(c => <ClassCard key={c.slug} {...c} />)
-		}
+		<div className="cards">
+			{props.children.filter(c => (c.isVisible === true && c.parsed === true))
+				.map(c => <ClassCard key={c.slug} {...c} />)
+			}
+		</div>
 	</div>
 )
 
@@ -32,4 +34,4 @@ ClassSection.defaultProps = {
 }
 
 
-export default ClassSection
+export default toClass(ClassSection)
