@@ -204,7 +204,6 @@ const checkToken = (req, res, next) => res.json({
 	user: req.user,
 })
 
-
 const getCurrentUserData = (req, res, next) => {
 	mboClient.getUserByID({ UniqueID: req.user.UniqueID }).then((userData) => {
 		return res.json({ user: getUserInfo(userData) })
@@ -230,11 +229,16 @@ const getUserAccountData = (req, res, next) => {
 	]
 	Promise.all(requests)
 		.then(R.zipObj(['user', 'schedule', 'purchases', 'services', 'balances', 'memberships', 'contracts']))
+		.then(response => R.mapObjIndexed(
+			// All of the array responses need to be flattened
+			((a, key) => ((a && key !== 'user') ? R.flatten(a) : a)),
+			response,
+		))
 		.then((responses) => {
 			const user = R.mergeAll([
 				req.user,
 				R.prop('user', responses),
-				R.dissoc('user', responses)
+				R.dissoc('user', responses),
 			])
 			res.json({ user })
 		})

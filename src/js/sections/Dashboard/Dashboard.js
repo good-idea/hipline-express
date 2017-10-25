@@ -4,7 +4,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 import DashboardNavButton from './DashboardNavButton'
-import Schedule from './Schedule'
+import UserSchedule from './UserSchedule'
 
 
 import SpoofUser from '../SpoofUser'
@@ -24,20 +24,12 @@ class Dashboard extends React.Component {
 		if (this.props.user === false) {
 			this.props.setDropdown('login')
 		} else if (this.props.user) {
-			this.loadUserData()
+			this.props.loadUserData()
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (!this.props.user && nextProps.user) this.loadUserData()
-	}
-
-	loadUserData = () => {
-		axios.get('/api/mbo/user/account', {
-			headers: { 'x-access-token': Cookies.get('jwt') || false },
-		}).then((response) => {
-			this.props.setUserData(response.data.user)
-		}).catch((err) => console.log(err, err.response))
+		if (!this.props.user && nextProps.user) this.props.loadUserData()
 	}
 
 	changeNavSection = (id) => {
@@ -47,7 +39,7 @@ class Dashboard extends React.Component {
 	renderActiveSection() {
 		switch (this.state.view) {
 		case 'schedule':
-			return <Schedule classes={this.props.user.schedule} />
+			return <UserSchedule classes={this.props.user.schedule} />
 		default:
 			return null
 		}
@@ -58,14 +50,16 @@ class Dashboard extends React.Component {
 			return null
 		}
 		return (
-			<section className="dashboard">
+			<section className="dashboard with-aside">
 				<SpoofUser setUserData={this.props.setUserData} />
 				<aside className="aside-nav">
 					<DashboardNavButton label="My Classes" id="schedule" changeNavSection={this.changeNavSection} />
 					<DashboardNavButton label="Buy Classes" id="purchase" changeNavSection={this.changeNavSection} />
 					<DashboardNavButton label="My Account" id="account" changeNavSection={this.changeNavSection} />
 				</aside>
-				{this.renderActiveSection()}
+				<main>
+					{this.renderActiveSection()}
+				</main>
 			</section>
 		)
 	}

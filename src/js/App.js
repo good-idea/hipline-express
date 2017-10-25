@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import R from 'ramda'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
@@ -12,6 +13,7 @@ import Schedule from './sections/Schedule/Schedule'
 import Dashboard from './sections/Dashboard/Dashboard'
 
 import { parseContent } from './utils/content'
+import withPubSub from './enhancers/withPubSub'
 
 class App extends React.Component {
 	constructor(props) {
@@ -26,9 +28,11 @@ class App extends React.Component {
 	componentDidMount() {
 		// Split the initial content & MBO requests into two:
 		// the MBO call may take longer, or the API server may be down
-		axios.get('/api/content/initial').then((response) => {
+ 		axios.get('/api/content/initial').then((response) => {
 			const newState = parseContent({ ...this.state, ...response.data })
-			this.setState(newState)
+			this.setState(newState, () => {
+				this.props.emit('cmsContentLoaded')
+			})
 		})
 		const fetchClasses = axios.get('/api/mbo/classes')
 		const fetchRegistrationFields = axios.get('/api/mbo/registrationFields')
@@ -43,7 +47,10 @@ class App extends React.Component {
 					originalRegistrationFields: registrationFields.data,
 					user: tokenResponse.data.user,
 				})
-				this.setState(newState)
+				this.setState(newState, () => {
+					this.props.emit('mboScheduleLoaded')
+					this.props.emit('mboFieldsLoaded')
+				})
 			}))
 	}
 
@@ -51,8 +58,22 @@ class App extends React.Component {
 		this.setState({ dropdown })
 	}
 
-	setUserData = (user) => {
-		this.setState({ user })
+	setUserData = (userData, callback) => {
+		const fixedUser = R.when(
+			R.prop('schedule'),
+			R.pipe(
+				// Fucked! MBO doesn't provide any ID we can use to link a class to a description
+				// R.assoc('schedule', R.map(
+				// 	c => R.assoc('description', this.getClassDescriptionById(c), c),
+				// 	R.prop('schedule', userData) || [],
+				// )),
+				R.assoc('schedule', R.map(
+					(c => R.assoc('choreographer', this.getChoreographerByID(c.Staff.ID), c)),
+					R.prop('schedule', userData) || [],
+				))
+			),
+		)(userData)
+		this.setState({ user: fixedUser }, callback)
 	}
 
 	loginUser = ({ user, token }) => {
@@ -68,8 +89,43 @@ class App extends React.Component {
 		})
 	}
 
-	buildClass = () => {
+	loadUserData = () => {
+		if (this.state.schedule) {
+			this.loadUserDataWhenReady()
+			return
+		}
+		this.props.subscribe('mboScheduleLoaded', this.loadUserDataWhenReady)
+	}
 
+	loadUserDataWhenReady = () => {
+		axios.get('/api/mbo/user/account', {
+			headers: { 'x-access-token': Cookies.get('jwt') || false },
+		}).then((response) => {
+			this.setUserData(response.data.user, () => {
+				this.props.unsubscribe('mboScheduleLoaded', this.loadUserDataWhenReady)
+				this.props.emit('accountDataLoaded')
+			})
+		}).catch(err => console.log(err, err.response))
+	}
+
+	getChoreographerByID = (id) => {
+		if (!this.state.choreographers) {
+			console.warn('getChoreographerByID was called before the choreographers data has loaded')
+			return false
+		}
+		return (this.state.choreographers.find(c => c.mboid === id))
+	}
+
+	getClassDescriptionById = (id) => {
+		if (!this.state.classtypes || !this.state.schedule) {
+			console.warn('getClassDescriptionById was called before the content has loaded')
+			return false
+		}
+		const allClassTypes = R.pipe(
+			R.prop('children'),
+			R.pluck('children'),
+			R.flatten,
+		)(this.state.classtypes)
 	}
 
 	render() {
@@ -114,6 +170,7 @@ class App extends React.Component {
 								user={this.state.user}
 								setUserData={this.setUserData}
 								setDropdown={this.setDropdown}
+								loadUserData={this.loadUserData}
 							/>
 						))}
 					/>
@@ -133,4 +190,4 @@ class App extends React.Component {
 	}
 }
 
-export default withRouter(App)
+export default withRouter(withPubSub(App))

@@ -1,0 +1,45 @@
+
+.userSchedule__class {
+	padding: 1rem 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid black;
+
+	> * {
+		margin: 0 1rem;
+		/*outline: 1px solid teal;*/
+
+		&:first-child {
+			text-align: left;
+			margin-left: 0;
+		}
+		&:last-child {
+			margin-right: 0;
+			text-align: right;
+		}
+	}
+}
+
+.userSchedule__class__date {
+	flex-basis: 19rem;
+}
+
+.userSchedule__class__time {
+	flex-basis: 8rem;
+}
+
+.userSchedule__class__name {
+	flex-grow: 1;
+	text-align: center;
+}
+
+.userSchedule__class__choreographer {
+	flex-basis: 10rem;
+	text-align: right;
+}
+
+.userSchedule__class__avatar {
+	width: 5rem;
+	color: $orange;
+}

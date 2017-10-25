@@ -16,10 +16,21 @@ section {
 	overflow-y: scroll;
 }
 
+/*section.with-aside main {
+	> .column {
+		margin-left: 2rem;
+	}
+}*/
+
 .column {
 	width: calc(100% - 4rem);
 	max-width: 70rem;
 	margin: 0 auto;
+
+}
+
+.column--left {
+	margin-left: 4rem;
 }
 
 .column--wide {
@@ -29,7 +40,7 @@ section {
 
 .column--medium {
 	@extend .column;
-	max-width: 105rem;
+	max-width: 95rem;
 }
 
 .column--narrow {
