@@ -99,6 +99,12 @@ const getFieldConfig = (fieldName) => {
 			name: fieldName,
 			type: 'text',
 		}
+	case 'BirthDate':
+		return {
+			name: fieldName,
+			label: prepareFieldLabel(fieldName),
+			type: 'text',
+		}
 	default:
 		return {
 			label: prepareFieldLabel(fieldName),

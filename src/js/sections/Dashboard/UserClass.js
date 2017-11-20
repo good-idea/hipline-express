@@ -15,7 +15,6 @@ class UserClass extends React.Component {
 	}
 
 	render() {
-		console.log(this.props)
 		return (
 			<div className="userSchedule__class">
 				<h4 className="userSchedule__class__date">
@@ -34,7 +33,6 @@ class UserClass extends React.Component {
 					key={this.props.choreographer.slug}
 					image={this.props.choreographer.cover}
 					videoSrc={this.props.choreographer.coverVideo}
-					autoPlay
 					ratio={1}
 					classNames="userSchedule__class__avatar avatar--round"
 				/>

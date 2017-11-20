@@ -28,7 +28,7 @@ class App extends React.Component {
 	componentDidMount() {
 		// Split the initial content & MBO requests into two:
 		// the MBO call may take longer, or the API server may be down
- 		axios.get('/api/content/initial').then((response) => {
+		axios.get('/api/content/initial').then((response) => {
 			const newState = parseContent({ ...this.state, ...response.data })
 			this.setState(newState, () => {
 				this.props.emit('cmsContentLoaded')
@@ -44,7 +44,7 @@ class App extends React.Component {
 				const newState = parseContent({
 					...this.state,
 					schedule: schedule.data,
-					originalRegistrationFields: registrationFields.data,
+					sourceRegistrationFields: registrationFields.data,
 					user: tokenResponse.data.user,
 				})
 				this.setState(newState, () => {
@@ -52,6 +52,7 @@ class App extends React.Component {
 					this.props.emit('mboFieldsLoaded')
 				})
 			}))
+			.catch(err => console.log(err))
 	}
 
 	setDropdown(dropdown) {

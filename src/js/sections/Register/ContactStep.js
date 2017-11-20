@@ -81,7 +81,7 @@ class ContactStep extends React.Component {
 					<FieldContainer
 						{...BirthDate}
 						guide
-						type="date"
+						// type="date"
 						transform={formatBirthDate}
 						placeholder="YYYY-MM-DD"
 						mask={[/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}

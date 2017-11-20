@@ -24,6 +24,7 @@ export const sortMBOFields = (content) => {
 		R.map(f => R.assoc('id', f.name, f)),
 		R.reduce((acc, f) => R.assoc(f.name, f, acc), {}),
 	)(R.prop('sourceRegistrationFields', content))
+	console.log(content)
 	return {
 		...R.dissoc('sourceRegistrationFields', content),
 		registrationFields,
@@ -88,7 +89,6 @@ export const attachChoreographersToSchedule = (content) => {
 }
 
 
-
 // Attach choreographer data to each class type if they have a class of that type in the schedule
 //
 export const attachChoreographersToClassTypes = (content) => {
@@ -129,6 +129,7 @@ export const attachClassTypesToChoreographers = (content) => {
 }
 
 export const groupClassTypes = (content) => {
+	console.log(content)
 	const newclasstypes = R.assoc(
 		'children',
 		R.map(
@@ -187,7 +188,7 @@ export const groupClassTypes = (content) => {
 
 export const parseContent = R.pipe(
 	R.when(R.prop('sourcePasses'), organizePassesIntoSections),
-	R.when(R.prop('registrationFields'), sortMBOFields),
+	R.when(R.prop('sourceRegistrationFields'), sortMBOFields),
 	R.when(R.path(['choreographers', 'children']), hoistChoreographers),
 	R.when(R.both(R.prop('schedule'), R.prop('choreographers')), attachChoreographersToSchedule),
 	R.when(R.both(R.prop('schedule'), R.prop('choreographers')), attachChoreographersToClassTypes),

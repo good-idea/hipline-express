@@ -69,7 +69,6 @@ const makeMBORequest = ({
 				return
 			}
 			requestMethod(params, (soapErrs, response) => {
-				// console.log(client.lastRequest)
 				if (soapErrs) reject(soapErrs)
 				// console.log(params)
 				const result = R.when(

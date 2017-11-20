@@ -9,6 +9,9 @@ const getServices = function getServices() {
 		service: 'Sale',
 		methodString: 'Sale_x0020_Service.Sale_x0020_ServiceSoap.GetServices',
 		resultString: 'GetServicesResult.Services.Service',
+		additionalParams: {
+			SellOnline: true,
+		},
 	})
 }
 
@@ -24,7 +27,11 @@ const getProducts = function getProducts() {
 	return makeMBORequest({
 		service: 'Sale',
 		methodString: 'Sale_x0020_Service.Sale_x0020_ServiceSoap.GetProducts',
-		resultString: 'GetProductsResult.Products',
+		resultString: 'GetProductsResult',
+		additionalParams: {
+			SellOnline: true,
+			PageSize: 100,
+		},
 	})
 }
 
@@ -38,6 +45,7 @@ const getContracts = function getContracts() {
 			SoldOnline: true,
 		},
 		withUserCredentials: true,
+		forceArray: true,
 	})
 }
 

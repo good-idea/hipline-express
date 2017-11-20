@@ -3,10 +3,9 @@ const Qs = require('qs')
 const R = require('ramda')
 const { cms } = require('../config')
 const mboClient = require('../services/mbo/mbo')
-const { HTMLToMarkdown } = require('../utils/data')
+const { forceArrayOfOne, HTMLToMarkdown } = require('../utils/data')
 
 const apiRoot = `http://${cms.host}:${cms.port}/api`
-
 /**
  * Sync methods should get raw MBO data,
  * parse it, and POST it to the CMS
@@ -30,9 +29,64 @@ const syncStaffInfo = () => (
 	})
 )
 
+const saySingularOfInterval = (input) => {
+	switch (input) {
+	case 'Yearly':
+		return 'Year'
+	case 'Monthly':
+		return 'Month'
+	case 'Weekly':
+		return 'Week'
+	case 'Daily':
+		return 'Day'
+	default:
+		return input
+	}
+}
+
+const sayMultipleOfInterval = (input) => {
+	switch (input) {
+	case 'Yearly':
+		return 'Years'
+	case 'Monthly':
+		return 'Months'
+	case 'Weekly':
+		return 'Weeks'
+	case 'Daily':
+		return 'Days'
+	default:
+		return input
+	}
+}
+
+// Contracts and Services come with different forms of data.
+const normalizePassData = (sourceData) => {
+	const Price = (sourceData.RecurringPaymentAmountTotal) ?
+		`${sourceData.RecurringPaymentAmountTotal}/${saySingularOfInterval(R.path(['AutopaySchedule', 'FrequencyTimeUnit'], sourceData))}` :
+		sourceData.Price
+	const pass = {
+		Price,
+		Duration: R.prop('AutopaySchedule', sourceData) ? `${R.prop('NumberOfAutopays', sourceData)} ${sayMultipleOfInterval(R.path(['AutopaySchedule', 'FrequencyTimeUnit'], sourceData))}` : '',
+		ContractIds: R.prop('ContractItems', sourceData) ? R.pipe(R.prop('ContractItems'), forceArrayOfOne, R.pluck(['ID']), R.join(','))(sourceData) : '',
+		MembershipId: sourceData.AssignsMembershipId || '',
+		AgreementTerms: (sourceData.AgreementTerms) ? HTMLToMarkdown(sourceData.AgreementTerms) : '',
+	}
+	return {
+		...sourceData,
+		...pass,
+	}
+}
+
 const syncClassPasses = () => (
 	new Promise((resolve, reject) => {
-		mboClient.getServices().then((passes) => {
+		const servicesRequest = mboClient.getServices()
+		const contractsRequest = mboClient.getContracts()
+
+		Promise.all([servicesRequest, contractsRequest]).then(([services, contracts]) => {
+			const passes = [
+				...R.map(normalizePassData, services),
+				...R.map(normalizePassData, contracts),
+			]
 			axios({
 				method: 'post',
 				url: `${apiRoot}/sync/passes`,
@@ -54,7 +108,6 @@ const syncClassDescriptions = () => (
 					}
 				}
 			}
-			console.log(classTypes)
 			axios({
 				method: 'post',
 				url: `${apiRoot}/sync/classes`,
