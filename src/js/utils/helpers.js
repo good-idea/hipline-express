@@ -1,10 +1,10 @@
-import tweenFunctions from 'tween-functions';
+import tweenFunctions from 'tween-functions'
 
 const fillArray = (value, length) => {
-	const arr = [];
-	while (arr.length < length) arr.push(value);
-	return arr;
-};
+	const arr = []
+	while (arr.length < length) arr.push(value)
+	return arr
+}
 
 
 /**
@@ -12,39 +12,39 @@ const fillArray = (value, length) => {
  */
 
 const isEqual = (obj1, obj2) => {
-	// return (JSON.stringify(obj1) === JSON.stringify(obj2));
-	const obj1keys = Object.keys(obj1);
+	// return (JSON.stringify(obj1) === JSON.stringify(obj2))
+	const obj1keys = Object.keys(obj1)
 
 	for (const key of obj1keys) {
-		if (!obj2.hasOwnProperty(key)) return false;
+		if (!obj2.hasOwnProperty(key)) return false
 		if (obj1[key] != obj2[key]) {
-			return false;
+			return false
 		}
 	}
-	return true;
-};
+	return true
+}
 
 /**
  * Return the offset relative to the document
  */
 
 const getOffset = (element, container = {}) => { // crossbrowser version
-	const box = element.getBoundingClientRect();
+	const box = element.getBoundingClientRect()
 
-	const body = document.body;
-	const docEl = document.documentElement;
+	const body = document.body
+	const docEl = document.documentElement
 
-	const scrollTop = container.scrollTop || window.pageYOffset || docEl.scrollTop || body.scrollTop;
-	const scrollLeft = container.scrollLeft || window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+	const scrollTop = container.scrollTop || window.pageYOffset || docEl.scrollTop || body.scrollTop
+	const scrollLeft = container.scrollLeft || window.pageXOffset || docEl.scrollLeft || body.scrollLeft
 
-	const clientTop = docEl.clientTop || body.clientTop || 0;
-	const clientLeft = docEl.clientLeft || body.clientLeft || 0;
+	const clientTop = docEl.clientTop || body.clientTop || 0
+	const clientLeft = docEl.clientLeft || body.clientLeft || 0
 
-	const top = box.top + (scrollTop - clientTop);
-	const left = box.left + (scrollLeft - clientLeft);
+	const top = box.top + (scrollTop - clientTop)
+	const left = box.left + (scrollLeft - clientLeft)
 
-	return { top: Math.round(top), left: Math.round(left) };
-};
+	return { top: Math.round(top), left: Math.round(left) }
+}
 
 /*
  TODO:
@@ -60,48 +60,48 @@ const scrollTo = (destination, overrides) => {
 		container: document.body,
 		duration: 600,
 		easing: 'easeOutQuad',
-	};
-	const config = { ...defaults, ...overrides };
+	}
+	const config = { ...defaults, ...overrides }
 	if (typeof tweenFunctions[config.easing] !== 'function') {
-		console.warn(`${config.easing} is not a valid easing function.`);
-		config.easing = defaults.easing;
+		console.warn(`${config.easing} is not a valid easing function.`)
+		config.easing = defaults.easing
 	}
 
-	const startY = config.container.scrollTop;
-	const containerTop = getOffset(config.container).top;
-	const targetTop = getOffset(destination, config.container).top;
-	const destY = targetTop - containerTop;
+	const startY = config.container.scrollTop
+	const containerTop = getOffset(config.container).top
+	const targetTop = getOffset(destination, config.container).top
+	const destY = targetTop - containerTop
 
 	console.log(destination, containerTop, targetTop, destY, config)
 
-	const startTime = Date.now();
+	const startTime = Date.now()
 
 	if (config.duration === 0) {
-		config.container.scrollTop = destY;
-		if (config.callback) config.callback();
-		return;
+		config.container.scrollTop = destY
+		if (config.callback) config.callback()
+		return
 	}
 
 	if (startY === destY) {
-		if (config.callback) config.callback();
-		return;
+		if (config.callback) config.callback()
+		return
 	}
 
 	function tween() {
-		const elapsed = Math.min(Date.now() - startTime, config.duration);
-		const newTop = tweenFunctions[config.easing](elapsed, startY, destY, config.duration);
-		config.container.scrollTop = newTop;
+		const elapsed = Math.min(Date.now() - startTime, config.duration)
+		const newTop = tweenFunctions[config.easing](elapsed, startY, destY, config.duration)
+		config.container.scrollTop = newTop
 
 
 		if (elapsed < config.duration) {
-			requestAnimationFrame(tween);
+			requestAnimationFrame(tween)
 		} else if (config.callback) {
-			config.callback();
+			config.callback()
 		}
 	}
 
-	requestAnimationFrame(tween);
-};
+	requestAnimationFrame(tween)
+}
 
 
 /**
@@ -110,24 +110,24 @@ const scrollTo = (destination, overrides) => {
  * @return {string}       				'class1 class2 class1--modifier class3'
  */
 const cn = (...input) => {
-	const allNames = [];
+	const allNames = []
 	for (const piece of input) {
 		if (piece) {
 			if (typeof piece === 'string') {
-				allNames.push(...piece.split(' '));
+				allNames.push(...piece.split(' '))
 			} else if (piece.constructor === Array) {
-				allNames.push(...piece);
+				allNames.push(...piece)
 			} else {
-				console.warn(`Input must be string or array, ${typeof piece} given.`);
+				console.warn(`Input must be string or array, ${typeof piece} given.`)
 			}
 		}
 	}
-	return allNames.join(' ');
-};
+	return allNames.join(' ')
+}
 
-const findOne = (haystack, needles) => needles.some(needle => haystack.indexOf(needle) >= 0);
+const findOne = (haystack, needles) => needles.some(needle => haystack.indexOf(needle) >= 0)
 
-const slugify = text => text.toString().toLowerCase().replace(/\s+/g, '-');
+const slugify = text => text.toString().toLowerCase().replace(/\s+/g, '-')
 
 module.exports = {
 	findOne,
@@ -137,4 +137,4 @@ module.exports = {
 	scrollTo,
 	isEqual,
 	fillArray,
-};
+}

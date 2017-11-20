@@ -26,11 +26,6 @@ class Classes extends React.Component {
 		return (
 			<ScrollableContainer>
 				<section className="classes with-aside">
-					<div className="splash">
-						<div className="column column--narrow">
-							<h2>{this.props.classtypes.intro}</h2>
-						</div>
-					</div>
 					<aside className="aside-nav">
 						<div className="aside-nav-item aside-nav-header" slug="classes-classTypes">
 							<h3>Class Types</h3>

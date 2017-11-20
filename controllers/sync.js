@@ -81,7 +81,6 @@ const syncClassPasses = () => (
 	new Promise((resolve, reject) => {
 		const servicesRequest = mboClient.getServices()
 		const contractsRequest = mboClient.getContracts()
-
 		Promise.all([servicesRequest, contractsRequest]).then(([services, contracts]) => {
 			const passes = [
 				...R.map(normalizePassData, services),

@@ -1,45 +1,45 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ResponsiveImage from './ResponsiveImage';
-import { cn } from '../utils/helpers';
+import React from 'react'
+import PropTypes from 'prop-types'
+import ResponsiveImage from './ResponsiveImage'
+import { cn } from '../utils/helpers'
 
 class CoverVideo extends React.Component {
 	constructor(props) {
-		super(props);
-		this.playVideo = this.playVideo.bind(this);
-		this.stopVideo = this.stopVideo.bind(this);
+		super(props)
+		this.playVideo = this.playVideo.bind(this)
+		this.stopVideo = this.stopVideo.bind(this)
 		this.state = {
 			playing: false,
-		};
+		}
 	}
 
 	componentDidMount() {
 		if (this.video && this.props.playOnHover) {
-			this.container.addEventListener('mouseenter', this.playVideo);
-			this.container.addEventListener('mouseleave', this.stopVideo);
+			this.container.addEventListener('mouseenter', this.playVideo)
+			this.container.addEventListener('mouseleave', this.stopVideo)
 		}
-		if (this.props.autoPlay && this.video) this.playVideo();
+		if (this.props.autoPlay && this.video) this.playVideo()
 	}
 
 	componentWillUnmount() {
 		if (this.video && this.props.playOnHover) {
-			this.container.removeEventListener('mouseenter', this.playVideo);
-			this.container.removeEventListener('mouseleave', this.stopVideo);
+			this.container.removeEventListener('mouseenter', this.playVideo)
+			this.container.removeEventListener('mouseleave', this.stopVideo)
 		}
 	}
 
 	playVideo() {
-		this.setState({ playing: true });
-		this.video.play();
+		this.setState({ playing: true })
+		this.video.play()
 	}
 
 	stopVideo() {
-		this.setState({ playing: false });
-		this.video.pause();
+		this.setState({ playing: false })
+		this.video.pause()
 	}
 
 	renderVideo() {
-		if (!this.props.videoSrc) return null;
+		if (!this.props.videoSrc) return null
 		return (
 			<video
 				ref={(element) => { this.video = element; }}
@@ -47,19 +47,19 @@ class CoverVideo extends React.Component {
 				src={this.props.videoSrc}
 				loop
 			/>
-		);
+		)
 	}
 
 	render() {
-		const classNames = ['avatar'];
-		if (this.state.playing) classNames.push('avatar--playing');
+		const classNames = ['avatar']
+		if (this.state.playing) classNames.push('avatar--playing')
 		return (
 			<div ref={(element) => { this.container = element }} className={cn(classNames, this.props.classNames)}>
 				<div className="avatar__padding" style={{ paddingBottom: `${this.props.ratio * 100}%` }} />
 				{this.renderVideo()}
 				<ResponsiveImage {...this.props.image} />
 			</div>
-		);
+		)
 	}
 }
 
@@ -83,7 +83,7 @@ CoverVideo.propTypes = {
 			PropTypes.array,
 		]),
 	}).isRequired,
-};
+}
 
 CoverVideo.defaultProps = {
 	classNames: [],
@@ -91,6 +91,6 @@ CoverVideo.defaultProps = {
 	ratio: 0.56,
 	videoSrc: false,
 	playOnHover: true,
-};
+}
 
-export default CoverVideo;
+export default CoverVideo

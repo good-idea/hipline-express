@@ -1,49 +1,49 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { cn } from '../utils/helpers';
+import { cn } from '../utils/helpers'
 
 class ResponsiveImage extends React.Component {
 
 	constructor(props) {
-		super(props);
-		this.state = {};
-		this.renderPlaceholder = this.renderPlaceholder.bind(this);
-		this.handleImageLoaded = this.handleImageLoaded.bind(this);
+		super(props)
+		this.state = {}
+		this.renderPlaceholder = this.renderPlaceholder.bind(this)
+		this.handleImageLoaded = this.handleImageLoaded.bind(this)
 	}
 
 	handleImageLoaded() {
 		setTimeout(() => {
 			this.setState({
 				classNames: 'loaded',
-			});
-		}, Math.random() * 300);
+			})
+		}, Math.random() * 300)
 	}
 
 	renderPlaceholder() {
-		const className = cn([this.props.classNames, 'placeholder']);
+		const className = cn([this.props.classNames, 'placeholder'])
 		return (
 			<figure className={className} >
 				<div className="placeholder__image" />
 				<figCaption className="placeholder__caption" />
 			</figure>
-		);
+		)
 	}
 
 	render() {
 		// if it's just a placeholder, render it and stop there.
-		if (this.props.placeholder) return this.renderPlaceholder();
+		if (this.props.placeholder) return this.renderPlaceholder()
 
 		// Otherwise, render the placeholder with the proper dimensions
-		const original = this.props.srcset.find(img => img.height) || false;
-		const src = this.props.url;
-		const sizes = this.props.sizes || '100vw';
+		const original = this.props.srcset.find(img => img.height) || false
+		const src = this.props.url
+		const sizes = this.props.sizes || '100vw'
 		const srcset = this.props.srcset.reduce((acc, current) => {
-			const commaSpace = (acc.length) ? ', ' : '';
-			return `${current.url} ${current.width}w${commaSpace}${acc}`;
-		}, '');
-		const figCaption = (this.props.meta.caption) ? <figCaption>{this.props.meta.caption}</figCaption> : null;
-		const ratio = (this.props.ratio) ? this.props.ratio : original.height / original.width;
+			const commaSpace = (acc.length) ? ', ' : ''
+			return `${current.url} ${current.width}w${commaSpace}${acc}`
+		}, '')
+		const figCaption = (this.props.meta.caption) ? <figCaption>{this.props.meta.caption}</figCaption> : null
+		const ratio = (this.props.ratio) ? this.props.ratio : original.height / original.width
 		return (
 			<figure
 				className={cn(this.props.classNames, this.state.classNames, 'responsiveImage')}
@@ -63,7 +63,7 @@ class ResponsiveImage extends React.Component {
 				/>
 				{ figCaption }
 			</figure>
-		);
+		)
 	}
 }
 
@@ -77,7 +77,7 @@ ResponsiveImage.propTypes = {
 		PropTypes.shape(),
 		PropTypes.array,
 	]),
-};
+}
 
 ResponsiveImage.defaultProps = {
 	placeholder: false,
@@ -86,6 +86,6 @@ ResponsiveImage.defaultProps = {
 	sizes: '100vw',
 	srcset: [],
 	meta: {},
-};
+}
 
-export default ResponsiveImage;
+export default ResponsiveImage
