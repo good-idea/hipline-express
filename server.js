@@ -52,7 +52,7 @@ app.use((req, res, next) => {
  */
 
 
-if (config.environment !== 'development') app.use(securityMiddleware)
+// if (config.environment !== 'development') app.use(securityMiddleware)
 
 app.use(router)
 
