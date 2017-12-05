@@ -2,40 +2,50 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Avatar from '../components/Avatar'
-import { ScrollableContainer, ScrollTrigger } from '../UI/Scroll'
+import { ScrollableContainer, ScrollTrigger, ScrollableChild } from '../UI/Scroll'
 import ChoreographerProfile from './ChoreographerProfile'
 
+import Splash from './Splash'
+
+// const Inspire = () => <img src="/images/inspire.png" alt="inspire" />
+// const Empower = () => <img src="/images/inspire.png" alt="inspire" />
 
 /**
  * Main Choreographer Component
  */
 
 
-const Choreographers = ({ choreographers }) => {
+const Choreographers = ({ home, choreographers }) => {
 	if (!choreographers.length) return null
 	return (
-		<section className="home">
-			<div className="splash">
-				<div className="column column--narrow">
-					<h2>{props.home.intro}</h2>
-				</div>
-			</div>
-			<ScrollableContainer>
+		<ScrollableContainer>
+			<section className="home">
+				<Splash text={home.intro} />
 				<div className="choreographers">
-					<div className="choreographers__menu column column--medium">
-						{choreographers.map(c => (
-							<div key={`choreographerThumb-${c.slug}`} className="choreographer__avatar">
-								<ScrollTrigger slug={`profile-${c.slug}`}>
-									<h2 className="choreographer__name">{c.firstname}</h2>
-									<Avatar
-										image={c.cover}
-										videoSrc={c.coverVideo}
-										ratio={0.85}
-									/>
-								</ScrollTrigger>
-							</div>
-						))}
-					</div>
+					<ScrollTrigger slug="profilesMenu">
+						<div className="sectionHeader">
+							<h4>Meet the Choreographers <span className="icon icon--down" /></h4>
+						</div>
+					</ScrollTrigger>
+					<ScrollableChild slug="profilesMenu">
+						<div className="choreographers__menu column column--wide">
+							{choreographers.map(c => (
+								<div key={`choreographerThumb-${c.slug}`} className="choreographer__avatar">
+									<ScrollTrigger slug={`profile-${c.slug}`}>
+										<div className="choreographer__name">
+											<h3>{c.firstname}</h3>
+											<h4 className="choreographer__viewProfile">view profile</h4>
+										</div>
+										<Avatar
+											image={c.cover}
+											videoSrc={c.coverVideo}
+											ratio={0.8}
+										/>
+									</ScrollTrigger>
+								</div>
+							))}
+						</div>
+					</ScrollableChild>
 					<div className="choreographers__main">
 						{choreographers.map((c) => {
 							if (c.placeholder) return null
@@ -48,18 +58,16 @@ const Choreographers = ({ choreographers }) => {
 						})}
 					</div>
 				</div>
-			</ScrollableContainer>
-		</section>
+			</section>
+		</ScrollableContainer>
 	)
 }
 
 Choreographers.propTypes = {
-	choreographers: PropTypes.arrayOf(
-		PropTypes.shape(ChoreographerProfile.propTypes),
-	),
+	choreographers: PropTypes.arrayOf(PropTypes.shape(ChoreographerProfile.propTypes)),
 	home: PropTypes.shape({
-		intro: PropTypes.text
-	})
+		intro: PropTypes.text,
+	}),
 }
 
 Choreographers.defaultProps = {

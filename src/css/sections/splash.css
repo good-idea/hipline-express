@@ -1,0 +1,45 @@
+
+.splash {
+	@mixin flex-center;
+	flex-direction: column;
+	text-align: center;
+	height: calc(100vh - $nav-height - 5rem);
+	min-height: 40rem;
+	background: $pink;
+	position: sticky;
+	top: 0;
+	perspective: 800px;
+
+	h2 {
+		text-transform: uppercase;
+		color: $seafoam;
+
+		img {
+			height: 1em;
+			margin: 0 0.2em;
+		}
+	}
+}
+
+.getinline {
+	position: relative;
+	margin-top: 4rem;
+	display: inline-block;
+
+	h1 {
+		position: relative;
+		font-weight: 800;
+		font-style: italic;
+		background: linear-gradient(to top, $orange-light, $orange);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	.squiggle {
+		/*position: absolute;
+		right: 0;*/
+
+		margin-left: auto;
+		margin-top: -1em;
+	}
+}

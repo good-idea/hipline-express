@@ -8,8 +8,8 @@
 $sans: 'proxima-nova', 'Helvetica Neue', helvetica, sans-serif;
 $serif: 'bodoni-urw', Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;
 
-$h1: 3rem;
-$h2: 2rem;
+$h1: 5rem;
+$h2: 2.4rem;
 $h3: 1.6rem;
 $h4: 1.4rem;
 $h5: 1.25rem;
@@ -21,6 +21,10 @@ h3 { font-size: $h3; }
 h4, p, li, input, button, textarea, select, label { font-size: $h4; }
 p, li { font-family: $serif; }
 h5 { font-size: $h5; }
+
+h1, h2, h3, h4, h5, h6 {
+	letter-spacing: 0.05em;
+}
 
 p + p { margin-top: 1em; }
 

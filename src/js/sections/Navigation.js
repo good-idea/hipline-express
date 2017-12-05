@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import Login from './Login/Login'
-import Register from './Register/Register'
+// import Login from './Login/Login'
+// import Register from './Register/Register'
 
 /**
  * Navigation
@@ -49,14 +49,14 @@ class Navigation extends React.Component {
 		return (
 			<nav>
 				<div className="nav__group">
-					<h3 className="nav__item"><Link to="/">Hipline</Link></h3>
-					<h3 className="nav__item"><Link to="/">Choreographers</Link></h3>
+					<div className="nav__item nav__item--logo"><Link to="/"><img src="/images/hipline-logo.png" alt="Hipline" /></Link></div>
+					{/* <h3 className="nav__item"><Link to="/">Choreographers</Link></h3> */}
 					<h3 className="nav__item"><Link to="/classes">Classes</Link></h3>
 					<h3 className="nav__item"><Link to="/community">Community</Link></h3>
 					<h3 className="nav__item"><Link to="/about">About</Link></h3>
 					<h3 className="nav__item"><Link to="/schedule">Schedule</Link></h3>
 				</div>
-				{this.renderUserMenu()}
+				{/* {this.renderUserMenu()}
 				<Login
 					setDropdown={this.props.setDropdown}
 					open={this.props.dropdown === 'login'}
@@ -69,7 +69,7 @@ class Navigation extends React.Component {
 					loginUser={this.props.loginUser}
 					fieldConfig={this.props.registrationFields}
 					liabilityText={this.props.liabilityText}
-				/>
+				/> */}
 			</nav>
 		)
 	}

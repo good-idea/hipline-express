@@ -8,12 +8,20 @@
 }
 
 .info__header {
-	text-align: center;
+	/*text-align: center;*/
 }
 
 .info__cover {
 	max-width: 40rem;
 	margin: 0 auto;
+}
+
+.info__block__header {
+	text-align: center;
+	color: $pink;
+	text-transform: uppercase;
+	margin: 2rem auto 1rem;
+
 }
 
 .info__title {

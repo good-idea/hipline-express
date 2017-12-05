@@ -20,7 +20,9 @@ export const markdownToHTML = markdown.toHTML
 
 export const removeWrappingTags = text => text.replace(/(<[\S]+>)(.*)(<\/[\S]+>)/g, '$2')
 
-export const stripTags = allowed => text => {
+export const wrapWith = tag => text => `<${tag}>${text}</${tag}>`
+
+export const stripTags = allowed => (text) => {
 	allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('')
 	const tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi
 	const commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi
@@ -38,6 +40,33 @@ export const trimText = length => text => text.substr(0, length)
  */
 
 export const HTMLtoJSX = text => parser(text)
+
+/**
+ * Intro Text
+ * @type {[type]}
+ */
+
+const wrapAndPrepare = tag => R.pipe(
+	fixKirbyTextAnchors,
+	markdownToHTML,
+	externalLinks,
+	removeWrappingTags,
+	wrapWith(tag),
+	HTMLtoJSX,
+)
+
+// const trace = (input) => { console.log(input); return input }
+
+const prepareIntroText = R.pipe(
+	R.replace(/[\s?]inspire[\s?]/, '![inspire](/images/inspire.png)'),
+	R.replace(/[\s?]empower[\s?]/, '![empower](/images/empower.png)'),
+	markdownToHTML,
+	stripTags('<em><strong><br><img>'),
+	removeWrappingTags,
+	wrapWith('h2'),
+	HTMLtoJSX,
+)
+
 
 /**
  * Common pipes
@@ -66,4 +95,6 @@ module.exports = {
 	externalLinks,
 	markdownToJSX,
 	makeParagraph,
+	prepareIntroText,
+	wrapAndPrepare,
 }

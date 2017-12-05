@@ -1,18 +1,33 @@
+.choreographers {
+	background: white;
+	position: relative;
+}
+
 .choreographers__menu {
+
 	display: flex;
 	width: 100%;
 	flex-wrap: wrap;
+
+	.scrollTrigger {
+		display: block;
+	}
 
 	.choreographer__avatar {
 		width: calc(25% - 1rem);
 		border: 1px solid $orange;
 		margin: 0.5rem;
 		position: relative;
+		transition: .2s;
+
+		.avatar {
+			mix-blend-mode: darken;
+		}
 	}
 
 	.cover {
-		width: 80%;
-		margin-left: 20%;
+		/*width: 80%;*/
+		/*margin-left: 20%;*/
 	}
 
 	.choreographer__name {
@@ -20,9 +35,30 @@
 		top: 3rem;
 		left: 1rem;
 		text-transform: uppercase;
-		font-weight: 700;
+		text-align: left;
+		/*font-weight: 700;*/
 		color: $pink;
 		z-index: 20;
+	}
+
+	.choreographer__viewProfile {
+		opacity: 0;
+	}
+}
+
+
+.choreographer__avatar {
+	video, figure.responsiveImage {
+		width: 80%;
+		left: 20%;
+	}
+}
+
+.choreographer__avatar:hover {
+	background: $yellow;
+
+	.choreographer__viewProfile {
+		opacity: 1;
 	}
 }
 
@@ -41,6 +77,11 @@
 .profile__bottom {
 	display: flex;
 	justify-content: space-between;
+
+	.cta {
+		color: $orange;
+		margin-top: 1rem;
+	}
 }
 
 .profile__title {
@@ -53,7 +94,19 @@
 
 .profile__name {
 	text-transform: uppercase;
-	color: $grey3;
+	color: $seafoam;
+	font-weight: 600;
+}
+
+.profile__socials {
+	margin: 1rem 0;
+	color: $pink;
+	display: flex;
+	justify-content: center;
+}
+
+.profile__social {
+	margin: 0 1rem;
 }
 
 
@@ -78,6 +131,20 @@
 	margin-top: calc($nav-height * 2);
 }
 
+.profile__bottom__title {
+	text-transform: uppercase;
+	color: black;
+	font-weight: 600;
+
+	.squiggle {
+		margin: 0 auto;
+	}
+}
+
+.profile__bottom__content h4 {
+	margin-bottom: 0.2em;
+}
+
 .profile__quote {
 	text-transform: uppercase;
 	margin-bottom: 2em;
@@ -89,7 +156,8 @@
 }
 
 .profile__expectations {
-	flex-grow: 1;
+	width: 50%;
+	padding-right: 4rem;
 }
 
 .profile__bottom__title {
@@ -105,4 +173,5 @@
 
 .profile__bottom__content{
 	padding-left: 3rem;
+	padding-top: $h2;
 }

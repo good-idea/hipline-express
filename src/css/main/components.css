@@ -15,6 +15,24 @@
 	margin: 3rem 1.5rem 0;
 	border-radius: 0.5rem;
 	box-shadow: 0 2px 5px 1px rgba(23, 40, 62, 0.26);
+
+	.squiggle {
+		margin: -1rem auto 1rem;
+	}
+
+	.cta {
+		text-align: center;
+	}
+}
+
+.sectionHeader {
+	width: 100%;
+	height: 5rem;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 0 2rem;
+	background-color: $yellow;
 }
 
 .card__header,
@@ -22,6 +40,10 @@
 .card__footer {
 	padding: 0 2rem;
 	margin: 2rem auto;
+}
+
+.card__header {
+	margin-bottom: 1rem;
 }
 
 .card__body,
@@ -70,6 +92,44 @@
 	}
 }
 
+.icon {
+	border: 1px solid currentColor;
+	border-radius: 100px;
+	width: 40px;
+	height: 40px;
+	padding: 7px;
+}
+
+.icon--down {
+	border: none;
+	height: 1em;
+	width: 2em;
+	padding: 0;
+	margin: 0 .5rem;
+	display: inline-block;
+	position: relative;
+
+	&:before, &:after {
+		content: '';
+		position: absolute;
+		transform-origin: 50% 100%;
+		bottom: 25%;
+		height: 1px;
+		width: 50%;
+		background-color: currentColor;
+	}
+
+	&:before {
+		right: 44%;
+		transform: rotate(45deg);
+	}
+
+	&:after {
+		left: 44%;
+		transform: rotate(-45deg);
+	}
+}
+
 .avatar {
 	position: relative;
 	overflow: hidden;
@@ -114,4 +174,100 @@
 
 .avatar__padding {
 	width: 100%;
+}
+
+
+
+/*$purple: rgba(146, 141, 255, 1);
+$purple-50: rgba(146, 141, 255, 0.5);
+$purple-light: #e9e8ff;
+$seafoam: #00FF81;
+$seafoam-light: #c3ffe2;
+$orange: #FF8000;
+$orange-light: #fdc791;
+$pink: #FF0DCB;
+$pink-light: #FF7be3;
+$pink-medium-light: #ffc9f4;
+$pink-extra-light: #FFECF8;
+$yellow: #FFFC00;
+$grey1: rgb(220, 220, 220);
+$grey3: #9b9b9b;
+$grey5: #4a4a4a;*/
+
+.squigglePaths {
+	position: fixed;
+	top: -100px;
+	left: -100px;
+	height: 0;
+	width: 0;
+}
+
+.squiggle {
+	position: relative;
+	width: 10rem;
+	height: 5rem;
+	background-image: linear-gradient(to left, $purple, $purple-light, $purple);
+	background-repeat: repeat;
+	background-size: 200% 100%;
+	clip-path: url(#squiggle0);
+	outline: 1px solid white;
+	animation: scrollBackground 6s infinite cubic-bezier(.86,.34,.6,.81);
+}
+
+.squiggle--yellow {
+	background-image: linear-gradient(to left, $yellow, $yellow-orange, $yellow);
+}
+
+.squiggle--pink {
+	background-image: linear-gradient(to left, $pink, $pink-light, $pink);
+}
+
+.squiggle--orange {
+	background-image: linear-gradient(to left, $orange, $yellow-orange, $orange);
+}
+
+
+@keyframes scrollBackground {
+	0% {
+		background-position: 0 0;
+	}
+	20% {
+		background-position: -130% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+};
+
+.squiggle--0 {
+	clip-path: url(#squiggle0);
+	animation-delay: 0s;
+}
+.squiggle--1 {
+	clip-path: url(#squiggle1);
+	animation-delay: 0.15s;
+}
+.squiggle--2 {
+	clip-path: url(#squiggle2);
+	animation-delay: 0.3s;
+}
+.squiggle--3 {
+	clip-path: url(#squiggle3);
+	animation-delay: 0.45s;
+}
+.squiggle--4 {
+	clip-path: url(#squiggle4);
+	animation-delay: 0.6s;
+}
+.squiggle--5 {
+	clip-path: url(#squiggle5);
+	animation-delay: 0.75s;
+}
+.squiggle--6 {
+	clip-path: url(#squiggle6);
+	animation-delay: 0.9s;
+}
+.squiggle--7 {
+	clip-path: url(#squiggle7);
+	animation-delay: 0.9s;
 }

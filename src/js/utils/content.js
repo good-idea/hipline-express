@@ -24,7 +24,6 @@ export const sortMBOFields = (content) => {
 		R.map(f => R.assoc('id', f.name, f)),
 		R.reduce((acc, f) => R.assoc(f.name, f, acc), {}),
 	)(R.prop('sourceRegistrationFields', content))
-	console.log(content)
 	return {
 		...R.dissoc('sourceRegistrationFields', content),
 		registrationFields,
@@ -119,6 +118,7 @@ export const attachClassTypesToChoreographers = (content) => {
 				R.flatten,
 				R.find(R.propEq('mboid', id)),
 			)(R.path(['classtypes', 'children'], content))),
+			R.filter(R.propEq('isVisible', true)),
 		)(content.schedule), choreographer)
 	))(R.prop('choreographers', content))
 
@@ -129,7 +129,6 @@ export const attachClassTypesToChoreographers = (content) => {
 }
 
 export const groupClassTypes = (content) => {
-	console.log(content)
 	const newclasstypes = R.assoc(
 		'children',
 		R.map(

@@ -19,12 +19,24 @@ nav {
 	display: inline-block;
 }
 
+.nav__item--logo {
+	img {
+		height: 3rem;
+	}
+}
+
 .nav__item--secondary {
 	color: $grey3;
 
 	&:hover {
 		color: black;
 	}
+}
+
+.nav__group {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .nav__item + .nav__item {

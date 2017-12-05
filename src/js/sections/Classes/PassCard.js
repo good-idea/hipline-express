@@ -11,7 +11,7 @@ const PassCard = (props) => {
 		<div className="card card--pass">
 			<div className="card__header">
 				<h3 className="card__title">{props.title}</h3>
-				<h1 className="card__title">{`$${props.price}`}</h1>
+				<h2 className="card__title">{`$${props.price}`}</h2>
 			</div>
 			<div className="card__cover">
 				<ResponsiveImage {...props.icon} />

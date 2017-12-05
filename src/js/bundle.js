@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
 import App from './App'
 
-const render = (Component) => {
+const renderApp = (Component) => {
 	ReactDOM.render((
 		<AppContainer>
 			<BrowserRouter>
@@ -14,6 +14,12 @@ const render = (Component) => {
 	), document.getElementById('root'))
 }
 
-render(App)
+renderApp(App)
 
-if (module.hot) module.hot.accept()
+if (module.hot) {
+	module.hot.accept('./App.js', () => {
+		// eslint-disable-next-line
+		const NewApp = require('./App').default
+		renderApp(NewApp)
+	})
+}

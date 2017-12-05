@@ -56,6 +56,10 @@
 }
 
 .card--class {
+	background-color: none;
+	border-radius: none;
+	box-shadow: none;
+
 	.card__body {
 		flex-grow: initial;
 		min-height: 12rem;
@@ -65,8 +69,11 @@
 		flex-basis: initial;
 	}
 
-	background-color: $pink-extra-light;
+	/*.card__cover figure {
+		mix-blend-mode: luminosity;
+	}*/
 }
+
 
 .card--class__choreographers {
 	display: flex;
@@ -126,3 +133,23 @@
 		padding-bottom: 2rem;
 	}
 }
+
+/*.card__cover--orange {
+	background-color: $orange;
+}
+
+.card__cover--yellow {
+	background-color: $yellow;
+}
+
+.card__cover--pink {
+	background-color: $pink;
+}
+
+.card__cover--seafoam {
+	background-color: $seafoam;
+}
+
+.card__cover--purple {
+	background-color: $purple;
+}*/

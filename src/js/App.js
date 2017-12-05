@@ -12,6 +12,8 @@ import InfoPage from './sections/InfoPage'
 import Schedule from './sections/Schedule/Schedule'
 import Dashboard from './sections/Dashboard/Dashboard'
 
+import { SquigglePaths } from './components/Squiggle'
+
 import { parseContent } from './utils/content'
 import withPubSub from './enhancers/withPubSub'
 
@@ -133,6 +135,7 @@ class App extends React.Component {
 		if (!this.state.home) return null
 		return (
 			<div id="app">
+				<SquigglePaths />
 				<Navigation
 					user={this.state.user}
 					setDropdown={this.setDropdown}
@@ -146,7 +149,13 @@ class App extends React.Component {
 					<Route
 						exact
 						path="/"
-						render={match => <Choreographers match={match} choreographers={this.state.choreographers} />}
+						render={match => (
+							<Choreographers
+								match={match}
+								home={this.state.home}
+								choreographers={this.state.choreographers}
+							/>
+						)}
 					/>
 					<Route
 						exact

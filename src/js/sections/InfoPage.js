@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import ResponsiveImage from '../components/ResponsiveImage'
 import { ScrollableContainer, ScrollableChild, ScrollTrigger } from '../UI/Scroll'
 import { slugify } from '../utils/helpers'
-import { markdownToJSX } from '../utils/text'
+import { markdownToJSX, wrapAndPrepare } from '../utils/text'
 
 /**
  * Sub-components
@@ -32,8 +32,8 @@ class InfoNavItem extends React.Component {
 const InfoBlock = (props) => {
 	return (
 		<div className="info__block">
-			<h2>{props.header}</h2>
-			<p>{markdownToJSX(props.body)}</p>
+			<h3 className="info__block__header">{props.header}</h3>
+			{markdownToJSX(props.body)}
 		</div>
 	)
 }
@@ -63,9 +63,9 @@ class InfoSection extends React.Component {
 			<ScrollableChild slug={`info-${this.props.slug}`}>
 				<div className="info__section">
 					<div className="info__header">
-						<h2>{this.props.headline}</h2>
+						<h2 className="info__block__header">{this.props.headline}</h2>
 						{cover}
-						<h3>{markdownToJSX(this.props.intro)}</h3>
+						{wrapAndPrepare('p')(this.props.intro)}
 					</div>
 					<div className="info__blocks">
 						{this.props.blocks.map(c => <InfoBlock key={`infoBlock-${slugify(c.header)}`} {...c} />)}

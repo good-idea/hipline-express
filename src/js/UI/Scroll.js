@@ -18,10 +18,12 @@ class ScrollableContainer extends React.Component {
 		this.unregister = this.unregister.bind(this)
 		this.scrollToElement = this.scrollToElement.bind(this)
 		this.registerContainerRef = this.registerContainerRef.bind(this)
+		this.state = {}
 	}
 
 	getChildContext() {
 		return {
+			container: this.state.container,
 			scroll: {
 				register: this.register,
 				unregister: this.unregister,
@@ -31,7 +33,9 @@ class ScrollableContainer extends React.Component {
 	}
 
 	registerContainerRef(element) {
-		this.container = this.props.containerElement || element
+		this.setState({
+			container: this.props.containerElement || element
+		})
 	}
 
 	register(name, ref) {
@@ -45,7 +49,7 @@ class ScrollableContainer extends React.Component {
 	scrollToElement(slug) {
 		const node = findDOMNode(this.elements[slug])
 		const config = {}
-		if (this.container)	config.container = this.container
+		if (this.state.container)	config.container = this.state.container
 		if (this.props.duration) config.duration = this.props.duration
 		if (this.props.callback) config.callback = this.props.callback
 		scrollTo(node, config)
@@ -69,6 +73,7 @@ class ScrollableContainer extends React.Component {
 
 ScrollableContainer.childContextTypes = {
 	scroll: PropTypes.object,
+	container: PropTypes.shape({}),
 }
 
 ScrollableContainer.propTypes = {

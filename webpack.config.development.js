@@ -36,11 +36,10 @@ const config = () => (
 			// contentBase: path.join(__dirname, 'public'),
 			historyApiFallback: true,
 			hot: true,
-			proxy: {
-				'/api': {
-					target: 'http://localhost:3000',
-				},
-			},
+			proxy: [{
+				context: ['/api', '/images'],
+				target: 'http://localhost:3000',
+			}],
 		},
 
 		plugins: [

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { compose, withProps } from 'recompose'
 import R from 'ramda'
+import { Link } from 'react-router-dom'
 
 import ResponsiveImage from '../../components/ResponsiveImage'
 import Avatar from '../../components/Avatar'
@@ -9,6 +10,7 @@ import Squiggle from '../../components/Squiggle'
 
 import { makeParagraph } from '../../utils/text'
 
+const colors = ['orange', 'pink', 'seafoam', 'purple']
 
 /**
  * enhancer
@@ -68,11 +70,16 @@ class ClassCard extends React.Component {
 						classNames="avatar--round"
 					/>
 				</div>
+				<h3 className="">
+					<Link className="cta"to="/schedule">Sign Up</Link>
+				</h3>
 			</div>
 		)
 	}
 
 	render() {
+		const num = this.props.index % 6
+		const color = colors[this.props.index % colors.length]
 		return (
 			<div className="card card--class card--wide">
 				<div className="card__header">
@@ -80,8 +87,8 @@ class ClassCard extends React.Component {
 						<h3>{this.props.title}</h3>
 					</div>
 				</div>
-				<Squiggle />
-				<div className="card__cover">
+				<Squiggle num={this.props.index % 6} color={color} />
+				<div className={`card__cover card__cover--${color}`}>
 					<ResponsiveImage {...this.props.cover} />
 				</div>
 				<div className="card__body">
@@ -97,6 +104,7 @@ class ClassCard extends React.Component {
 
 ClassCard.propTypes = {
 	choreographers: PropTypes.arrayOf(PropTypes.shape()),
+	index: PropTypes.number.isRequired,
 }
 
 ClassCard.defaultProps = {

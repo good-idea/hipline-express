@@ -14,7 +14,7 @@ const ClassSection = props => (
 		</div>
 		<div className="cards">
 			{props.children.filter(c => (c.isVisible === true && c.parsed === true))
-				.map(c => <ClassCard key={c.slug} {...c} />)
+				.map((c, i) => <ClassCard key={c.slug} index={i} {...c} />)
 			}
 		</div>
 	</div>
