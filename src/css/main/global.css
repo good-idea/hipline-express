@@ -1,19 +1,16 @@
-
+html,
 body {
-	padding-top: calc($nav-height);
+	height: 100%;
+	overflow-x: hidden;
 }
 
-html,
-body,
-#root,
-#app {
-	height: 100%;
-	overflow: hidden;
+body {
+	overflow-y: scroll;
+	padding-top: calc($nav-height);
 }
 
 section {
 	height: 100%;
-	overflow-y: scroll;
 }
 
 /*section.with-aside main {

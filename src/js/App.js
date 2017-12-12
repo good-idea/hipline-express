@@ -11,6 +11,7 @@ import Classes from './sections/Classes/Classes'
 import InfoPage from './sections/InfoPage'
 import Schedule from './sections/Schedule/Schedule'
 import Dashboard from './sections/Dashboard/Dashboard'
+import Footer from './sections/Footer'
 
 import { SquigglePaths } from './components/Squiggle'
 
@@ -195,6 +196,7 @@ class App extends React.Component {
 						)}
 					/>
 				</Switch>
+				<Footer {...this.state.home} />
 			</div>
 		)
 	}
