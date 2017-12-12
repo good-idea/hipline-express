@@ -9,8 +9,10 @@ body {
 }
 
 body {
+	width: 100%;
 	top: calc($nav-height);
-	position: relative;
+	bottom: 0;
+	position: absolute;
 }
 
 section {
