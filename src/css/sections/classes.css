@@ -107,11 +107,10 @@
 }
 
 .card--pass {
-	background-color: $purple-light;
-
 	.card__cover {
 		position: static;
 		padding-bottom: initial;
+		margin: 2rem auto;
 
 		figure {
 			position: relative;
@@ -133,6 +132,72 @@
 		padding-bottom: 2rem;
 	}
 }
+
+.info__section--passtype {
+
+	.card {
+		color: $seafoam-light;
+		border: 1px solid currentColor;
+		padding-top: 0;
+
+		h1, h2, h3, h4, h5, p {
+			color: black;
+		}
+	}
+
+	.card__header {
+		margin: 0 0 2rem 0;
+		padding: 1rem;
+		background-color: currentColor;
+	}
+
+	.card__title {
+		margin-bottom: 0;
+	}
+
+}
+
+.info__section--passtype:nth-of-type(4n + 1) {
+	.highlight svg {
+		fill: $pink-medium-light;
+	}
+
+	.card--pass {
+		color: $pink-medium-light;
+	}
+}
+
+.info__section--passtype:nth-of-type(4n + 2) {
+	.highlight svg {
+		fill: $seafoam-light;
+	}
+
+	.card--pass {
+		color: $seafoam-light;
+	}
+}
+
+.info__section--passtype:nth-of-type(4n + 3) {
+	.highlight svg {
+		fill: $orange-light;
+	}
+
+	.card--pass {
+		color: $orange-light;
+	}
+}
+
+.info__section--passtype:nth-of-type(4n + 4) {
+	.highlight svg {
+		fill: $purple-light;
+	}
+
+	.card--pass {
+		color: $purple-light;
+	}
+}
+
+
 
 /*.card__cover--orange {
 	background-color: $orange;

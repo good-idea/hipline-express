@@ -36,7 +36,6 @@ const getOffset = (element, container = {}) => { // crossbrowser version
 
 	const scrollTop = container.scrollTop || window.pageYOffset || docEl.scrollTop || body.scrollTop
 	const scrollLeft = container.scrollLeft || window.pageXOffset || docEl.scrollLeft || body.scrollLeft
-
 	const clientTop = docEl.clientTop || body.clientTop || 0
 	const clientLeft = docEl.clientLeft || body.clientLeft || 0
 
@@ -70,9 +69,7 @@ const scrollTo = (destination, overrides) => {
 	const startY = config.container.scrollTop
 	const containerTop = getOffset(config.container).top
 	const targetTop = getOffset(destination, config.container).top
-	const destY = targetTop - containerTop
-
-	console.log(destination, containerTop, targetTop, destY, config)
+	const destY = targetTop
 
 	const startTime = Date.now()
 

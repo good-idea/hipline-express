@@ -18,7 +18,7 @@ import Splash from './Splash'
 const Choreographers = ({ home, choreographers }) => {
 	if (!choreographers.length) return null
 	return (
-		<ScrollableContainer>
+		<ScrollableContainer containerElement={document.body}>
 			<section className="home">
 				<Splash text={home.intro} />
 				<div className="choreographers">

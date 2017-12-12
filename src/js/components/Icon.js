@@ -80,11 +80,6 @@ export const SvgWrapper = styled.div`
 const Icon = ({ glyph }) => (
 	<SvgWrapper className="icon">
 		<InlineSvg
-			fillRule="evenodd"
-			clipRule="evenodd"
-			strokeLinejoin="round"
-			strokeMiterlimit="1.414"
-			xmlns="http://www.w3.org/2000/svg"
 			aria-labelledby="title"
 			viewBox="0 0 64 64"
 			preserveAspectRatio="xMidYMid meet"

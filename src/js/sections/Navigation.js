@@ -50,11 +50,10 @@ class Navigation extends React.Component {
 			<nav>
 				<div className="nav__group">
 					<div className="nav__item nav__item--logo"><Link to="/"><img src="/images/hipline-logo.png" alt="Hipline" /></Link></div>
-					{/* <h3 className="nav__item"><Link to="/">Choreographers</Link></h3> */}
-					<h3 className="nav__item"><Link to="/classes">Classes</Link></h3>
-					<h3 className="nav__item"><Link to="/community">Community</Link></h3>
-					<h3 className="nav__item"><Link to="/about">About</Link></h3>
-					<h3 className="nav__item"><Link to="/schedule">Schedule</Link></h3>
+					<h4 className="nav__item"><Link to="/classes">Classes</Link></h4>
+					<h4 className="nav__item"><Link to="/community">Community</Link></h4>
+					<h4 className="nav__item"><Link to="/about">About</Link></h4>
+					<h4 className="nav__item"><a target="_blank" rel="noopener noreferrer" href="https://clients.mindbodyonline.com/classic/mainclass?studioid=4561">Schedule</a></h4>
 				</div>
 				{/* {this.renderUserMenu()}
 				<Login

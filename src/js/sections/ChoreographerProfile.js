@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import Avatar from '../components/Avatar'
 import Squiggle from '../components/Squiggle'
-import Icon from '../Components/Icon'
+import Icon from '../components/Icon'
 import { ScrollableChild } from '../UI/Scroll'
 import { markdownToJSX } from '../utils/text'
 

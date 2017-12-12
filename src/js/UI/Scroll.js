@@ -10,7 +10,6 @@ import { scrollTo, cn } from '../utils/helpers'
  */
 
 class ScrollableContainer extends React.Component {
-
 	constructor(props) {
 		super(props)
 		this.elements = {}
@@ -62,12 +61,6 @@ class ScrollableContainer extends React.Component {
 				ref: this.registerContainerRef,
 			})
 		)
-		// return React.Children.only(
-		// 	this.props.children,
-		// 	c => React.cloneElement(c, {
-		// 		ref: (e) => { console.log(e); },
-		// 	}),
-		// )
 	}
 }
 

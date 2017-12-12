@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { toClass } from 'recompose'
 
 import PassCard from './PassCard'
+import Highlight from '../../components/Highlight'
 
 /**
  * PassSection
@@ -10,9 +11,11 @@ import PassCard from './PassCard'
 
 const PassSection = (props) => {
 	return (
-		<div className="info__section">
+		<div className="info__section info__section--passtype">
 			<div className="info__header column column--narrow">
-				<h1 className="info__title">{props.title}</h1>
+				<h2 className="info__title">
+					<Highlight text={props.title} />
+				</h2>
 				<p className="info__subtitle">{props.description}</p>
 			</div>
 			<div className="cards">

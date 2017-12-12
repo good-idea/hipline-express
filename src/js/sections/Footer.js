@@ -33,8 +33,15 @@ const Footer = ({ footertext, contact, footersocial }) => (
 
 Footer.propTypes = {
 	footertext: PropTypes.string,
-	footersocial: PropTypes.arrayOf([PropTypes.shape({})]),
-	contact: PropTypes.arrayOf([PropTypes.shape({})]),
+	footersocial: PropTypes.arrayOf(PropTypes.shape({
+		facebook: PropTypes.string,
+		instagram: PropTypes.string,
+	})),
+	contact: PropTypes.arrayOf(PropTypes.shape({
+		address: PropTypes.string,
+		phone: PropTypes.string,
+		email: PropTypes.string,
+	})),
 }
 
 Footer.defaultProps = {

@@ -58,6 +58,10 @@ class App extends React.Component {
 			.catch(err => console.log(err))
 	}
 
+	componentDidUpdate(prevProps) {
+		if (this.props.location.pathname !== prevProps.location.pathname) document.body.scrollTop = 0
+	}
+
 	setDropdown(dropdown) {
 		this.setState({ dropdown })
 	}

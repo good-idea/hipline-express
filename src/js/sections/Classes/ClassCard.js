@@ -9,8 +9,8 @@ import Avatar from '../../components/Avatar'
 import Squiggle from '../../components/Squiggle'
 
 import { makeParagraph } from '../../utils/text'
+import { colors, mbolinks } from '../../constants'
 
-const colors = ['orange', 'pink', 'seafoam', 'purple']
 
 /**
  * enhancer
@@ -70,9 +70,9 @@ class ClassCard extends React.Component {
 						classNames="avatar--round"
 					/>
 				</div>
-				<h3 className="">
-					<Link className="cta"to="/schedule">Sign Up</Link>
-				</h3>
+				<h4 className="card__cta">
+					<a className="cta cta--primary" href={mbolinks.schedule} rel="noopener noreferrer" target="_blank">Sign Up</a>
+				</h4>
 			</div>
 		)
 	}

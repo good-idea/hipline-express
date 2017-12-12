@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 import ResponsiveImage from '../components/ResponsiveImage'
+import Highlight from '../components/Highlight'
 import { ScrollableContainer, ScrollableChild, ScrollTrigger } from '../UI/Scroll'
 import { slugify } from '../utils/helpers'
 import { markdownToJSX, wrapAndPrepare } from '../utils/text'
@@ -21,7 +22,7 @@ class InfoNavItem extends React.Component {
 			<div className="subnav__item">
 				<ScrollTrigger slug={`info-${this.props.slug}`}>
 					<button>
-						<h3>{this.props.title}</h3>
+						<h4>{this.props.title}</h4>
 					</button>
 				</ScrollTrigger>
 			</div>
@@ -32,7 +33,7 @@ class InfoNavItem extends React.Component {
 const InfoBlock = (props) => {
 	return (
 		<div className="info__block">
-			<h3 className="info__block__header">{props.header}</h3>
+			<h4 className="info__block__header">{props.header}</h4>
 			{markdownToJSX(props.body)}
 		</div>
 	)
@@ -53,17 +54,20 @@ const InfoButton = (props) => {
 	)
 }
 
+/* eslint-disable react/prefer-stateless-function */
 class InfoSection extends React.Component {
 	render() {
 		const cover = (this.props.cover) ?
-			<ResponsiveImage classNames='info__cover' {...this.props.cover } /> :
+			<ResponsiveImage classNames="info__cover" {...this.props.cover} /> :
 			null
 
 		return (
 			<ScrollableChild slug={`info-${this.props.slug}`}>
 				<div className="info__section">
 					<div className="info__header">
-						<h2 className="info__block__header">{this.props.headline}</h2>
+						<h2 className="info__title">
+							<Highlight text={this.props.headline}/>
+						</h2>
 						{cover}
 						{wrapAndPrepare('p')(this.props.intro)}
 					</div>
@@ -89,9 +93,13 @@ class InfoPage extends React.Component {
 		super(props)
 	}
 
+	componentDidMount() {
+
+	}
+
 	render() {
 		return (
-			<ScrollableContainer>
+			<ScrollableContainer containerElement={document.body}>
 				<section className="info">
 					<aside className="aside-nav">
 						{this.props.children.map(c => (
@@ -100,7 +108,7 @@ class InfoPage extends React.Component {
 								key={`info-scrollableNav-${this.props.slug}-${c.slug}`}
 								slug={`info-${this.props.slug}-${c.slug}`}
 							>
-								<h3>{c.title}</h3>
+								<h4>{c.title}</h4>
 							</ScrollTrigger>
 						))}
 					</aside>

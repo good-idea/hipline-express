@@ -1,33 +1,19 @@
 .info__section {
-	padding-top: $top-line;
+	padding-top: calc($top-line + 3rem);
 	padding-bottom: 2rem;
 }
 
-.info__section > .title {
+.info__title {
+	text-align: center;
+	display: block;
+	margin: 2rem auto 3rem;
 	text-transform: uppercase;
-}
-
-.info__header {
-	/*text-align: center;*/
+	font-weight: 100;
 }
 
 .info__cover {
 	max-width: 40rem;
 	margin: 0 auto;
-}
-
-.info__block__header {
-	text-align: center;
-	color: $pink;
-	text-transform: uppercase;
-	margin: 2rem auto 1rem;
-
-}
-
-.info__title {
-	font-style: italic;
-	font-weight: 600;
-	display: inline-block;
 }
 
 .info__subtitle {
@@ -53,5 +39,23 @@
 		margin: 0 1rem;
 		height: 2px;
 		background: $grey1;
+	}
+}
+
+.info__section:nth-of-type(3n + 1) {
+	.highlight svg {
+		fill: $pink-medium-light;
+	}
+}
+
+.info__section:nth-of-type(3n + 2) {
+	.highlight svg {
+		fill: $seafoam-light;
+	}
+}
+
+.info__section:nth-of-type(3n + 3) {
+	.highlight svg {
+		fill: $orange-light;
 	}
 }

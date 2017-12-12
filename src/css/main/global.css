@@ -1,3 +1,7 @@
+html {
+	overflow: hidden;
+}
+
 html,
 body {
 	height: 100%;
@@ -5,25 +9,19 @@ body {
 }
 
 body {
-	overflow-y: scroll;
-	padding-top: calc($nav-height);
+	top: calc($nav-height);
+	position: relative;
 }
 
 section {
 	height: 100%;
+	padding-bottom: 4rem;
 }
-
-/*section.with-aside main {
-	> .column {
-		margin-left: 2rem;
-	}
-}*/
 
 .column {
 	width: calc(100% - 4rem);
 	max-width: 70rem;
 	margin: 0 auto;
-
 }
 
 .column--left {
@@ -114,8 +112,10 @@ aside + main {
 
 	&:after {
 		content: '';
+		top: 3rem;
+		right: 0;
 		width: 0;
-		height: 100%;
+		height: calc(100% - 2rem);
 		border-right: 1px solid currentColor;
 		position: absolute;
 	}

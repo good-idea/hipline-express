@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { toClass } from 'recompose'
 import ClassCard from './ClassCard'
+import Highlight from '../../components/Highlight'
+
 /**
  * ClassSection
  */
@@ -9,8 +11,10 @@ import ClassCard from './ClassCard'
 const ClassSection = props => (
 	<div className="info__section info__section--classtype">
 		<div className="info__header column">
-			<h1 className="info__title">{props.title}</h1>
-			<h3 className="info__subtitle">{props.description}</h3>
+			<h2 className="info__title">
+				<Highlight text={props.title} />
+			</h2>
+			<p className="info__subtitle">{props.description}</p>
 		</div>
 		<div className="cards">
 			{props.children.filter(c => (c.isVisible === true && c.parsed === true))

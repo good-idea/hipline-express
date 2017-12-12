@@ -5,14 +5,16 @@ import { Link } from 'react-router-dom'
 import ResponsiveImage from '../../components/ResponsiveImage'
 import { makeParagraph } from '../../utils/text'
 
+import { mbolinks } from '../../constants'
+
 
 const PassCard = (props) => {
 	return (
 		<div className="card card--pass">
 			<div className="card__header">
 				<h3 className="card__title">{props.title}</h3>
-				<h2 className="card__title">{`$${props.price}`}</h2>
 			</div>
+			<h2 className="card__title">{`$${props.price}`}</h2>
 			<div className="card__cover">
 				<ResponsiveImage {...props.icon} />
 			</div>
@@ -22,10 +24,10 @@ const PassCard = (props) => {
 				</div>
 			</div>
 			<div className="card__footer">
-				<h4>
-					<Link to={`/schedule/passes/${props.slug}`} className="cta--primary card__cta">
+				<h4 className="card__cta">
+					<a target="_blank" rel="noopener noreferrer" href={mbolinks.passLinkById(props.mboprogramid)} className="cta--primary">
 						Buy
-					</Link>
+					</a>
 				</h4>
 			</div>
 		</div>
@@ -35,7 +37,10 @@ const PassCard = (props) => {
 PassCard.propTypes = {
 	title: PropTypes.string.isRequired,
 	minidescription: PropTypes.string,
-	price: PropTypes.number.isRequired,
+	price: PropTypes.oneOfType([
+		PropTypes.number,
+		PropTypes.string,
+	]).isRequired,
 }
 
 PassCard.defaultProps = {

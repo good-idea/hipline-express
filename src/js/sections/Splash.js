@@ -15,7 +15,6 @@ class Splash extends React.Component {
 	}
 
 	componentDidUpdate() {
-		console.log(this.context.container)
 		if (this.context.container && this.initialized === false) {
 			this.context.container.addEventListener('scroll', this.handleScroll)
 			this.initizlized = true
@@ -31,17 +30,16 @@ class Splash extends React.Component {
 	}
 
 	handleScroll = () => {
-		console.log(this.element, this.context.container)
+		// This is unnecessary and I think it is uncool
 		if (!this.element) return
 		const percentage = Math.max(0, 1 - (this.context.container.scrollTop / window.outerHeight))
 		const scale = (percentage * 0.5) + 0.5
 		const rotateX = (1 - percentage) * 45
 		const translateY = (1 - percentage) * -75
 		const opacity = percentage
-		console.log(this.context.container.scrollTop, percentage)
 		this.setState({
 			style: {
-				transform: `scale(${scale}) rotateX(${rotateX}deg) translateY(${translateY}%)`,
+				// transform: `scale(${scale}) rotateX(${rotateX}deg) translateY(${translateY}%)`,
 				opacity,
 			},
 		})
@@ -49,8 +47,8 @@ class Splash extends React.Component {
 
 	render() {
 		return (
-			<div ref={this.registerRef} className="splash">
-				<div className="splash__transform" style={this.state.style}>
+			<div ref={this.registerRef} className="splash" style={this.state.style}>
+				<div className="splash__transform" >
 					<div className="column column--narrow">
 						{prepareIntroText(this.props.text)}
 					</div>
