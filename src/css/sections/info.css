@@ -4,6 +4,10 @@
 	a {
 		color: $orange;
 	}
+
+	li {
+		list-style: disc inside;
+	}
 }
 
 .info__title {
@@ -112,5 +116,25 @@
 		.info__cover {
 			width: 80%;
 		}
+	}
+}
+
+.info--co-work .info__section--pricing {
+	.info__blocks {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.info__block {
+		width: calc(50% - 4rem);
+		text-align: center;
+		padding: 1rem;
+		margin: 0 2rem 2rem;
+		border: 2px solid $orange-light;
+	}
+
+	.info__block__header {
+		margin-top: 0;
 	}
 }

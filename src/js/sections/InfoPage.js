@@ -129,7 +129,7 @@ class InfoPage extends React.Component {
 	render() {
 		return (
 			<ScrollableContainer containerElement={document.body}>
-				<section className="info">
+				<section className={`info info--${this.props.slug}`}>
 					<aside className="aside-nav">
 						{this.props.children.map(c => (
 							<ScrollTrigger

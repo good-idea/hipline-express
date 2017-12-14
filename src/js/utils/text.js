@@ -23,7 +23,14 @@ export const markdownToHTML = markdown.toHTML
  * Edit HTML String
  */
 
-export const removeWrappingTags = text => text.replace(/(<[\S]+>)(.*)(<\/[\S]+>)/g, '$2')
+export const removeWrappingTags = (text) => {
+	const first = text.match(/^<([\w]+)>/)
+	const last = text.match(/<\/([\w]+)>$/)
+	if (first === last && first) {
+		if (first.match(/\p|h\d|(ul)/)) return text.replace(/(^<[\w]+>)(.*)(<\/[\w]+>$)/g, '$2')
+	}
+	return text
+}
 
 export const wrapWith = tag => text => `<${tag}>${text}</${tag}>`
 
@@ -66,8 +73,8 @@ const prepareIntroText = R.pipe(
 	R.replace(/[\s?]inspire[\s?]/, '![inspire](/images/inspire.png)'),
 	R.replace(/[\s?]empower[\s?]/, '![empower](/images/empower.png)'),
 	markdownToHTML,
-	stripTags('<em><strong><br><img>'),
-	removeWrappingTags,
+	// stripTags('<em><strong><br><img><ul><li>'),
+	// removeWrappingTags,
 	wrapWith('h2'),
 	HTMLtoJSX,
 )
