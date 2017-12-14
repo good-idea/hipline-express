@@ -15,9 +15,9 @@ const PassCard = (props) => {
 				<h3 className="card__title">{props.title}</h3>
 			</div>
 			<h2 className="card__title">{`$${props.price}`}</h2>
-			<div className="card__cover">
+			{/* <div className="card__cover">
 				<ResponsiveImage {...props.icon} />
-			</div>
+			</div> */}
 			<div className="card__body">
 				<div className="card__description">
 					{makeParagraph(props.minidescription)}

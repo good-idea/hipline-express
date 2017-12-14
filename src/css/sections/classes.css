@@ -127,17 +127,13 @@
 	.card__footer {
 		text-align: center;
 	}
-
-	.card__footer {
-		padding-bottom: 2rem;
-	}
 }
 
 .info__section--passtype {
 
 	.card {
 		color: $seafoam-light;
-		border: 1px solid currentColor;
+		border: 4px solid currentColor;
 		padding-top: 0;
 
 		h1, h2, h3, h4, h5, p {

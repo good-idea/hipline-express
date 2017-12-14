@@ -5,6 +5,8 @@ import { toClass } from 'recompose'
 import PassCard from './PassCard'
 import Highlight from '../../components/Highlight'
 
+import { wrapAndPrepare } from '../../utils/text'
+
 /**
  * PassSection
  */
@@ -16,7 +18,7 @@ const PassSection = (props) => {
 				<h2 className="info__title">
 					<Highlight text={props.title} />
 				</h2>
-				<p className="info__subtitle">{props.description}</p>
+				<div className="info__subtitle">{wrapAndPrepare('p')(props.description)}</div>
 			</div>
 			<div className="cards">
 				{props.passes.filter(p => p.isVisible === true).map(p => (

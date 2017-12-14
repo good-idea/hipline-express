@@ -60,6 +60,7 @@ export const HTMLtoJSX = text => parser(text)
 
 const wrapAndPrepare = tag => R.pipe(
 	fixKirbyTextAnchors,
+	fixKirbyTextEmailLinks,
 	markdownToHTML,
 	externalLinks,
 	removeWrappingTags,
