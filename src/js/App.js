@@ -166,7 +166,14 @@ class App extends React.Component {
 					<Route
 						exact
 						path="/classes"
-						render={match => <Classes match={match} passes={this.state.passes} classtypes={this.state.classtypes} />}
+						render={match => (
+							<Classes
+								match={match}
+								splashText={this.state.home.intro}
+								passes={this.state.passes}
+								classtypes={this.state.classtypes}
+							/>
+						)}
 					/>
 					{this.state.infoPages.map(page => (
 						<Route

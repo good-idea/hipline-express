@@ -24,21 +24,22 @@
 
 .getinline {
 	position: relative;
-	margin-top: 4rem;
-	display: inline-block;
+	display: block;
+	text-align: right;
+	margin: 0 0 2rem auto;
 
 	h1 {
 		position: relative;
 		font-weight: 800;
 		font-style: italic;
-		background: linear-gradient(to top, $orange-light, $orange);
+		background: linear-gradient(to bottom, $pink, $orange);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}
 
 	.squiggle {
-		/*position: absolute;
-		right: 0;*/
+		position: absolute;
+		right: 0;
 
 		margin-left: auto;
 		margin-top: -1em;

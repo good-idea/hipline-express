@@ -74,8 +74,8 @@ const prepareIntroText = R.pipe(
 	R.replace(/[\s?]inspire[\s?]/, '![inspire](/images/inspire.png)'),
 	R.replace(/[\s?]empower[\s?]/, '![empower](/images/empower.png)'),
 	markdownToHTML,
-	// stripTags('<em><strong><br><img><ul><li>'),
-	// removeWrappingTags,
+	stripTags('<em><strong><br><img><ul><li>'),
+	removeWrappingTags,
 	wrapWith('h2'),
 	HTMLtoJSX,
 )
