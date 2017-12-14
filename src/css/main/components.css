@@ -293,5 +293,6 @@ $grey5: #4a4a4a;*/
 }
 
 .highlight__inner {
-
+	position: relative;
+	display: inline-block;
 }

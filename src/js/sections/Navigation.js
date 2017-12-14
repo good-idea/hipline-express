@@ -51,8 +51,15 @@ class Navigation extends React.Component {
 				<div className="nav__group">
 					<div className="nav__item nav__item--logo"><Link to="/"><img src="/images/hipline-logo.png" alt="Hipline" /></Link></div>
 					<h4 className="nav__item"><Link to="/classes">Classes</Link></h4>
-					<h4 className="nav__item"><Link to="/community">Community</Link></h4>
-					<h4 className="nav__item"><Link to="/about">About</Link></h4>
+					{this.props.infoPages.map(page => (
+						<h4 className="nav__item" key={page.slug}>
+							<Link href={`/${page.slug}`} to={`/${page.slug}`}>
+								{page.title}
+							</Link>
+						</h4>
+					))}
+					{/* <h4 className="nav__item"><Link to="/community">Community</Link></h4>
+					<h4 className="nav__item"><Link to="/about">About</Link></h4> */}
 					<h4 className="nav__item"><a target="_blank" rel="noopener noreferrer" href="https://clients.mindbodyonline.com/classic/mainclass?studioid=4561">Schedule</a></h4>
 				</div>
 				{/* {this.renderUserMenu()}
@@ -75,7 +82,7 @@ class Navigation extends React.Component {
 }
 
 Navigation.propTypes = {
-	setDropdown: PropTypes.func.isRequired,
+	// setDropdown: PropTypes.func.isRequired,
 }
 
 Navigation.defaultProps = {

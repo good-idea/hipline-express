@@ -83,38 +83,38 @@ class App extends React.Component {
 		)(userData)
 		this.setState({ user: fixedUser }, callback)
 	}
+  //
+	// loginUser = ({ user, token }) => {
+	// 	Cookies.set('jwt', token)
+	// 	if (user === false) this.logoutUser()
+	// 	this.setState({ user })
+	// }
+  //
+	// logoutUser = () => {
+	// 	Cookies.remove('jwt')
+	// 	this.setState({ user: false }, () => {
+	// 		this.props.history.push('/')
+	// 	})
+	// }
 
-	loginUser = ({ user, token }) => {
-		Cookies.set('jwt', token)
-		if (user === false) this.logoutUser()
-		this.setState({ user })
-	}
+	// loadUserData = () => {
+	// 	if (this.state.schedule) {
+	// 		this.loadUserDataWhenReady()
+	// 		return
+	// 	}
+	// 	this.props.subscribe('mboScheduleLoaded', this.loadUserDataWhenReady)
+	// }
 
-	logoutUser = () => {
-		Cookies.remove('jwt')
-		this.setState({ user: false }, () => {
-			this.props.history.push('/')
-		})
-	}
-
-	loadUserData = () => {
-		if (this.state.schedule) {
-			this.loadUserDataWhenReady()
-			return
-		}
-		this.props.subscribe('mboScheduleLoaded', this.loadUserDataWhenReady)
-	}
-
-	loadUserDataWhenReady = () => {
-		axios.get('/api/mbo/user/account', {
-			headers: { 'x-access-token': Cookies.get('jwt') || false },
-		}).then((response) => {
-			this.setUserData(response.data.user, () => {
-				this.props.unsubscribe('mboScheduleLoaded', this.loadUserDataWhenReady)
-				this.props.emit('accountDataLoaded')
-			})
-		}).catch(err => console.log(err, err.response))
-	}
+	// loadUserDataWhenReady = () => {
+	// 	axios.get('/api/mbo/user/account', {
+	// 		headers: { 'x-access-token': Cookies.get('jwt') || false },
+	// 	}).then((response) => {
+	// 		this.setUserData(response.data.user, () => {
+	// 			this.props.unsubscribe('mboScheduleLoaded', this.loadUserDataWhenReady)
+	// 			this.props.emit('accountDataLoaded')
+	// 		})
+	// 	}).catch(err => console.log(err, err.response))
+	// }
 
 	getChoreographerByID = (id) => {
 		if (!this.state.choreographers) {
@@ -142,13 +142,14 @@ class App extends React.Component {
 			<div id="app">
 				<SquigglePaths />
 				<Navigation
-					user={this.state.user}
-					setDropdown={this.setDropdown}
-					dropdown={this.state.dropdown}
-					loginUser={this.loginUser}
-					logoutUser={this.logoutUser}
-					registrationFields={this.state.registrationFields}
-					liabilityText={this.state.home.liability}
+					// user={this.state.user}
+					// setDropdown={this.setDropdown}
+					// dropdown={this.state.dropdown}
+					// loginUser={this.loginUser}
+					// logoutUser={this.logoutUser}
+					// registrationFields={this.state.registrationFields}
+					// liabilityText={this.state.home.liability}
+					infoPages={this.state.infoPages}
 				/>
 				<Switch>
 					<Route
@@ -167,17 +168,15 @@ class App extends React.Component {
 						path="/classes"
 						render={match => <Classes match={match} passes={this.state.passes} classtypes={this.state.classtypes} />}
 					/>
-					<Route
-						exact
-						path="/community"
-						render={() => <InfoPage {...this.state.community} />}
-					/>
-					<Route
-						exact
-						path="/about"
-						render={() => <InfoPage {...this.state.about} />}
-					/>
-					<Route
+					{this.state.infoPages.map(page => (
+						<Route
+							exact
+							key={page.slug}
+							path={`/${page.slug}`}
+							render={() => <InfoPage {...page} />}
+						/>
+					))}
+					{/* <Route
 						path="/dashboard"
 						render={(routeProps => (
 							<Dashboard
@@ -198,7 +197,7 @@ class App extends React.Component {
 								schedule={this.state.schedule}
 							/>
 						)}
-					/>
+					/> */}
 				</Switch>
 				<Footer {...this.state.home} />
 			</div>
