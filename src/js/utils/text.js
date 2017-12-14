@@ -8,6 +8,11 @@ import R from 'ramda'
 
 export const fixKirbyTextAnchors = text => text.replace(/(\(link:\s?(\S*))\stext:\s?([\S ]*)\)/g, '[$3]($2)')
 
+export const fixKirbyTextEmailLinks = R.pipe(
+	R.replace(/(\(email:\s?(\S*))\stext:\s?([\S ]*)\)/g, '[$3](mailto:$2)'),
+	R.replace(/(\(email:\s?(\S*))\)/g, '[$2](mailto:$2)'),
+)
+
 /**
  * Convert Markdown to HTML
  */
@@ -74,6 +79,7 @@ const prepareIntroText = R.pipe(
 
 const markdownToJSX = R.pipe(
 	fixKirbyTextAnchors,
+	fixKirbyTextEmailLinks,
 	markdownToHTML,
 	externalLinks,
 	HTMLtoJSX,

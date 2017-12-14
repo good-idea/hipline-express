@@ -1,6 +1,9 @@
 .info__section {
-	padding-top: calc($top-line + 3rem);
-	padding-bottom: 2rem;
+	padding: 2rem 0;
+
+	a {
+		color: $orange;
+	}
 }
 
 .info__title {
@@ -13,7 +16,7 @@
 
 .info__cover {
 	max-width: 40rem;
-	margin: 0 auto;
+	margin: 0 auto 2rem;
 }
 
 .info__subtitle {
@@ -57,5 +60,57 @@
 .info__section:nth-of-type(3n + 3) {
 	.highlight svg {
 		fill: $orange-light;
+	}
+}
+
+
+.info__block {
+	margin-top: 2rem;
+}
+
+.info__block__header {
+	text-align: center;
+	margin: 1rem 1rem;
+	text-transform: uppercase;
+	position: relative;
+	text-decoration: underline;
+
+	/*&:after {
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: -2rem;
+		width: calc(100% + 4rem);
+		height: 1px;
+		background-color: currentColor;
+	}*/
+}
+
+.info__section__cta {
+	text-align: center;
+	margin-top: 2rem;
+}
+
+.info__section--house-rules {
+	text-align: center;
+}
+
+.info__section--contact {
+	text-align: center;
+
+	.info__blocks {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.info__block {
+		width: 50%;
+		padding: 0 2rem;
+		margin-bottom: 2rem;
+		margin-top: 0;
+
+		.info__cover {
+			width: 80%;
+		}
 	}
 }

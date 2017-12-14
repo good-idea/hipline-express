@@ -31,9 +31,13 @@ class InfoNavItem extends React.Component {
 }
 
 const InfoBlock = (props) => {
+	const cover = (props.cover) ?
+		<ResponsiveImage classNames="info__cover" {...props.cover} /> :
+		null
 	return (
 		<div className="info__block">
 			<h4 className="info__block__header">{props.header}</h4>
+			{cover}
 			{markdownToJSX(props.body)}
 		</div>
 	)
@@ -42,14 +46,14 @@ const InfoBlock = (props) => {
 const InfoButton = (props) => {
 	if ((/^https?:\/\//).test(props.action)) {
 		return (
-			<h4>
-				<a className="cta" target="_blank" href={props.action}>{props.label}</a>
+			<h4 className="info__section__cta">
+				<a className="cta cta--primary" target="_blank" href={props.action}>{props.label}</a>
 			</h4>
 		)
 	}
 	return (
-		<h4>
-			<Link className="cta" to={props.action}>{props.label}</Link>
+		<h4 className="info__section__cta">
+			<Link className="cta cta--primary" to={props.action}>{props.label}</Link>
 		</h4>
 	)
 }
@@ -63,7 +67,7 @@ class InfoSection extends React.Component {
 
 		return (
 			<ScrollableChild slug={`info-${this.props.slug}`}>
-				<div className="info__section">
+				<div className={`info__section info__section--${this.props.slug}`}>
 					<div className="info__header">
 						<h2 className="info__title">
 							<Highlight text={this.props.headline}/>

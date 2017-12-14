@@ -11,7 +11,8 @@ body {
 body {
 	width: 100%;
 	top: calc($nav-height);
-	bottom: 0;
+	height: calc(100% - $nav-height);
+	/*bottom: 0;*/
 	position: absolute;
 }
 
