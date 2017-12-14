@@ -100,9 +100,9 @@ const ChoreographerProfile = (props) => {
 							{props.classtypes.map(classType => (
 								<h4 key={classType.title}>{classType.title}</h4>
 							))}
-							<h3 className="cta">
+							<h4 className="cta">
 								<Link	to="/schedule">View Schedule</Link>
-							</h3>
+							</h4>
 						</div>
 					</div>
 					<div className="profile__expectations">
