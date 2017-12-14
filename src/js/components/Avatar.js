@@ -45,6 +45,7 @@ class CoverVideo extends React.Component {
 				ref={(element) => { this.video = element; }}
 				autoPlay={this.props.autoPlay}
 				src={this.props.videoSrc}
+				muted
 				loop
 			/>
 		)

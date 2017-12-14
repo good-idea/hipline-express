@@ -31,9 +31,12 @@ class InfoNavItem extends React.Component {
 }
 
 const InfoBlock = (props) => {
-	const cover = (props.cover) ?
-		<ResponsiveImage classNames="info__cover" {...props.cover} /> :
-		null
+	let cover = null
+	if (props.coverVideo.length) {
+		cover = <video src={props.coverVideo} />
+	} else if (props.cover) {
+		cover = <ResponsiveImage classNames="info__cover" {...props.cover} />
+	}
 	return (
 		<div className="info__block">
 			<h4 className="info__block__header">{props.header}</h4>
@@ -41,6 +44,14 @@ const InfoBlock = (props) => {
 			{markdownToJSX(props.body)}
 		</div>
 	)
+}
+
+InfoBlock.propTypes = {
+	coverVideo: PropTypes.string,
+}
+
+InfoBlock.defaultProps = {
+	coverVideo: '',
 }
 
 const InfoButton = (props) => {
@@ -61,10 +72,16 @@ const InfoButton = (props) => {
 /* eslint-disable react/prefer-stateless-function */
 class InfoSection extends React.Component {
 	render() {
-		const cover = (this.props.cover) ?
-			<ResponsiveImage classNames="info__cover" {...this.props.cover} /> :
-			null
-
+		let cover = null
+		if (this.props.coverVideo.length) {
+			cover = (
+				<div className="info__cover info__cover--video">
+					<video src={this.props.coverVideo} autoPlay loop muted/>
+				</div>
+			)
+		} else if (this.props.cover) {
+			cover = <ResponsiveImage classNames="info__cover" {...this.props.cover} />
+		}
 		return (
 			<ScrollableChild slug={`info-${this.props.slug}`}>
 				<div className={`info__section info__section--${this.props.slug}`}>
@@ -85,6 +102,14 @@ class InfoSection extends React.Component {
 			</ScrollableChild>
 		)
 	}
+}
+
+InfoSection.propTypes = {
+	coverVideo: PropTypes.string,
+}
+
+InfoSection.defaultProps = {
+	coverVideo: '',
 }
 
 
