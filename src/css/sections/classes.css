@@ -1,4 +1,6 @@
-
+section.classes main {
+	background-color: white;
+}
 
 .classTypes {
 	display: flex;
