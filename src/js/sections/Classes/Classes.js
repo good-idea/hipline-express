@@ -31,7 +31,7 @@ class Classes extends React.Component {
 					<Splash text={this.props.splashText} />
 
 					<section className="classes with-aside">
-						<aside className="aside-nav">
+						{/* <aside className="aside-nav">
 							<div className="aside-nav-item aside-nav-header" slug="classes-classTypes">
 								<h4>Class Types</h4>
 							</div>
@@ -48,10 +48,10 @@ class Classes extends React.Component {
 									<h4>{s.title}</h4>
 								</ScrollTrigger>
 							))}
-						</aside>
+						</aside> */}
 						<main>
 							<div className="column--wide">
-								{visibleClasstypes.map((c, index) => (
+								{visibleClasstypes.map(c => (
 									<ScrollableChild key={`trigger-classSection-${c.slug}`} slug={`classSection-${c.slug}`}>
 										<ClassSection {...c} />
 									</ScrollableChild>

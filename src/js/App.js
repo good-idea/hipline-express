@@ -5,12 +5,9 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 import Navigation from './sections/Navigation'
-// import Main from './components/Main'
 import Choreographers from './sections/Choreographers'
 import Classes from './sections/Classes/Classes'
 import InfoPage from './sections/InfoPage'
-import Schedule from './sections/Schedule/Schedule'
-import Dashboard from './sections/Dashboard/Dashboard'
 import Footer from './sections/Footer'
 
 import { SquigglePaths } from './components/Squiggle'
@@ -29,6 +26,7 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
+		// const apiRoot = (window.)
 		// Split the initial content & MBO requests into two:
 		// the MBO call may take longer, or the API server may be down
 		axios.get('/api/content/initial').then((response) => {
