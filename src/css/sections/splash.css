@@ -24,7 +24,8 @@
 
 .getinline {
 	position: relative;
-	display: block;
+	/* display: block; */
+	display: none;
 	text-align: right;
 	margin: 0 0 2rem auto;
 
