@@ -66,6 +66,7 @@ const ChoreographerProfile = (props) => {
 	) : null
 
 	const musicians = (props.musicians.length) ? props.musicians.split(',') : []
+	const classtypes = (props.classtypes.length) ? props.classtypes.split(',') : []
 
 	return (
 		<ScrollableChild slug={`profile-${props.slug}`} >
@@ -97,8 +98,8 @@ const ChoreographerProfile = (props) => {
 							<Squiggle num={0} />
 						</div>
 						<div className="profile__bottom__content">
-							{props.classtypes.map(classType => (
-								<h4 key={classType.title}>{classType.title}</h4>
+							{classtypes.map(classType => (
+								<h4 key={classType}>{classType}</h4>
 							))}
 							<h4 className="cta">
 								<Link	to="/schedule">View Schedule</Link>
@@ -146,7 +147,7 @@ ChoreographerProfile.propTypes = {
 			citation: PropTypes.string,
 		}),
 	]),
-	classtypes: PropTypes.arrayOf(PropTypes.shape({})),
+	classtypes: PropTypes.string,
 	cover: PropTypes.shape({
 		sizes: PropTypes.string,
 		srcset: PropTypes.arrayOf(PropTypes.object),
@@ -180,7 +181,7 @@ ChoreographerProfile.defaultProps = {
 	social: '',
 	musicians: false,
 	spotify_playlist: false,
-	classtypes: [],
+	classtypes: '',
 }
 
 export default ChoreographerProfile

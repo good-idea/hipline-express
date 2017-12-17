@@ -35,25 +35,6 @@ class App extends React.Component {
 				this.props.emit('cmsContentLoaded')
 			})
 		})
-		const fetchClasses = axios.get('/api/mbo/classes')
-		const fetchRegistrationFields = axios.get('/api/mbo/registrationFields')
-		const checkToken = axios.get('/api/mbo/checktoken', {
-			headers: { 'x-access-token': Cookies.get('jwt') || false },
-		})
-		axios.all([fetchClasses, fetchRegistrationFields, checkToken])
-			.then(axios.spread((schedule, registrationFields, tokenResponse) => {
-				const newState = parseContent({
-					...this.state,
-					schedule: schedule.data,
-					sourceRegistrationFields: registrationFields.data,
-					user: tokenResponse.data.user,
-				})
-				this.setState(newState, () => {
-					this.props.emit('mboScheduleLoaded')
-					this.props.emit('mboFieldsLoaded')
-				})
-			}))
-			.catch(err => console.log(err))
 	}
 
 	componentDidUpdate(prevProps) {
@@ -63,56 +44,6 @@ class App extends React.Component {
 	setDropdown(dropdown) {
 		this.setState({ dropdown })
 	}
-
-	setUserData = (userData, callback) => {
-		const fixedUser = R.when(
-			R.prop('schedule'),
-			R.pipe(
-				// Fucked! MBO doesn't provide any ID we can use to link a class to a description
-				// R.assoc('schedule', R.map(
-				// 	c => R.assoc('description', this.getClassDescriptionById(c), c),
-				// 	R.prop('schedule', userData) || [],
-				// )),
-				R.assoc('schedule', R.map(
-					(c => R.assoc('choreographer', this.getChoreographerByID(c.Staff.ID), c)),
-					R.prop('schedule', userData) || [],
-				))
-			),
-		)(userData)
-		this.setState({ user: fixedUser }, callback)
-	}
-  //
-	// loginUser = ({ user, token }) => {
-	// 	Cookies.set('jwt', token)
-	// 	if (user === false) this.logoutUser()
-	// 	this.setState({ user })
-	// }
-  //
-	// logoutUser = () => {
-	// 	Cookies.remove('jwt')
-	// 	this.setState({ user: false }, () => {
-	// 		this.props.history.push('/')
-	// 	})
-	// }
-
-	// loadUserData = () => {
-	// 	if (this.state.schedule) {
-	// 		this.loadUserDataWhenReady()
-	// 		return
-	// 	}
-	// 	this.props.subscribe('mboScheduleLoaded', this.loadUserDataWhenReady)
-	// }
-
-	// loadUserDataWhenReady = () => {
-	// 	axios.get('/api/mbo/user/account', {
-	// 		headers: { 'x-access-token': Cookies.get('jwt') || false },
-	// 	}).then((response) => {
-	// 		this.setUserData(response.data.user, () => {
-	// 			this.props.unsubscribe('mboScheduleLoaded', this.loadUserDataWhenReady)
-	// 			this.props.emit('accountDataLoaded')
-	// 		})
-	// 	}).catch(err => console.log(err, err.response))
-	// }
 
 	getChoreographerByID = (id) => {
 		if (!this.state.choreographers) {

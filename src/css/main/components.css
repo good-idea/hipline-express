@@ -39,10 +39,17 @@
 }
 
 .card__header,
-.card__body,
 .card__footer {
 	/*padding: 0 2rem;*/
 	margin: 2rem auto;
+}
+
+.card__cover {
+	margin-bottom: 2rem;
+}
+
+.card__body {
+	margin: 0 auto 2rem;
 }
 
 .card__header {

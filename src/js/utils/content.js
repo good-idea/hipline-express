@@ -13,24 +13,6 @@ export const filterWithKeys = (pred, obj) => R.pipe(
 
 const curriedFilterWithKeys = R.curry(filterWithKeys)
 
-/**
- * Pipe Functions
- */
-
-// Organize the raw data coming in from MBO
-//
-export const sortMBOFields = (content) => {
-	const registrationFields = R.pipe(
-		R.map(f => R.assoc('id', f.name, f)),
-		R.reduce((acc, f) => R.assoc(f.name, f, acc), {}),
-	)(R.prop('sourceRegistrationFields', content))
-	return {
-		...R.dissoc('sourceRegistrationFields', content),
-		registrationFields,
-	}
-}
-
-
 // Organize Kirby CMS Pass content
 //
 export const organizePassesIntoSections = (content) => {
@@ -71,37 +53,40 @@ export const organizePassesIntoSections = (content) => {
 	}
 }
 
-export const hoistChoreographers = content => ({
-	...content,
-	choreographers: R.path(['choreographers', 'children'], content),
-})
-
-
-export const attachChoreographersToSchedule = (content) => {
-	const schedule = R.map(c => (
-		R.assoc('choreographer', R.find(R.propEq('firstname', c.teacher), content.choreographers), c)
-	), R.prop('schedule', content))
-	return {
-		...content,
-		schedule,
-	}
-}
-
-
 // Attach choreographer data to each class type if they have a class of that type in the schedule
 //
 export const attachChoreographersToClassTypes = (content) => {
-	const types = R.map(type => (
-		R.assoc('children', R.map(cl => R.assoc('choreographers', R.pipe(
-			R.filter(R.propEq('mboid', cl.mboid)),
-			R.pluck('choreographer'),
-			R.uniq,
-			R.filter(a => a !== undefined)
-		)(content.schedule), cl), R.prop('children', type)), type)
-	), R.path(['classtypes', 'children'], content))
+	// dig down into the actual classes:
+	const classtypes = R.map((type) => {
+		if (!type.children) return type
+		if (type.children) {
+			type.children = R.map((classCard) => {
+				if (classCard.choreographers) {
+					classCard.choreographers = R.pipe(
+						R.map(chor => (
+							content.choreographers.find(c => c.slug === chor.slug)
+						)),
+						R.filter(c => c !== undefined),
+					)(classCard.choreographers)
+				}
+				return classCard
+			})(type.children)
+		}
+		return type
+	})(content.classtypes.children)
+	console.log(classtypes)
+	// const types = R.map(type => (
+	// 	R.assoc('children', R.map(cl => R.assoc('choreographers', R.pipe(
+	// 		R.filter(R.propEq('mboid', cl.mboid)),
+	// 		R.pluck('choreographer'),
+	// 		R.uniq,
+	// 		R.filter(a => a !== undefined)
+	// 	)(content.schedule), cl), R.prop('children', type)), type)
+	// ), R.path(['classtypes', 'children'], content))
 	return {
 		...content,
-		classtypes: R.assoc('children', types, R.prop('classtypes', content)),
+		classtypes
+		// classtypes: R.assoc('children', types, R.prop('classtypes', content)),
 	}
 }
 
@@ -187,10 +172,9 @@ export const groupClassTypes = (content) => {
 
 export const parseContent = R.pipe(
 	R.when(R.prop('sourcePasses'), organizePassesIntoSections),
-	R.when(R.prop('sourceRegistrationFields'), sortMBOFields),
-	R.when(R.path(['choreographers', 'children']), hoistChoreographers),
-	R.when(R.both(R.prop('schedule'), R.prop('choreographers')), attachChoreographersToSchedule),
-	R.when(R.both(R.prop('schedule'), R.prop('choreographers')), attachChoreographersToClassTypes),
-	R.when(R.both(R.prop('schedule'), R.prop('choreographers')), attachClassTypesToChoreographers),
-	R.when(R.both(R.prop('schedule'), R.prop('classtypes')), groupClassTypes),
+	// R.when(R.prop('sourceRegistrationFields'), sortMBOFields),
+	// R.when(R.path(['choreographers', 'children']), hoistChoreographers),
+	R.when(R.prop('choreographers'), attachChoreographersToClassTypes),
+	// R.when(R.prop('choreographers'), attachClassTypesToChoreographers),
+	// R.when(R.both(R.prop('schedule'), R.prop('classtypes')), groupClassTypes),
 )

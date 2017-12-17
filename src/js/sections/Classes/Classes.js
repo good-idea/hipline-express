@@ -23,7 +23,7 @@ class Classes extends React.Component {
 
 	render() {
 		if (!this.props.passes) return null
-		const visibleClasstypes = this.props.classtypes.children.filter(c => c.isVisible === true)
+		const visibleClasstypes = this.props.classtypes.filter(c => c.isVisible === true)
 		return (
 			<ScrollableContainer containerElement={document.body}>
 				<div>

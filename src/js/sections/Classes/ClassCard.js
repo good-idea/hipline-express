@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { compose, withProps } from 'recompose'
 import R from 'ramda'
-import { Link } from 'react-router-dom'
 
 import ResponsiveImage from '../../components/ResponsiveImage'
 import Avatar from '../../components/Avatar'
@@ -80,6 +79,11 @@ class ClassCard extends React.Component {
 	render() {
 		const num = this.props.index % 6
 		const color = colors[this.props.index % colors.length]
+		const cover = (this.props.cover) ? (
+			<div className={`card__cover card__cover--${color}`}>
+				<ResponsiveImage {...this.props.cover} />
+			</div>
+		) : null
 		return (
 			<div className="card card--class card--wide">
 				<div className="card__header">
@@ -88,9 +92,7 @@ class ClassCard extends React.Component {
 					</div>
 				</div>
 				<Squiggle num={this.props.index % 6} color={color} />
-				<div className={`card__cover card__cover--${color}`}>
-					<ResponsiveImage {...this.props.cover} />
-				</div>
+				{cover}
 				<div className="card__body">
 					<div className="card__description">
 						{makeParagraph(this.props.description)}
