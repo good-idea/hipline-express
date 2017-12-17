@@ -6,6 +6,7 @@ const sync = require('./sync');
 const apiRoot = `http://${cms.host}:${cms.port}/api`;
 
 const initial = (req, res) => {
+	console.log(apiRoot)
 	axios.get(`${apiRoot}/initial`)
 		.then(response => res.json(response.data))
 		.catch(err => console.log(err.message))

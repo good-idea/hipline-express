@@ -74,7 +74,6 @@ export const attachChoreographersToClassTypes = (content) => {
 		}
 		return type
 	})(content.classtypes.children)
-	console.log(classtypes)
 	// const types = R.map(type => (
 	// 	R.assoc('children', R.map(cl => R.assoc('choreographers', R.pipe(
 	// 		R.filter(R.propEq('mboid', cl.mboid)),

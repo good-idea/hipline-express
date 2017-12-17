@@ -15,7 +15,9 @@ import { markdownToJSX } from '../utils/text'
 
 const ChoreographerSocial = ({ accounts }) => {
 	if (accounts === '') return null
-	const { facebook, instagram, twitter } = accounts
+	console.log(accounts)
+
+	const { facebook, instagram, twitter } = accounts[0]
 	return (
 		<div className="profile__socials">
 			{facebook !== '' ? (

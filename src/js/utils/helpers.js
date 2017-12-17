@@ -39,8 +39,6 @@ const getOffset = (element, container = {}) => { // crossbrowser version
 	const clientTop = body.getBoundingClientRect().top || 0
 	const clientLeft = body.getBoundingClientRect().left || 0
 
-	console.log(clientTop)
-
 	const top = box.top + (scrollTop - clientTop)
 	const left = box.left + (scrollLeft - clientLeft)
 
