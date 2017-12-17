@@ -1,3 +1,14 @@
+.info--about{
+	.column{
+		width: 70%;
+		max-width: 700px;
+		max-width: 70rem;
+		margin-right: 0;
+		margin-left: auto;
+		padding-right: 2rem;
+	}
+}
+
 .info__section {
 	padding: 2rem 0;
 
