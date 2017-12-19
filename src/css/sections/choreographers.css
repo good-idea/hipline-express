@@ -62,8 +62,8 @@ section.home {
 
 .choreographer__avatar {
 	video, figure.responsiveImage {
-		width: 80%;
-		left: 20%;
+		width: 100%;
+		left: 0%;
 	}
 }
 
