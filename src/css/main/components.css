@@ -72,7 +72,6 @@
 }
 
 .card__title {
-	text-transform: uppercase;
 	margin-bottom: 1rem;
 }
 
@@ -119,11 +118,12 @@
 	height: 1em;
 	width: 2em;
 	padding: 0;
-	margin: 0 .5rem;
+	margin: 0 0.5rem;
 	display: inline-block;
 	position: relative;
 
-	&:before, &:after {
+	&:before,
+	&:after {
 		content: '';
 		position: absolute;
 		transform-origin: 50% 100%;
@@ -152,7 +152,7 @@
 	figure.responsiveImage,
 	.responsiveImage img,
 	video {
-		transition: .2s;
+		transition: 0.2s;
 		position: absolute;
 		width: 100%;
 		height: 100%;
@@ -190,8 +190,6 @@
 	width: 100%;
 }
 
-
-
 /*$purple: rgba(146, 141, 255, 1);
 $purple-50: rgba(146, 141, 255, 0.5);
 $purple-light: #e9e8ff;
@@ -225,7 +223,7 @@ $grey5: #4a4a4a;*/
 	background-size: 200% 100%;
 	clip-path: url(#squiggle0);
 	outline: 1px solid white;
-	animation: scrollBackground 6s infinite cubic-bezier(.86,.34,.6,.81);
+	animation: scrollBackground 6s infinite cubic-bezier(0.86, 0.34, 0.6, 0.81);
 }
 
 .squiggle--yellow {
@@ -240,7 +238,6 @@ $grey5: #4a4a4a;*/
 	background-image: linear-gradient(to left, $orange, $yellow-orange, $orange);
 }
 
-
 @keyframes scrollBackground {
 	0% {
 		background-position: 0 0;
@@ -251,7 +248,7 @@ $grey5: #4a4a4a;*/
 	100% {
 		background-position: -200% 0;
 	}
-};
+}
 
 .squiggle--0 {
 	clip-path: url(#squiggle0);
@@ -286,12 +283,12 @@ $grey5: #4a4a4a;*/
 	animation-delay: 0.9s;
 }
 
-
 .highlight {
 	position: relative;
 	z-index: 10;
 
 	svg {
+		display: none;
 		fill: $pink-medium-light;
 		z-index: -1;
 		position: absolute;

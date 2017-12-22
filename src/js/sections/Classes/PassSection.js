@@ -11,19 +11,21 @@ import { wrapAndPrepare } from '../../utils/text'
  * PassSection
  */
 
-const PassSection = (props) => {
+const PassSection = props => {
 	return (
 		<div className="info__section info__section--passtype">
 			<div className="info__header column column--narrow">
-				<h2 className="info__title">
+				<h3 className="info__title">
 					<Highlight text={props.title} />
-				</h2>
-				<div className="info__subtitle">{wrapAndPrepare('p')(props.description)}</div>
+				</h3>
+				<div className="info__subtitle">
+					{wrapAndPrepare('p')(props.description)}
+				</div>
 			</div>
 			<div className="cards">
-				{props.passes.filter(p => p.isVisible === true).map(p => (
-					<PassCard key={p.slug} {...p} />
-				))}
+				{props.passes
+					.filter(p => p.isVisible === true)
+					.map(p => <PassCard key={p.slug} {...p} />)}
 			</div>
 		</div>
 	)
@@ -39,6 +41,5 @@ PassSection.defaultProps = {
 	description: '',
 	passes: [],
 }
-
 
 export default toClass(PassSection)

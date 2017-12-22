@@ -38,7 +38,6 @@ section.classes main {
 	}
 }
 
-
 .classType__description {
 	margin: 2rem 0;
 }
@@ -76,7 +75,6 @@ section.classes main {
 		mix-blend-mode: luminosity;
 	}*/
 }
-
 
 .card--class__choreographers {
 	display: flex;
@@ -122,10 +120,15 @@ section.classes main {
 			height: 10rem;
 		}
 
-	 	img {
+		img {
 			object-fit: contain;
 		}
 	}
+
+	.card__title {
+		margin-bottom: 0;
+	}
+
 	.card__body,
 	.card__footer {
 		text-align: center;
@@ -133,13 +136,17 @@ section.classes main {
 }
 
 .info__section--passtype {
-
 	.card {
 		color: $seafoam-light;
 		border: 4px solid currentColor;
 		padding-top: 0;
 
-		h1, h2, h3, h4, h5, p {
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		p {
 			color: black;
 		}
 	}
@@ -153,7 +160,17 @@ section.classes main {
 	.card__title {
 		/* margin-bottom: 0; */
 	}
+}
 
+.info__section--classtype,
+.info__section--passtype {
+	.info__title {
+		font-family: $sans;
+		font-weight: 400;
+		.highlight svg {
+			display: initial;
+		}
+	}
 }
 
 .info__section--passtype:nth-of-type(4n + 1) {
@@ -195,8 +212,6 @@ section.classes main {
 		color: $purple-light;
 	}
 }
-
-
 
 /*.card__cover--orange {
 	background-color: $orange;

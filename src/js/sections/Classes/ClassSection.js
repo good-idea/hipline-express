@@ -11,19 +11,18 @@ import Highlight from '../../components/Highlight'
 const ClassSection = props => (
 	<div className="info__section info__section--classtype">
 		<div className="info__header column">
-			<h2 className="info__title">
+			<h3 className="info__title">
 				<Highlight text={props.title} />
-			</h2>
+			</h3>
 			<p className="info__subtitle">{props.description}</p>
 		</div>
 		<div className="cards">
-			{props.children.filter(c => (c.isVisible === true))
-				.map((c, i) => <ClassCard key={c.slug} index={i} {...c} />)
-			}
+			{props.children
+				.filter(c => c.isVisible === true)
+				.map((c, i) => <ClassCard key={c.slug} index={i} {...c} />)}
 		</div>
 	</div>
 )
-
 
 ClassSection.propTypes = {
 	title: PropTypes.string.isRequired,
@@ -36,6 +35,5 @@ ClassSection.defaultProps = {
 	children: [],
 	// title: 'My Title'
 }
-
 
 export default toClass(ClassSection)

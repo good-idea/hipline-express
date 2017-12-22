@@ -1,17 +1,14 @@
-
 nav {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	z-index: 100;
-	background-color: white;
 	height: $nav-height;
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
 	padding: 1rem 2rem;
-	border-bottom: 1px solid currentColor;
 	transform: translateZ(0);
 }
 
@@ -20,7 +17,14 @@ nav {
 	display: inline-block;
 }
 
+.navlink-active {
+	color: $pink;
+}
+
 .nav__item--logo {
+	position: absolute;
+	left: 2rem;
+
 	img {
 		height: 3rem;
 	}
@@ -49,7 +53,15 @@ nav {
 }
 
 @keyframes fall-in {
-	0% { opacity: 0; transform: translateY(-3rem); }
-	70% { opacity: 1; }
-	100% { opacity: 1; transform: none; }
+	0% {
+		opacity: 0;
+		transform: translateY(-3rem);
+	}
+	70% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+		transform: none;
+	}
 }

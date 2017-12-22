@@ -21,6 +21,7 @@ input, button, textarea, select, option {
 	appearance: none;
 	-webkit-appearance: none;
 	color: currentColor;
-
+	font-family: inherit;
+	
 	&:focus { outline: 0; }
 }

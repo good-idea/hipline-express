@@ -1,0 +1,56 @@
+#app.section--co-work {
+	background-color: black;
+	color: white;
+}
+
+.info--co-work {
+	position: relative;
+	.info__cover {
+		position: absolute;
+		left: 0;
+		top: calc($nav-height + 2rem);
+		width: 40%;
+		max-width: 40%;
+	}
+	.cta {
+		color: inherit;
+	}
+	.cta:before,
+	.cta:after {
+		background-color: black;
+	}
+	.info__section:nth-of-type(4n + 1) {
+		color: $teal;
+	}
+	.info__section:nth-of-type(4n + 2) {
+		color: $pink;
+	}
+	.info__section:nth-of-type(4n + 3) {
+		color: $seafoam;
+	}
+	.info__section:nth-of-type(4n + 4) {
+		color: $orange;
+	}
+}
+
+.info--co-work .info__section--pricing {
+	.info__blocks {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+	}
+
+	.info__block {
+		width: calc(50% - 4rem);
+		text-align: left;
+		margin: 0 2rem 3rem;
+		border: none;
+	}
+
+	.info__block__header {
+		margin: 0 0 0.4em 0;
+		text-align: left;
+		text-decoration: none;
+		font-weight: 500;
+	}
+}

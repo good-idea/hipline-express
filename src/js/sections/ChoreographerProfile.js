@@ -8,7 +8,6 @@ import Icon from '../components/Icon'
 import { ScrollableChild } from '../UI/Scroll'
 import { markdownToJSX } from '../utils/text'
 
-
 /**
  * ChoreographerSocial
  */
@@ -26,7 +25,7 @@ const ChoreographerSocial = ({ accounts }) => {
 						<Icon glyph="facebook" />
 					</a>
 				</div>
-			) : null }
+			) : null}
 
 			{instagram !== '' ? (
 				<div className="profile__social">
@@ -34,7 +33,7 @@ const ChoreographerSocial = ({ accounts }) => {
 						<Icon glyph="instagram" />
 					</a>
 				</div>
-			) : null }
+			) : null}
 
 			{twitter !== '' ? (
 				<div className="profile__social">
@@ -42,7 +41,7 @@ const ChoreographerSocial = ({ accounts }) => {
 						<Icon glyph="twitter" />
 					</a>
 				</div>
-			) : null }
+			) : null}
 		</div>
 	)
 }
@@ -55,23 +54,24 @@ ChoreographerSocial.defaultProps = {
 	// title: 'My Title'
 }
 
-
-const ChoreographerProfile = (props) => {
+const ChoreographerProfile = props => {
 	const bioBody = markdownToJSX(props.bio)
 
 	const expectationsBody = markdownToJSX(props.expectations)
 
-	const quote = (props.quote.body) ? (
-		<h3 className="profile__quote">
-			“{props.quote.body}” —&nbsp;<span className="citation">{props.quote.citation}</span>
-		</h3>
+	const quote = props.quote.body ? (
+		<h4 className="profile__quote">
+			“{props.quote.body}” —&nbsp;<span className="citation">
+				{props.quote.citation}
+			</span>
+		</h4>
 	) : null
 
-	const musicians = (props.musicians.length) ? props.musicians.split(',') : []
-	const classtypes = (props.classtypes.length) ? props.classtypes.split(',') : []
+	const musicians = props.musicians.length ? props.musicians.split(',') : []
+	const classtypes = props.classtypes.length ? props.classtypes.split(',') : []
 
 	return (
-		<ScrollableChild slug={`profile-${props.slug}`} >
+		<ScrollableChild slug={`profile-${props.slug}`}>
 			<div className="profile">
 				<div className="profile__top column column--wide">
 					<div className="profile__title">
@@ -88,15 +88,13 @@ const ChoreographerProfile = (props) => {
 					</div>
 					<div className="profile__bio">
 						{quote}
-						<div className="profile__bio__body">
-							{bioBody}
-						</div>
+						<div className="profile__bio__body">{bioBody}</div>
 					</div>
 				</div>
 				<div className="profile__bottom column column--wide">
 					<div className="profile__classes">
 						<div className="profile__bottom__title">
-							<h2>Classes</h2>
+							<h3>Classes</h3>
 							<Squiggle num={0} />
 						</div>
 						<div className="profile__bottom__content">
@@ -104,33 +102,29 @@ const ChoreographerProfile = (props) => {
 								<h4 key={classType}>{classType}</h4>
 							))}
 							<h4 className="cta">
-								<Link	to="/schedule">View Schedule</Link>
+								<Link to="/schedule">View Schedule</Link>
 							</h4>
 						</div>
 					</div>
 					<div className="profile__expectations">
 						<div className="profile__bottom__title">
-							<h2>Expectations</h2>
+							<h3>Expectations</h3>
 							<Squiggle num={1} />
 						</div>
-						<div className="profile__bottom__content">
-							{expectationsBody}
-						</div>
+						<div className="profile__bottom__content">{expectationsBody}</div>
 					</div>
 					<div className="profile__playlist">
 						<div className="profile__bottom__title">
-							<h2>Playlist</h2>
+							<h3>Playlist</h3>
 							<Squiggle num={3} />
 						</div>
 						<div className="profile__bottom__content">
-							{musicians.map(artist => (
-								<h4 key={artist}>{artist}</h4>
-							))}
-							{(props.spotify_playlist) ? (
+							{musicians.map(artist => <h4 key={artist}>{artist}</h4>)}
+							{props.spotify_playlist ? (
 								<h3 className="cta">
 									<a href={props.spotify_playlist}>View Playlist</a>
 								</h3>
-							) : null }
+							) : null}
 						</div>
 					</div>
 				</div>
@@ -153,27 +147,20 @@ ChoreographerProfile.propTypes = {
 	cover: PropTypes.shape({
 		sizes: PropTypes.string,
 		srcset: PropTypes.arrayOf(PropTypes.object),
-		meta: PropTypes.oneOfType([
-			PropTypes.shape(),
-			PropTypes.array,
-		]),
+		meta: PropTypes.oneOfType([PropTypes.shape(), PropTypes.array]),
 	}).isRequired,
 	social: PropTypes.oneOfType([
 		PropTypes.string,
-		PropTypes.arrayOf(PropTypes.shape({
-			facebook: PropTypes.string,
-			instagram: PropTypes.string,
-			twitter: PropTypes.string,
-		})),
+		PropTypes.arrayOf(
+			PropTypes.shape({
+				facebook: PropTypes.string,
+				instagram: PropTypes.string,
+				twitter: PropTypes.string,
+			}),
+		),
 	]),
-	musicians: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.bool,
-	]),
-	spotify_playlist: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.bool,
-	]),
+	musicians: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+	spotify_playlist: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 }
 
 ChoreographerProfile.defaultProps = {

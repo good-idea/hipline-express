@@ -1,7 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { ScrollableContainer, ScrollableChild, ScrollTrigger } from '../../UI/Scroll'
+import {
+	ScrollableContainer,
+	ScrollableChild,
+	ScrollTrigger,
+} from '../../UI/Scroll'
 import PassCard from './PassCard'
 import PassSection from './PassSection'
 import ClassSection from './ClassSection'
@@ -23,11 +27,12 @@ class Classes extends React.Component {
 
 	render() {
 		if (!this.props.passes) return null
-		const visibleClasstypes = this.props.classtypes.filter(c => c.isVisible === true)
+		const visibleClasstypes = this.props.classtypes.filter(
+			c => c.isVisible === true,
+		)
 		return (
 			<ScrollableContainer containerElement={document.body}>
 				<div>
-
 					<Splash text={this.props.splashText} />
 
 					<section className="classes with-aside">
@@ -51,13 +56,22 @@ class Classes extends React.Component {
 						</aside> */}
 						<main>
 							<div className="column--wide">
+								<h2 className="info__title">Class Menu</h2>
 								{visibleClasstypes.map(c => (
-									<ScrollableChild key={`trigger-classSection-${c.slug}`} slug={`classSection-${c.slug}`}>
+									<ScrollableChild
+										key={`trigger-classSection-${c.slug}`}
+										slug={`classSection-${c.slug}`}
+									>
 										<ClassSection {...c} />
 									</ScrollableChild>
 								))}
+								<h2 className="info__title">Pricing and Packages</h2>
+
 								{this.props.passes.types.map(p => (
-									<ScrollableChild key={`trigger-passSection-${p.slug}`} slug={`passSection-${p.slug}`}>
+									<ScrollableChild
+										key={`trigger-passSection-${p.slug}`}
+										slug={`passSection-${p.slug}`}
+									>
 										<PassSection {...p} />
 									</ScrollableChild>
 								))}

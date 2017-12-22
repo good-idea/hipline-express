@@ -1,12 +1,12 @@
-
 .splash {
 	@mixin flex-center;
 
+	font-family: $serif;
 	flex-direction: column;
 	text-align: center;
-	height: calc(100vh - $nav-height - 5rem);
+	height: calc(100vh - 5rem);
 	min-height: 40rem;
-	background: $pink;
+	background: $pink-light;
 	position: sticky;
 	top: 0;
 	perspective: 800px;
@@ -34,6 +34,7 @@
 		font-weight: 800;
 		font-style: italic;
 		background: linear-gradient(to bottom, $pink, $orange);
+		background-clip: text;
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}

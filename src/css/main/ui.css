@@ -9,7 +9,7 @@ button {
 .cta {
 	position: relative;
 	z-index: 1;
-	padding: 0.25em 0.75em;
+	padding: 0.3em 0.75em;
 	text-transform: uppercase;
 	color: $orange;
 
@@ -57,13 +57,16 @@ button.scrollTrigger {
  */
 
 .ff_form--disabled {
-	button, input, label {
+	button,
+	input,
+	label {
 		opacity: 0.3;
 		pointer-events: none;
 	}
 }
 
-input, select {
+input,
+select {
 	border: 1px solid black;
 	background: white;
 }
@@ -91,16 +94,15 @@ label {
 
 /*													*														*/
 /*								*										*									*/
-/*						*				 Input Types 				*             */
+/*						*					 Input Types 					*			            */
 /*								*										*									*/
 /*													*														*/
-
 
 /**
  * Checkboxes
  */
 
-input[type="checkbox"] {
+input[type='checkbox'] {
 	width: 2rem;
 	height: 2rem;
 	position: relative;
@@ -137,21 +139,14 @@ select {
 	width: auto;
 	position: relative;
 
-	background-image:
-		linear-gradient(45deg, transparent 50%, gray 50%),
+	background-image: linear-gradient(45deg, transparent 50%, gray 50%),
 		linear-gradient(135deg, gray 50%, transparent 50%),
 		linear-gradient(to right, #ccc, #ccc);
-	background-position:
-		calc(100% - 1.1rem) calc(50% + 0.1rem),
-		calc(100% - 0.6rem) calc(50% + 0.1rem),
-		calc(100% - 2.25rem) center;
-	background-size:
-		0.5rem 0.5rem,
-		0.5rem 0.5rem,
-		0.1rem 1.5em;
+	background-position: calc(100% - 1.1rem) calc(50% + 0.1rem),
+		calc(100% - 0.6rem) calc(50% + 0.1rem), calc(100% - 2.25rem) center;
+	background-size: 0.5rem 0.5rem, 0.5rem 0.5rem, 0.1rem 1.5em;
 	background-repeat: no-repeat;
 }
-
 
 /**
  * Field States
@@ -167,12 +162,11 @@ select {
 	}
 }
 
-
 /**
  * Field Components
  */
 
-button[type="submit"] {
+button[type='submit'] {
 	@extend .cta;
 	margin-top: 2rem;
 }
@@ -221,9 +215,7 @@ $gutter: 2rem;
 .fieldset.horizontal--four {
 	@extend .fieldset.horizontal;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-
 }
-
 
 /**
  * Sequential Forms (step by step)
@@ -290,7 +282,6 @@ $gutter: 2rem;
 	border-top-width: 1px;
 	border-left-width: 1px;
 	transform: rotate(-45deg);
-
 }
 
 .progress {
@@ -318,7 +309,7 @@ $gutter: 2rem;
 	top: 0;
 	left: 0;
 	transition: 0.3s;
-	transition-timing-function: cubic-bezier(.3, .5, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.3, 0.5, 0.3, 1);
 	height: 100%;
 	height: 0.6rem;
 	background-color: $pink-medium-light;

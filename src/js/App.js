@@ -29,7 +29,7 @@ class App extends React.Component {
 		// const apiRoot = (window.)
 		// Split the initial content & MBO requests into two:
 		// the MBO call may take longer, or the API server may be down
-		axios.get('/api/content/initial').then((response) => {
+		axios.get('/api/content/initial').then(response => {
 			const newState = parseContent({ ...this.state, ...response.data })
 			this.setState(newState, () => {
 				this.props.emit('cmsContentLoaded')
@@ -38,24 +38,29 @@ class App extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.location.pathname !== prevProps.location.pathname) document.body.scrollTop = 0
+		if (this.props.location.pathname !== prevProps.location.pathname)
+			document.body.scrollTop = 0
 	}
 
 	setDropdown(dropdown) {
 		this.setState({ dropdown })
 	}
 
-	getChoreographerByID = (id) => {
+	getChoreographerByID = id => {
 		if (!this.state.choreographers) {
-			console.warn('getChoreographerByID was called before the choreographers data has loaded')
+			console.warn(
+				'getChoreographerByID was called before the choreographers data has loaded',
+			)
 			return false
 		}
-		return (this.state.choreographers.find(c => c.mboid === id))
+		return this.state.choreographers.find(c => c.mboid === id)
 	}
 
-	getClassDescriptionById = (id) => {
+	getClassDescriptionById = id => {
 		if (!this.state.classtypes || !this.state.schedule) {
-			console.warn('getClassDescriptionById was called before the content has loaded')
+			console.warn(
+				'getClassDescriptionById was called before the content has loaded',
+			)
 			return false
 		}
 		const allClassTypes = R.pipe(
@@ -67,8 +72,11 @@ class App extends React.Component {
 
 	render() {
 		if (!this.state.home) return null
+		const currentSection = this.props.location.pathname
+			.replace(/^\//, '')
+			.split('/')[0]
 		return (
-			<div id="app">
+			<div id="app" className={`section--${currentSection}`}>
 				<SquigglePaths />
 				<Navigation
 					// user={this.state.user}

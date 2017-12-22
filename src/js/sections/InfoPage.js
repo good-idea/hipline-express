@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom'
 
 import ResponsiveImage from '../components/ResponsiveImage'
 import Highlight from '../components/Highlight'
-import { ScrollableContainer, ScrollableChild, ScrollTrigger } from '../UI/Scroll'
+import {
+	ScrollableContainer,
+	ScrollableChild,
+	ScrollTrigger,
+} from '../UI/Scroll'
 import { slugify } from '../utils/helpers'
 import { markdownToJSX, wrapAndPrepare } from '../utils/text'
 
@@ -30,7 +34,7 @@ class InfoNavItem extends React.Component {
 	}
 }
 
-const InfoBlock = (props) => {
+const InfoBlock = props => {
 	let cover = null
 	if (props.coverVideo.length) {
 		cover = <video src={props.coverVideo} />
@@ -54,17 +58,21 @@ InfoBlock.defaultProps = {
 	coverVideo: '',
 }
 
-const InfoButton = (props) => {
-	if ((/^https?:\/\//).test(props.action)) {
+const InfoButton = props => {
+	if (/^https?:\/\//.test(props.action)) {
 		return (
 			<h4 className="info__section__cta">
-				<a className="cta cta--primary" target="_blank" href={props.action}>{props.label}</a>
+				<a className="cta cta--primary" target="_blank" href={props.action}>
+					{props.label}
+				</a>
 			</h4>
 		)
 	}
 	return (
 		<h4 className="info__section__cta">
-			<Link className="cta cta--primary" to={props.action}>{props.label}</Link>
+			<Link className="cta cta--primary" to={props.action}>
+				{props.label}
+			</Link>
 		</h4>
 	)
 }
@@ -76,7 +84,7 @@ class InfoSection extends React.Component {
 		if (this.props.coverVideo.length) {
 			cover = (
 				<div className="info__cover info__cover--video">
-					<video src={this.props.coverVideo} autoPlay loop muted/>
+					<video src={this.props.coverVideo} autoPlay loop muted />
 				</div>
 			)
 		} else if (this.props.cover) {
@@ -84,19 +92,27 @@ class InfoSection extends React.Component {
 		}
 		return (
 			<ScrollableChild slug={`info-${this.props.slug}`}>
-				<div className={`info__section info__section--${this.props.slug}`}>
+				<div
+					className={`info__section info__section--standard info__section--${
+						this.props.slug
+					}`}
+				>
 					<div className="info__header">
 						<h2 className="info__title">
-							<Highlight text={this.props.headline}/>
+							<Highlight text={this.props.headline} />
 						</h2>
 						{cover}
 						{wrapAndPrepare('p')(this.props.intro)}
 					</div>
 					<div className="info__blocks">
-						{this.props.blocks.map(c => <InfoBlock key={`infoBlock-${slugify(c.header)}`} {...c} />)}
+						{this.props.blocks.map(c => (
+							<InfoBlock key={`infoBlock-${slugify(c.header)}`} {...c} />
+						))}
 					</div>
 					<div className="info__buttons">
-						{this.props.buttons.map(b => <InfoButton key={`infoButton-${slugify(b.label)}`} {...b} />)}
+						{this.props.buttons.map(b => (
+							<InfoButton key={`infoButton-${slugify(b.label)}`} {...b} />
+						))}
 					</div>
 				</div>
 			</ScrollableChild>
@@ -112,7 +128,6 @@ InfoSection.defaultProps = {
 	coverVideo: '',
 }
 
-
 /**
  * Main Component
  */
@@ -122,14 +137,19 @@ class InfoPage extends React.Component {
 		super(props)
 	}
 
-	componentDidMount() {
-
-	}
+	componentDidMount() {}
 
 	render() {
+		const cover = this.props.cover ? (
+			<div className="info__cover">
+				<ResponsiveImage {...this.props.cover} />
+			</div>
+		) : null
+
 		return (
 			<ScrollableContainer containerElement={document.body}>
 				<section className={`info info--${this.props.slug}`}>
+					{cover}
 					<aside className="aside-nav">
 						{this.props.children.map(c => (
 							<ScrollTrigger
