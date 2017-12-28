@@ -1,10 +1,12 @@
+@import url('https://use.typekit.net/boc8ucm.css');
+
 /**
  * 'basic-sans', 300, 300i, 400, 400i, 700, 700i
  * 'bodoni-urw', 400, 400i, 700, 700i
  */
-/*
-$sans: 'proxima-nova', 'Helvetica Neue', helvetica, sans-serif; */
-$sans: 'basic-sans', 'Helvetica Neue', helvetica, sans-serif;
+
+/* $sans: 'basic-sans', 'Helvetica Neue', helvetica, sans-serif; */
+$sans: 'europa', 'Helvetica Neue', helvetica, sans-serif;
 $serif: 'freight-display-pro', Didot, Didot LT STD, Hoefler Text, Garamond,
 	Times New Roman, serif;
 
