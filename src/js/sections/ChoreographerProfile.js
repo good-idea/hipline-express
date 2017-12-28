@@ -70,7 +70,6 @@ const ChoreographerProfile = props => {
 	const musicians = props.musicians.length ? props.musicians.split(',') : []
 	const classtypes = props.classtypes.length ? props.classtypes.split(',') : []
 	const color = props.index % 2 === 0 ? 'purple' : 'seafoam'
-	console.log(color)
 
 	return (
 		<ScrollableChild slug={`profile-${props.slug}`}>

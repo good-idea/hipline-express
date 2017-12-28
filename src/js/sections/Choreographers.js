@@ -46,9 +46,7 @@ const Choreographers = props => {
 }
 
 Choreographers.propTypes = {
-	choreographers: PropTypes.arrayOf(
-		PropTypes.shape(ChoreographerProfile.propTypes),
-	),
+	choreographers: PropTypes.arrayOf(PropTypes.shape({})),
 }
 
 Choreographers.defaultProps = {
