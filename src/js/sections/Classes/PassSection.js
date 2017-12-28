@@ -6,6 +6,7 @@ import PassCard from './PassCard'
 import Highlight from '../../components/Highlight'
 
 import { wrapAndPrepare } from '../../utils/text'
+import { slugify } from '../../utils/helpers'
 
 /**
  * PassSection
@@ -13,7 +14,11 @@ import { wrapAndPrepare } from '../../utils/text'
 
 const PassSection = props => {
 	return (
-		<div className="info__section info__section--passtype">
+		<div
+			className={`info__section info__section--passtype info__section--${slugify(
+				props.title,
+			)}`}
+		>
 			<div className="info__header column column--narrow">
 				<h3 className="info__title">
 					<Highlight text={props.title} />
@@ -23,9 +28,7 @@ const PassSection = props => {
 				</div>
 			</div>
 			<div className="cards">
-				{props.passes
-					.filter(p => p.isVisible === true)
-					.map(p => <PassCard key={p.slug} {...p} />)}
+				{props.passes.map(p => <PassCard key={p.title} {...p} />)}
 			</div>
 		</div>
 	)

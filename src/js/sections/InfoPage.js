@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 
 import ResponsiveImage from '../components/ResponsiveImage'
 import Highlight from '../components/Highlight'
+import InfoButton from '../components/InfoButton'
 import {
 	ScrollableContainer,
 	ScrollableChild,
@@ -16,22 +16,25 @@ import { markdownToJSX, wrapAndPrepare } from '../utils/text'
  * Sub-components
  */
 
-class InfoNavItem extends React.Component {
-	constructor(props) {
-		super(props)
-	}
+/**
+ * InfoNavItem
+ */
 
-	render() {
-		return (
-			<div className="subnav__item">
-				<ScrollTrigger slug={`info-${this.props.slug}`}>
-					<button>
-						<h4>{this.props.title}</h4>
-					</button>
-				</ScrollTrigger>
-			</div>
-		)
-	}
+const InfoNavItem = props => {
+	return (
+		<div className="subnav__item">
+			<ScrollTrigger slug={`info-${props.slug}`}>
+				<button>
+					<h4>{props.title}</h4>
+				</button>
+			</ScrollTrigger>
+		</div>
+	)
+}
+
+InfoNavItem.propTypes = {
+	title: PropTypes.string.isRequired,
+	slug: PropTypes.string.isRequired,
 }
 
 const InfoBlock = props => {
@@ -45,7 +48,7 @@ const InfoBlock = props => {
 		<div className="info__block">
 			<h4 className="info__block__header">{props.header}</h4>
 			{cover}
-			{markdownToJSX(props.body)}
+			<div className="info__body">{markdownToJSX(props.body)}</div>
 		</div>
 	)
 }
@@ -56,25 +59,6 @@ InfoBlock.propTypes = {
 
 InfoBlock.defaultProps = {
 	coverVideo: '',
-}
-
-const InfoButton = props => {
-	if (/^https?:\/\//.test(props.action)) {
-		return (
-			<h4 className="info__section__cta">
-				<a className="cta cta--primary" target="_blank" href={props.action}>
-					{props.label}
-				</a>
-			</h4>
-		)
-	}
-	return (
-		<h4 className="info__section__cta">
-			<Link className="cta cta--primary" to={props.action}>
-				{props.label}
-			</Link>
-		</h4>
-	)
 }
 
 /* eslint-disable react/prefer-stateless-function */

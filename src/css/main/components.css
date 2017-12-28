@@ -13,6 +13,7 @@
 	width: 27rem;
 	min-height: 15rem;
 	margin: 3rem 1.5rem 0;
+	padding-bottom: 2rem;
 
 	.squiggle {
 		margin: -1rem auto 1rem;
@@ -41,7 +42,7 @@
 .card__header,
 .card__footer {
 	/*padding: 0 2rem;*/
-	margin: 2rem auto;
+	margin: 2rem auto 0;
 }
 
 .card__cover {
@@ -226,6 +227,15 @@ $grey5: #4a4a4a;*/
 	animation: scrollBackground 6s infinite cubic-bezier(0.86, 0.34, 0.6, 0.81);
 }
 
+.squiggle--seafoam {
+	background-image: linear-gradient(
+		to left,
+		$seafoam,
+		$seafoam-light,
+		$seafoam
+	);
+}
+
 .squiggle--yellow {
 	background-image: linear-gradient(to left, $yellow, $yellow-orange, $yellow);
 }
@@ -288,13 +298,12 @@ $grey5: #4a4a4a;*/
 	z-index: 10;
 
 	svg {
-		display: none;
 		fill: $pink-medium-light;
 		z-index: -1;
 		position: absolute;
-		width: 100%;
+		width: calc(100% + 2rem);
 		height: 100%;
-		left: 0;
+		left: -1rem;
 		top: 0.4em;
 		max-height: 1em;
 	}

@@ -1,5 +1,5 @@
 section.home {
-	background-color: $yellow;
+	// background-color: $yellow;
 }
 
 .choreographers {
@@ -8,7 +8,7 @@ section.home {
 
 .choreographers__menu__wrapper {
 	background-color: white;
-	padding: calc($nav-height + 2rem) 0 4rem;
+	padding: 2rem 0 4rem;
 	min-height: calc(100vh - 6rem);
 	display: flex;
 	align-items: center;
@@ -43,9 +43,9 @@ section.home {
 		position: absolute;
 		bottom: 1rem;
 		left: 1rem;
-		text-transform: uppercase;
 		text-align: left;
-		/*font-weight: 700;*/
+		font-weight: 900;
+		// font-weight: 700;
 		color: $pink;
 		z-index: 20;
 	}
@@ -72,11 +72,13 @@ section.home {
 }
 
 .profile:nth-of-type(2n) {
-	background: white;
-
 	.profile__name {
 		color: $seafoam;
 	}
+}
+
+.profile:nth-of-type(2n + 1) {
+	background: $yellow;
 }
 
 .profile {
@@ -107,7 +109,6 @@ section.home {
 
 .profile__name {
 	font-family: $serif;
-	text-transform: uppercase;
 	color: $purple;
 	font-weight: 600;
 }

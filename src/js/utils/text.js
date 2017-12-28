@@ -103,6 +103,7 @@ const markdownToJSX = R.pipe(
 
 const makeParagraph = R.pipe(
 	fixKirbyTextAnchors,
+	fixKirbyTextEmailLinks,
 	markdownToHTML,
 	externalLinks,
 	stripTags('<a><br><p>'),

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import { toClass } from 'recompose'
 import ClassCard from './ClassCard'
 import Highlight from '../../components/Highlight'
+import InfoButton from '../../components/InfoButton'
+
+import { slugify } from '../../utils/helpers'
 
 /**
  * ClassSection
@@ -21,6 +24,11 @@ const ClassSection = props => (
 				.filter(c => c.isVisible === true)
 				.map((c, i) => <ClassCard key={c.slug} index={i} {...c} />)}
 		</div>
+		<div className="info__buttons">
+			{props.buttons.map(b => (
+				<InfoButton key={`infoButton-${slugify(b.label)}`} {...b} />
+			))}
+		</div>
 	</div>
 )
 
@@ -28,12 +36,13 @@ ClassSection.propTypes = {
 	title: PropTypes.string.isRequired,
 	description: PropTypes.string,
 	children: PropTypes.arrayOf(PropTypes.shape()),
+	buttons: PropTypes.arrayOf(PropTypes.shape()),
 }
 
 ClassSection.defaultProps = {
 	description: '',
 	children: [],
-	// title: 'My Title'
+	buttons: [],
 }
 
 export default toClass(ClassSection)

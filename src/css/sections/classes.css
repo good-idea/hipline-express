@@ -127,6 +127,12 @@ section.classes main {
 
 	.card__title {
 		margin-bottom: 0;
+		text-transform: uppercase;
+	}
+
+	.card__body {
+		margin-top: 2rem;
+		margin-bottom: 0;
 	}
 
 	.card__body,
@@ -136,6 +142,13 @@ section.classes main {
 }
 
 .info__section--passtype {
+	margin-top: 3rem;
+	.info__title {
+		margin-bottom: 0;
+	}
+	.info__subtitle {
+		display: none;
+	}
 	.card {
 		color: $seafoam-light;
 		border: 4px solid currentColor;
@@ -167,23 +180,26 @@ section.classes main {
 	.info__title {
 		font-family: $sans;
 		font-weight: 400;
-		.highlight svg {
-			display: initial;
-		}
 	}
 }
 
-.info__section--passtype:nth-of-type(4n + 1) {
+.info__section--classtype {
+	.highlight svg {
+		display: none;
+	}
+}
+
+.info__section--passtype:nth-of-type(5n + 1) {
 	.highlight svg {
 		fill: $pink-medium-light;
 	}
 
 	.card--pass {
-		color: $pink-medium-light;
+		color: $pink-light;
 	}
 }
 
-.info__section--passtype:nth-of-type(4n + 2) {
+.info__section--passtype:nth-of-type(5n + 2) {
 	.highlight svg {
 		fill: $seafoam-light;
 	}
@@ -193,23 +209,43 @@ section.classes main {
 	}
 }
 
-.info__section--passtype:nth-of-type(4n + 3) {
+.info__section--passtype:nth-of-type(5n + 3) {
 	.highlight svg {
 		fill: $orange-light;
 	}
 
 	.card--pass {
-		color: $orange-light;
+		color: $orange;
 	}
 }
 
-.info__section--passtype:nth-of-type(4n + 4) {
+.info__section--passtype:nth-of-type(5n + 4) {
 	.highlight svg {
 		fill: $purple-light;
 	}
 
 	.card--pass {
 		color: $purple-light;
+	}
+}
+
+.info__section--passtype:nth-of-type(5n + 4) {
+	.highlight svg {
+		fill: $yellow;
+	}
+
+	.card--pass {
+		color: $yellow;
+	}
+}
+
+.info__section--werkshops,
+.info__section--love-club {
+	.card {
+		width: 50rem;
+	}
+	.card__body {
+		max-width: 30rem;
 	}
 }
 

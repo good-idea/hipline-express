@@ -38,7 +38,7 @@
 	margin: 0 auto 3rem;
 	padding-top: 2rem;
 	text-transform: uppercase;
-	font-weight: 700;
+	font-weight: 900;
 }
 
 .info__cover {
@@ -71,7 +71,6 @@
 
 .info__section:nth-of-type(3n + 1) {
 	.highlight svg {
-		display: none;
 		fill: $pink-medium-light;
 	}
 }
@@ -93,8 +92,7 @@
 }
 
 .info__block__header {
-	text-align: center;
-	margin: 1rem 1rem;
+	margin: 1rem 0;
 	text-transform: uppercase;
 	position: relative;
 	text-decoration: underline;
@@ -113,10 +111,6 @@
 .info__section__cta {
 	text-align: center;
 	margin-top: 2rem;
-}
-
-.info__section--house-rules {
-	text-align: center;
 }
 
 .info__section--contact {
@@ -139,8 +133,14 @@
 	}
 }
 
-.info--co-work .info__section--hours {
-	text-align: center;
+.info__section--standard {
+	.info__title {
+		text-transform: initial;
+	}
+
+	.highlight svg {
+		display: none;
+	}
 }
 
 .info--love-club .info__section--pay-what-you-can {

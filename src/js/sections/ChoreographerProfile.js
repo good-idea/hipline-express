@@ -69,6 +69,8 @@ const ChoreographerProfile = props => {
 
 	const musicians = props.musicians.length ? props.musicians.split(',') : []
 	const classtypes = props.classtypes.length ? props.classtypes.split(',') : []
+	const color = props.index % 2 === 0 ? 'purple' : 'seafoam'
+	console.log(color)
 
 	return (
 		<ScrollableChild slug={`profile-${props.slug}`}>
@@ -95,28 +97,30 @@ const ChoreographerProfile = props => {
 					<div className="profile__classes">
 						<div className="profile__bottom__title">
 							<h3>Classes</h3>
-							<Squiggle num={0} />
+							<Squiggle color={color} num={0} />
 						</div>
 						<div className="profile__bottom__content">
 							{classtypes.map(classType => (
 								<h4 key={classType}>{classType}</h4>
 							))}
 							<h4 className="cta">
-								<Link to="/schedule">View Schedule</Link>
+								<Link to="/schedule" href="/schedule">
+									View Schedule
+								</Link>
 							</h4>
 						</div>
 					</div>
 					<div className="profile__expectations">
 						<div className="profile__bottom__title">
 							<h3>Expectations</h3>
-							<Squiggle num={1} />
+							<Squiggle color={color} num={1} />
 						</div>
 						<div className="profile__bottom__content">{expectationsBody}</div>
 					</div>
 					<div className="profile__playlist">
 						<div className="profile__bottom__title">
 							<h3>Playlist</h3>
-							<Squiggle num={3} />
+							<Squiggle color={color} num={3} />
 						</div>
 						<div className="profile__bottom__content">
 							{musicians.map(artist => <h4 key={artist}>{artist}</h4>)}
@@ -134,6 +138,7 @@ const ChoreographerProfile = props => {
 }
 
 ChoreographerProfile.propTypes = {
+	index: PropTypes.number.isRequired,
 	bio: PropTypes.string,
 	expectations: PropTypes.string,
 	quote: PropTypes.oneOfType([

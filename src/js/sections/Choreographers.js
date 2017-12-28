@@ -5,8 +5,6 @@ import { ScrollableContainer, ScrollableChild } from '../UI/Scroll'
 import ChoreographerProfile from './ChoreographerProfile'
 import ChoreographersMenu from './ChoreographersMenu'
 
-
-
 /**
  * Choreographers
  */
@@ -15,7 +13,7 @@ import ChoreographersMenu from './ChoreographersMenu'
  * Choreographers
  */
 
-const Choreographers = (props) => {
+const Choreographers = props => {
 	if (!props.choreographers.length) return null
 	return (
 		<ScrollableContainer containerElement={document.body}>
@@ -30,11 +28,12 @@ const Choreographers = (props) => {
 						<ChoreographersMenu choreographers={props.choreographers} />
 					</ScrollableChild>
 					<div className="choreographers__main">
-						{props.choreographers.map((c) => {
+						{props.choreographers.map((c, index) => {
 							if (c.placeholder) return null
 							return (
 								<ChoreographerProfile
 									key={`choreographerThumb-${c.slug}`}
+									index={index}
 									{...c}
 								/>
 							)
@@ -46,14 +45,14 @@ const Choreographers = (props) => {
 	)
 }
 
-
 Choreographers.propTypes = {
-	choreographers: PropTypes.arrayOf(PropTypes.shape(ChoreographerProfile.propTypes)),
+	choreographers: PropTypes.arrayOf(
+		PropTypes.shape(ChoreographerProfile.propTypes),
+	),
 }
 
 Choreographers.defaultProps = {
 	choreographers: [],
 }
-
 
 export default Choreographers

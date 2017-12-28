@@ -1,15 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-import {
-	ScrollableContainer,
-	ScrollableChild,
-	ScrollTrigger,
-} from '../../UI/Scroll'
-import PassCard from './PassCard'
+import { ScrollableContainer, ScrollableChild } from '../../UI/Scroll'
 import PassSection from './PassSection'
 import ClassSection from './ClassSection'
-import ClassDescription from './ClassDescription'
 import Splash from '../Splash'
 
 /**
@@ -17,10 +11,6 @@ import Splash from '../Splash'
  */
 
 class Classes extends React.Component {
-	constructor(props) {
-		super(props)
-	}
-
 	renderPassSections() {
 		// return this.passSections.map(s => <PassSection key={`passSection-${s.slug}`} {...s} />)
 	}
@@ -56,25 +46,29 @@ class Classes extends React.Component {
 						</aside> */}
 						<main>
 							<div className="column--wide">
-								<h2 className="info__title">Class Menu</h2>
-								{visibleClasstypes.map(c => (
-									<ScrollableChild
-										key={`trigger-classSection-${c.slug}`}
-										slug={`classSection-${c.slug}`}
-									>
-										<ClassSection {...c} />
-									</ScrollableChild>
-								))}
-								<h2 className="info__title">Pricing and Packages</h2>
+								<div>
+									<h2 className="info__title">Class Menu</h2>
+									{visibleClasstypes.map(c => (
+										<ScrollableChild
+											key={`trigger-classSection-${c.slug}`}
+											slug={`classSection-${c.slug}`}
+										>
+											<ClassSection {...c} />
+										</ScrollableChild>
+									))}
+								</div>
+								<div>
+									<h2 className="info__title">Pricing and Packages</h2>
 
-								{this.props.passes.types.map(p => (
-									<ScrollableChild
-										key={`trigger-passSection-${p.slug}`}
-										slug={`passSection-${p.slug}`}
-									>
-										<PassSection {...p} />
-									</ScrollableChild>
-								))}
+									{this.props.passes.types.map(p => (
+										<ScrollableChild
+											key={`trigger-passSection-${p.slug}`}
+											slug={`passSection-${p.slug}`}
+										>
+											<PassSection {...p} />
+										</ScrollableChild>
+									))}
+								</div>
 							</div>
 						</main>
 					</section>
@@ -82,6 +76,18 @@ class Classes extends React.Component {
 			</ScrollableContainer>
 		)
 	}
+}
+
+Classes.propTypes = {
+	passes: PropTypes.shape({}),
+	classtypes: PropTypes.arrayOf(PropTypes.shape),
+	splashText: PropTypes.string,
+}
+
+Classes.defaultProps = {
+	passes: {},
+	classtypes: [],
+	splashText: '',
 }
 
 export default Classes
