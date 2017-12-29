@@ -1,8 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
-import R from 'ramda'
 import { Route, Switch, withRouter } from 'react-router-dom'
-import Cookies from 'js-cookie'
 
 import Navigation from './sections/Navigation'
 import Choreographers from './sections/Choreographers'
@@ -38,36 +37,13 @@ class App extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.location.pathname !== prevProps.location.pathname)
+		if (this.props.location.pathname !== prevProps.location.pathname) {
 			document.body.scrollTop = 0
+		}
 	}
 
 	setDropdown(dropdown) {
 		this.setState({ dropdown })
-	}
-
-	getChoreographerByID = id => {
-		if (!this.state.choreographers) {
-			console.warn(
-				'getChoreographerByID was called before the choreographers data has loaded',
-			)
-			return false
-		}
-		return this.state.choreographers.find(c => c.mboid === id)
-	}
-
-	getClassDescriptionById = id => {
-		if (!this.state.classtypes || !this.state.schedule) {
-			console.warn(
-				'getClassDescriptionById was called before the content has loaded',
-			)
-			return false
-		}
-		const allClassTypes = R.pipe(
-			R.prop('children'),
-			R.pluck('children'),
-			R.flatten,
-		)(this.state.classtypes)
 	}
 
 	render() {
@@ -106,8 +82,8 @@ class App extends React.Component {
 						render={match => (
 							<Classes
 								match={match}
-								splashText={this.state.home.intro}
 								passes={this.state.passes}
+								splashText={this.state.classes.intro}
 								classtypes={this.state.classtypes}
 							/>
 						)}
@@ -147,6 +123,13 @@ class App extends React.Component {
 			</div>
 		)
 	}
+}
+
+App.propTypes = {
+	location: PropTypes.shape({
+		pathname: PropTypes.string.isRequired,
+	}).isRequired,
+	emit: PropTypes.func.isRequired,
 }
 
 export default withRouter(withPubSub(App))

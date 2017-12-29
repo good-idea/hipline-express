@@ -79,7 +79,9 @@ class Classes extends React.Component {
 }
 
 Classes.propTypes = {
-	passes: PropTypes.shape({}),
+	passes: PropTypes.shape({
+		types: PropTypes.arrayOf(PropTypes.shape({})),
+	}),
 	classtypes: PropTypes.arrayOf(PropTypes.shape),
 	splashText: PropTypes.string,
 }

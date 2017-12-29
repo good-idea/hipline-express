@@ -57,7 +57,7 @@ export const attachChoreographersToClassTypes = content => {
 			})(type.children)
 		}
 		return type
-	})(content.classtypes.children)
+	})(content.classes.children)
 	// const types = R.map(type => (
 	// 	R.assoc('children', R.map(cl => R.assoc('choreographers', R.pipe(
 	// 		R.filter(R.propEq('mboid', cl.mboid)),
@@ -119,8 +119,11 @@ export const groupClassTypes = content => {
 								category.children.find(c => {
 									if (!c.groupedclasses) return false
 									if (c.groupedclasses.length === 0) return false
-									if (c.groupedclasses.find(gc => gc.class === classtype.slug))
+									if (
+										c.groupedclasses.find(gc => gc.class === classtype.slug)
+									) {
 										return true
+									}
 									return false
 								}) !== undefined
 							if (classIsGroupedElsewhere) return [...all]
