@@ -23,8 +23,11 @@ body {
 
 section {
 	height: 100%;
-	padding-top: $nav-height;
-	padding-bottom: 4rem;
+
+	main {
+		padding-top: $nav-height;
+		padding-bottom: 4rem;
+	}
 }
 
 .column {

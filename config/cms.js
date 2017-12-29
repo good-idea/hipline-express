@@ -1,6 +1,8 @@
-const environment = require('./environment');
+const environment = require('./environment')
+
+const host = environment.CMS_HOST || 'localhost'
+const port = environment.CMS_PORT || 80
 
 module.exports = {
-	host: environment.CMS_HOST || 'localhost',
-	port: environment.CMS_PORT || 80,
-};
+	apiRoot: `http://${host}:${port}/api`,
+}

@@ -1,4 +1,10 @@
 doctype html
 head
-	title="Hipline"
+	title=meta.title
 	link(rel="stylesheet" href="/css/styles.css?v=1.0.1")
+
+	meta(name="description" content=meta.description)
+	meta(property="og:title" content=meta.title)
+	meta(property="og:type" content="website")
+	meta(property="og:description" content=meta.description)
+	meta(property="og:image" content=meta.image)

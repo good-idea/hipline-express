@@ -9,16 +9,12 @@ import ChoreographersMenu from './ChoreographersMenu'
  * Choreographers
  */
 
-/**
- * Choreographers
- */
-
 const Choreographers = props => {
 	if (!props.choreographers.length) return null
 	return (
 		<ScrollableContainer containerElement={document.body}>
 			<section className="home">
-				<div className="choreographers">
+				<main className="choreographers">
 					{/* <ScrollTrigger slug="profilesMenu">
 						<div className="sectionHeader">
 							<h4>Meet the Choreographers <span className="icon icon--down" /></h4>
@@ -39,7 +35,7 @@ const Choreographers = props => {
 							)
 						})}
 					</div>
-				</div>
+				</main>
 			</section>
 		</ScrollableContainer>
 	)
