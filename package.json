@@ -6,13 +6,11 @@
 	"scripts": {
 		"dev": "npm-run-all --parallel dev:css livereload dev:serve serve",
 		"dev:js": "webpack --progress --colors",
-		"dev:css":
-			"./node_modules/.bin/postcss src/css/*.css --dir public/css/ -c postcss.config.js -w",
+		"dev:css": "./node_modules/.bin/postcss src/css/*.css --dir public/css/ -c postcss.config.js -w",
 		"dev:serve": "webpack-dev-server --config webpack.config.development.js",
 		"build": "npm-run-all build:js build:css",
 		"build:js": "webpack -p --progress --colors",
-		"build:css":
-			"./node_modules/.bin/postcss src/css/*.css --dir public/css/ -c postcss.config.js",
+		"build:css": "./node_modules/.bin/postcss src/css/*.css --dir public/css/ -c postcss.config.js",
 		"livereload": "livereload 'public/css'",
 		"serve": "nodemon --harmony server.js --ignore public/ --ignore src/",
 		"precommit": "echo 'Husky needs to be set up...'"
@@ -86,6 +84,7 @@
 		"date-fns": "^1.28.5",
 		"dotenv": "^4.0.0",
 		"express": "^4.16.1",
+		"git-rev-sync": "^1.9.1",
 		"helmet": "^3.8.2",
 		"hpp": "^0.2.2",
 		"jsonwebtoken": "^8.1.0",
@@ -95,11 +94,11 @@
 		"morgan": "^1.9.0",
 		"pug": "^2.0.0-rc.4",
 		"qs": "^6.5.1",
-		"response-time": "^2.3.2",
-		"strong-soap": "^1.2.6",
-		"to-markdown": "^3.1.0",
 		"ramda": "^0.24.1",
 		"redis": "^2.8.0",
-		"redis-delete-pattern": "^0.1.0"
+		"redis-delete-pattern": "^0.1.0",
+		"response-time": "^2.3.2",
+		"strong-soap": "^1.2.6",
+		"to-markdown": "^3.1.0"
 	}
 }

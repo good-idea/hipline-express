@@ -2,7 +2,7 @@ const redis = require('redis')
 const axios = require('axios')
 const { promisify } = require('util')
 const { slugify } = require('../utils/text')
-
+const git = require('git-rev-sync')
 const { cms } = require('../config')
 
 const client = redis.createClient()
@@ -16,19 +16,21 @@ module.exports.site = function getPage(req, res, next) {
 	getCache(slug)
 		.then(cached => {
 			if (cached) {
-				console.log(cached)
 				const meta = JSON.parse(cached)
 				return res.render('index', { meta })
 			}
 			axios
 				.get(`${cms.apiRoot}/initial?uri=${uri}`)
 				.then(response => {
+					console.log(git.short())
 					setCache(
 						slug,
 						JSON.stringify(response.data.meta),
 						'EX',
 						60 * 15,
-					).then(() => res.render('index', { meta: response.data.meta }))
+					).then(() =>
+						res.render('index', { meta: response.data.meta, rev: git.short() }),
+					)
 				})
 				.catch(next)
 		})
