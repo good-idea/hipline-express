@@ -133,31 +133,33 @@ class InfoPage extends React.Component {
 		return (
 			<ScrollableContainer containerElement={document.body}>
 				<section className={`info info--${this.props.slug}`}>
-					{cover}
-					<aside className="aside-nav">
-						{this.props.children.map(c => (
-							<ScrollTrigger
-								className="aside-nav-item"
-								key={`info-scrollableNav-${this.props.slug}-${c.slug}`}
-								slug={`info-${this.props.slug}-${c.slug}`}
-							>
-								<h4>{c.title}</h4>
-							</ScrollTrigger>
-						))}
-					</aside>
-					<div className="column with-aside">
-						{this.props.children.map(c => (
-							<ScrollableChild
-								key={`info-scrollableChild-${this.props.slug}-${c.slug}`}
-								slug={`info-${this.props.slug}-${c.slug}`}
-							>
-								<InfoSection
-									key={`section-nav-${this.props.slug}-${c.slug}`}
-									{...c}
-								/>
-							</ScrollableChild>
-						))}
-					</div>
+					<main>
+						{cover}
+						<aside className="aside-nav">
+							{this.props.children.map(c => (
+								<ScrollTrigger
+									className="aside-nav-item"
+									key={`info-scrollableNav-${this.props.slug}-${c.slug}`}
+									slug={`info-${this.props.slug}-${c.slug}`}
+								>
+									<h4>{c.title}</h4>
+								</ScrollTrigger>
+							))}
+						</aside>
+						<div className="column with-aside">
+							{this.props.children.map(c => (
+								<ScrollableChild
+									key={`info-scrollableChild-${this.props.slug}-${c.slug}`}
+									slug={`info-${this.props.slug}-${c.slug}`}
+								>
+									<InfoSection
+										key={`section-nav-${this.props.slug}-${c.slug}`}
+										{...c}
+									/>
+								</ScrollableChild>
+							))}
+						</div>
+					</main>
 				</section>
 			</ScrollableContainer>
 		)

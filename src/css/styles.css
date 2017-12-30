@@ -8,6 +8,7 @@
 
 @import 'main/components';
 
+@import 'sections/announcement';
 @import 'sections/nav';
 @import 'sections/login';
 @import 'sections/info';

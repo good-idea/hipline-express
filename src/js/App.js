@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
+import Announcement from './sections/Announcement'
 import Navigation from './sections/Navigation'
 import Choreographers from './sections/Choreographers'
 import Classes from './sections/Classes/Classes'
@@ -48,14 +49,29 @@ class App extends React.Component {
 		this.setState({ dropdown })
 	}
 
+	showAnnouncement = () => {
+		this.setState({ announcement: true })
+	}
+
+	hideAnnouncement = () => {
+		this.setState({ announcement: false })
+	}
+
 	render() {
 		if (!this.state.home) return null
 		const currentSection = this.props.location.pathname
 			.replace(/^\//, '')
 			.split('/')[0]
+		const hasAnnouncement = this.state.announcement ? 'withAnnouncement' : ''
 		return (
-			<div id="app" className={`section--${currentSection}`}>
+			<div id="app" className={`section--${currentSection} ${hasAnnouncement}`}>
 				<SquigglePaths />
+				<Announcement
+					text={this.state.home.announcement}
+					link={this.state.home.announcementurl}
+					showAnnouncement={this.showAnnouncement}
+					hideAnnouncement={this.hideAnnouncement}
+				/>
 				<Navigation
 					// user={this.state.user}
 					// setDropdown={this.setDropdown}
