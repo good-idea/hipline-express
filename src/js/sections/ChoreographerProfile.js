@@ -101,11 +101,13 @@ const ChoreographerProfile = props => {
 							{classtypes.map(classType => (
 								<h4 key={classType}>{classType}</h4>
 							))}
-							<h4 className="cta">
-								<Link to="/schedule" href="/schedule">
-									View Schedule
-								</Link>
-							</h4>
+							<div className="profile__cta">
+								<h4 className="cta">
+									<Link to="/schedule" href="/schedule">
+										View Schedule
+									</Link>
+								</h4>
+							</div>
 						</div>
 					</div>
 					<div className="profile__expectations">

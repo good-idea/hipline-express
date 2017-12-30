@@ -20,5 +20,8 @@ $yellow-orange: #ffd400;
 $grey1: rgb(220, 220, 220);
 $grey3: #9b9b9b;
 $grey5: #4a4a4a;
-
 $teal: #81f9fd;
+
+$break-large: 920px;
+$break-medium: 740px;
+$break-small: 520px;

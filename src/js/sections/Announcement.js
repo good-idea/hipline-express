@@ -12,7 +12,6 @@ class Announcement extends React.Component {
 	componentDidMount = () => {
 		const id = unique(this.props.text)
 		const hasClosed = Cookie.get(id) === true
-		console.log(hasClosed)
 		if (hasClosed) return
 		setTimeout(() => {
 			this.props.showAnnouncement()

@@ -11,6 +11,7 @@ button {
 	z-index: 1;
 	padding: 0.3em 0.75em;
 	text-transform: uppercase;
+	text-align: center;
 	color: $orange;
 
 	&:before {

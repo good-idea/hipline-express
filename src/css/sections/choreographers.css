@@ -4,6 +4,7 @@ section.home {
 
 .choreographers {
 	position: relative;
+	padding-bottom: 0;
 }
 
 .choreographers__menu__wrapper {
@@ -24,19 +25,18 @@ section.home {
 	.scrollTrigger {
 		display: block;
 	}
+}
 
-	.choreographer__avatar {
-		width: calc(25% - 1rem);
-		border: 1px solid $orange;
-		margin: 0.5rem;
-		position: relative;
-		transition: 0.2s;
+.choreographer__avatar {
+	width: calc(25% - 1rem);
+	border: 1px solid $orange;
+	margin: 0.5rem;
+	position: relative;
+	transition: 0.2s;
 
-		.avatar {
-			mix-blend-mode: darken;
-		}
+	.avatar {
+		mix-blend-mode: darken;
 	}
-
 	.choreographer__name {
 		font-family: $serif;
 		font-weight: 800;
@@ -55,11 +55,30 @@ section.home {
 	}
 }
 
+@media screen and (max-width: $break-large) {
+	.choreographers__menu {
+		width: 100%;
+		margin-left: 0;
+	}
+}
+
 .choreographer__avatar {
 	video,
 	figure.responsiveImage {
 		width: 100%;
 		left: 0%;
+	}
+}
+
+@media screen and (max-width: $break-medium) {
+	.choreographer__avatar {
+		width: calc(33% - 1rem);
+	}
+}
+
+@media screen and (max-width: $break-small) {
+	.choreographer__avatar {
+		width: calc(50% - 1rem);
 	}
 }
 
@@ -194,4 +213,71 @@ section.home {
 	padding-left: 3rem;
 	/* padding-top: $h2; */
 	padding-top: 0;
+}
+
+@media screen and (max-width: $break-large) {
+	.profile__top {
+		flex-wrap: wrap;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.profile__title,
+	.profile__bio {
+		width: 40%;
+	}
+
+	.profile__photo {
+		padding-right: 0;
+	}
+
+	.profile__bio {
+		width: 100%;
+		max-width: 50rem;
+		margin: 2rem auto 0;
+	}
+
+	.profile__bottom {
+		margin-top: 2rem;
+		display: block;
+		text-align: center;
+
+		.squiggle {
+			display: none;
+		}
+	}
+
+	.profile__classes,
+	.profile__expectations,
+	.profile__playlist {
+		display: block;
+		width: 100%;
+		padding: 0;
+		margin-top: 3rem;
+	}
+
+	.profile__bottom__title {
+		margin-bottom: 1rem;
+	}
+
+	.profile__bottom__content {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		padding-left: 0;
+		margin: 0 auto;
+		max-width: 50rem;
+
+		> * {
+			margin: 0 0.5rem;
+		}
+
+		.profile__cta {
+			width: 100%;
+		}
+
+		.cta {
+			display: inline-block;
+		}
+	}
 }
