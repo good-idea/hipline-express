@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Cookie from 'js-cookie'
+import Cookies from 'js-cookie'
 import { unique } from 'shorthash'
 import { Link } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 class Announcement extends React.Component {
 	componentDidMount = () => {
 		const id = unique(this.props.text)
-		const hasClosed = Cookie.get(id) === true
+		const hasClosed = Cookies.get(id) === 'true'
 		if (hasClosed) return
 		setTimeout(() => {
 			this.props.showAnnouncement()
@@ -20,7 +20,7 @@ class Announcement extends React.Component {
 
 	handleClose = () => {
 		const id = unique(this.props.text)
-		Cookie.set(id, true)
+		Cookies.set(id, 'true', { expires: 7 })
 		this.props.hideAnnouncement()
 	}
 
