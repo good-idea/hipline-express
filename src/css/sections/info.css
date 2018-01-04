@@ -1,11 +1,31 @@
 .info {
+	main {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
 	.column {
-		width: 70%;
 		max-width: 700px;
 		max-width: 70rem;
 		margin-right: 0;
 		margin-left: auto;
 		padding-right: 2rem;
+	}
+}
+
+@media screen and (max-width: $break-xl) {
+	.info {
+		.column {
+			margin-right: auto;
+			padding-right: 0;
+		}
+		.info__section {
+			.info__title {
+				text-align: center;
+				margin-right: 2rem;
+			}
+		}
 	}
 }
 
@@ -42,7 +62,8 @@
 }
 
 .info__cover {
-	max-width: 40rem;
+	width: 40rem;
+	max-width: 100%;
 	margin: 0 auto 2rem;
 }
 

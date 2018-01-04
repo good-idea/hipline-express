@@ -5,13 +5,7 @@
 
 .info--co-work {
 	position: relative;
-	.info__cover {
-		position: absolute;
-		left: 0;
-		top: calc($nav-height + 2rem);
-		width: 40%;
-		max-width: 40%;
-	}
+
 	.cta {
 		color: inherit;
 	}

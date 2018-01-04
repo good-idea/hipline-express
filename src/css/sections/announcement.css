@@ -7,7 +7,7 @@ $announce-height: 4rem;
 	height: $announce-height;
 	width: 100%;
 	position: fixed;
-	z-index: 100;
+	z-index: 200;
 	top: calc(- $announce-height);
 	left: 0;
 
@@ -40,10 +40,18 @@ $announce-height: 4rem;
 	}
 }
 
+.announcement__body {
+	padding: 0.5rem 4rem;
+	text-align: center;
+}
+
+@media screen and (max-width: $break-small) {
+}
+
 #app,
 nav,
 .announcement {
-	transition: 0.5s;
+	transition: top 0.5s, padding 0.5s, background-color 0.2s;
 }
 
 #app.withAnnouncement {

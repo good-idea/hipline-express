@@ -12,12 +12,25 @@ nav {
 	transform: translateZ(0);
 }
 
+.logo {
+	width: 10rem;
+	height: 4rem;
+	color: $pink;
+	transition: color 0.2s;
+}
+
+.nav__cta {
+	border: 1px solid $pink;
+	padding: 0.4rem 0.6rem;
+	background: white;
+	color: black;
+}
 .nav__item {
 	transition: 0.2s;
 	display: inline-block;
 }
 
-.navlink-active {
+.navlink--active {
 	color: $pink;
 }
 
@@ -66,5 +79,91 @@ nav {
 	}
 }
 
+.nav__mobile {
+	display: none;
+	align-items: center;
+}
+
+button.burger {
+	width: 2.5rem;
+	height: 1.6rem;
+	position: relative;
+
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		left: 0;
+		width: 100%;
+		height: 0.3rem;
+		background-color: currentColor;
+	}
+
+	&:before {
+		top: 0;
+	}
+
+	&:after {
+		bottom: 0;
+	}
+}
+
 @media screen and (max-width: $break-medium) {
+	.nav__mobile {
+		display: flex;
+	}
+
+	nav {
+		transition: 0.2s background-color, 0.2s color;
+
+		> .nav__item,
+		.nav__mobile {
+			z-index: 10;
+		}
+	}
+
+	.nav__items {
+		@mixin invisible;
+		display: flex;
+		position: absolute;
+		z-index: 8;
+		top: 0;
+		width: 100%;
+		left: 0;
+		flex-direction: column;
+		background-color: $pink;
+		padding: $nav-height 2rem 2rem;
+		color: white;
+		transition: 0.2s opacity, 0.3s transform;
+		transition-timing-function: ease-out;
+		transform: translateY(-1rem);
+
+		.nav__item + .nav__item {
+			margin-left: 0;
+			margin-top: 0.5rem;
+		}
+	}
+
+	.nav__item {
+		transition: 0s;
+	}
+
+	.navlink--active {
+		color: white;
+		text-decoration: underline;
+	}
+
+	.nav--open {
+		// background-color: $pink;
+		color: white;
+
+		.logo {
+			color: white;
+		}
+
+		.nav__items {
+			@mixin visible;
+			transform: none;
+		}
+	}
 }

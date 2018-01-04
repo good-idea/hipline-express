@@ -51,7 +51,7 @@ button.secondary {
 		@mixin abs-full-size;
 		content: '';
 		border: 1px solid currentColor;
-		transform: translate(0.35em, 0.35em) skew(-7deg);
+		transform: translate3d(0.35em, 0.35em, 0) skew(-7deg);
 		background: white;
 		z-index: -2;
 	}

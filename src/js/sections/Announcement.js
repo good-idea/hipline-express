@@ -54,7 +54,7 @@ class Announcement extends React.Component {
 
 		return (
 			<header className="announcement">
-				{link}
+				<div className="announcement__body">{link}</div>
 				<button className="ex" onClick={this.handleClose} />
 			</header>
 		)

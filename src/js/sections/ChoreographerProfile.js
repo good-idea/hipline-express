@@ -125,9 +125,11 @@ const ChoreographerProfile = props => {
 						<div className="profile__bottom__content">
 							{musicians.map(artist => <h4 key={artist}>{artist}</h4>)}
 							{props.spotify_playlist ? (
-								<h3 className="cta">
-									<a href={props.spotify_playlist}>View Playlist</a>
-								</h3>
+								<div className="profile__cta">
+									<h3 className="cta">
+										<a href={props.spotify_playlist}>View Playlist</a>
+									</h3>
+								</div>
 							) : null}
 						</div>
 					</div>
