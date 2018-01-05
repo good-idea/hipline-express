@@ -3,6 +3,11 @@
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
+		padding-top: 15rem;
+	}
+
+	p, li{
+		font-size: $h4;
 	}
 
 	.column {
@@ -32,12 +37,23 @@
 .info__section {
 	padding: 2rem 0;
 
-	a {
-		color: $orange;
+	/* a {
+		color: $seafoam;
+		text-decoration: underline;
+	} */
+	ul {
+		column-count: 2;
 	}
 
 	li {
-		list-style: disc inside;
+		list-style: disc outside;
+		margin-left: 1.2em;
+	}
+}
+
+@media screen and (max-width: $break-small) {
+	.info__section ul {
+		column-count: initial;
 	}
 }
 
@@ -57,7 +73,7 @@
 	display: block;
 	margin: 0 auto 3rem;
 	padding-top: 2rem;
-	text-transform: uppercase;
+	text-transform: none;
 	font-weight: 900;
 }
 
@@ -114,9 +130,9 @@
 
 .info__block__header {
 	margin: 1rem 0;
-	text-transform: uppercase;
+	text-transform: none;
 	position: relative;
-	text-decoration: underline;
+	text-decoration: none;
 
 	/*&:after {
 		content: '';
@@ -131,7 +147,26 @@
 
 .info__section__cta {
 	text-align: center;
+}
+
+.info__section--standard
+.info__section__cta {
+
 	margin-top: 2rem;
+	text-align: left;
+
+	.cta {
+		padding: 0;
+		border: none;
+		text-decoration: underline;
+		color: #00ff81;
+		&:before,
+		&:after {
+			display: none;
+		}
+
+	}
+
 }
 
 .info__section--contact {
@@ -166,4 +201,12 @@
 
 .info--love-club .info__section--pay-what-you-can {
 	text-align: center;
+}
+
+@media screen and (max-width: $break-large) {
+	.info .info__section--standard .info__title {
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 40rem;
+	}
 }

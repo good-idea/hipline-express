@@ -69,7 +69,8 @@
 }
 
 .card--wide {
-	width: 32rem;
+	width: 26%;
+	margin: 3rem 3% 0;
 }
 
 .card__title {
@@ -112,6 +113,7 @@
 	width: 40px;
 	height: 40px;
 	padding: 7px;
+	background-color: white;
 }
 
 .icon--down {
@@ -217,7 +219,7 @@ $grey5: #4a4a4a;*/
 
 .squiggle {
 	position: relative;
-	width: 10rem;
+	width: 8rem;
 	height: 5rem;
 	background-image: linear-gradient(to left, $purple, $purple-light, $purple);
 	background-repeat: repeat;

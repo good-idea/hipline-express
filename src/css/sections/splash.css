@@ -3,13 +3,18 @@
 
 	font-family: $serif;
 	flex-direction: column;
-	text-align: center;
+	text-align: justify;
 	height: calc(100vh - 5rem);
 	min-height: 40rem;
 	background: $pink-light;
 	position: sticky;
 	top: 0;
 	perspective: 800px;
+
+	.splash__transform {
+		width: 60%;
+	}
+
 
 	h2 {
 		font-weight: 900;

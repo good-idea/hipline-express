@@ -68,7 +68,6 @@ const ChoreographerProfile = props => {
 
 	const musicians = props.musicians.length ? props.musicians.split(',') : []
 	const classtypes = props.classtypes.length ? props.classtypes.split(',') : []
-	const color = props.index % 2 === 0 ? 'purple' : 'seafoam'
 
 	return (
 		<ScrollableChild slug={`profile-${props.slug}`}>
@@ -94,42 +93,40 @@ const ChoreographerProfile = props => {
 				<div className="profile__bottom column column--wide">
 					<div className="profile__classes">
 						<div className="profile__bottom__title">
-							<h3>Classes</h3>
-							<Squiggle color={color} num={0} />
+							<h4>Classes</h4>
+							<Squiggle num={0} />
 						</div>
 						<div className="profile__bottom__content">
 							{classtypes.map(classType => (
-								<h4 key={classType}>{classType}</h4>
+								<p key={classType}>{classType}</p>
 							))}
 							<div className="profile__cta">
-								<h4 className="cta">
+								<p className="profile__link">
 									<Link to="/schedule" href="/schedule">
 										View Schedule
 									</Link>
-								</h4>
+								</p>
 							</div>
 						</div>
 					</div>
 					<div className="profile__expectations">
 						<div className="profile__bottom__title">
-							<h3>Expectations</h3>
-							<Squiggle color={color} num={1} />
+							<h4>Expectations</h4>
+							<Squiggle num={1} />
 						</div>
 						<div className="profile__bottom__content">{expectationsBody}</div>
 					</div>
 					<div className="profile__playlist">
 						<div className="profile__bottom__title">
-							<h3>Playlist</h3>
-							<Squiggle color={color} num={3} />
+							<h4>Playlist</h4>
+							<Squiggle num={3} />
 						</div>
 						<div className="profile__bottom__content">
-							{musicians.map(artist => <h4 key={artist}>{artist}</h4>)}
+							{musicians.map(artist => <p key={artist}>{artist}</p>)}
 							{props.spotify_playlist ? (
-								<div className="profile__cta">
-									<h3 className="cta">
-										<a href={props.spotify_playlist}>View Playlist</a>
-									</h3>
-								</div>
+								<p className="profile__link">
+									<a href={props.spotify_playlist}>View Playlist</a>
+								</p>
 							) : null}
 						</div>
 					</div>

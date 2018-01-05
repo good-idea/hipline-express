@@ -32,5 +32,6 @@ footer {
 		width: 45px;
 		height: 45px;
 		padding: 12px;
+		color: $pink;
 	}
 }

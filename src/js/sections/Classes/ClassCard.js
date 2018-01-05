@@ -52,7 +52,7 @@ class ClassCard extends React.Component {
 		return (
 			<div className="card__footer">
 				<div className="card--class__choreographers">
-					<h3>Choreographers</h3>
+					<h4>Choreographers</h4>
 					<div className="card--class__avatarButtons">
 						{this.props.choreographers.map(ch => (
 							<button key={ch.id} onMouseEnter={() => this.changeActiveChoreographer(ch.id)}>
@@ -69,9 +69,9 @@ class ClassCard extends React.Component {
 						classNames="avatar--round"
 					/>
 				</div>
-				<h4 className="card__cta">
+				<p className="card__cta">
 					<a className="cta cta--primary" href={mbolinks.schedule} rel="noopener noreferrer" target="_blank">Sign Up</a>
-				</h4>
+				</p>
 			</div>
 		)
 	}

@@ -6,7 +6,7 @@ const InfoButton = props => {
 	if (/^https?:\/\//.test(props.action)) {
 		return (
 			<h4 className="info__section__cta">
-				<a className="cta cta--primary" target="_blank" href={props.action}>
+				<a target="_blank" className="cta" href={props.action}>
 					{props.label}
 				</a>
 			</h4>
@@ -14,7 +14,7 @@ const InfoButton = props => {
 	}
 	return (
 		<h4 className="info__section__cta">
-			<Link className="cta cta--primary" href={props.action} to={props.action}>
+			<Link href={props.action} className="cta" to={props.action}>
 				{props.label}
 			</Link>
 		</h4>
