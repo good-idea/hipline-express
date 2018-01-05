@@ -65,9 +65,9 @@ class InfoSection extends React.Component {
 					}`}
 				>
 					<div className="info__header">
-						<h2 className="info__title">
+						<h4 className="info__title">
 							<Highlight text={this.props.headline} />
-						</h2>
+						</h4>
 						{wrapAndPrepare('p')(this.props.intro)}
 					</div>
 					<div className="info__blocks">

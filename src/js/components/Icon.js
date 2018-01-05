@@ -73,7 +73,8 @@ export const SvgWrapper = styled.div`
 	min-width: ${props => (props.size ? `${props.size}px` : '32px')};
 	min-height: ${props => (props.size ? `${props.size}px` : '32px')};
 	position: relative;
-	color: inherit;
+	color: black;
+	background-color: $pink;
 `
 
 

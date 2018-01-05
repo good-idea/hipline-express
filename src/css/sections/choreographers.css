@@ -18,8 +18,8 @@ section.home {
 .choreographers__menu {
 	display: flex;
 	/* width: 100%; */
-	width: 80%;
-	margin-left: 10%;
+	width: 100%;
+	margin-left: 0;
 	flex-wrap: wrap;
 
 	.scrollTrigger {
@@ -74,6 +74,7 @@ section.home {
 	.choreographer__avatar {
 		width: calc(33% - 1rem);
 	}
+
 }
 
 @media screen and (max-width: $break-small) {
@@ -90,7 +91,7 @@ section.home {
 	}
 }
 
-.profile:nth-of-type(2n) {
+/* .profile:nth-of-type(2n) {
 	.profile__name {
 		color: $seafoam;
 	}
@@ -98,23 +99,37 @@ section.home {
 
 .profile:nth-of-type(2n + 1) {
 	background: $yellow;
-}
+} */
 
 .profile {
 	padding: $nav-height 0;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
+	min-height: 100vh;
+	background: $yellow;
+	margin-top: 5rem;
 }
+
 
 .profile__top,
 .profile__bottom {
 	display: flex;
 	justify-content: space-between;
+	padding: 0 40px;
 
 	.cta {
 		color: $orange;
 		margin-top: 1rem;
+	}
+
+	p + p {
+		margin-top: 0em;
+	}
+
+	.profile__link{
+		color: $purple;
+		text-decoration: underline;
 	}
 }
 
@@ -130,6 +145,7 @@ section.home {
 	font-family: $serif;
 	color: $purple;
 	font-weight: 600;
+	text-align: center;
 }
 
 .profile__socials {
@@ -144,7 +160,7 @@ section.home {
 }
 
 .profile__photo {
-	width: 35%;
+	width: 30%;
 	mix-blend-mode: darken;
 	padding-right: 3rem;
 
@@ -158,10 +174,12 @@ section.home {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	padding-left: 3rem;
 }
 
 .profile__bottom {
 	margin-top: calc($nav-height * 2);
+	padding: 0 40px;
 }
 
 .profile__bottom__title {
@@ -171,6 +189,7 @@ section.home {
 
 	.squiggle {
 		margin: 0 auto;
+		margin-top: 10px;
 	}
 }
 
@@ -186,6 +205,13 @@ section.home {
 	font-family: $serif;
 	font-style: italic;
 	margin-bottom: 2em;
+	color: $purple;
+}
+
+.profile__playlist{
+	.profile__bottom__title{
+		margin-left: auto;
+	}
 }
 
 .profile__playlist,
@@ -194,8 +220,8 @@ section.home {
 }
 
 .profile__expectations {
-	width: 40%;
-	padding-right: 4rem;
+	width: 35%;
+	padding-right: 0rem;
 }
 
 .profile__bottom__title {
@@ -220,30 +246,39 @@ section.home {
 		flex-wrap: wrap;
 		justify-content: center;
 		text-align: center;
+		flex-direction: column;
+		padding: 0;
 	}
 
 	.profile__title,
 	.profile__bio {
-		width: 40%;
+		width: 100%;
 	}
 
 	.profile__photo {
 		padding-right: 0;
+		width: 100%;
 	}
 
 	.profile__bio {
 		width: 100%;
 		max-width: 50rem;
 		margin: 2rem auto 0;
+		padding-left: 0;
 	}
 
 	.profile__bottom {
 		margin-top: 2rem;
 		display: block;
 		text-align: center;
+		padding: 0;
 
 		.squiggle {
 			display: none;
+		}
+
+		.profile__link{
+			width: 100%;
 		}
 	}
 

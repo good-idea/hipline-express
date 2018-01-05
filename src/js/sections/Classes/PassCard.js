@@ -37,9 +37,9 @@ const PassCard = props => {
 	return (
 		<div className="card card--pass">
 			<div className="card__header">
-				<h3 className="card__title">{props.title}</h3>
+				<h4 className="card__title">{props.title}</h4>
 			</div>
-			<h2 className="card__title">{props.price}</h2>
+			<h4 className="card__title">{props.price}</h4>
 			{body}
 			{footer}
 		</div>

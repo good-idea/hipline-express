@@ -10,11 +10,12 @@ $sans: 'europa', 'Helvetica Neue', helvetica, sans-serif;
 $serif: 'freight-display-pro', Didot, Didot LT STD, Hoefler Text, Garamond,
 	Times New Roman, serif;
 
-$h1: 5rem;
-$h2: 2.2rem;
-$h3: 1.5rem;
-$h4: 1.3rem;
+$h1: 4.78rem;
+$h2: 3.4rem;
+$h3: 2.38rem;
+$h4: 1.69rem;
 $h5: 1.25rem;
+$p: 1.2rem;
 
 body {
 	font-family: $sans;
@@ -27,22 +28,28 @@ h2 {
 }
 h3 {
 	font-size: $h3;
+	line-height: 3.86rem;
 }
-h4,
-p,
+h4{
+	font-size: $h4;
+	line-height: 2.83rem;
+}
+p{
+	font-size: $p;
+	line-height: 1.94rem;
+}
 li,
 input,
 button,
 textarea,
 select,
 label {
-	font-size: $h4;
+	font-size: $p;
 }
-p,
 li {
 	font-family: $sans;
 	font-size: $h4;
-	line-height: 1.8rem;
+	line-height: 1.94rem;
 }
 h5 {
 	font-size: $h5;

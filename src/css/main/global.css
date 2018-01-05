@@ -31,9 +31,21 @@ section {
 }
 
 .column {
-	width: calc(100% - 4rem);
+	width: calc(100% - 20rem);
 	max-width: 70rem;
 	margin: 0 auto;
+}
+
+@media screen and (max-width: $break-medium) {
+	.column {
+		width: calc(100% - 10rem);
+	}
+}
+
+@media screen and (max-width: $break-small) {
+	.column {
+		width: calc(100% - 6rem);
+	}
 }
 
 .column--left {

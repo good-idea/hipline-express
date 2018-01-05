@@ -18,7 +18,7 @@ export const SquigglePaths = () => (
 			/* eslint-disable react/no-array-index-key */
 			<svg key={`squiggle${index}`} height="0">
 				<defs>
-					<clipPath id={`squiggle${index}`}>
+					<clipPath transform="scale(0.8)" id={`squiggle${index}`}>
 						{path}
 					</clipPath>
 				</defs>

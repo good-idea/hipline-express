@@ -48,9 +48,7 @@ class Splash extends React.Component {
 		return (
 			<div ref={this.registerRef} className="splash" style={this.state.style}>
 				<div className="splash__transform" >
-					<div className="column column--narrow">
 						{prepareIntroText(this.props.text)}
-					</div>
 				</div>
 			</div>
 		)

@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 // import Login from './Login/Login'
 // import Register from './Register/Register'
 
+
 const Logo = () => (
 	<div className="logo">
 		<svg
@@ -73,7 +74,7 @@ class Navigation extends React.Component {
 				</div>
 
 				<div className="nav__items">
-					<h3 className="nav__item">
+					<h4 className="nav__item">
 						<NavLink
 							onClick={this.closeMenu}
 							exact
@@ -82,8 +83,8 @@ class Navigation extends React.Component {
 						>
 							Choreographers
 						</NavLink>
-					</h3>
-					<h3 className="nav__item">
+					</h4>
+					<h4 className="nav__item">
 						<NavLink
 							onClick={this.closeMenu}
 							exact
@@ -92,9 +93,9 @@ class Navigation extends React.Component {
 						>
 							Classes
 						</NavLink>
-					</h3>
+					</h4>
 					{this.props.infoPages.map(page => (
-						<h3 className="nav__item" key={page.slug}>
+						<h4 className="nav__item" key={page.slug}>
 							<NavLink
 								onClick={this.closeMenu}
 								exact
@@ -104,9 +105,9 @@ class Navigation extends React.Component {
 							>
 								{page.title}
 							</NavLink>
-						</h3>
+						</h4>
 					))}
-					<h3 className="nav__item">
+					<h4 className="nav__item">
 						<a
 							target="_blank"
 							rel="noopener noreferrer"
@@ -114,7 +115,7 @@ class Navigation extends React.Component {
 						>
 							Schedule
 						</a>
-					</h3>
+					</h4>
 				</div>
 			</nav>
 		)
