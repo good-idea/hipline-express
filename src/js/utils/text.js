@@ -6,6 +6,11 @@ import R from 'ramda'
  * Modify the Markdown string. Use these before converting
  */
 
+export const fixKirbyTextFileLinks = R.pipe(
+	R.replace(/(\(file:\s?(\S*))\stext:\s?([\S ]*)\)/g, '[$3](href:$2)'),
+	R.replace(/(\(file:\s?(\S*))\)/g, '[$2](href:$2)'),
+)
+
 export const fixKirbyTextAnchors = text =>
 	text.replace(/(\(link:\s?(\S*))\stext:\s?([\S ]*)\)/g, '[$3]($2)')
 
@@ -93,17 +98,21 @@ const prepareIntroText = R.pipe(
  * Common pipes
  */
 
-const markdownToJSX = R.pipe(
+const fixKirbyText = R.pipe(
+	fixKirbyTextFileLinks,
 	fixKirbyTextAnchors,
 	fixKirbyTextEmailLinks,
+)
+
+const markdownToJSX = R.pipe(
+	fixKirbyText,
 	markdownToHTML,
 	externalLinks,
 	HTMLtoJSX,
 )
 
 const makeParagraph = R.pipe(
-	fixKirbyTextAnchors,
-	fixKirbyTextEmailLinks,
+	fixKirbyText,
 	markdownToHTML,
 	externalLinks,
 	stripTags('<a><br><p>'),

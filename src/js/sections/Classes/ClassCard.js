@@ -10,19 +10,15 @@ import Squiggle from '../../components/Squiggle'
 import { makeParagraph } from '../../utils/text'
 import { colors, mbolinks } from '../../constants'
 
-
 /**
  * enhancer
  */
 
-const mergeGroupedChoroegraphers = withProps((props) => {
-	const choreographers = (props.isgroup === true)
-		? R.pipe(
-			R.pluck('choreographers'),
-			R.flatten,
-			R.uniq,
-		)(props.grouped)
-		: props.choreographers
+const mergeGroupedChoroegraphers = withProps(props => {
+	const choreographers =
+		props.isgroup === true
+			? R.pipe(R.pluck('choreographers'), R.flatten, R.uniq)(props.grouped)
+			: props.choreographers
 	return { choreographers }
 })
 
@@ -37,13 +33,13 @@ class ClassCard extends React.Component {
 		super(props)
 
 		this.state = {
-			activeChoreographer: props.choreographers[0] || false
+			activeChoreographer: props.choreographers[0] || false,
 		}
 	}
 
-	changeActiveChoreographer = (id) => {
+	changeActiveChoreographer = id => {
 		this.setState({
-			activeChoreographer: this.props.choreographers.find(c => c.id === id)
+			activeChoreographer: this.props.choreographers.find(c => c.id === id),
 		})
 	}
 
@@ -55,7 +51,10 @@ class ClassCard extends React.Component {
 					<h3>Choreographers</h3>
 					<div className="card--class__avatarButtons">
 						{this.props.choreographers.map(ch => (
-							<button key={ch.id} onMouseEnter={() => this.changeActiveChoreographer(ch.id)}>
+							<button
+								key={ch.id}
+								onMouseEnter={() => this.changeActiveChoreographer(ch.id)}
+							>
 								<p>{ch.firstname}</p>
 							</button>
 						))}
@@ -70,7 +69,14 @@ class ClassCard extends React.Component {
 					/>
 				</div>
 				<h4 className="card__cta">
-					<a className="cta cta--primary" href={mbolinks.schedule} rel="noopener noreferrer" target="_blank">Sign Up</a>
+					<a
+						className="cta cta--primary"
+						href={mbolinks.schedule}
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						Sign Up
+					</a>
 				</h4>
 			</div>
 		)
@@ -79,7 +85,7 @@ class ClassCard extends React.Component {
 	render() {
 		const num = this.props.index % 6
 		const color = colors[this.props.index % colors.length]
-		const cover = (this.props.cover) ? (
+		const cover = this.props.cover ? (
 			<div className={`card__cover card__cover--${color}`}>
 				<ResponsiveImage {...this.props.cover} />
 			</div>
