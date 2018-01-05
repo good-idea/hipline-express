@@ -108,13 +108,25 @@ button.burger {
 	}
 }
 
+.nav__background {
+	@mixin invisible;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(238, 182, 230, 0.452);
+	transition: opacity 0.2s;
+}
+
 @media screen and (max-width: $break-medium) {
 	.nav__mobile {
 		display: flex;
 	}
 
 	nav {
-		transition: 0.2s background-color, 0.2s color;
+		transition: 0.2s background-color, 0.2s color, 0.5s top;
 
 		> .nav__item,
 		.nav__mobile {
@@ -164,6 +176,11 @@ button.burger {
 		.nav__items {
 			@mixin visible;
 			transform: none;
+		}
+
+		.nav__background {
+			@mixin visible;
+			display: block;
 		}
 	}
 }

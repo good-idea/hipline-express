@@ -3,7 +3,6 @@
 
 	font-family: $serif;
 	flex-direction: column;
-	text-align: justify;
 	height: calc(100vh - 5rem);
 	min-height: 40rem;
 	background: $pink-light;
@@ -11,14 +10,10 @@
 	top: 0;
 	perspective: 800px;
 
-	.splash__transform {
-		width: 60%;
-	}
-
-
 	h2 {
 		font-weight: 900;
 		color: $seafoam;
+		text-align: left;
 
 		img {
 			height: 1em;

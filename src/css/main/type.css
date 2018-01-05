@@ -28,15 +28,14 @@ h2 {
 }
 h3 {
 	font-size: $h3;
-	line-height: 3.86rem;
 }
-h4{
+h4 {
 	font-size: $h4;
-	line-height: 2.83rem;
+	line-height: 1.6em;
 }
-p{
+p {
 	font-size: $p;
-	line-height: 1.94rem;
+	line-height: 1.6em;
 }
 li,
 input,
@@ -77,4 +76,22 @@ em {
 
 li {
 	list-style-type: none;
+}
+
+@media screen and (max-width: $break-small) {
+	h1 {
+		font-size: 3rem;
+	}
+	h2 {
+		font-size: 2.4rem;
+	}
+	h3 {
+		font-size: 2rem;
+	}
+	h4 {
+		font-size: 1.5rem;
+	}
+	p {
+		font-size: 1.5rem;
+	}
 }

@@ -43,6 +43,10 @@ $announce-height: 4rem;
 .announcement__body {
 	padding: 0.5rem 4rem;
 	text-align: center;
+
+	h4 {
+		line-height: 1.15em;
+	}
 }
 
 @media screen and (max-width: $break-small) {

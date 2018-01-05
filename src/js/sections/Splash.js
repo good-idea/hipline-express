@@ -24,14 +24,14 @@ class Splash extends React.Component {
 		this.context.container.removeEventListener('scroll', this.handleScroll)
 	}
 
-	registerRef = (element) => {
+	registerRef = element => {
 		this.element = element
 	}
 
 	handleScroll = () => {
 		// This is unnecessary and I think it is uncool
 		if (!this.element) return
-		const percentage = Math.max(0, 1 - (this.context.container.scrollTop / window.outerHeight))
+		const percentage = Math.max(0, 1 - this.context.container.scrollTop / window.outerHeight)
 		// const scale = (percentage * 0.5) + 0.5
 		// const rotateX = (1 - percentage) * 45
 		// const translateY = (1 - percentage) * -75
@@ -47,9 +47,7 @@ class Splash extends React.Component {
 	render() {
 		return (
 			<div ref={this.registerRef} className="splash" style={this.state.style}>
-				<div className="splash__transform" >
-						{prepareIntroText(this.props.text)}
-				</div>
+				<div className="column--medium">{prepareIntroText(this.props.text)}</div>
 			</div>
 		)
 	}

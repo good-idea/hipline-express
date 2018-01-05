@@ -69,8 +69,14 @@
 }
 
 .card--wide {
-	width: 26%;
+	width: 32rem;
 	margin: 3rem 3% 0;
+}
+
+@media screen and (max-width: $break-medium) {
+	.card--wide {
+		margin-top: 0;
+	}
 }
 
 .card__title {

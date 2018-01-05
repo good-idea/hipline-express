@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom'
 // import Login from './Login/Login'
 // import Register from './Register/Register'
 
-
 const Logo = () => (
 	<div className="logo">
 		<svg
@@ -56,68 +55,73 @@ class Navigation extends React.Component {
 	}
 
 	render() {
-		const classNames = this.state.open ? 'nav--open' : ''
+		const classNames = this.state.open
+			? 'nav__wrapper nav--open'
+			: 'nav__wrapper'
 		return (
-			<nav className={classNames}>
-				<div className="nav__item nav__item--logo">
-					<NavLink to="/">
-						<Logo />
-					</NavLink>
-				</div>
-				<div className="nav__mobile">
-					<h4 className="nav__item nav__cta">
-						<a className="" href="/elsewhere">
-							Sign Up
-						</a>
-					</h4>
-					<button className="nav__item burger" onClick={this.toggleMenu} />
-				</div>
+			<div className={classNames}>
+				<button className="nav__background" onClick={this.closeMenu} />
+				<nav>
+					<div className="nav__item nav__item--logo">
+						<NavLink to="/">
+							<Logo />
+						</NavLink>
+					</div>
+					<div className="nav__mobile">
+						<h4 className="nav__item nav__cta">
+							<a className="" href="/elsewhere">
+								Sign Up
+							</a>
+						</h4>
+						<button className="nav__item burger" onClick={this.toggleMenu} />
+					</div>
 
-				<div className="nav__items">
-					<h4 className="nav__item">
-						<NavLink
-							onClick={this.closeMenu}
-							exact
-							activeClassName="navlink--active"
-							to="/"
-						>
-							Choreographers
-						</NavLink>
-					</h4>
-					<h4 className="nav__item">
-						<NavLink
-							onClick={this.closeMenu}
-							exact
-							activeClassName="navlink--active"
-							to="/classes"
-						>
-							Classes
-						</NavLink>
-					</h4>
-					{this.props.infoPages.map(page => (
-						<h4 className="nav__item" key={page.slug}>
+					<div className="nav__items">
+						<h4 className="nav__item">
 							<NavLink
 								onClick={this.closeMenu}
 								exact
 								activeClassName="navlink--active"
-								href={`/${page.slug}`}
-								to={`/${page.slug}`}
+								to="/"
 							>
-								{page.title}
+								Choreographers
 							</NavLink>
 						</h4>
-					))}
-					<h4 className="nav__item">
-						<a
-							target="_blank"
-							rel="noopener noreferrer"
-							href="https://clients.mindbodyonline.com/classic/mainclass?studioid=4561"
-						>
-							Schedule
-						</a>
-					</h4>
-				</div>
-			</nav>
+						<h4 className="nav__item">
+							<NavLink
+								onClick={this.closeMenu}
+								exact
+								activeClassName="navlink--active"
+								to="/classes"
+							>
+								Classes
+							</NavLink>
+						</h4>
+						{this.props.infoPages.map(page => (
+							<h4 className="nav__item" key={page.slug}>
+								<NavLink
+									onClick={this.closeMenu}
+									exact
+									activeClassName="navlink--active"
+									href={`/${page.slug}`}
+									to={`/${page.slug}`}
+								>
+									{page.title}
+								</NavLink>
+							</h4>
+						))}
+						<h4 className="nav__item">
+							<a
+								target="_blank"
+								rel="noopener noreferrer"
+								href="https://clients.mindbodyonline.com/classic/mainclass?studioid=4561"
+							>
+								Schedule
+							</a>
+						</h4>
+					</div>
+				</nav>
+			</div>
 		)
 	}
 }

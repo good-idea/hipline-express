@@ -4,14 +4,7 @@
 		"browser": true,
 		"node": true
 	},
-	"settings": {
-		"import/resolver": {
-			"node": {
-				"extensions": [".js", ".android.js", ".ios.js", ".native.js", ".web.js"]
-			}
-		}
-	},
-	"extends": "airbnb",
+	"extends": ["airbnb", "prettier"],
 	"rules": {
 		"no-console": 0,
 		"no-return-assign": 0,
@@ -30,12 +23,7 @@
 		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
 		"consistent-return": 0,
 		"arrow-parens": [2, "as-needed", { "requireForBlockBody": false }],
-		"no-restricted-syntax": [
-			"error",
-			"ForInStatement",
-			"LabeledStatement",
-			"WithStatement"
-		],
+		"no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
 		"function-paren-newline": 0,
 		"import/prefer-default-export": 0
 	}

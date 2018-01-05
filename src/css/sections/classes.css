@@ -4,6 +4,12 @@ section.classes main {
 	padding: 10rem 0;
 }
 
+@media screen and (max-width: $break-medium) {
+	section.classes main {
+		padding-top: 4rem;
+	}
+}
+
 .classTypes {
 	display: flex;
 	justify-content: space-between;
@@ -59,8 +65,8 @@ section.classes main {
 }
 
 .card--class {
-	background-color: none;
-	border-radius: none;
+	background-color: initial;
+	border-radius: 0;
 	box-shadow: none;
 
 	.card__body {
