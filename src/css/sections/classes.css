@@ -111,6 +111,15 @@ section.classes main {
 	button {
 		text-align: left;
 		margin-bottom: 0.5rem;
+
+		p {
+			display: inline;
+			transition: color 0.2s;
+		}
+
+		p.active {
+			color: $pink;
+		}
 	}
 }
 

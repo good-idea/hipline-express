@@ -4,10 +4,36 @@ import R from 'ramda'
  * Helpers
  */
 
-export const filterWithKeys = (pred, obj) =>
-	R.pipe(R.toPairs, R.filter(R.apply(pred)), R.fromPairs)(obj)
+export const filterWithKeys = (pred, obj) => R.pipe(R.toPairs, R.filter(R.apply(pred)), R.fromPairs)(obj)
 
 const curriedFilterWithKeys = R.curry(filterWithKeys)
+
+const shuffle = array => {
+	var currentIndex = array.length,
+		temporaryValue,
+		randomIndex
+
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex)
+		currentIndex -= 1
+
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex]
+		array[currentIndex] = array[randomIndex]
+		array[randomIndex] = temporaryValue
+	}
+
+	return array
+}
+
+const shuffleChoreographers = content => {
+	return {
+		...content,
+		choreographers: shuffle(content.choreographers),
+	}
+}
 
 // Organize Kirby CMS Pass content
 //
@@ -26,10 +52,7 @@ export const organizePassesIntoSections = content => {
 	})
 
 	const reg = new RegExp(sectionTitles.join('|'), 'i')
-	const newPasses = R.pipe(
-		R.assoc('types', types),
-		curriedFilterWithKeys(key => !key.match(reg)),
-	)(sourcePasses)
+	const newPasses = R.pipe(R.assoc('types', types), curriedFilterWithKeys(key => !key.match(reg)))(sourcePasses)
 
 	return {
 		...R.dissoc('sourcePasses', content),
@@ -47,9 +70,7 @@ export const attachChoreographersToClassTypes = content => {
 			type.children = R.map(classCard => {
 				if (classCard.choreographers) {
 					classCard.choreographers = R.pipe(
-						R.map(chor =>
-							content.choreographers.find(c => c.slug === chor.slug),
-						),
+						R.map(chor => content.choreographers.find(c => c.slug === chor.slug)),
 						R.filter(c => c !== undefined),
 					)(classCard.choreographers)
 				}
@@ -84,9 +105,7 @@ export const attachClassTypesToChoreographers = content => {
 				R.uniq,
 				// Flatten all of the classtypes into an array and find the type with the matching ID
 				R.map(id =>
-					R.pipe(R.pluck('children'), R.flatten, R.find(R.propEq('mboid', id)))(
-						R.path(['classtypes', 'children'], content),
-					),
+					R.pipe(R.pluck('children'), R.flatten, R.find(R.propEq('mboid', id)))(R.path(['classtypes', 'children'], content)),
 				),
 				R.filter(R.propEq('isVisible', true)),
 			)(content.schedule),
@@ -110,18 +129,14 @@ export const groupClassTypes = content => {
 					R.reduce(
 						(all, classtype) => {
 							// While we're all the way in here, might as well mark the class as upcoming
-							classtype.isUpcoming =
-								content.schedule.find(sc => sc.mboid === classtype.mboid) !==
-								undefined
+							classtype.isUpcoming = content.schedule.find(sc => sc.mboid === classtype.mboid) !== undefined
 							classtype.parsed = true
 							// If the class is included in a group, don't include it in the new array
 							const classIsGroupedElsewhere =
 								category.children.find(c => {
 									if (!c.groupedclasses) return false
 									if (c.groupedclasses.length === 0) return false
-									if (
-										c.groupedclasses.find(gc => gc.class === classtype.slug)
-									) {
+									if (c.groupedclasses.find(gc => gc.class === classtype.slug)) {
 										return true
 									}
 									return false
@@ -136,13 +151,7 @@ export const groupClassTypes = content => {
 									R.pipe(
 										R.assoc(
 											'grouped',
-											R.map(
-												l =>
-													R.prop('children', category).find(
-														c => c.slug === l.class,
-													),
-												classtype.groupedclasses,
-											),
+											R.map(l => R.prop('children', category).find(c => c.slug === l.class), classtype.groupedclasses),
 										),
 										R.dissoc('groupedclasses'),
 									)(classtype),
@@ -168,6 +177,7 @@ export const groupClassTypes = content => {
 }
 
 export const parseContent = R.pipe(
+	R.when(R.prop('choreographers'), shuffleChoreographers),
 	R.when(R.prop('sourcePasses'), organizePassesIntoSections),
 	// R.when(R.prop('sourceRegistrationFields'), sortMBOFields),
 	// R.when(R.path(['choreographers', 'children']), hoistChoreographers),
