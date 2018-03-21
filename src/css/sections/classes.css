@@ -191,7 +191,6 @@ section.classes main {
 	}
 }
 
-.info__section--classtype,
 .info__section--passtype {
 	.info__title {
 		font-family: $sans;
@@ -200,6 +199,8 @@ section.classes main {
 }
 
 .info__section--classtype {
+	margin-bottom: 5rem;
+
 	.highlight svg {
 		display: none;
 	}

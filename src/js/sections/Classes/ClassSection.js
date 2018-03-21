@@ -13,17 +13,14 @@ import { slugify } from '../../utils/helpers'
 
 const ClassSection = props => (
 	<div className="info__section info__section--classtype">
-		<div className="info__header column">
-		</div>
+		<h2 className="info__title">{props.title}</h2>
+
+		<div className="info__header column" />
 		<div className="cards">
-			{props.children
-				.filter(c => c.isVisible === true)
-				.map((c, i) => <ClassCard key={c.slug} index={i} {...c} />)}
+			{props.children.filter(c => c.isVisible === true).map((c, i) => <ClassCard key={c.slug} index={i} {...c} />)}
 		</div>
 		<div className="info__buttons">
-			{props.buttons.map(b => (
-				<InfoButton key={`infoButton-${slugify(b.label)}`} {...b} />
-			))}
+			{Array.isArray(props.buttons) && props.buttons.map(b => <InfoButton key={`infoButton-${slugify(b.label)}`} {...b} />)}
 		</div>
 	</div>
 )

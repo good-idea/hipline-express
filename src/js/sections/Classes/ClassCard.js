@@ -53,13 +53,17 @@ class ClassCard extends React.Component {
 		if (!this.props.choreographers) return
 		if (this.props.choreographers.length < 2) return
 		const { choreographers } = this.props
+		const delay = Math.floor(Math.random() * 2) * 500
 		clearInterval(this.choreographerInterval)
-		this.choreographerInterval = setInterval(() => {
-			const currentIndex = choreographers.findIndex(c => c === this.state.activeChoreographer)
-			const nextChoreographer = currentIndex === choreographers.length - 1 ? choreographers[0] : choreographers[currentIndex + 1]
-			const { id } = nextChoreographer
-			this.changeActiveChoreographer(id)
-		}, 3000)
+		setTimeout(() => {
+			this.choreographerInterval = setInterval(() => {
+				const currentIndex = choreographers.findIndex(c => c === this.state.activeChoreographer)
+				const nextChoreographer =
+					currentIndex === choreographers.length - 1 ? choreographers[0] : choreographers[currentIndex + 1]
+				const { id } = nextChoreographer
+				this.changeActiveChoreographer(id)
+			}, 3000)
+		}, delay)
 	}
 
 	handleChoreographerHover = id => {

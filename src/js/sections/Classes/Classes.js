@@ -17,9 +17,7 @@ class Classes extends React.Component {
 
 	render() {
 		if (!this.props.passes) return null
-		const visibleClasstypes = this.props.classtypes.filter(
-			c => c.isVisible === true,
-		)
+		const visibleClasstypes = this.props.classtypes.filter(c => c.isVisible === true)
 		return (
 			<ScrollableContainer containerElement={document.body}>
 				<div>
@@ -47,12 +45,8 @@ class Classes extends React.Component {
 						<main>
 							<div className="column--wide">
 								<div>
-									<h2 className="info__title">Class Menu</h2>
 									{visibleClasstypes.map(c => (
-										<ScrollableChild
-											key={`trigger-classSection-${c.slug}`}
-											slug={`classSection-${c.slug}`}
-										>
+										<ScrollableChild key={`trigger-classSection-${c.slug}`} slug={`classSection-${c.slug}`}>
 											<ClassSection {...c} />
 										</ScrollableChild>
 									))}
@@ -61,10 +55,7 @@ class Classes extends React.Component {
 									<h2 className="info__title">Pricing and Packages</h2>
 
 									{this.props.passes.types.map(p => (
-										<ScrollableChild
-											key={`trigger-passSection-${p.slug}`}
-											slug={`passSection-${p.slug}`}
-										>
+										<ScrollableChild key={`trigger-passSection-${p.slug}`} slug={`passSection-${p.slug}`}>
 											<PassSection {...p} />
 										</ScrollableChild>
 									))}
