@@ -1,17 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
+import { scrollTo } from '../utils/helpers'
+
 // import Login from './Login/Login'
 // import Register from './Register/Register'
 
 const Logo = () => (
 	<div className="logo">
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="100%"
-			height="100%"
-			viewBox="0 0 120 50"
-		>
+		<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 120 50">
 			<g fill="none" fillRule="evenodd" transform="translate(6 3)">
 				<circle cx="25.4" cy="20.4" r="1.4" fill="currentColor" />
 				<circle cx="66.4" cy="21.4" r="1.4" fill="currentColor" />
@@ -43,6 +40,8 @@ class Navigation extends React.Component {
 	}
 
 	closeMenu = () => {
+		document.body.scrollTop = 0
+		scrollTo(0, {})
 		this.setState({
 			open: false,
 		})
@@ -55,9 +54,8 @@ class Navigation extends React.Component {
 	}
 
 	render() {
-		const classNames = this.state.open
-			? 'nav__wrapper nav--open'
-			: 'nav__wrapper'
+		console.log(this.props)
+		const classNames = this.state.open ? 'nav__wrapper nav--open' : 'nav__wrapper'
 		return (
 			<div className={classNames}>
 				<button className="nav__background" onClick={this.closeMenu} />
@@ -78,22 +76,12 @@ class Navigation extends React.Component {
 
 					<div className="nav__items">
 						<h4 className="nav__item">
-							<NavLink
-								onClick={this.closeMenu}
-								exact
-								activeClassName="navlink--active"
-								to="/"
-							>
+							<NavLink onClick={this.closeMenu} exact activeClassName="navlink--active" to="/">
 								Choreographers
 							</NavLink>
 						</h4>
 						<h4 className="nav__item">
-							<NavLink
-								onClick={this.closeMenu}
-								exact
-								activeClassName="navlink--active"
-								to="/classes"
-							>
+							<NavLink onClick={this.closeMenu} exact activeClassName="navlink--active" to="/classes">
 								Classes
 							</NavLink>
 						</h4>
@@ -134,4 +122,4 @@ Navigation.defaultProps = {
 	// title: 'My Title'
 }
 
-export default Navigation
+export default withRouter(Navigation)

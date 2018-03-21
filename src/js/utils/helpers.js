@@ -6,7 +6,6 @@ const fillArray = (value, length) => {
 	return arr
 }
 
-
 /**
  * Cheap shallow equalitly checker
  */
@@ -28,7 +27,8 @@ const isEqual = (obj1, obj2) => {
  * Return the offset relative to the document
  */
 
-const getOffset = (element, container = {}) => { // crossbrowser version
+const getOffset = (element, container = {}) => {
+	// crossbrowser version
 	const box = element.getBoundingClientRect()
 
 	const body = document.body
@@ -51,7 +51,7 @@ const getOffset = (element, container = {}) => { // crossbrowser version
  */
 
 const scrollTo = (destination, overrides) => {
-	if (!destination) {
+	if (destination === undefined) {
 		console.warn('scollTo called with no destination')
 		return
 	}
@@ -61,6 +61,7 @@ const scrollTo = (destination, overrides) => {
 		easing: 'easeOutQuad',
 	}
 	const config = { ...defaults, ...overrides }
+	console.log(config.container)
 	if (typeof tweenFunctions[config.easing] !== 'function') {
 		console.warn(`${config.easing} is not a valid easing function.`)
 		config.easing = defaults.easing
@@ -83,13 +84,10 @@ const scrollTo = (destination, overrides) => {
 		if (config.callback) config.callback()
 		return
 	}
-
 	function tween() {
 		const elapsed = Math.min(Date.now() - startTime, config.duration)
 		const newTop = tweenFunctions[config.easing](elapsed, startY, destY, config.duration)
 		config.container.scrollTop = newTop
-
-
 		if (elapsed < config.duration) {
 			requestAnimationFrame(tween)
 		} else if (config.callback) {
@@ -99,7 +97,6 @@ const scrollTo = (destination, overrides) => {
 
 	requestAnimationFrame(tween)
 }
-
 
 /**
  * Combines any number of array or string arguments into a single, space-separated className string
@@ -124,7 +121,11 @@ const cn = (...input) => {
 
 const findOne = (haystack, needles) => needles.some(needle => haystack.indexOf(needle) >= 0)
 
-const slugify = text => text.toString().toLowerCase().replace(/\s+/g, '-')
+const slugify = text =>
+	text
+		.toString()
+		.toLowerCase()
+		.replace(/\s+/g, '-')
 
 module.exports = {
 	findOne,
