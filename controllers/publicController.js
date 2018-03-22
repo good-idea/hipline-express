@@ -1,7 +1,7 @@
 // const redis = require('redis')
 const axios = require('axios')
-const { promisify } = require('util')
-const { slugify } = require('../utils/text')
+// const { promisify } = require('util')
+// const { slugify } = require('../utils/text')
 const git = require('git-rev-sync')
 const { cms } = require('../config')
 
@@ -15,7 +15,8 @@ module.exports.site = function getPage(req, res, next) {
 	axios
 		.get(`${cms.apiRoot}/initial?uri=${uri}`)
 		.then(response => {
-			res.render('index', { meta: response.data.meta, rev: git.short() })
+			console.log(cms.apiRoot, response.data)
+			return res.render('index', { meta: response.data.meta || {}, rev: git.short() })
 		})
 		.catch(next)
 }
