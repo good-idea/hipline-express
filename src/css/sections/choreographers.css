@@ -29,7 +29,7 @@ section.home {
 
 .choreographer__avatar {
 	width: calc(25% - 1rem);
-	border: 1px solid $orange;
+	border: none;
 	margin: 0.5rem;
 	position: relative;
 	transition: 0.2s;
@@ -37,17 +37,34 @@ section.home {
 	.avatar {
 		mix-blend-mode: darken;
 	}
+
+	&:hover {
+		.choreographer__name {
+			display: flex;
+		}
+	}
 	.choreographer__name {
-		font-family: $serif;
+		font-family: $sans;
 		font-weight: 800;
 		position: absolute;
-		bottom: 1rem;
-		left: 1rem;
-		text-align: left;
+		width: 100%;
+		bottom: 0;
+		left: 0;
+		height: 3em;
+		text-align: center;
+		padding-left: 1em;
+		justify-content: center;
+		align-items: center;
 		font-weight: 900;
-		// font-weight: 700;
 		color: $pink;
 		z-index: 20;
+		display: none;
+		background: rgba(255, 255, 255, 0.8);
+
+		h3 {
+			font-size: 1.5rem;
+			text-transform: uppercase;
+		}
 	}
 
 	.choreographer__viewProfile {
@@ -74,7 +91,6 @@ section.home {
 	.choreographer__avatar {
 		width: calc(33% - 1rem);
 	}
-
 }
 
 @media screen and (max-width: $break-small) {
@@ -111,7 +127,6 @@ section.home {
 	margin-top: 5rem;
 }
 
-
 .profile__top,
 .profile__bottom {
 	display: flex;
@@ -127,7 +142,7 @@ section.home {
 		margin-top: 0em;
 	}
 
-	.profile__link{
+	.profile__link {
 		color: $purple;
 		text-decoration: underline;
 	}
@@ -208,8 +223,8 @@ section.home {
 	color: $purple;
 }
 
-.profile__playlist{
-	.profile__bottom__title{
+.profile__playlist {
+	.profile__bottom__title {
 		margin-left: auto;
 	}
 }
@@ -277,7 +292,7 @@ section.home {
 			display: none;
 		}
 
-		.profile__link{
+		.profile__link {
 			width: 100%;
 		}
 	}
@@ -313,6 +328,14 @@ section.home {
 
 		.cta {
 			display: inline-block;
+		}
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.choreographer__avatar {
+		.choreographer__name {
+			display: flex;
 		}
 	}
 }
