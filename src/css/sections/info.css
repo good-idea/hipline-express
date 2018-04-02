@@ -6,8 +6,13 @@
 		padding-top: 15rem;
 	}
 
-	p, li{
+	p,
+	li {
 		font-size: $h4;
+	}
+
+	a {
+		text-decoration: underline;
 	}
 
 	.column {
@@ -149,9 +154,7 @@
 	text-align: center;
 }
 
-.info__section--standard
-.info__section__cta {
-
+.info__section--standard .info__section__cta {
 	margin-top: 2rem;
 	text-align: left;
 
@@ -164,9 +167,7 @@
 		&:after {
 			display: none;
 		}
-
 	}
-
 }
 
 .info__section--contact {
