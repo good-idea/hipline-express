@@ -67,7 +67,12 @@ class Navigation extends React.Component {
 					</div>
 					<div className="nav__mobile">
 						<h4 className="nav__item nav__cta">
-							<a className="" href="/elsewhere">
+							<a
+								className=""
+								target="_blank"
+								rel="noopener noreferrer"
+								href="http://clients.mindbodyonline.com/ws.asp?studioid=4561&stype=-7"
+							>
 								Sign Up
 							</a>
 						</h4>

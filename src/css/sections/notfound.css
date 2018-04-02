@@ -1,0 +1,14 @@
+.notFound {
+	@mixin flex-center;
+	text-align: center;
+	flex-direction: column;
+
+	h1 {
+		margin-bottom: 2rem;
+	}
+
+	a {
+		color: $pink;
+		text-decoration: underline;
+	}
+}

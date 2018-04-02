@@ -9,6 +9,7 @@ import Choreographers from './sections/Choreographers'
 import Classes from './sections/Classes/Classes'
 import InfoPage from './sections/InfoPage'
 import Footer from './sections/Footer'
+import NotFound from './sections/NotFound'
 
 import { SquigglePaths } from './components/Squiggle'
 
@@ -29,14 +30,12 @@ class App extends React.Component {
 		// const apiRoot = (window.)
 		// Split the initial content & MBO requests into two:
 		// the MBO call may take longer, or the API server may be down
-		axios
-			.get(`/api/content/initial?uri=${this.props.location.pathname}`)
-			.then(response => {
-				const newState = parseContent({ ...this.state, ...response.data })
-				this.setState(newState, () => {
-					this.props.emit('cmsContentLoaded')
-				})
+		axios.get(`/api/content/initial?uri=${this.props.location.pathname}`).then(response => {
+			const newState = parseContent({ ...this.state, ...response.data })
+			this.setState(newState, () => {
+				this.props.emit('cmsContentLoaded')
 			})
+		})
 	}
 
 	componentDidUpdate(prevProps) {
@@ -59,9 +58,7 @@ class App extends React.Component {
 
 	render() {
 		if (!this.state.home) return null
-		const currentSection = this.props.location.pathname
-			.replace(/^\//, '')
-			.split('/')[0]
+		const currentSection = this.props.location.pathname.replace(/^\//, '').split('/')[0]
 		const hasAnnouncement = this.state.announcement ? 'withAnnouncement' : ''
 		return (
 			<div id="app" className={`section--${currentSection} ${hasAnnouncement}`}>
@@ -86,13 +83,7 @@ class App extends React.Component {
 					<Route
 						exact
 						path="/"
-						render={match => (
-							<Choreographers
-								match={match}
-								home={this.state.home}
-								choreographers={this.state.choreographers}
-							/>
-						)}
+						render={match => <Choreographers match={match} home={this.state.home} choreographers={this.state.choreographers} />}
 					/>
 					<Route
 						exact
@@ -107,12 +98,7 @@ class App extends React.Component {
 						)}
 					/>
 					{this.state.infoPages.map(page => (
-						<Route
-							exact
-							key={page.slug}
-							path={`/${page.slug}`}
-							render={() => <InfoPage {...page} />}
-						/>
+						<Route exact key={page.slug} path={`/${page.slug}`} render={() => <InfoPage {...page} />} />
 					))}
 					{/* <Route
 						path="/dashboard"
@@ -136,6 +122,7 @@ class App extends React.Component {
 							/>
 						)}
 					/> */}
+					<NotFound />
 				</Switch>
 				<Footer {...this.state.home} />
 			</div>

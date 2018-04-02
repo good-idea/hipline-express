@@ -27,6 +27,7 @@ section {
 	main {
 		padding-top: $nav-height;
 		padding-bottom: 4rem;
+		min-height: calc(100vh - 410px + 6rem);
 	}
 }
 
