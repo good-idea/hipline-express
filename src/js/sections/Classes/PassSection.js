@@ -13,23 +13,16 @@ import { slugify } from '../../utils/helpers'
  */
 
 const PassSection = props => {
+	console.log(props)
 	return (
-		<div
-			className={`info__section info__section--passtype info__section--${slugify(
-				props.title,
-			)}`}
-		>
+		<div className={`info__section info__section--passtype info__section--${slugify(props.title)}`}>
 			<div className="info__header column column--narrow">
 				<h3 className="info__title">
 					<Highlight text={props.title} />
 				</h3>
-				<div className="info__subtitle">
-					{wrapAndPrepare('p')(props.description)}
-				</div>
+				<div className="info__subtitle">{wrapAndPrepare('p')(props.description)}</div>
 			</div>
-			<div className="cards">
-				{props.passes.map(p => <PassCard key={p.title} {...p} />)}
-			</div>
+			<div className="cards">{props.passes.map(p => <PassCard key={p.title} {...p} />)}</div>
 		</div>
 	)
 }

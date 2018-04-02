@@ -46,14 +46,14 @@ export const organizePassesIntoSections = content => {
 		// The 'passes' object has hard-coded property titles, like 'jprtitle', 'jprdescription'
 		section.title = sourcePasses[`${s}title`]
 		section.description = sourcePasses[`${s}description`]
-		section.passes = sourcePasses[`${s}passes`]
+		section.passes = Array.isArray(sourcePasses[`${s}passes`]) ? sourcePasses[`${s}passes`] : []
+		console.log(section.passes)
 
 		return section
 	})
 
 	const reg = new RegExp(sectionTitles.join('|'), 'i')
 	const newPasses = R.pipe(R.assoc('types', types), curriedFilterWithKeys(key => !key.match(reg)))(sourcePasses)
-
 	return {
 		...R.dissoc('sourcePasses', content),
 		passes: newPasses,
