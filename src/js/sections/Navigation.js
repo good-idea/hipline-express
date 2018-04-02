@@ -41,10 +41,6 @@ class Navigation extends React.Component {
 
 	closeMenu = () => {
 		document.body.scrollTop = 0
-		scrollTo(0, {})
-		this.setState({
-			open: false,
-		})
 	}
 
 	toggleMenu = () => {
