@@ -1,19 +1,25 @@
 .splash {
 	@mixin flex-center;
 
-	font-family: $serif;
 	flex-direction: column;
-	height: calc(100vh - 5rem);
-	min-height: 40rem;
+	padding-top: $nav-height;
+	min-height: 25rem;
 	background: $pink-light;
 	position: sticky;
 	top: 0;
-	perspective: 800px;
+}
 
+.splash--full {
+	height: calc(100vh - 5rem);
+}
+
+.splash,
+.intro__text {
 	h2 {
+		font-family: $serif;
 		font-weight: 900;
 		color: $seafoam;
-		text-align: left;
+		text-align: center;
 
 		img {
 			height: 1em;

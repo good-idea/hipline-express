@@ -69,21 +69,12 @@ class App extends React.Component {
 					showAnnouncement={this.showAnnouncement}
 					hideAnnouncement={this.hideAnnouncement}
 				/>
-				<Navigation
-					// user={this.state.user}
-					// setDropdown={this.setDropdown}
-					// dropdown={this.state.dropdown}
-					// loginUser={this.loginUser}
-					// logoutUser={this.logoutUser}
-					// registrationFields={this.state.registrationFields}
-					// liabilityText={this.state.home.liability}
-					infoPages={this.state.infoPages}
-				/>
+				<Navigation infoPages={this.state.infoPages} />
 				<Switch>
 					<Route
 						exact
 						path="/"
-						render={match => <Choreographers match={match} home={this.state.home} choreographers={this.state.choreographers} />}
+						render={match => <Choreographers match={match} home={this.state.home} {...this.state.choreographers} />}
 					/>
 					<Route
 						exact
@@ -100,28 +91,6 @@ class App extends React.Component {
 					{this.state.infoPages.map(page => (
 						<Route exact key={page.slug} path={`/${page.slug}`} render={() => <InfoPage {...page} />} />
 					))}
-					{/* <Route
-						path="/dashboard"
-						render={(routeProps => (
-							<Dashboard
-								{...routeProps}
-								user={this.state.user}
-								setUserData={this.setUserData}
-								setDropdown={this.setDropdown}
-								loadUserData={this.loadUserData}
-							/>
-						))}
-					/>
-					<Route
-						exact
-						path="/schedule"
-						render={() => (
-							<Schedule
-								choreographers={this.state.choreographers.children}
-								schedule={this.state.schedule}
-							/>
-						)}
-					/> */}
 					<NotFound />
 				</Switch>
 				<Footer {...this.state.home} />

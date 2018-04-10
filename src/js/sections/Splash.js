@@ -45,8 +45,9 @@ class Splash extends React.Component {
 	}
 
 	render() {
+		const className = this.props.full ? 'splash splash--full' : 'splash'
 		return (
-			<div ref={this.registerRef} className="splash" style={this.state.style}>
+			<div ref={this.registerRef} className={className} style={this.state.style}>
 				<div className="column--medium">{prepareIntroText(this.props.text)}</div>
 			</div>
 		)
@@ -58,10 +59,11 @@ Splash.contextTypes = {
 }
 Splash.propTypes = {
 	text: PropTypes.string.isRequired,
+	full: PropTypes.bool,
 }
 
 Splash.defaultProps = {
-	// title: 'My Title'
+	full: true,
 }
 
 export default Splash

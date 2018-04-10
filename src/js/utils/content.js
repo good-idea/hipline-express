@@ -14,11 +14,10 @@ const shuffle = array => {
 		randomIndex
 
 	// While there remain elements to shuffle...
-	while (0 !== currentIndex) {
+	while (currentIndex !== 0) {
 		// Pick a remaining element...
 		randomIndex = Math.floor(Math.random() * currentIndex)
 		currentIndex -= 1
-
 		// And swap it with the current element.
 		temporaryValue = array[currentIndex]
 		array[currentIndex] = array[randomIndex]
@@ -29,9 +28,13 @@ const shuffle = array => {
 }
 
 const shuffleChoreographers = content => {
+	const choreographers = {
+		...content.choreographers,
+		choreographers: shuffle(content.choreographers.children),
+	}
 	return {
 		...content,
-		choreographers: shuffle(content.choreographers),
+		choreographers,
 	}
 }
 
@@ -47,7 +50,6 @@ export const organizePassesIntoSections = content => {
 		section.title = sourcePasses[`${s}title`]
 		section.description = sourcePasses[`${s}description`]
 		section.passes = Array.isArray(sourcePasses[`${s}passes`]) ? sourcePasses[`${s}passes`] : []
-		console.log(section.passes)
 
 		return section
 	})
@@ -70,7 +72,7 @@ export const attachChoreographersToClassTypes = content => {
 			type.children = R.map(classCard => {
 				if (classCard.choreographers) {
 					classCard.choreographers = R.pipe(
-						R.map(chor => content.choreographers.find(c => c.slug === chor.slug)),
+						R.map(chor => content.choreographers.choreographers.find(c => c.slug === chor.slug)),
 						R.filter(c => c !== undefined),
 					)(classCard.choreographers)
 				}

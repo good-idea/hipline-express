@@ -15,7 +15,6 @@ module.exports.site = function getPage(req, res, next) {
 	axios
 		.get(`${cms.apiRoot}/initial?uri=${uri}`)
 		.then(response => {
-			console.log(cms.apiRoot, response.data)
 			return res.render('index', { meta: response.data.meta || {}, rev: git.short() })
 		})
 		.catch(next)

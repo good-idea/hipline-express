@@ -50,7 +50,6 @@ class Navigation extends React.Component {
 	}
 
 	render() {
-		console.log(this.props)
 		const classNames = this.state.open ? 'nav__wrapper nav--open' : 'nav__wrapper'
 		return (
 			<div className={classNames}>

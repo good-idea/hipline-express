@@ -45,14 +45,6 @@ const ChoreographerSocial = ({ accounts }) => {
 	)
 }
 
-ChoreographerSocial.propTypes = {
-	// title: PropTypes.string
-}
-
-ChoreographerSocial.defaultProps = {
-	// title: 'My Title'
-}
-
 const ChoreographerProfile = props => {
 	const bioBody = markdownToJSX(props.bio)
 
@@ -60,12 +52,16 @@ const ChoreographerProfile = props => {
 
 	const quote = props.quote.body ? (
 		<h4 className="profile__quote">
-			“{props.quote.body}” —&nbsp;<span className="citation">
-				{props.quote.citation}
-			</span>
+			“{props.quote.body}” —&nbsp;<span className="citation">{props.quote.citation}</span>
 		</h4>
 	) : null
 
+	const website =
+		props.biolink && props.biolink.length ? (
+			<h5 className="profile__website">
+				<a href={props.biolink}>{props.biolinktext.length ? props.biolinktext : props.biolink.replace(/https?:\/\//, '')}</a>
+			</h5>
+		) : null
 	const musicians = props.musicians.length ? props.musicians.split(',') : []
 	const classtypes = props.classtypes.length ? props.classtypes.split(',') : []
 
@@ -78,16 +74,12 @@ const ChoreographerProfile = props => {
 						<ChoreographerSocial accounts={props.social} />
 					</div>
 					<div className="profile__photo">
-						<Avatar
-							autoPlay={true}
-							image={props.cover}
-							videoSrc={props.coverVideo}
-							ratio={0.85}
-						/>
+						<Avatar autoPlay={true} image={props.cover} videoSrc={props.coverVideo} ratio={0.85} />
 					</div>
 					<div className="profile__bio">
 						{quote}
 						<div className="profile__bio__body">{bioBody}</div>
+						{website}
 					</div>
 				</div>
 				<div className="profile__bottom column column--wide">
@@ -97,9 +89,7 @@ const ChoreographerProfile = props => {
 							<Squiggle num={0} />
 						</div>
 						<div className="profile__bottom__content">
-							{classtypes.map(classType => (
-								<p key={classType}>{classType}</p>
-							))}
+							{classtypes.map(classType => <p key={classType}>{classType}</p>)}
 							<div className="profile__cta">
 								<p className="profile__link">
 									<Link to="/schedule" href="/schedule">
@@ -137,7 +127,8 @@ const ChoreographerProfile = props => {
 }
 
 ChoreographerProfile.propTypes = {
-	index: PropTypes.number.isRequired,
+	biolink: PropTypes.string,
+	biolinktext: PropTypes.string,
 	bio: PropTypes.string,
 	expectations: PropTypes.string,
 	quote: PropTypes.oneOfType([
@@ -169,6 +160,8 @@ ChoreographerProfile.propTypes = {
 
 ChoreographerProfile.defaultProps = {
 	bio: '',
+	biolink: '',
+	biolinktext: '',
 	expectations: '',
 	quote: '',
 	social: '',
