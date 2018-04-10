@@ -28,7 +28,7 @@ const ChoreographerSocial = ({ accounts }) => {
 
 			{instagram !== '' ? (
 				<div className="profile__social">
-					<a href={`https://www.instagram.com/${instagram}`} target="_blank">
+					<a href={/https?/.test(instagram) ? instagram : `https://www.instagram.com/${instagram}`} target="_blank">
 						<Icon glyph="instagram" />
 					</a>
 				</div>
