@@ -53,7 +53,6 @@ class Navigation extends React.Component {
 		const classNames = this.state.open ? 'nav__wrapper nav--open' : 'nav__wrapper'
 		return (
 			<div className={classNames}>
-				<button className="nav__background" onClick={this.closeMenu} />
 				<nav>
 					<div className="nav__item nav__item--logo">
 						<NavLink to="/">

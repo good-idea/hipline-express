@@ -13,6 +13,7 @@ import { slugify } from '../../utils/helpers'
  */
 
 const PassSection = props => {
+	if (!props.passes.length) return null
 	return (
 		<div className={`info__section info__section--passtype info__section--${slugify(props.title)}`}>
 			<div className="info__header column column--narrow">
