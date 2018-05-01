@@ -7,6 +7,7 @@ import Squiggle from '../components/Squiggle'
 import Icon from '../components/Icon'
 import { ScrollableChild } from '../UI/Scroll'
 import { markdownToJSX } from '../utils/text'
+import { mbolinks } from '../constants'
 
 /**
  * ChoreographerSocial
@@ -92,9 +93,9 @@ const ChoreographerProfile = props => {
 							{classtypes.map(classType => <p key={classType}>{classType}</p>)}
 							<div className="profile__cta">
 								<p className="profile__link">
-									<Link to="/schedule" href="/schedule">
+									<a href={mbolinks.schedule} target="_blank" rel="noopener noreferrer">
 										View Schedule
-									</Link>
+									</a>
 								</p>
 							</div>
 						</div>
