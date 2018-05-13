@@ -13,7 +13,7 @@ const Footer = ({ footertext, contact, footersocial, footerPages }) => (
 		<div className="column">
 			<div className="footer__nav">
 				{footerPages.map(p => (
-					<h4>
+					<h4 key={p.slug}>
 						<Link href={p.slug} to={p.slug}>
 							{p.title}
 						</Link>

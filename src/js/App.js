@@ -91,7 +91,10 @@ class App extends React.Component {
 						)}
 					/>
 					{this.state.infoPages.map(page => (
-						<Route exact key={page.slug} path={`/${page.slug}`} render={() => <InfoPage {...page} />} />
+						<Route exact key={`info-${page.slug}`} path={`/${page.slug}`} render={() => <InfoPage {...page} />} />
+					))}
+					{this.state.footerPages.map(page => (
+						<Route exact key={`footer-${page.slug}`} path={`/${page.slug}`} render={() => <InfoPage {...page} />} />
 					))}
 					<NotFound />
 				</Switch>
