@@ -10,6 +10,14 @@ footer {
 	line-height: 2.2em;
 }
 
+.footer__nav {
+	margin-bottom: 2rem;
+
+	a {
+		text-decoration: underline;
+	}
+}
+
 .footer__logo {
 	width: 10rem;
 }
@@ -21,7 +29,6 @@ footer {
 }
 
 .footer__social {
-
 }
 
 .footer__social-icon {

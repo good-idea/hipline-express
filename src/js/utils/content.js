@@ -178,10 +178,19 @@ export const groupClassTypes = content => {
 	}
 }
 
+const separateFooterPages = content => {
+	const { footerPages, infoPages } = R.groupBy(p => (p.is_footer ? 'footerPages' : 'infoPages'), content.infoPages)
+	return {
+		...content,
+		footerPages,
+		infoPages,
+	}
+}
+
 export const parseContent = R.pipe(
 	R.when(R.prop('choreographers'), shuffleChoreographers),
 	R.when(R.prop('sourcePasses'), organizePassesIntoSections),
-	// R.when(R.prop('sourceRegistrationFields'), sortMBOFields),
+	R.when(R.prop('infoPages'), separateFooterPages),
 	// R.when(R.path(['choreographers', 'children']), hoistChoreographers),
 	R.when(R.prop('choreographers'), attachChoreographersToClassTypes),
 	// R.when(R.prop('choreographers'), attachClassTypesToChoreographers),
