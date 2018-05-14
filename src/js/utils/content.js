@@ -182,8 +182,8 @@ const separateFooterPages = content => {
 	const { footerPages, infoPages } = R.groupBy(p => (p.is_footer ? 'footerPages' : 'infoPages'), content.infoPages)
 	return {
 		...content,
-		footerPages,
-		infoPages,
+		footerPages: footerPages || [],
+		infoPages: infoPages || [],
 	}
 }
 

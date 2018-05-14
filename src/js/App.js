@@ -22,7 +22,8 @@ class App extends React.Component {
 		this.setDropdown = this.setDropdown.bind(this)
 		this.state = {
 			sections: {},
-			user: undefined,
+			infoPages: [],
+			footerPages: [],
 		}
 	}
 
