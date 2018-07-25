@@ -45,6 +45,7 @@ class Splash extends React.Component {
 	}
 
 	render() {
+		if (!this.props.text || this.props.text === '') return null
 		const className = this.props.full ? 'splash splash--full' : 'splash'
 		return (
 			<div ref={this.registerRef} className={className} style={this.state.style}>
