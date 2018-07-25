@@ -8,13 +8,13 @@ import { makeParagraph } from '../../utils/text'
 import { mbolinks } from '../../constants'
 
 const PassCard = props => {
-	const body = props.description.length ? (
+	const description = makeParagraph(props.description)
+	console.log(description)
+	const body = (
 		<div className="card__body">
-			<div className="card__description">
-				{makeParagraph(props.description)}
-			</div>
+			<div className="card__description">{description.props ? description : '\u00a0'}</div>
 		</div>
-	) : null
+	)
 
 	const link = props.mbolink.length ? props.mbolink : mbolinks.passes
 
@@ -22,12 +22,7 @@ const PassCard = props => {
 		props.buybutton !== 'false' ? (
 			<div className="card__footer">
 				<h4 className="card__cta">
-					<a
-						target="_blank"
-						rel="noopener noreferrer"
-						href={link}
-						className="cta"
-					>
+					<a target="_blank" rel="noopener noreferrer" href={link} className="cta">
 						Buy
 					</a>
 				</h4>
