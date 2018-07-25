@@ -4,7 +4,12 @@ import R from 'ramda'
  * Helpers
  */
 
-export const filterWithKeys = (pred, obj) => R.pipe(R.toPairs, R.filter(R.apply(pred)), R.fromPairs)(obj)
+export const filterWithKeys = (pred, obj) =>
+	R.pipe(
+		R.toPairs,
+		R.filter(R.apply(pred)),
+		R.fromPairs,
+	)(obj)
 
 const curriedFilterWithKeys = R.curry(filterWithKeys)
 
@@ -42,7 +47,7 @@ const shuffleChoreographers = content => {
 //
 export const organizePassesIntoSections = content => {
 	const sourcePasses = R.prop('sourcePasses', content)
-	const sectionTitles = ['newclient', 'bundles', 'jpr', 'workshop', 'loveclub']
+	const sectionTitles = ['newclient', 'bundles', 'coworkbundles', 'jpr', 'workshop', 'loveclub']
 	const types = sectionTitles.map(s => {
 		const section = {}
 		section.slug = s
@@ -55,7 +60,10 @@ export const organizePassesIntoSections = content => {
 	})
 
 	const reg = new RegExp(sectionTitles.join('|'), 'i')
-	const newPasses = R.pipe(R.assoc('types', types), curriedFilterWithKeys(key => !key.match(reg)))(sourcePasses)
+	const newPasses = R.pipe(
+		R.assoc('types', types),
+		curriedFilterWithKeys(key => !key.match(reg)),
+	)(sourcePasses)
 	return {
 		...R.dissoc('sourcePasses', content),
 		passes: newPasses,
@@ -107,7 +115,11 @@ export const attachClassTypesToChoreographers = content => {
 				R.uniq,
 				// Flatten all of the classtypes into an array and find the type with the matching ID
 				R.map(id =>
-					R.pipe(R.pluck('children'), R.flatten, R.find(R.propEq('mboid', id)))(R.path(['classtypes', 'children'], content)),
+					R.pipe(
+						R.pluck('children'),
+						R.flatten,
+						R.find(R.propEq('mboid', id)),
+					)(R.path(['classtypes', 'children'], content)),
 				),
 				R.filter(R.propEq('isVisible', true)),
 			)(content.schedule),

@@ -228,31 +228,21 @@ section.classes main {
 
 .info__section--passtype:nth-of-type(5n + 3) {
 	.highlight svg {
-		fill: $orange-light;
-	}
-
-	.card--pass {
-		color: $orange;
-	}
-}
-
-.info__section--passtype:nth-of-type(5n + 4) {
-	.highlight svg {
-		fill: $purple-light;
-	}
-
-	.card--pass {
-		color: $purple-light;
-	}
-}
-
-.info__section--passtype:nth-of-type(5n + 4) {
-	.highlight svg {
 		fill: $yellow;
 	}
 
 	.card--pass {
 		color: $yellow;
+	}
+}
+
+.info__section--passtype:nth-of-type(5n + 4) {
+	.highlight svg {
+		fill: $orange-light;
+	}
+
+	.card--pass {
+		color: $orange;
 	}
 }
 
