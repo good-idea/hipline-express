@@ -15,7 +15,6 @@ import AcceptStep from './AcceptStep'
 
 class RegistrationForm extends React.Component {
 	onSubmit = (e) => {
-		console.log(e)
 		// this.props.onSubmit(e)
 	}
 

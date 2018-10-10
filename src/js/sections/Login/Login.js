@@ -34,10 +34,8 @@ class Login extends React.Component {
 				forgotMessage: 'Check your email for instructions on resetting your password on the MindBodyOnline website.\nAfter creating a new password, you can return here to log in.',
 				disableForgotForm: true,
 			})
-			console.log(response)
 		}).catch((err) => {
 			this.setState({ disableForgotForm: true })
-			console.log(err)
 		})
 
 	}

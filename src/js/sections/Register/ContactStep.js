@@ -9,7 +9,6 @@ import FieldContainer from '../../UI/FieldContainer'
 import { checkForRequiredFields, checkForValidFields } from '../../UI/FreeForm/utils/fields'
 
 const formatBirthDate = (input) => {
-	console.log('NEEDS TRANSFORM', input)
 	return input
 }
 /**

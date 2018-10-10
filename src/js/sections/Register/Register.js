@@ -42,10 +42,8 @@ class Register extends React.Component {
 	handleSubmit(userInfo) {
 		const serializedUserInfo = serializeForSoap(userInfo)
 		axios.post('/api/mbo/register', serializedUserInfo).then((response) => {
-			console.log(response)
 			this.props.loginUser(response.data.Client)
 		}).catch((err) => {
-			console.log(err)
 		})
 	}
 

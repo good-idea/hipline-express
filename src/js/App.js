@@ -32,9 +32,7 @@ class App extends React.Component {
 		// Split the initial content & MBO requests into two:
 		// the MBO call may take longer, or the API server may be down
 		axios.get(`/api/content/initial?uri=${this.props.location.pathname}`).then(response => {
-			console.log(response.data)
 			const newState = parseContent({ ...this.state, ...response.data })
-			console.log(newState)
 			this.setState(newState, () => {
 				this.props.emit('cmsContentLoaded')
 			})

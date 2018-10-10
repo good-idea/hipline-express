@@ -61,7 +61,6 @@ const scrollTo = (destination, overrides) => {
 		easing: 'easeOutQuad',
 	}
 	const config = { ...defaults, ...overrides }
-	console.log(config.container)
 	if (typeof tweenFunctions[config.easing] !== 'function') {
 		console.warn(`${config.easing} is not a valid easing function.`)
 		config.easing = defaults.easing

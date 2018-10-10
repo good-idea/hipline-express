@@ -9,7 +9,6 @@ import { mbolinks } from '../../constants'
 
 const PassCard = props => {
 	const description = makeParagraph(props.description)
-	console.log(description)
 	const body = (
 		<div className="card__body">
 			<div className="card__description">{description.props ? description : '\u00a0'}</div>
