@@ -22,7 +22,7 @@ const config = () => ({
 	plugins: [
 		new webpack.NamedModulesPlugin(),
 		new webpack.DefinePlugin({
-			GA_ID: 'UA-124593968-1',
+			GA_ID: JSON.stringify('UA-124593968-1'),
 		}),
 	],
 })

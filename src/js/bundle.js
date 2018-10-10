@@ -9,8 +9,10 @@ const renderApp = Component => {
 	ReactDOM.render(
 		<AppContainer>
 			<BrowserRouter>
-				{init() && <RouteTracker />}
-				<Component />
+				<React.Fragment>
+					{init() && <RouteTracker />}
+					<Component />
+				</React.Fragment>
 			</BrowserRouter>
 		</AppContainer>,
 		document.getElementById('root'),

@@ -48,12 +48,12 @@ GoogleAnalytics.defaultProps = {
 	options: {},
 }
 
-const RouteTracker = () => <Route component={GoogleAnalytics} />
+export const RouteTracker = () => <Route component={GoogleAnalytics} />
 
-const init = (options = {}) => {
+export const init = (options = {}) => {
 	/* eslint-disable-next-line no-undef */
 	const trackerId = GA_ID || false
-	console.log(GA_ID)
+	console.log(trackerId)
 
 	if (trackerId) {
 		ReactGA.initialize(trackerId, {
@@ -63,10 +63,4 @@ const init = (options = {}) => {
 	}
 
 	return Boolean(trackerId)
-}
-
-export default {
-	GoogleAnalytics,
-	RouteTracker,
-	init,
 }
