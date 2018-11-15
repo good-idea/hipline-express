@@ -51,6 +51,26 @@ class Navigation extends React.Component {
 
 	render() {
 		const classNames = this.state.open ? 'nav__wrapper nav--open' : 'nav__wrapper'
+		const { pages } = this.props
+		const { mainPages, submenuPages } = pages.reduce(
+			(acc, page) => {
+				if (page.nav_settings && page.nav_settings === 'primary') {
+					return {
+						mainPages: [page, ...acc.mainPages],
+						submenuPages: acc.submenuPages,
+					}
+				} else if (page.nav_settings === 'footer') {
+					return acc
+				}
+				console.log('submenu')
+				return {
+					mainPages: acc.mainPages,
+					submenuPages: [page, ...acc.submenuPages],
+				}
+			},
+			{ mainPages: [], submenuPages: [] },
+		)
+
 		return (
 			<div className={classNames}>
 				<nav>
@@ -74,30 +94,21 @@ class Navigation extends React.Component {
 					</div>
 
 					<div className="nav__items">
-						<h4 className="nav__item">
-							<NavLink onClick={this.closeMenu} exact activeClassName="navlink--active" to="/">
-								Choreographers
-							</NavLink>
-						</h4>
-						<h4 className="nav__item">
-							<NavLink onClick={this.closeMenu} exact activeClassName="navlink--active" to="/classes">
-								Classes
-							</NavLink>
-						</h4>
-						{this.props.infoPages.map(page => (
-							<h4 className="nav__item" key={page.slug}>
-								<NavLink
-									onClick={this.closeMenu}
-									exact
-									activeClassName="navlink--active"
-									href={`/${page.slug}`}
-									to={`/${page.slug}`}
-								>
-									{page.title}
-								</NavLink>
-							</h4>
-						))}
-						<h4 className="nav__item">
+						{mainPages &&
+							mainPages.map(page => (
+								<h4 className="nav__item nav__item--primary" key={page.slug}>
+									<NavLink
+										onClick={this.closeMenu}
+										exact
+										activeClassName="navlink--active"
+										href={`/${page.slug}`}
+										to={`/${page.slug}`}
+									>
+										{page.title}
+									</NavLink>
+								</h4>
+							))}
+						<h4 className="nav__item nav__item--primary">
 							<a
 								target="_blank"
 								rel="noopener noreferrer"
@@ -106,12 +117,45 @@ class Navigation extends React.Component {
 								Schedule
 							</a>
 						</h4>
+						{submenuPages.length && (
+							<div className="nav__item nav__item--primary nav__submenu">
+								<h4 className="nav__submenu--title">
+									About <span className="icon--down" />
+								</h4>
+								<div className="nav__submenu--list">
+									{submenuPages.map(page => (
+										<h4 className="nav__submenu--item" key={page.slug}>
+											<NavLink
+												onClick={this.closeMenu}
+												exact
+												activeClassName="navlink--active"
+												href={`/${page.slug}`}
+												to={`/${page.slug}`}
+											>
+												{page.title}
+											</NavLink>
+										</h4>
+									))}
+								</div>
+							</div>
+						)}
 					</div>
 				</nav>
 			</div>
 		)
 	}
 }
+
+// <h4 className="nav__item">
+// 	<NavLink onClick={this.closeMenu} exact activeClassName="navlink--active" to="/">
+// 		Choreographers
+// 	</NavLink>
+// </h4>
+// <h4 className="nav__item">
+// 	<NavLink onClick={this.closeMenu} exact activeClassName="navlink--active" to="/classes">
+// 		Classes
+// 	</NavLink>
+// </h4>
 
 Navigation.propTypes = {
 	// setDropdown: PropTypes.func.isRequired,

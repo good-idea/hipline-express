@@ -23,6 +23,7 @@ const config = () => ({
 		new webpack.NamedModulesPlugin(),
 		new webpack.DefinePlugin({
 			GA_ID: JSON.stringify('UA-124593968-1'),
+			"process.env.NODE_ENV": JSON.stringify('production'),
 		}),
 	],
 })

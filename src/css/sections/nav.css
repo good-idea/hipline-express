@@ -8,11 +8,10 @@ nav {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	padding: 1rem 2rem;
+	padding: 0rem 2rem;
 	transform: translateZ(0);
 	background-color: white;
 	// transition: 0.2s background-color;
-
 }
 
 .logo {
@@ -29,8 +28,23 @@ nav {
 	color: black;
 }
 .nav__item {
-	transition: 0.2s;
+	transition: 0.2s, 0s color;
 	display: inline-block;
+	height: 100%;
+
+	> a {
+		display: block;
+	}
+}
+
+h4.nav__item:hover,
+.nav__submenu--item:hover,
+.nav__submenu:hover > .nav__submenu--title {
+	color: $pink;
+}
+
+.nav__item--primary {
+	line-height: $nav-height;
 }
 
 .navlink--active {
@@ -39,6 +53,8 @@ nav {
 
 .nav__item--logo {
 	position: absolute;
+	display: flex;
+	align-items: center;
 	left: 2rem;
 
 	img {
@@ -61,11 +77,39 @@ nav {
 }
 
 .nav__item + .nav__item {
-	margin-left: 2em;
+	margin-left: 2.5rem;
 }
 
 .nav__item--username {
 	animation: fall-in 0.8s forwards;
+}
+
+@media screen and (min-width: $break-medium-min) {
+	.nav__submenu {
+		position: relative;
+	}
+
+	.nav__submenu--title {
+		cursor: pointer;
+		line-height: $nav-height;
+	}
+
+	.nav__submenu--list {
+		@mixin invisible;
+		position: absolute;
+		right: 0;
+		top: 100%;
+		background-color: white;
+		padding: 10px 20px;
+		border: 1px solid $pink;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+	}
+
+	.nav__submenu:hover .nav__submenu--list {
+		@mixin visible;
+	}
 }
 
 @keyframes fall-in {
@@ -80,6 +124,13 @@ nav {
 		opacity: 1;
 		transform: none;
 	}
+}
+
+.nav__items {
+	display: flex;
+	height: 100%;
+	justify-content: flex-end;
+	align-items: center;
 }
 
 .nav__mobile {
@@ -141,10 +192,12 @@ button.burger {
 		@mixin invisible;
 		display: flex;
 		position: absolute;
+		align-items: flex-start;
 		z-index: 8;
 		top: 0;
-		width: 100%;
 		left: 0;
+		height: auto;
+		width: 100%;
 		flex-direction: column;
 		background-color: $pink;
 		padding: $nav-height 2rem 2rem;
@@ -153,6 +206,7 @@ button.burger {
 		transition-timing-function: ease-out;
 		transform: translateY(-1rem);
 
+		.nav__submenu--item + .nav__submenu--item,
 		.nav__item + .nav__item {
 			margin-left: 0;
 			margin-top: 0.5rem;
@@ -161,6 +215,14 @@ button.burger {
 
 	.nav__item {
 		transition: 0s;
+		line-height: 1.6em;
+	}
+
+	.nav__submenu--title {
+		display: none;
+	}
+
+	.nav__submenu--list {
 	}
 
 	.navlink--active {

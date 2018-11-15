@@ -46,9 +46,9 @@ const config = () => ({
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NamedModulesPlugin(),
-		// new webpack.DefinePlugin({
-		// 	GA_ID: JSON.stringify('UA-124593968-1'),
-		// }),
+		new webpack.DefinePlugin({
+			"process.env.NODE_ENV": JSON.stringify('development'),
+		}),
 		// new webpack.optimize.OccurrenceOrderPlugin(),
 		// new webpack.HotModuleReplacementPlugin(),
 		// new webpack.NamedModulesPlugin(),
