@@ -62,7 +62,6 @@ class Navigation extends React.Component {
 				} else if (page.nav_settings === 'footer') {
 					return acc
 				}
-				console.log('submenu')
 				return {
 					mainPages: acc.mainPages,
 					submenuPages: [page, ...acc.submenuPages],

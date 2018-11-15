@@ -191,7 +191,12 @@ export const groupClassTypes = content => {
 }
 
 const separateFooterPages = content => {
-	const { footerPages, infoPages } = R.groupBy(p => (p.is_footer ? 'footerPages' : 'infoPages'), content.infoPages)
+	console.log(content)
+	const { footerPages, infoPages } = R.groupBy(p => (p.is_footer || p.nav_settings === 'footer' ? 'footerPages' : 'infoPages'), [
+		...content.infoPages,
+		content.choreographers,
+		content.classes,
+	])
 	return {
 		...content,
 		footerPages: footerPages || [],
