@@ -101,7 +101,7 @@ class Navigation extends React.Component {
 										exact
 										activeClassName="navlink--active"
 										href={`/${page.slug}`}
-										to={`/${page.slug}`}
+										to={page.slug === 'choreographers' ? '/' : `/${page.slug}`}
 									>
 										{page.title}
 									</NavLink>
