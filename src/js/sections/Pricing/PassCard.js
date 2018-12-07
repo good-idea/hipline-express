@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 
-import ResponsiveImage from '../../components/ResponsiveImage'
 import { makeParagraph } from '../../utils/text'
 
 import { mbolinks } from '../../constants'
@@ -11,7 +9,7 @@ const PassCard = props => {
 	const description = makeParagraph(props.description)
 	const body = (
 		<div className="card__body">
-			<div className="card__description">{description.props ? description : '\u00a0'}</div>
+			<div className="card__description">{description.props || description.length ? description : '\u00a0'}</div>
 		</div>
 	)
 

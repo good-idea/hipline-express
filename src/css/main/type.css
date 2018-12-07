@@ -7,8 +7,7 @@
 
 /* $sans: 'basic-sans', 'Helvetica Neue', helvetica, sans-serif; */
 $sans: 'europa', 'Helvetica Neue', helvetica, sans-serif;
-$serif: 'freight-display-pro', Didot, Didot LT STD, Hoefler Text, Garamond,
-	Times New Roman, serif;
+$serif: 'freight-display-pro', Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;
 
 $h1: 4.78rem;
 $h2: 3.4rem;
@@ -34,7 +33,7 @@ h4 {
 	line-height: 1.6em;
 }
 p {
-	font-size: $p;
+	font-size: $h4;
 	line-height: 1.6em;
 }
 li,

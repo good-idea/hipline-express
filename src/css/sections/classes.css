@@ -175,6 +175,9 @@ section.classes main {
 		h3,
 		h4,
 		h5,
+		ul,
+		ol,
+		span,
 		p {
 			color: black;
 		}

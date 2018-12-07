@@ -1,27 +1,26 @@
-import React from 'react'
+// @flow
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import { ScrollableContainer, ScrollableChild } from '../../UI/Scroll'
-import ClassSection from './ClassSection'
+import PassSection from './PassSection'
 import Splash from '../Splash'
 
 /**
- * Main Class section
+ * Pricing
  */
 
-const Classes = props => {
-	const visibleClasstypes = props.classtypes.filter(c => c.isVisible === true)
+const Pricing = props => {
 	return (
 		<ScrollableContainer containerElement={document.body}>
 			<div>
 				<Splash text={props.splashText} />
-
 				<section className="classes with-aside">
 					<main>
 						<div className="column--wide">
 							<div>
-								{visibleClasstypes.map(c => (
-									<ScrollableChild key={`trigger-classSection-${c.slug}`} slug={`classSection-${c.slug}`}>
-										<ClassSection {...c} />
+								{props.passes.types.map(p => (
+									<ScrollableChild key={`trigger-passSection-${p.slug}`} slug={`passSection-${p.slug}`}>
+										<PassSection {...p} />
 									</ScrollableChild>
 								))}
 							</div>
@@ -33,14 +32,16 @@ const Classes = props => {
 	)
 }
 
-Classes.propTypes = {
-	classtypes: PropTypes.arrayOf(PropTypes.shape),
+Pricing.propTypes = {
+	passes: PropTypes.shape({
+		types: PropTypes.arrayOf(PropTypes.shape({})),
+	}),
 	splashText: PropTypes.string,
 }
 
-Classes.defaultProps = {
-	classtypes: [],
+Pricing.defaultProps = {
+	passes: {},
 	splashText: '',
 }
 
-export default Classes
+export default Pricing

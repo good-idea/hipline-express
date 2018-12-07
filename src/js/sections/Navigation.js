@@ -1,10 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { NavLink, withRouter } from 'react-router-dom'
-import { scrollTo } from '../utils/helpers'
-
-// import Login from './Login/Login'
-// import Register from './Register/Register'
 
 const Logo = () => (
 	<div className="logo">
@@ -143,25 +138,6 @@ class Navigation extends React.Component {
 			</div>
 		)
 	}
-}
-
-// <h4 className="nav__item">
-// 	<NavLink onClick={this.closeMenu} exact activeClassName="navlink--active" to="/">
-// 		Choreographers
-// 	</NavLink>
-// </h4>
-// <h4 className="nav__item">
-// 	<NavLink onClick={this.closeMenu} exact activeClassName="navlink--active" to="/classes">
-// 		Classes
-// 	</NavLink>
-// </h4>
-
-Navigation.propTypes = {
-	// setDropdown: PropTypes.func.isRequired,
-}
-
-Navigation.defaultProps = {
-	// title: 'My Title'
 }
 
 export default withRouter(Navigation)

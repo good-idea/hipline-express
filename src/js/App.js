@@ -7,6 +7,7 @@ import Announcement from './sections/Announcement'
 import Navigation from './sections/Navigation'
 import Choreographers from './sections/Choreographers'
 import Classes from './sections/Classes/Classes'
+import Pricing from './sections/Pricing/Pricing'
 import InfoPage from './sections/InfoPage'
 import Footer from './sections/Footer'
 import NotFound from './sections/NotFound'
@@ -61,7 +62,7 @@ class App extends React.Component {
 		if (!this.state.home) return null
 		const currentSection = this.props.location.pathname.replace(/^\//, '').split('/')[0]
 		const hasAnnouncement = this.state.announcement ? 'withAnnouncement' : ''
-
+		console.log(this.state)
 		return (
 			<div id="app" className={`section--${currentSection} ${hasAnnouncement}`}>
 				<SquigglePaths />
@@ -78,17 +79,11 @@ class App extends React.Component {
 						path="/"
 						render={match => <Choreographers match={match} home={this.state.home} {...this.state.choreographers} />}
 					/>
+					<Route exact path="/pricing" render={() => <Pricing passes={this.state.passes} />} />
 					<Route
 						exact
 						path="/classes"
-						render={match => (
-							<Classes
-								match={match}
-								passes={this.state.passes}
-								splashText={this.state.classes.intro}
-								classtypes={this.state.classtypes}
-							/>
-						)}
+						render={match => <Classes match={match} splashText={this.state.classes.intro} classtypes={this.state.classtypes} />}
 					/>
 					{this.state.infoPages.map(page => (
 						<Route exact key={`info-${page.slug}`} path={`/${page.slug}`} render={() => <InfoPage {...page} />} />

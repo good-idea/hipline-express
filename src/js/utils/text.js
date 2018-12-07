@@ -11,8 +11,7 @@ export const fixKirbyTextFileLinks = R.pipe(
 	R.replace(/(\(file:\s?(\S*))\)/g, '[$2](href:$2)'),
 )
 
-export const fixKirbyTextAnchors = text =>
-	text.replace(/(\(link:\s?(\S*))\stext:\s?([\S ]*)\)/g, '[$3]($2)')
+export const fixKirbyTextAnchors = text => text.replace(/(\(link:\s?(\S*))\stext:\s?([\S ]*)\)/g, '[$3]($2)')
 
 export const fixKirbyTextEmailLinks = R.pipe(
 	R.replace(/(\(email:\s?(\S*))\stext:\s?([\S ]*)\)/g, '[$3](mailto:$2)'),
@@ -33,8 +32,7 @@ export const removeWrappingTags = text => {
 	const first = text.match(/^<([\w]+)>/)
 	const last = text.match(/<\/([\w]+)>$/)
 	if (first === last && first) {
-		if (first.match(/\p|h\d|(ul)/))
-			return text.replace(/(^<[\w]+>)(.*)(<\/[\w]+>$)/g, '$2')
+		if (first.match(/\p|h\d|(ul)/)) return text.replace(/(^<[\w]+>)(.*)(<\/[\w]+>$)/g, '$2')
 	}
 	return text
 }
@@ -42,21 +40,13 @@ export const removeWrappingTags = text => {
 export const wrapWith = tag => text => `<${tag}>${text}</${tag}>`
 
 export const stripTags = allowed => text => {
-	allowed = (
-		((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []
-	).join('')
+	allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('')
 	const tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi
 	const commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi
-	return text
-		.replace(commentsAndPhpTags, '')
-		.replace(
-			tags,
-			(b, a) => (allowed.indexOf(`<${a.toLowerCase()}>`) > -1 ? b : ''),
-		)
+	return text.replace(commentsAndPhpTags, '').replace(tags, (b, a) => (allowed.indexOf(`<${a.toLowerCase()}>`) > -1 ? b : ''))
 }
 
-export const externalLinks = text =>
-	text.replace(/(<a\W?)(href="https?:\/\/)/, '$1 target="_blank" $2')
+export const externalLinks = text => text.replace(/(<a\W?)(href="https?:\/\/)/, '$1 target="_blank" $2')
 
 export const trimText = length => text => text.substr(0, length)
 
@@ -115,7 +105,7 @@ const makeParagraph = R.pipe(
 	fixKirbyText,
 	markdownToHTML,
 	externalLinks,
-	stripTags('<a><br><p>'),
+	stripTags('<a><br><p><li><ul><ol>'),
 	HTMLtoJSX,
 )
 

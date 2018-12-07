@@ -51,6 +51,16 @@
 
 .card__body {
 	margin: 0 auto 2rem;
+	padding: 1rem 1.5rem;
+}
+
+.card .card__body {
+	ul,
+	ol {
+		margin: 1em 0;
+		column-count: 1;
+		text-align: left;
+	}
 }
 
 .card__header {
