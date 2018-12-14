@@ -32,15 +32,9 @@ section {
 }
 
 .column {
-	width: calc(100% - 20rem);
+	width: calc(100% - 10rem);
 	max-width: 70rem;
 	margin: 0 auto;
-}
-
-@media screen and (max-width: $break-medium) {
-	.column {
-		width: calc(100% - 10rem);
-	}
 }
 
 @media screen and (max-width: $break-small) {
@@ -51,6 +45,11 @@ section {
 
 .column--left {
 	margin-left: 4rem;
+}
+
+.column--xWide {
+	@extend .column;
+	max-width: 140rem;
 }
 
 .column--wide {
