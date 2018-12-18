@@ -62,7 +62,6 @@ class App extends React.Component {
 		if (!this.state.home) return null
 		const currentSection = this.props.location.pathname.replace(/^\//, '').split('/')[0]
 		const hasAnnouncement = this.state.announcement ? 'withAnnouncement' : ''
-		console.log(this.state)
 		return (
 			<div id="app" className={`section--${currentSection} ${hasAnnouncement}`}>
 				<SquigglePaths />
