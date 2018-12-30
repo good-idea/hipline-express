@@ -180,6 +180,13 @@ button.burger {
 		display: flex;
 	}
 
+	h4.nav__item:hover,
+	.nav__submenu--item:hover,
+	.nav__submenu:hover > .nav__submenu--title {
+		color: white;
+		text-decoration: underline;
+	}
+
 	nav {
 		transition: 0.2s background-color, 0.2s color, 0.5s top;
 
