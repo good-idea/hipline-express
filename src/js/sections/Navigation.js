@@ -20,12 +20,40 @@ const Logo = () => (
  * Navigation
  */
 
+const sortBySortNumber = (a, b) => {
+	if (a.sort < b.sort) return -1
+	if (a.sort > b.sort) return 1
+	return 0
+}
+
 class Navigation extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			open: false,
 		}
+		const { pages } = props
+
+		const { mainPages, submenuPages } = pages.reduce(
+			(acc, page) => {
+				if (page.nav_settings && page.nav_settings === 'primary') {
+					return {
+						mainPages: [page, ...acc.mainPages],
+						submenuPages: acc.submenuPages,
+					}
+				} else if (page.nav_settings === 'footer') {
+					return acc
+				}
+				return {
+					mainPages: acc.mainPages,
+					submenuPages: [page, ...acc.submenuPages].sort(sortBySortNumber),
+				}
+			},
+			{ mainPages: [], submenuPages: [] },
+		)
+
+		this.mainPages = mainPages.sort(sortBySortNumber)
+		this.submenuPages = submenuPages.sort(sortBySortNumber)
 	}
 
 	openMenu = () => {
@@ -49,24 +77,6 @@ class Navigation extends React.Component {
 
 	render() {
 		const classNames = this.state.open ? 'nav__wrapper nav--open' : 'nav__wrapper'
-		const { pages } = this.props
-		const { mainPages, submenuPages } = pages.reduce(
-			(acc, page) => {
-				if (page.nav_settings && page.nav_settings === 'primary') {
-					return {
-						mainPages: [page, ...acc.mainPages],
-						submenuPages: acc.submenuPages,
-					}
-				} else if (page.nav_settings === 'footer') {
-					return acc
-				}
-				return {
-					mainPages: acc.mainPages,
-					submenuPages: [page, ...acc.submenuPages],
-				}
-			},
-			{ mainPages: [], submenuPages: [] },
-		)
 
 		return (
 			<div className={classNames}>
@@ -91,8 +101,8 @@ class Navigation extends React.Component {
 					</div>
 
 					<div className="nav__items">
-						{mainPages &&
-							mainPages.map(page => (
+						{this.mainPages &&
+							this.mainPages.map(page => (
 								<h4 className="nav__item nav__item--primary" key={page.slug}>
 									<NavLink
 										onClick={this.closeMenu}
@@ -115,13 +125,13 @@ class Navigation extends React.Component {
 								Schedule
 							</a>
 						</h4>
-						{submenuPages.length && (
+						{this.submenuPages.length && (
 							<div className="nav__item nav__item--primary nav__submenu">
 								<h4 className="nav__submenu--title">
 									About <span className="icon--down" />
 								</h4>
 								<div className="nav__submenu--list">
-									{submenuPages.map(page => (
+									{this.submenuPages.map(page => (
 										<h4 className="nav__submenu--item" key={page.slug}>
 											<NavLink
 												onClick={this.closeMenu}

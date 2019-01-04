@@ -198,6 +198,7 @@ const separateFooterPages = content => {
 		content.choreographers,
 		...content.infoPages,
 	])
+	console.log(infoPages)
 	return {
 		...content,
 		footerPages: footerPages || [],
