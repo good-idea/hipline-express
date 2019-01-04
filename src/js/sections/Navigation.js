@@ -35,6 +35,9 @@ class Navigation extends React.Component {
 	}
 
 	closeMenu = () => {
+		this.setState({
+			open: false,
+		})
 		document.body.scrollTop = 0
 	}
 
@@ -69,7 +72,7 @@ class Navigation extends React.Component {
 			<div className={classNames}>
 				<nav>
 					<div className="nav__item nav__item--logo">
-						<NavLink to="/">
+						<NavLink to="/" onClick={this.closeMenu}>
 							<Logo />
 						</NavLink>
 					</div>
@@ -105,6 +108,7 @@ class Navigation extends React.Component {
 						<h4 className="nav__item nav__item--primary">
 							<a
 								target="_blank"
+								onClick={this.closeMenu}
 								rel="noopener noreferrer"
 								href="https://clients.mindbodyonline.com/classic/mainclass?studioid=4561"
 							>

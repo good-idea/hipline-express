@@ -204,6 +204,7 @@
 .avatar--round {
 	border-radius: 100rem;
 	border: 2px solid currentColor;
+	z-index: 10;
 }
 
 .avatar__padding {

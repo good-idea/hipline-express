@@ -29,8 +29,14 @@ class CoverVideo extends React.Component {
 	}
 
 	playVideo() {
-		this.setState({ playing: true })
-		this.video.play()
+		this.video
+			.play()
+			.then(() => {
+				this.setState({ playing: true })
+			})
+			.catch(e => {
+				console.log(e)
+			})
 	}
 
 	stopVideo() {
@@ -42,7 +48,9 @@ class CoverVideo extends React.Component {
 		if (!this.props.videoSrc) return null
 		return (
 			<video
-				ref={(element) => { this.video = element; }}
+				ref={element => {
+					this.video = element
+				}}
 				autoPlay={this.props.autoPlay}
 				src={this.props.videoSrc}
 				muted
@@ -55,7 +63,12 @@ class CoverVideo extends React.Component {
 		const classNames = ['avatar']
 		if (this.state.playing) classNames.push('avatar--playing')
 		return (
-			<div ref={(element) => { this.container = element }} className={cn(classNames, this.props.classNames)}>
+			<div
+				ref={element => {
+					this.container = element
+				}}
+				className={cn(classNames, this.props.classNames)}
+			>
 				<div className="avatar__padding" style={{ paddingBottom: `${this.props.ratio * 100}%` }} />
 				{this.renderVideo()}
 				<ResponsiveImage {...this.props.image} />
@@ -65,24 +78,15 @@ class CoverVideo extends React.Component {
 }
 
 CoverVideo.propTypes = {
-	classNames: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.arrayOf(PropTypes.string)
-	]),
+	classNames: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
 	ratio: PropTypes.number,
 	autoPlay: PropTypes.bool,
 	playOnHover: PropTypes.bool,
-	videoSrc: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.bool,
-	]),
+	videoSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 	image: PropTypes.shape({
 		sizes: PropTypes.string,
 		srcset: PropTypes.arrayOf(PropTypes.object),
-		meta: PropTypes.oneOfType([
-			PropTypes.shape(),
-			PropTypes.array,
-		]),
+		meta: PropTypes.oneOfType([PropTypes.shape(), PropTypes.array]),
 	}).isRequired,
 }
 

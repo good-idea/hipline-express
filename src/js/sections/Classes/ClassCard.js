@@ -16,7 +16,13 @@ import { colors, mbolinks } from '../../constants'
 
 const mergeGroupedChoroegraphers = withProps(props => {
 	const choreographers =
-		props.isgroup === true ? R.pipe(R.pluck('choreographers'), R.flatten, R.uniq)(props.grouped) : props.choreographers
+		props.isgroup === true
+			? R.pipe(
+					R.pluck('choreographers'),
+					R.flatten,
+					R.uniq,
+			  )(props.grouped)
+			: props.choreographers
 	return { choreographers }
 })
 
@@ -116,14 +122,13 @@ class ClassCard extends React.Component {
 					<div className="card__description">{makeParagraph(this.props.description)}</div>
 				</div>
 				{this.renderChoreographers()}
-				{this.props.mbolink &&
-					this.props.mbolink && (
-						<p className="card__cta">
-							<a className="cta cta--primary" href={this.props.mbolink} rel="noopener noreferrer" target="_blank">
-								Sign Up
-							</a>
-						</p>
-					)}
+				{this.props.mbolink && this.props.mbolink && (
+					<p className="card__cta">
+						<a className="cta cta--primary" href={this.props.mbolink} rel="noopener noreferrer" target="_blank">
+							Sign Up
+						</a>
+					</p>
+				)}
 			</div>
 		)
 	}
