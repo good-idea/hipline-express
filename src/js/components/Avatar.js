@@ -53,6 +53,8 @@ class CoverVideo extends React.Component {
 				}}
 				autoPlay={this.props.autoPlay}
 				src={this.props.videoSrc}
+				playsInline
+				webkit-playsinline="true"
 				muted
 				loop
 			/>
