@@ -1,4 +1,7 @@
+/* eslint-disable no-nested-ternary */
+
 import React from 'react'
+import PropTypes from 'prop-types'
 import { NavLink, withRouter } from 'react-router-dom'
 
 const Logo = () => (
@@ -15,6 +18,37 @@ const Logo = () => (
 		</svg>
 	</div>
 )
+
+/**
+ * NavItem
+ */
+
+const NavItem = ({ label, className, to, isExternal, onClick }) => (
+	<h4 className={className}>
+		{isExternal ? (
+			<a href={to} target="_blank" rel="noopener noreferrer" onClick={onClick}>
+				{label}
+			</a>
+		) : (
+			<NavLink exact href={to} to={to} onClick={onClick} activeClassName="navlink--active">
+				{label}
+			</NavLink>
+		)}
+	</h4>
+)
+
+NavItem.propTypes = {
+	label: PropTypes.string.isRequired,
+	className: PropTypes.string.isRequired,
+	to: PropTypes.string.isRequired,
+	onClick: PropTypes.func,
+	isExternal: PropTypes.bool,
+}
+
+NavItem.defaultProps = {
+	onClick: () => {},
+	isExternal: false,
+}
 
 /**
  * Navigation
@@ -103,28 +137,28 @@ class Navigation extends React.Component {
 					<div className="nav__items">
 						{this.mainPages &&
 							this.mainPages.map(page => (
-								<h4 className="nav__item nav__item--primary" key={page.slug}>
-									<NavLink
-										onClick={this.closeMenu}
-										exact
-										activeClassName="navlink--active"
-										href={`/${page.slug}`}
-										to={page.slug === 'choreographers' ? '/' : `/${page.slug}`}
-									>
-										{page.title}
-									</NavLink>
-								</h4>
+								<NavItem
+									className="nav__item nav__item--primary"
+									key={page.slug}
+									to={
+										page.nav_settings && page.nav_settings === 'linkOut' && page.outboundlink && page.outboundlink.length > 0
+											? page.outboundlink
+											: page.slug === 'choreographers'
+											? '/'
+											: `/${page.slug}`
+									}
+									label={page.title}
+									onClick={this.closeMenu}
+									isExternal={page.nav_settings && page.nav_settings === 'linkOut'}
+								/>
 							))}
-						<h4 className="nav__item nav__item--primary">
-							<a
-								target="_blank"
-								onClick={this.closeMenu}
-								rel="noopener noreferrer"
-								href="https://clients.mindbodyonline.com/classic/mainclass?studioid=4561"
-							>
-								Schedule
-							</a>
-						</h4>
+						<NavItem
+							className="nav__item nav__item--primary"
+							onClick={this.closeMenu}
+							isExternal
+							label="Schedule"
+							to="https://clients.mindbodyonline.com/classic/mainclass?studioid=4561"
+						/>
 						{this.submenuPages.length && (
 							<div className="nav__item nav__item--primary nav__submenu">
 								<h4 className="nav__submenu--title">
@@ -132,17 +166,20 @@ class Navigation extends React.Component {
 								</h4>
 								<div className="nav__submenu--list">
 									{this.submenuPages.map(page => (
-										<h4 className="nav__submenu--item" key={page.slug}>
-											<NavLink
-												onClick={this.closeMenu}
-												exact
-												activeClassName="navlink--active"
-												href={`/${page.slug}`}
-												to={page.slug === 'choreographers' ? '/' : `/${page.slug}`}
-											>
-												{page.title}
-											</NavLink>
-										</h4>
+										<NavItem
+											className="nav__submenu--item"
+											key={page.slug}
+											onClick={this.closeMenu}
+											to={
+												page.nav_settings && page.nav_settings === 'linkOut' && page.outboundlink && page.outboundlink.length > 0
+													? page.outboundlink
+													: page.slug === 'choreographers'
+													? '/'
+													: `/${page.slug}`
+											}
+											label={page.title}
+											isExternal={page.nav_settings && page.nav_settings === 'linkOut'}
+										/>
 									))}
 								</div>
 							</div>

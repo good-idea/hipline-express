@@ -55,7 +55,6 @@ export const init = (options = {}) => {
 	if (process.env.NODE_ENV !== 'production' || !GA_ID) return false
 	/* eslint-disable-next-line no-undef */
 	const trackerId = GA_ID || false
-	console.log(trackerId)
 
 	if (trackerId) {
 		ReactGA.initialize(trackerId, {
