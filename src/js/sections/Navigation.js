@@ -141,7 +141,7 @@ class Navigation extends React.Component {
 									className="nav__item nav__item--primary"
 									key={page.slug}
 									to={
-										page.nav_settings && page.nav_settings === 'linkOut' && page.outboundlink && page.outboundlink.length > 0
+										page.outboundlink && page.outboundlink.length > 0
 											? page.outboundlink
 											: page.slug === 'choreographers'
 											? '/'
@@ -149,7 +149,7 @@ class Navigation extends React.Component {
 									}
 									label={page.title}
 									onClick={this.closeMenu}
-									isExternal={page.nav_settings && page.nav_settings === 'linkOut'}
+									isExternal={page.outboundlink && page.outboundlink.length > 0}
 								/>
 							))}
 						<NavItem
@@ -171,14 +171,14 @@ class Navigation extends React.Component {
 											key={page.slug}
 											onClick={this.closeMenu}
 											to={
-												page.nav_settings && page.nav_settings === 'linkOut' && page.outboundlink && page.outboundlink.length > 0
+												page.outboundlink && page.outboundlink.length > 0
 													? page.outboundlink
 													: page.slug === 'choreographers'
 													? '/'
 													: `/${page.slug}`
 											}
 											label={page.title}
-											isExternal={page.nav_settings && page.nav_settings === 'linkOut'}
+											isExternal={page.outboundlink && page.outboundlink.length > 0}
 										/>
 									))}
 								</div>
