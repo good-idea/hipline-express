@@ -105,7 +105,7 @@ const makeParagraph = R.pipe(
 	fixKirbyText,
 	markdownToHTML,
 	externalLinks,
-	stripTags('<a><br><p><li><ul><ol>'),
+	stripTags('<a><br><p><li><ul><ol><h1><h2><h3><h4>'),
 	HTMLtoJSX,
 )
 

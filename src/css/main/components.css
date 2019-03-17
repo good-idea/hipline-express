@@ -6,14 +6,28 @@
 }
 
 .card {
+	color: $pink-light;
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	text-align: center;
 	width: 27rem;
 	min-height: 15rem;
-	margin: 3rem 0.75rem 0;
+	margin: 3rem 1.5rem 0;
 	padding-bottom: 2rem;
+	border: 4px solid currentColor;
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	ul,
+	ol,
+	span,
+	p {
+		color: black;
+	}
 
 	.squiggle {
 		margin: -1rem auto 1rem;
@@ -29,20 +43,36 @@
 	}
 }
 
-.sectionHeader {
-	width: 100%;
-	height: 5rem;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	padding: 0 2rem;
-	background-color: $yellow;
+.card--large {
+	width: calc((100% / 3) - 3rem);
+	max-width: 380px;
 }
 
-.card__header,
-.card__footer {
-	/*padding: 0 2rem;*/
-	margin: 2rem auto 0;
+.card__description {
+	h1,
+	h2,
+	h3 {
+		margin: 0.6em 0;
+	}
+}
+
+.card__header {
+	margin: 0 0 2rem 0;
+	padding: 1rem;
+	background-color: currentColor;
+}
+
+.card__header {
+	margin-bottom: 2rem;
+}
+
+.card__subheader {
+	margin-bottom: 0.5em;
+}
+
+.card__title {
+	text-transform: uppercase;
+	margin-bottom: 0;
 }
 
 .card__cover {
@@ -50,7 +80,7 @@
 }
 
 .card__body {
-	margin: 0 auto 2rem;
+	margin: 0rem auto 2rem;
 	padding: 1rem 1.5rem;
 }
 
@@ -61,10 +91,6 @@
 		column-count: 1;
 		text-align: left;
 	}
-}
-
-.card__header {
-	margin-bottom: 1rem;
 }
 
 .card__body,
@@ -89,10 +115,6 @@
 	}
 }
 
-.card__title {
-	margin-bottom: 1rem;
-}
-
 .card__cover {
 	position: relative;
 	width: 100%;
@@ -112,6 +134,16 @@
 		width: 100%;
 		height: 100%;
 	}
+}
+
+.sectionHeader {
+	width: 100%;
+	height: 5rem;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 0 2rem;
+	background-color: $yellow;
 }
 
 .squiggle {

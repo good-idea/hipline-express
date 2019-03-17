@@ -1,9 +1,9 @@
 .info {
 	main {
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
 		flex-wrap: wrap;
-		padding-top: 15rem;
+		padding: 15rem 4rem 4rem;
 	}
 
 	p,
@@ -13,14 +13,6 @@
 
 	a {
 		text-decoration: underline;
-	}
-
-	.column {
-		max-width: 700px;
-		max-width: 70rem;
-		margin-right: 0;
-		margin-left: auto;
-		padding-right: 2rem;
 	}
 }
 
@@ -41,6 +33,7 @@
 
 .info__section {
 	padding: 2rem 0;
+	flex-basis: 100%;
 
 	/* a {
 		color: $seafoam;
@@ -84,8 +77,16 @@
 
 .info__cover {
 	width: 40rem;
+	flex-basis: 40rem;
 	max-width: 100%;
-	margin: 0 auto 2rem;
+
+	& + .info__section {
+		flex-basis: calc(100% - 50rem);
+
+		.column {
+			margin: auto;
+		}
+	}
 }
 
 .info__subtitle {

@@ -145,16 +145,6 @@ section.classes main {
 		}
 	}
 
-	.card__title {
-		margin-bottom: 0;
-		text-transform: uppercase;
-	}
-
-	.card__body {
-		margin-top: 2rem;
-		margin-bottom: 0;
-	}
-
 	.card__body,
 	.card__footer {
 		text-align: center;
@@ -171,30 +161,8 @@ section.classes main {
 	}
 	.card {
 		color: $seafoam-light;
-		border: 4px solid currentColor;
+
 		padding-top: 0;
-
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		ul,
-		ol,
-		span,
-		p {
-			color: black;
-		}
-	}
-
-	.card__header {
-		margin: 0 0 2rem 0;
-		padding: 1rem;
-		background-color: currentColor;
-	}
-
-	.card__title {
-		/* margin-bottom: 0; */
 	}
 }
 

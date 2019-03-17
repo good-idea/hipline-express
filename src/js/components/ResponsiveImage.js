@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { cn } from '../utils/helpers'
 
 class ResponsiveImage extends React.Component {
-
 	constructor(props) {
 		super(props)
 		this.state = {}
@@ -23,7 +22,7 @@ class ResponsiveImage extends React.Component {
 	renderPlaceholder() {
 		const className = cn([this.props.classNames, 'placeholder'])
 		return (
-			<figure className={className} >
+			<figure className={className}>
 				<div className="placeholder__image" />
 				<figCaption className="placeholder__caption" />
 			</figure>
@@ -39,29 +38,21 @@ class ResponsiveImage extends React.Component {
 		const src = this.props.url
 		const sizes = this.props.sizes || '100vw'
 		const srcset = this.props.srcset.reduce((acc, current) => {
-			const commaSpace = (acc.length) ? ', ' : ''
+			const commaSpace = acc.length ? ', ' : ''
 			return `${current.url} ${current.width}w${commaSpace}${acc}`
 		}, '')
-		const figCaption = (this.props.meta.caption) ? <figCaption>{this.props.meta.caption}</figCaption> : null
-		const ratio = (this.props.ratio) ? this.props.ratio : original.height / original.width
+		const figCaption = this.props.meta.caption ? <figCaption>{this.props.meta.caption}</figCaption> : null
+		const ratio = this.props.ratio ? this.props.ratio : original.height / original.width
 		return (
-			<figure
-				className={cn(this.props.classNames, this.state.classNames, 'responsiveImage')}
-			>
-				<img
-					onLoad={this.handleImageLoaded}
-					src={src}
-					srcSet={srcset}
-					sizes={sizes}
-					alt={this.props.meta.caption}
-				/>
+			<figure className={cn(this.props.classNames, this.state.classNames, 'responsiveImage')}>
+				<img onLoad={this.handleImageLoaded} src={src} srcSet={srcset} sizes={sizes} alt={this.props.meta.caption} />
 				<div
 					className="loading-placeholder"
 					style={{
 						paddingBottom: `${ratio * 100}%`,
 					}}
 				/>
-				{ figCaption }
+				{figCaption}
 			</figure>
 		)
 	}
@@ -73,10 +64,7 @@ ResponsiveImage.propTypes = {
 	classNames: PropTypes.string,
 	sizes: PropTypes.string,
 	srcset: PropTypes.arrayOf(PropTypes.object),
-	meta: PropTypes.oneOfType([
-		PropTypes.shape(),
-		PropTypes.array,
-	]),
+	meta: PropTypes.oneOfType([PropTypes.shape(), PropTypes.array]),
 }
 
 ResponsiveImage.defaultProps = {

@@ -3,15 +3,15 @@ import PropTypes from 'prop-types'
 
 import { makeParagraph } from '../utils/text'
 
-const Card = ({ title, headline, body, cta }) => {
+const Card = ({ title, headline, body, cta, size }) => {
 	const description = makeParagraph(body)
 
 	return (
-		<div className="card card--pass">
+		<div className={`card card--pass ${size === 'large' ? 'card--large' : ''}`}>
 			<div className="card__header">
 				<h4 className="card__title">{title}</h4>
 			</div>
-			<h4 className="card__title">{headline}</h4>
+			<h4 className="card__subheader">{headline}</h4>
 			<div className="card__body">
 				<div className="card__description">{description.props || description.length ? description : '\u00a0'}</div>
 			</div>
@@ -32,6 +32,7 @@ Card.propTypes = {
 	title: PropTypes.string.isRequired,
 	headline: PropTypes.string,
 	body: PropTypes.string,
+	size: PropTypes.oneOf(['large', 'normal']),
 	cta: PropTypes.shape({
 		label: PropTypes.string,
 		action: PropTypes.string,
@@ -43,6 +44,7 @@ Card.defaultProps = {
 	headline: '',
 	body: '',
 	cta: null,
+	size: 'normal',
 }
 
 export default Card
