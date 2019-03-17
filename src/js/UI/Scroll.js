@@ -33,7 +33,7 @@ class ScrollableContainer extends React.Component {
 
 	registerContainerRef(element) {
 		this.setState({
-			container: this.props.containerElement || element
+			container: this.props.containerElement || element,
 		})
 	}
 
@@ -48,7 +48,7 @@ class ScrollableContainer extends React.Component {
 	scrollToElement(slug) {
 		const node = findDOMNode(this.elements[slug])
 		const config = {}
-		if (this.state.container)	config.container = this.state.container
+		if (this.state.container) config.container = this.state.container
 		if (this.props.duration) config.duration = this.props.duration
 		if (this.props.callback) config.callback = this.props.callback
 		scrollTo(node, config)
@@ -56,11 +56,9 @@ class ScrollableContainer extends React.Component {
 	}
 
 	render() {
-		return (
-			React.cloneElement(this.props.children, {
-				ref: this.registerContainerRef,
-			})
-		)
+		return React.cloneElement(this.props.children, {
+			ref: this.registerContainerRef,
+		})
 	}
 }
 
@@ -70,10 +68,7 @@ ScrollableContainer.childContextTypes = {
 }
 
 ScrollableContainer.propTypes = {
-	children: PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.node),
-		PropTypes.node,
-	]).isRequired,
+	children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 	callback: PropTypes.func,
 	duration: PropTypes.number,
 }
@@ -83,15 +78,14 @@ ScrollableContainer.defaultProps = {
 	duration: undefined,
 }
 
-
 /**
  * Child
  */
 
-
 class ScrollableChild extends React.Component {
 	componentDidMount() {
 		this.context.scroll.register(this.props.slug, this.element)
+		if (this.props.autoScroll) this.context.scroll.scrollToElement(this.props.slug)
 	}
 
 	componentWillUnmount() {
@@ -99,35 +93,33 @@ class ScrollableChild extends React.Component {
 	}
 
 	render() {
-		return (
-			React.cloneElement(this.props.children, {
-				ref: (el) => { this.element = el },
-			})
-		)
+		return React.cloneElement(this.props.children, {
+			ref: el => {
+				this.element = el
+			},
+		})
 	}
 }
 
-
 ScrollableChild.propTypes = {
-	children: PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.node),
-		PropTypes.node,
-	]).isRequired,
+	autoScroll: PropTypes.bool,
+	children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 	slug: PropTypes.string.isRequired,
+}
+
+ScrollableChild.defaultProps = {
+	autoScroll: false,
 }
 
 ScrollableChild.contextTypes = {
 	scroll: PropTypes.object,
 }
 
-
 /**
  * Trigger
  */
 
-
 class ScrollTrigger extends React.Component {
-
 	constructor(props) {
 		super(props)
 		this.handleClick = this.handleClick.bind(this)
@@ -140,8 +132,8 @@ class ScrollTrigger extends React.Component {
 
 	render() {
 		return (
-			<button onClick={this.handleClick} className={cn('scrollTrigger', this.props.className)} >
-				{ React.Children.map(this.props.children, c => c) }
+			<button onClick={this.handleClick} className={cn('scrollTrigger', this.props.className)}>
+				{React.Children.map(this.props.children, c => c)}
 			</button>
 		)
 	}
@@ -153,10 +145,7 @@ ScrollTrigger.contextTypes = {
 
 ScrollTrigger.propTypes = {
 	additionalClickHandler: PropTypes.func,
-	children: PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.node),
-		PropTypes.node,
-	]).isRequired,
+	children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 	slug: PropTypes.string.isRequired,
 	className: PropTypes.string,
 	// : PropTypes.instanceOf('<div></div>')
@@ -165,6 +154,5 @@ ScrollTrigger.propTypes = {
 ScrollTrigger.defaultProps = {
 	className: '',
 }
-
 
 module.exports = { ScrollableContainer, ScrollableChild, ScrollTrigger }

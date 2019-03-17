@@ -2,13 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { compose, withProps } from 'recompose'
 import R from 'ramda'
+import { Link } from 'react-router-dom'
 
 import ResponsiveImage from '../../components/ResponsiveImage'
 import Avatar from '../../components/Avatar'
 import Squiggle from '../../components/Squiggle'
 
 import { makeParagraph } from '../../utils/text'
-import { colors, mbolinks } from '../../constants'
+import { colors } from '../../constants'
 
 /**
  * enhancer
@@ -49,32 +50,28 @@ class ClassCard extends React.Component {
 		clearInterval(this.choreographerInterval)
 	}
 
-	changeActiveChoreographer = id => {
+	changeActiveChoreographer = (id, restart) => {
 		this.setState({
 			activeChoreographer: this.props.choreographers.find(c => c.id === id),
 		})
+		if (restart) {
+			this.startInterval()
+		} else {
+			clearInterval(this.choreographerInterval)
+		}
 	}
 
 	startInterval = () => {
 		if (!this.props.choreographers) return
 		if (this.props.choreographers.length < 2) return
 		const { choreographers } = this.props
-		const delay = Math.floor(Math.random() * 2) * 500
 		clearInterval(this.choreographerInterval)
-		setTimeout(() => {
-			this.choreographerInterval = setInterval(() => {
-				const currentIndex = choreographers.findIndex(c => c === this.state.activeChoreographer)
-				const nextChoreographer =
-					currentIndex === choreographers.length - 1 ? choreographers[0] : choreographers[currentIndex + 1]
-				const { id } = nextChoreographer
-				this.changeActiveChoreographer(id)
-			}, 3000)
-		}, delay)
-	}
-
-	handleChoreographerHover = id => {
-		this.changeActiveChoreographer(id)
-		this.startInterval()
+		this.choreographerInterval = setInterval(() => {
+			const currentIndex = choreographers.findIndex(c => c === this.state.activeChoreographer)
+			const nextChoreographer = currentIndex === choreographers.length - 1 ? choreographers[0] : choreographers[currentIndex + 1]
+			const { id } = nextChoreographer
+			this.changeActiveChoreographer(id, true)
+		}, 3000)
 	}
 
 	renderChoreographers() {
@@ -86,14 +83,24 @@ class ClassCard extends React.Component {
 					<h4>Choreographers</h4>
 					<div className="card--class__avatarButtons">
 						{this.props.choreographers.map(ch => (
-							<button key={ch.id} onMouseEnter={() => this.handleChoreographerHover(ch.id)}>
-								<p className={activeId === ch.id ? 'active' : ''}>{ch.firstname}</p>
-							</button>
+							<Link key={ch.id} to={`/#${ch.slug}`} href={`/#${ch.slug}`}>
+								<button onMouseEnter={() => this.changeActiveChoreographer(ch.id)} onMouseLeave={this.startInterval}>
+									<p className={activeId === ch.id ? 'active' : ''}>{ch.firstname}</p>
+								</button>
+							</Link>
 						))}
 					</div>
 					{this.props.choreographers.map(ch => (
 						<div key={`name-${ch.id}`} style={{ display: ch.id === activeId ? 'initial' : 'none' }}>
-							<Avatar key={ch.slug} image={ch.cover} videoSrc={ch.coverVideo} autoPlay ratio={1} classNames="avatar--round" />
+							<Avatar
+								choreographer={ch}
+								key={ch.slug}
+								image={ch.cover}
+								videoSrc={ch.coverVideo}
+								autoPlay
+								ratio={1}
+								classNames="avatar--round"
+							/>
 						</div>
 					))}
 				</div>

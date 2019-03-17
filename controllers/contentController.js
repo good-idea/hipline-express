@@ -4,7 +4,6 @@ const { cms } = require('../config')
 // const sync = require('./sync')
 
 const initial = (req, res) => {
-	console.log(`${cms.apiRoot}/initial?uri=${req.query.uri}`)
 	axios
 		.get(`${cms.apiRoot}/initial?uri=${req.query.uri}`)
 		.then(response => res.json(response.data))

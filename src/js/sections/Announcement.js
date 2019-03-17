@@ -43,11 +43,7 @@ class Announcement extends React.Component {
 				<h4>{this.props.text}</h4>
 			</a>
 		) : (
-			<Link
-				href={this.props.link}
-				to={this.props.link}
-				onClick={this.handleClose}
-			>
+			<Link href={this.props.link} to={this.props.link} onClick={this.handleClose}>
 				<h4>{this.props.text}</h4>
 			</Link>
 		)

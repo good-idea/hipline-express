@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
 
 import { ScrollableContainer, ScrollableChild } from '../UI/Scroll'
 import ChoreographerProfile from './ChoreographerProfile'
@@ -12,6 +13,7 @@ import Splash from './Splash'
 
 const Choreographers = props => {
 	if (!props.choreographers.length) return null
+	const hash = props.location.hash ? props.location.hash.replace(/^#/, '') : null
 	return (
 		<ScrollableContainer containerElement={document.body}>
 			<div>
@@ -30,7 +32,9 @@ const Choreographers = props => {
 						<div className="choreographers__main">
 							{props.choreographers.map((c, index) => {
 								if (c.placeholder) return null
-								return <ChoreographerProfile key={`choreographerThumb-${c.slug}`} index={index} {...c} />
+								return (
+									<ChoreographerProfile autoScroll={c.slug === hash} key={`choreographerThumb-${c.slug}`} index={index} {...c} />
+								)
 							})}
 						</div>
 					</main>
@@ -44,6 +48,9 @@ Choreographers.propTypes = {
 	choreographers: PropTypes.arrayOf(PropTypes.shape({})),
 	intro: PropTypes.string,
 	header: PropTypes.string,
+	location: PropTypes.shape({
+		hash: PropTypes.string,
+	}).isRequired,
 }
 
 Choreographers.defaultProps = {
@@ -52,4 +59,4 @@ Choreographers.defaultProps = {
 	header: '',
 }
 
-export default Choreographers
+export default withRouter(Choreographers)

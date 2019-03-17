@@ -67,15 +67,15 @@ const ChoreographerProfile = props => {
 	const classtypes = props.classtypes.length ? props.classtypes.split(',') : []
 
 	return (
-		<ScrollableChild slug={`profile-${props.slug}`}>
-			<div className="profile">
+		<ScrollableChild autoScroll={props.autoScroll} slug={`profile-${props.slug}`}>
+			<div className="profile" id={props.slug}>
 				<div className="profile__top column column--wide">
 					<div className="profile__title">
 						<h2 className="profile__name">{props.title}</h2>
 						<ChoreographerSocial accounts={props.social} />
 					</div>
 					<div className="profile__photo">
-						<Avatar autoPlay={true} image={props.cover} videoSrc={props.coverVideo} ratio={0.85} />
+						<Avatar autoPlay choreographer={props} ratio={0.85} />
 					</div>
 					<div className="profile__bio">
 						{quote}
@@ -90,7 +90,9 @@ const ChoreographerProfile = props => {
 							<Squiggle num={0} />
 						</div>
 						<div className="profile__bottom__content">
-							{classtypes.map(classType => <p key={classType}>{classType}</p>)}
+							{classtypes.map(classType => (
+								<p key={classType}>{classType}</p>
+							))}
 							<div className="profile__cta">
 								<p className="profile__link">
 									<a href={mbolinks.schedule} target="_blank" rel="noopener noreferrer">
@@ -113,7 +115,9 @@ const ChoreographerProfile = props => {
 							<Squiggle num={3} />
 						</div>
 						<div className="profile__bottom__content">
-							{musicians.map(artist => <p key={artist}>{artist}</p>)}
+							{musicians.map(artist => (
+								<p key={artist}>{artist}</p>
+							))}
 							{props.spotify_playlist ? (
 								<p className="profile__link">
 									<a href={props.spotify_playlist}>View Playlist</a>
@@ -131,7 +135,9 @@ ChoreographerProfile.propTypes = {
 	biolink: PropTypes.string,
 	biolinktext: PropTypes.string,
 	bio: PropTypes.string,
+	slug: PropTypes.string.isRequired,
 	expectations: PropTypes.string,
+	autoscroll: PropTypes.bool,
 	quote: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.shape({
@@ -169,6 +175,7 @@ ChoreographerProfile.defaultProps = {
 	musicians: false,
 	spotify_playlist: false,
 	classtypes: '',
+	autoscroll: false,
 }
 
 export default ChoreographerProfile

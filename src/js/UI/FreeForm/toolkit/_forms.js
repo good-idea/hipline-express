@@ -1,10 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { assoc, forEach, path, clone, merge, prop, reject, equals } from 'ramda'
-import {
-	compose,
-	withState,
-} from 'recompose'
+import { compose, withState } from 'recompose'
 
 import { singleToArray } from '../utils/data'
 
@@ -14,11 +11,9 @@ const emptyForm = {
 	disabled: false,
 }
 
-const enhance = compose(
-	withState('form', 'updateForm', emptyForm),
-)
+const enhance = compose(withState('form', 'updateForm', emptyForm))
 
-const withFormHelpers = (WrappedComponent) => {
+const withFormHelpers = WrappedComponent => {
 	class FreeFormWrapper extends React.Component {
 		constructor(props) {
 			super(props)
@@ -54,24 +49,12 @@ const withFormHelpers = (WrappedComponent) => {
 			}
 		}
 
-		componentDidMount() {
-			// console.log(this.initialFields)
-			// console.log(this.something)
-			// setTimeout(() => { console.log(this.initialFields) }, 1000)
-			// this.props.updateForm({
-			// 	...this.props.form,
-			// 	fields: clone(this.initialFields),
-			// }, () => {
-			// 	// console.log(this.props.form)
-			// })
-		}
-
 		getFieldValues() {
 			return this.props.form.fields
 		}
 
 		removeField(field) {
-			this.props.updateForm((currentFormState) => {
+			this.props.updateForm(currentFormState => {
 				return {
 					...currentFormState,
 					fields: reject(equals(field), currentFormState.fields),
@@ -80,7 +63,7 @@ const withFormHelpers = (WrappedComponent) => {
 		}
 
 		addField(field) {
-			this.props.updateForm((currentFormState) => {
+			this.props.updateForm(currentFormState => {
 				return {
 					...currentFormState,
 					fields: assoc(field.id, field, currentFormState.fields),
@@ -89,18 +72,18 @@ const withFormHelpers = (WrappedComponent) => {
 		}
 
 		updateField(fieldId, newValues, callback) {
-			const values = merge(
-				prop(fieldId, this.props.form.fields),
-				newValues,
+			const values = merge(prop(fieldId, this.props.form.fields), newValues)
+			this.props.updateForm(
+				{
+					...this.props.form,
+					fields: assoc(fieldId, values, this.props.form.fields),
+				},
+				callback,
 			)
-			this.props.updateForm({
-				...this.props.form,
-				fields: assoc(fieldId, values, this.props.form.fields),
-			}, callback)
 		}
 
 		subscribe(topics, callback) {
-			singleToArray(topics).map((topic) => {
+			singleToArray(topics).map(topic => {
 				// if the listener does not have the topic yet, add it.
 				if (!this.listeners.has(topic)) this.listeners.set(topic, [])
 				// push the callback to the topic's array
@@ -109,7 +92,7 @@ const withFormHelpers = (WrappedComponent) => {
 		}
 
 		unsubscribe(topics, callback) {
-			singleToArray(topics).map((topic) => {
+			singleToArray(topics).map(topic => {
 				const listenersOfTopic = this.listeners.get(topic)
 				if (listenersOfTopic && listenersOfTopic.length) {
 					// remove the callback
@@ -124,9 +107,7 @@ const withFormHelpers = (WrappedComponent) => {
 			const listeners = this.listeners.get(topic)
 			if (!listeners) return false
 			const fieldValues = path(['form', 'fields'], this.props)
-			forEach(
-				(listener => listener({ fieldValues, event: topic, triggerFieldId: fieldId })),
-			)(listeners)
+			forEach(listener => listener({ fieldValues, event: topic, triggerFieldId: fieldId }))(listeners)
 			return true
 		}
 
@@ -152,9 +133,8 @@ const withFormHelpers = (WrappedComponent) => {
 	}
 
 	FreeFormWrapper.childContextTypes = {
-		form: PropTypes.object
+		form: PropTypes.object,
 	}
-
 
 	return enhance(FreeFormWrapper)
 }

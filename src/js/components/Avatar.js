@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import ResponsiveImage from './ResponsiveImage'
 import { cn } from '../utils/helpers'
 
@@ -35,7 +36,8 @@ class CoverVideo extends React.Component {
 				this.setState({ playing: true })
 			})
 			.catch(e => {
-				console.log(e)
+				console.warn('Error playing video:')
+				console.warn(e)
 			})
 	}
 
@@ -44,26 +46,10 @@ class CoverVideo extends React.Component {
 		this.video.pause()
 	}
 
-	renderVideo() {
-		if (!this.props.videoSrc) return null
-		return (
-			<video
-				ref={element => {
-					this.video = element
-				}}
-				autoPlay={this.props.autoPlay}
-				src={this.props.videoSrc}
-				playsInline
-				webkit-playsinline="true"
-				muted
-				loop
-			/>
-		)
-	}
-
 	render() {
 		const classNames = ['avatar']
 		if (this.state.playing) classNames.push('avatar--playing')
+		const { cover, coverVideo, slug } = this.props.choreographer
 		return (
 			<div
 				ref={element => {
@@ -71,9 +57,24 @@ class CoverVideo extends React.Component {
 				}}
 				className={cn(classNames, this.props.classNames)}
 			>
-				<div className="avatar__padding" style={{ paddingBottom: `${this.props.ratio * 100}%` }} />
-				{this.renderVideo()}
-				<ResponsiveImage {...this.props.image} />
+				<Link to={`/#${slug}`} href={`/#${slug}`}>
+					<div className="avatar__padding" style={{ paddingBottom: `${this.props.ratio * 100}%` }} />
+					{coverVideo ? (
+						/* eslint-disable jsx-a11y/media-has-caption */
+						<video
+							ref={element => {
+								this.video = element
+							}}
+							autoPlay={this.props.autoPlay}
+							src={coverVideo}
+							playsInline
+							webkit-playsinline="true"
+							muted
+							loop
+						/>
+					) : null}
+					<ResponsiveImage {...cover} />
+				</Link>
 			</div>
 		)
 	}
@@ -84,11 +85,14 @@ CoverVideo.propTypes = {
 	ratio: PropTypes.number,
 	autoPlay: PropTypes.bool,
 	playOnHover: PropTypes.bool,
-	videoSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-	image: PropTypes.shape({
-		sizes: PropTypes.string,
-		srcset: PropTypes.arrayOf(PropTypes.object),
-		meta: PropTypes.oneOfType([PropTypes.shape(), PropTypes.array]),
+	choreographer: PropTypes.shape({
+		slug: PropTypes.string.isRequired,
+		coverVideo: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+		cover: PropTypes.shape({
+			sizes: PropTypes.string,
+			srcset: PropTypes.arrayOf(PropTypes.object),
+			meta: PropTypes.oneOfType([PropTypes.shape(), PropTypes.array]),
+		}).isRequired,
 	}).isRequired,
 }
 
@@ -96,7 +100,6 @@ CoverVideo.defaultProps = {
 	classNames: [],
 	autoPlay: false,
 	ratio: 0.56,
-	videoSrc: false,
 	playOnHover: true,
 }
 
