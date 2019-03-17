@@ -80,7 +80,7 @@ class ClassCard extends React.Component {
 		return (
 			<div className="card__footer">
 				<div className="card--class__choreographers">
-					<h4>Choreographers</h4>
+					<h4>Choreographers</h4>ls
 					<div className="card--class__avatarButtons">
 						{this.props.choreographers.map(ch => (
 							<Link key={ch.id} to={`/#${ch.slug}`} href={`/#${ch.slug}`}>

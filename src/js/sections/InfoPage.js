@@ -50,8 +50,24 @@ InfoBlock.defaultProps = {
 	coverVideo: '',
 }
 
+/**
+ * InfoCard
+ */
+
 /* eslint-disable react/prefer-stateless-function */
-class InfoSection extends React.Component {
+class InfoCard extends React.PureComponent {
+	render() {
+		console.log(this.props)
+		return null
+	}
+}
+
+/**
+ * InfoSection
+ */
+
+/* eslint-disable react/prefer-stateless-function */
+class InfoSection extends React.PureComponent {
 	render() {
 		return (
 			<ScrollableChild slug={`info-${this.props.slug}`}>
@@ -63,10 +79,14 @@ class InfoSection extends React.Component {
 						{wrapAndPrepare('p')(this.props.intro)}
 					</div>
 					<div className="info__blocks">
-						{this.props.blocks.map(c => <InfoBlock key={`infoBlock-${slugify(c.header)}`} {...c} />)}
+						{this.props.blocks.map(c => (
+							<InfoBlock key={`infoBlock-${slugify(c.header)}`} {...c} />
+						))}
 					</div>
 					<div className="info__buttons">
-						{this.props.buttons.map(b => <InfoButton key={`infoButton-${slugify(b.label)}`} {...b} />)}
+						{this.props.buttons.map(b => (
+							<InfoButton key={`infoButton-${slugify(b.label)}`} {...b} />
+						))}
 					</div>
 				</div>
 			</ScrollableChild>
@@ -86,13 +106,7 @@ InfoSection.defaultProps = {
  * Main Component
  */
 
-class InfoPage extends React.Component {
-	constructor(props) {
-		super(props)
-	}
-
-	componentDidMount() {}
-
+class InfoPage extends React.PureComponent {
 	render() {
 		const cover = this.props.cover ? (
 			<div className="info__cover">
@@ -124,7 +138,13 @@ class InfoPage extends React.Component {
 										key={`info-scrollableChild-${this.props.slug}-${c.slug}`}
 										slug={`info-${this.props.slug}-${c.slug}`}
 									>
-										<InfoSection key={`section-nav-${this.props.slug}-${c.slug}`} {...c} />
+										{c.type === 'infopage' ? (
+											<InfoSection key={`section-nav-${this.props.slug}-${c.slug}`} {...c} />
+										) : c.type === 'infocard' ? (
+											<InfoCard key={`section-nav-${this.props.slug}-${c.slug}`} {...c} />
+										) : (
+											<p>hi</p>
+										)}
 									</ScrollableChild>
 								))}
 						</div>

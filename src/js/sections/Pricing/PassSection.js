@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { toClass } from 'recompose'
 
-import PassCard from './PassCard'
+import Card from '../../components/Card'
 import Highlight from '../../components/Highlight'
 
 import { wrapAndPrepare } from '../../utils/text'
@@ -22,7 +22,17 @@ const PassSection = props => {
 				</h3>
 				<div className="info__subtitle">{wrapAndPrepare('p')(props.description)}</div>
 			</div>
-			<div className="cards">{props.passes.map(p => <PassCard key={p.title} {...p} />)}</div>
+			<div className="cards">
+				{props.passes.map(p => {
+					const { title, description, price } = p
+					const cta = {
+						action: '',
+						label: 'Buy',
+						type: 'primary',
+					}
+					return <Card key={p.title} title={title} headline={price} body={description} cta={cta} />
+				})}
+			</div>
 		</div>
 	)
 }
