@@ -78,32 +78,30 @@ class ClassCard extends React.Component {
 		if (this.props.choreographers.length === 0) return null
 		const activeId = this.state.activeChoreographer.id
 		return (
-			<div className="card__footer">
-				<div className="card--class__choreographers">
-					<h4>Choreographers</h4>ls
-					<div className="card--class__avatarButtons">
-						{this.props.choreographers.map(ch => (
-							<Link key={ch.id} to={`/#${ch.slug}`} href={`/#${ch.slug}`}>
-								<button onMouseEnter={() => this.changeActiveChoreographer(ch.id)} onMouseLeave={this.startInterval}>
-									<p className={activeId === ch.id ? 'active' : ''}>{ch.firstname}</p>
-								</button>
-							</Link>
-						))}
-					</div>
+			<div className="card--class__choreographers">
+				<h4 className="card--subtitle">Choreographers</h4>
+				<div className="card--class__avatarButtons">
 					{this.props.choreographers.map(ch => (
-						<div key={`name-${ch.id}`} style={{ display: ch.id === activeId ? 'initial' : 'none' }}>
-							<Avatar
-								choreographer={ch}
-								key={ch.slug}
-								image={ch.cover}
-								videoSrc={ch.coverVideo}
-								autoPlay
-								ratio={1}
-								classNames="avatar--round"
-							/>
-						</div>
+						<Link key={ch.id} to={`/#${ch.slug}`} href={`/#${ch.slug}`}>
+							<button onMouseEnter={() => this.changeActiveChoreographer(ch.id)} onMouseLeave={this.startInterval}>
+								<p className={activeId === ch.id ? 'active' : ''}>{ch.firstname}</p>
+							</button>
+						</Link>
 					))}
 				</div>
+				{this.props.choreographers.map(ch => (
+					<div key={`name-${ch.id}`} style={{ display: ch.id === activeId ? 'initial' : 'none' }}>
+						<Avatar
+							choreographer={ch}
+							key={ch.slug}
+							image={ch.cover}
+							videoSrc={ch.coverVideo}
+							autoPlay
+							ratio={1}
+							classNames="avatar--round"
+						/>
+					</div>
+				))}
 			</div>
 		)
 	}
@@ -127,8 +125,8 @@ class ClassCard extends React.Component {
 				{cover}
 				<div className="card__body">
 					<div className="card__description">{makeParagraph(this.props.description)}</div>
+					{this.renderChoreographers()}
 				</div>
-				{this.renderChoreographers()}
 				{this.props.mbolink && this.props.mbolink && (
 					<p className="card__cta">
 						<a className="cta cta--primary" href={this.props.mbolink} rel="noopener noreferrer" target="_blank">

@@ -31,6 +31,25 @@
 	}
 }
 
+.info__cover {
+	width: 40rem;
+	flex-basis: 40rem;
+	max-width: 100%;
+}
+
+@media screen and (min-width: $break-xl) {
+	.info__cover {
+		& + .info__section {
+			flex-basis: calc(100% - 50rem);
+
+			.column {
+				margin-left: auto;
+				margin-right: 0;
+			}
+		}
+	}
+}
+
 .info__section {
 	padding: 2rem 0;
 	flex-basis: 100%;
@@ -73,20 +92,6 @@
 	padding-top: 2rem;
 	text-transform: none;
 	font-weight: 900;
-}
-
-.info__cover {
-	width: 40rem;
-	flex-basis: 40rem;
-	max-width: 100%;
-
-	& + .info__section {
-		flex-basis: calc(100% - 50rem);
-
-		.column {
-			margin: auto;
-		}
-	}
 }
 
 .info__subtitle {
@@ -199,6 +204,10 @@
 	.highlight svg {
 		display: none;
 	}
+}
+
+.info__buttons {
+	margin-top: 3rem;
 }
 
 .info--love-club .info__section--pay-what-you-can {

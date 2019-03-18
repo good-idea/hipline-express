@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import Carousel from './Carousel'
 import { makeParagraph } from '../utils/text'
 
-const Card = ({ title, headline, body, cta, size }) => {
+const Card = ({ title, headline, body, cta, size, carousel_settings, images }) => {
 	const description = makeParagraph(body)
 
 	return (
@@ -11,7 +11,7 @@ const Card = ({ title, headline, body, cta, size }) => {
 			<div className="card__header">
 				<h4 className="card__title">{title}</h4>
 			</div>
-			<h4 className="card__subheader">{headline}</h4>
+			<Carousel settings={carousel_settings} images={images} /> <h4 className="card__subheader">{headline}</h4>
 			<div className="card__body">
 				<div className="card__description">{description.props || description.length ? description : '\u00a0'}</div>
 			</div>
@@ -33,6 +33,8 @@ Card.propTypes = {
 	headline: PropTypes.string,
 	body: PropTypes.string,
 	size: PropTypes.oneOf(['large', 'normal']),
+	images: PropTypes.arrayOf(PropTypes.shape({})),
+	carousel_settings: PropTypes.string,
 	cta: PropTypes.shape({
 		label: PropTypes.string,
 		action: PropTypes.string,
@@ -45,6 +47,8 @@ Card.defaultProps = {
 	body: '',
 	cta: null,
 	size: 'normal',
+	images: '',
+	carousel_settings: [],
 }
 
 export default Card

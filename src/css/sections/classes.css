@@ -67,7 +67,10 @@ section.classes main {
 .card--class {
 	background-color: initial;
 	border-radius: 0;
-	box-shadow: none;
+	box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.3);
+	border-radius: 6px;
+	padding: 1rem;
+	color: transparent;
 
 	.card__body {
 		flex-grow: initial;
@@ -84,6 +87,7 @@ section.classes main {
 }
 
 .card--class__choreographers {
+	margin-top: 2rem;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: flex-start;

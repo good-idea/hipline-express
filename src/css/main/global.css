@@ -32,7 +32,7 @@ section {
 }
 
 .column {
-	width: calc(100% - 10rem);
+	width: calc(100% - 4rem);
 	max-width: 70rem;
 	margin: 0 auto;
 }

@@ -5,6 +5,7 @@ import ResponsiveImage from '../components/ResponsiveImage'
 import Highlight from '../components/Highlight'
 import InfoButton from '../components/InfoButton'
 import Card from '../components/Card'
+import Carousel from '../components/Carousel'
 import { ScrollableContainer, ScrollableChild, ScrollTrigger } from '../UI/Scroll'
 import { slugify } from '../utils/helpers'
 import { markdownToJSX, wrapAndPrepare } from '../utils/text'
@@ -59,8 +60,7 @@ InfoBlock.defaultProps = {
 /* eslint-disable indent */
 class InfoCard extends React.PureComponent {
 	render() {
-		console.log(this.props)
-		const { body, headline, title, cta_label, cta_action, cta_type } = this.props
+		const { cta_label, cta_action, cta_type } = this.props
 		const cta =
 			cta_label && cta_action
 				? {
@@ -69,7 +69,7 @@ class InfoCard extends React.PureComponent {
 						type: cta_type,
 				  }
 				: null
-		return <Card size="large" title={title} headline={headline} body={body} cta={cta} />
+		return <Card size="large" {...this.props} cta={cta} />
 	}
 }
 
@@ -106,6 +106,7 @@ class InfoSection extends React.PureComponent {
 							</h4>
 							{wrapAndPrepare('p')(this.props.intro)}
 						</div>
+						<Carousel settings={this.props.carousel_settings} images={this.props.images} />
 						<div className="info__blocks">
 							{this.props.blocks.map(c => (
 								<InfoBlock key={`infoBlock-${slugify(c.header)}`} {...c} />
@@ -125,10 +126,18 @@ class InfoSection extends React.PureComponent {
 
 InfoSection.propTypes = {
 	coverVideo: PropTypes.string,
+	images: PropTypes.arrayOf(
+		PropTypes.shape({
+			url: PropTypes.string,
+		}),
+	),
+	carousel_settings: PropTypes.string,
 }
 
 InfoSection.defaultProps = {
 	coverVideo: '',
+	images: [],
+	carousel_settings: '',
 }
 
 /**
