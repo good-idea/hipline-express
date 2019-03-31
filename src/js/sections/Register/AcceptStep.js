@@ -4,7 +4,6 @@ import R from 'ramda'
 import cn from 'classnames'
 import FieldContainer from '../../UI/FieldContainer'
 
-
 /**
  * AcceptStep
  */
@@ -26,15 +25,11 @@ class AcceptStep extends React.Component {
 		this.props.unsubscribe(['fieldChanged'], this.mustAgree)
 	}
 
-	mustAgree({ fieldValues, event, triggerFieldId }) {
-
-	}
+	mustAgree({ fieldValues, event, triggerFieldId }) {}
 
 	showOtherText({ fieldValues, event, triggerFieldId }) {
-		// console.log(triggerFieldId, R.path(['ReferredBy', 'value'], fieldValues), R.path(['ReferredBy', 'value'], fieldValues) === 'Other')
 		if (triggerFieldId === 'ReferredBy') {
-			const referralIsOther = (R.path(['ReferredBy', 'value'], fieldValues) === 'Other')
-			// this.setState({ referralIsOther })
+			const referralIsOther = R.path(['ReferredBy', 'value'], fieldValues) === 'Other'
 			this.props.updateField('ReferredByOtherText', { visible: referralIsOther, disabled: !referralIsOther })
 		}
 	}
@@ -55,7 +50,9 @@ class AcceptStep extends React.Component {
 					</div>
 				</div>
 
-				<button className="cta" onClick={this.props.handleSubmit}>Let's Go!</button>
+				<button className="cta" onClick={this.props.handleSubmit}>
+					Let's Go!
+				</button>
 			</div>
 		)
 	}

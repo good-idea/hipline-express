@@ -101,6 +101,7 @@
 		"qs": "^6.5.1",
 		"ramda": "^0.24.1",
 		"react-ga": "^2.5.3",
+		"react-helmet": "^5.2.0",
 		"redis": "^2.8.0",
 		"redis-delete-pattern": "^0.1.0",
 		"response-time": "^2.3.2",

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { ScrollableContainer, ScrollableChild } from '../../UI/Scroll'
 import ClassSection from './ClassSection'
 import Splash from '../Splash'
+import Meta from '../../components/Meta'
 
 /**
  * Main Class section
@@ -13,6 +14,7 @@ const Classes = props => {
 	return (
 		<ScrollableContainer containerElement={document.body}>
 			<div>
+				<Meta seo={props.seo || {}} />
 				<Splash text={props.splashText} />
 
 				<section className="classes with-aside">
@@ -36,11 +38,13 @@ const Classes = props => {
 Classes.propTypes = {
 	classtypes: PropTypes.arrayOf(PropTypes.shape),
 	splashText: PropTypes.string,
+	seo: PropTypes.shape({}),
 }
 
 Classes.defaultProps = {
 	classtypes: [],
 	splashText: '',
+	seo: {},
 }
 
 export default Classes

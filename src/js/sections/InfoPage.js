@@ -6,6 +6,7 @@ import Highlight from '../components/Highlight'
 import InfoButton from '../components/InfoButton'
 import Card from '../components/Card'
 import Carousel from '../components/Carousel'
+import Meta from '../components/Meta'
 import { ScrollableContainer, ScrollableChild, ScrollTrigger } from '../UI/Scroll'
 import { slugify } from '../utils/helpers'
 import { markdownToJSX, wrapAndPrepare } from '../utils/text'
@@ -155,6 +156,7 @@ class InfoPage extends React.PureComponent {
 		return (
 			<ScrollableContainer containerElement={document.body}>
 				<section className={`info info--${this.props.slug}`}>
+					<Meta seo={this.props.seo} />
 					<main>
 						{cover}
 						{this.props.children &&

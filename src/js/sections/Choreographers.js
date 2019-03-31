@@ -6,6 +6,7 @@ import { ScrollableContainer, ScrollableChild } from '../UI/Scroll'
 import ChoreographerProfile from './ChoreographerProfile'
 import ChoreographersMenu from './ChoreographersMenu'
 import Splash from './Splash'
+import Meta from '../components/Meta'
 
 /**
  * Choreographers
@@ -17,6 +18,7 @@ const Choreographers = props => {
 	return (
 		<ScrollableContainer containerElement={document.body}>
 			<div>
+				<Meta seo={props.seo || {}} />
 				{props.intro && props.intro.length && <Splash text={props.intro} full={false} />}
 				<section className="home">
 					<main className="choreographers">
@@ -51,12 +53,14 @@ Choreographers.propTypes = {
 	location: PropTypes.shape({
 		hash: PropTypes.string,
 	}).isRequired,
+	seo: PropTypes.shape({}),
 }
 
 Choreographers.defaultProps = {
 	choreographers: [],
 	intro: '',
 	header: '',
+	seo: {},
 }
 
 export default withRouter(Choreographers)

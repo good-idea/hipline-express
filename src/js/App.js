@@ -76,13 +76,22 @@ class App extends React.Component {
 					<Route
 						exact
 						path="/"
-						render={match => <Choreographers match={match} home={this.state.home} {...this.state.choreographers} />}
+						render={match => (
+							<Choreographers match={match} home={this.state.home} {...this.state.choreographers} seo={this.state.meta} />
+						)}
 					/>
-					<Route exact path="/pricing" render={() => <Pricing passes={this.state.passes} />} />
+					<Route exact path="/pricing" render={() => <Pricing passes={this.state.passes} seo={this.state.passes.seo} />} />
 					<Route
 						exact
 						path="/classes"
-						render={match => <Classes match={match} splashText={this.state.classes.intro} classtypes={this.state.classtypes} />}
+						render={match => (
+							<Classes
+								match={match}
+								splashText={this.state.classes.intro}
+								seo={this.state.classes.seo}
+								classtypes={this.state.classtypes}
+							/>
+						)}
 					/>
 					{this.state.infoPages.map(page => (
 						<Route exact key={`info-${page.slug}`} path={`/${page.slug}`} render={() => <InfoPage {...page} />} />

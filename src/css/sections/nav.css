@@ -180,7 +180,7 @@ button.burger {
 		display: flex;
 	}
 
-	h4.nav__item:hover,
+	.nav__items h4.nav__item:hover,
 	.nav__submenu--item:hover,
 	.nav__submenu:hover > .nav__submenu--title {
 		color: white;

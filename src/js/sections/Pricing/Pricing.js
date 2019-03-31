@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { ScrollableContainer, ScrollableChild } from '../../UI/Scroll'
 import PassSection from './PassSection'
 import Splash from '../Splash'
+import Meta from '../../components/Meta'
 
 /**
  * Pricing
@@ -12,6 +13,8 @@ import Splash from '../Splash'
 const Pricing = props => (
 	<ScrollableContainer containerElement={document.body}>
 		<div>
+			<Meta seo={props.seo || {}} />
+
 			<Splash text={props.splashText} />
 			<section className="classes with-aside">
 				<main>
@@ -35,11 +38,13 @@ Pricing.propTypes = {
 		types: PropTypes.arrayOf(PropTypes.shape({})),
 	}),
 	splashText: PropTypes.string,
+	seo: PropTypes.shape({}),
 }
 
 Pricing.defaultProps = {
 	passes: {},
 	splashText: '',
+	seo: {},
 }
 
 export default Pricing

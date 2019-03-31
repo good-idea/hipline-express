@@ -13,7 +13,6 @@ const Carousel = ({ images, settings }) => {
 	const { enabled, autoplay } = getSettings(settings)
 	if (!enabled || images.length === 0) return null
 	const [currentSlide, setCurrentSlide] = useState(0)
-	console.log(images, enabled, autoplay)
 	const previous = () => {
 		const prev = currentSlide - (1 % images.length)
 		setCurrentSlide(prev < 0 ? images.length - 1 : prev)

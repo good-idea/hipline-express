@@ -149,7 +149,7 @@ class Navigation extends React.Component {
 									}
 									label={page.title}
 									onClick={this.closeMenu}
-									isExternal={page.outboundlink && page.outboundlink.length > 0}
+									isExternal={Boolean(page.outboundlink && page.outboundlink.length > 0)}
 								/>
 							))}
 						<NavItem
@@ -178,7 +178,7 @@ class Navigation extends React.Component {
 													: `/${page.slug}`
 											}
 											label={page.title}
-											isExternal={page.outboundlink && page.outboundlink.length > 0}
+											isExternal={Boolean(page.outboundlink && page.outboundlink.length > 0)}
 										/>
 									))}
 								</div>
