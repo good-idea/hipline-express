@@ -2,6 +2,7 @@ const express = require('express')
 
 const publicController = require('./controllers/publicController')
 const contentController = require('./controllers/contentController')
+const generateSitemap = require('./controllers/sitemap')
 // const mboController = require('./controllers/mboController')
 
 // const auth = require('./middleware/auth')
@@ -12,6 +13,7 @@ const router = express.Router()
  * Public Routes
  */
 
+router.get('/sitemap.xml', generateSitemap)
 router.get('/api/content/initial', contentController.initial)
 // router.get('/api/content/sync', contentController.syncToCMS)
 // router.get('/api/content/sync/classes', contentController.syncClassDescriptions)

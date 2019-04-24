@@ -105,6 +105,7 @@
 		"redis": "^2.8.0",
 		"redis-delete-pattern": "^0.1.0",
 		"response-time": "^2.3.2",
+		"sitemap": "^2.1.0",
 		"strong-soap": "^1.2.6",
 		"to-markdown": "^3.1.0"
 	}
