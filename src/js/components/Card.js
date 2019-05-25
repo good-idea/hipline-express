@@ -5,7 +5,6 @@ import { makeParagraph } from '../utils/text'
 
 const Card = ({ title, headline, body, cta, size, carousel_settings, images }) => {
 	const description = makeParagraph(body)
-
 	return (
 		<div className={`card card--pass ${size === 'large' ? 'card--large' : ''}`}>
 			<div className="card__header">

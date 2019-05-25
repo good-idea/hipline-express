@@ -24,9 +24,10 @@ const PassSection = props => {
 			</div>
 			<div className="cards">
 				{props.passes.map(p => {
-					const { title, description, price } = p
+					const { title, description, price, mbolink } = p
+					console.log(p)
 					const cta = {
-						action: '',
+						action: mbolink,
 						label: 'Buy',
 						type: 'primary',
 					}
