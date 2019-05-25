@@ -157,7 +157,7 @@ section.classes main {
 
 .info__section--passtype {
 	margin-top: 3rem;
-	.info__title {
+	.info__sectionTitle {
 		margin-bottom: 0;
 	}
 	.info__subtitle {
@@ -171,7 +171,7 @@ section.classes main {
 }
 
 .info__section--passtype {
-	.info__title {
+	.info__sectionTitle {
 		font-family: $sans;
 		font-weight: 400;
 	}

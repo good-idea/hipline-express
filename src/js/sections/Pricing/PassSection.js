@@ -17,7 +17,7 @@ const PassSection = props => {
 	return (
 		<div className={`info__section info__section--passtype info__section--${slugify(props.title)}`}>
 			<div className="info__header column column--narrow">
-				<h3 className="info__title">
+				<h3 className="info__sectionTitle">
 					<Highlight text={props.title} />
 				</h3>
 				<div className="info__subtitle">{wrapAndPrepare('p')(props.description)}</div>
@@ -25,7 +25,6 @@ const PassSection = props => {
 			<div className="cards">
 				{props.passes.map(p => {
 					const { title, description, price, mbolink } = p
-					console.log(p)
 					const cta = {
 						action: mbolink,
 						label: 'Buy',

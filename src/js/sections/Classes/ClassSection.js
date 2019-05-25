@@ -13,7 +13,7 @@ import { slugify } from '../../utils/helpers'
 
 const ClassSection = props => (
 	<div className="info__section info__section--classtype">
-		<h2 className="info__title">{props.title}</h2>
+		<h1 className="info__title">{props.title}</h1>
 
 		<div className="info__header column" />
 		<div className="cards">

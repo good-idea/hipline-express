@@ -10,29 +10,32 @@ import Meta from '../../components/Meta'
  * Pricing
  */
 
-const Pricing = props => (
-	<ScrollableContainer containerElement={document.body}>
-		<div>
-			<Meta seo={props.seo || {}} />
+const Pricing = props => {
+	console.log(props)
+	return (
+		<ScrollableContainer containerElement={document.body}>
+			<div>
+				<Meta seo={props.seo || {}} />
 
-			<Splash text={props.splashText} />
-			<section className="classes with-aside">
-				<main>
-					<div className="column--xWide">
-						<div>
-							{props.passes.types.map(p => (
-								<ScrollableChild key={`trigger-passSection-${p.slug}`} slug={`passSection-${p.slug}`}>
-									<PassSection {...p} />
-								</ScrollableChild>
-							))}
+				<Splash text={props.splashText} />
+				<section className="classes with-aside">
+					<main>
+						<h1 className="info__title">Pricing</h1>
+						<div className="column--xWide">
+							<div>
+								{props.passes.types.map(p => (
+									<ScrollableChild key={`trigger-passSection-${p.slug}`} slug={`passSection-${p.slug}`}>
+										<PassSection {...p} />
+									</ScrollableChild>
+								))}
+							</div>
 						</div>
-					</div>
-				</main>
-			</section>
-		</div>
-	</ScrollableContainer>
-)
-
+					</main>
+				</section>
+			</div>
+		</ScrollableContainer>
+	)
+}
 Pricing.propTypes = {
 	passes: PropTypes.shape({
 		types: PropTypes.arrayOf(PropTypes.shape({})),

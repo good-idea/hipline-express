@@ -1,18 +1,23 @@
+.page__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	text-align: center;
+	@media screen and (max-width: $break-medium) {
+		display: block;
+	}
+
+	.info__title {
+		margin: auto;
+	}
+}
+
 .info {
 	main {
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
-		padding: 15rem 4rem 4rem;
-	}
-
-	p,
-	li {
-		font-size: $h4;
-	}
-
-	a {
-		text-decoration: underline;
 	}
 }
 
@@ -23,7 +28,7 @@
 			padding-right: 0;
 		}
 		.info__section {
-			.info__title {
+			.info__sectionTitle {
 				text-align: center;
 				margin-right: 2rem;
 			}
@@ -35,10 +40,8 @@
 	width: 40rem;
 	flex-basis: 40rem;
 	max-width: 100%;
-}
 
-@media screen and (min-width: $break-xl) {
-	.info__cover {
+	@media screen and (min-width: $break-xl) {
 		& + .info__section {
 			flex-basis: calc(100% - 50rem);
 
@@ -47,6 +50,9 @@
 				margin-right: 0;
 			}
 		}
+	}
+	@media screen and (max-width: $break-medium) {
+		margin: 0 auto;
 	}
 }
 
@@ -77,21 +83,30 @@
 .info__section--standard {
 	color: $pink;
 
-	.info__title {
+	.info__sectionTitle {
 		border-bottom: 2px solid currentColor;
 		text-align: left;
 		margin-left: 2rem;
 	}
 }
 
-.info__title {
+.info__title,
+.info__sectionTitle {
 	font-family: $serif;
 	text-align: center;
+	font-weight: 900;
+}
+
+.info__title {
+	font-size: $h2;
+	margin: 1em auto;
+}
+
+.info__sectionTitle {
 	display: block;
 	margin: 0 auto 3rem;
 	padding-top: 2rem;
 	text-transform: none;
-	font-weight: 900;
 }
 
 .info__subtitle {
@@ -197,7 +212,7 @@
 }
 
 .info__section--standard {
-	.info__title {
+	.info__sectionTitle {
 		text-transform: initial;
 	}
 
@@ -215,7 +230,7 @@
 }
 
 @media screen and (max-width: $break-large) {
-	.info .info__section--standard .info__title {
+	.info .info__section--standard .info__sectionTitle {
 		margin-left: auto;
 		margin-right: auto;
 		max-width: 40rem;

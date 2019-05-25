@@ -102,7 +102,7 @@ class InfoSection extends React.PureComponent {
 				<div className={`info__section info__section--standard info__section--${this.props.slug}`}>
 					<div className="column">
 						<div className="info__header">
-							<h4 className="info__title">
+							<h4 className="info__sectionTitle">
 								<Highlight text={this.props.headline} />
 							</h4>
 							{wrapAndPrepare('p')(this.props.intro)}
@@ -147,6 +147,7 @@ InfoSection.defaultProps = {
 
 class InfoPage extends React.PureComponent {
 	render() {
+		console.log(this.props)
 		const cover = this.props.cover ? (
 			<div className="info__cover">
 				<ResponsiveImage {...this.props.cover} sizes="(max-width: 800px) 40vw, 100vw" />
@@ -158,7 +159,10 @@ class InfoPage extends React.PureComponent {
 				<section className={`info info--${this.props.slug}`}>
 					<Meta seo={this.props.seo} />
 					<main>
-						{cover}
+						<div className="page__header column--medium">
+							{cover}
+							<h1 className="info__title">{this.props.title}</h1>
+						</div>
 						{this.props.children &&
 							this.props.children.map(c => (
 								<ScrollableChild
@@ -169,9 +173,7 @@ class InfoPage extends React.PureComponent {
 										<InfoSection key={`section-nav-${this.props.slug}-${c.slug}`} {...c} />
 									) : c.type === 'infocard' ? (
 										<InfoCard key={`section-nav-${this.props.slug}-${c.slug}`} {...c} />
-									) : (
-										<p>hi</p>
-									)}
+									) : null}
 								</ScrollableChild>
 							))}
 					</main>
