@@ -11,7 +11,6 @@ import Meta from '../../components/Meta'
  */
 
 const Pricing = props => {
-	console.log(props)
 	return (
 		<ScrollableContainer containerElement={document.body}>
 			<div>

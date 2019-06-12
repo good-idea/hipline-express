@@ -2,7 +2,7 @@
 	@mixin flex-center;
 
 	flex-direction: column;
-	padding-top: $nav-height;
+	padding: calc($nav-height + 2rem) 2rem 2rem;
 	min-height: 25rem;
 	background: $pink-light;
 	position: sticky;
@@ -15,16 +15,18 @@
 
 .splash,
 .intro__text {
-	h2 {
-		font-family: $serif;
-		font-weight: 900;
-		color: $seafoam;
-		text-align: center;
+	font-family: $serif;
+	color: $purple-dark;
+	text-align: center;
+	font-weight: 900;
 
-		img {
-			height: 1em;
-			margin: 0 0.2em;
-		}
+	h2 + h3 {
+		margin-top: 0.8em;
+	}
+
+	img {
+		height: 1em;
+		margin: 0 0.2em;
 	}
 }
 

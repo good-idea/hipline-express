@@ -19,7 +19,8 @@ const Choreographers = props => {
 		<ScrollableContainer containerElement={document.body}>
 			<div>
 				<Meta seo={props.seo || {}} />
-				{props.intro && props.intro.length && <Splash text={props.intro} full={false} />}
+				{props.intro && props.intro.length && <Splash text={props.intro} subtitle={props.subtitle} full={false} />}
+
 				<section className="home">
 					<main className="choreographers">
 						{/* <ScrollTrigger slug="profilesMenu">

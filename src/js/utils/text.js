@@ -84,6 +84,15 @@ const prepareIntroText = R.pipe(
 	HTMLtoJSX,
 )
 
+
+const prepareSubtitleText = R.pipe(
+	markdownToHTML,
+	stripTags('<em><strong><br><img><ul><li>'),
+	removeWrappingTags,
+	wrapWith('h3'),
+	HTMLtoJSX,
+)
+
 /**
  * Common pipes
  */
@@ -118,5 +127,6 @@ module.exports = {
 	markdownToJSX,
 	makeParagraph,
 	prepareIntroText,
+	prepareSubtitleText,
 	wrapAndPrepare,
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { prepareIntroText } from '../utils/text'
+import { prepareIntroText, prepareSubtitleText } from '../utils/text'
 
 /**
  * Splash
@@ -49,7 +49,10 @@ class Splash extends React.Component {
 		const className = this.props.full ? 'splash splash--full' : 'splash'
 		return (
 			<div ref={this.registerRef} className={className} style={this.state.style}>
-				<div className="column--medium">{prepareIntroText(this.props.text)}</div>
+				<div className="column--medium">
+					{prepareIntroText(this.props.text)}
+					{this.props.subtitle && this.props.subtitle.length ? prepareSubtitleText(this.props.subtitle) : null}
+				</div>
 			</div>
 		)
 	}
@@ -60,10 +63,12 @@ Splash.contextTypes = {
 }
 Splash.propTypes = {
 	text: PropTypes.string.isRequired,
+	subtitle: PropTypes.string,
 	full: PropTypes.bool,
 }
 
 Splash.defaultProps = {
+	subtitle: undefined,
 	full: true,
 }
 
