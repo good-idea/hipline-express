@@ -1,18 +1,26 @@
 @import url('https://use.typekit.net/boc8ucm.css');
+@import url('https://fonts.googleapis.com/css?family=DM+Sans|DM+Serif+Text&display=swap');
 
 /**
  * 'basic-sans', 300, 300i, 400, 400i, 700, 700i
  * 'bodoni-urw', 400, 400i, 700, 700i
  */
 
-/* $sans: 'basic-sans', 'Helvetica Neue', helvetica, sans-serif; */
-$sans: 'europa', 'Helvetica Neue', helvetica, sans-serif;
-$serif: 'freight-display-pro', Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;
+/* font-family: 'DM Serif Text', serif; */
+/* font-family: 'DM Sans', sans-serif; */
+/* font-family: 'DM Serif Display', serif; */
+/* font-family: 'Playfair Display', serif; */
+/* font-family: 'Lora', serif; */
+/* font-family: 'Gentium Basic', serif; */
+/* font-family: 'Gentium Book Basic', serif; */
+/* /1* $sans: 'basic-sans', 'Helvetica Neue', helvetica, sans-serif; *1/ */
+$sans: 'DM Sans', 'Helvetica Neue', helvetica, sans-serif;
+$serif: 'DM Serif Display', Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;
 
 $h1: 4.78rem;
 $h2: 3.4rem;
 $h3: 2.38rem;
-$h4: 1.69rem;
+$h4: 1.6rem;
 $h5: 1.25rem;
 $p: 1.2rem;
 
