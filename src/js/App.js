@@ -32,8 +32,7 @@ class App extends React.Component {
 		// const apiRoot = (window.)
 		// Split the initial content & MBO requests into two:
 		// the MBO call may take longer, or the API server may be down
-		axios.get(`http://0.0.0.0:8090/api/initial?uri=${this.props.location.pathname}`).then(response => {
-			// axios.get(`/api/content/initial?uri=${this.props.location.pathname}`).then(response => {
+		axios.get(`/api/content/initial?uri=${this.props.location.pathname}`).then(response => {
 			console.log(response.data)
 			const newState = parseContent({ ...this.state, ...response.data })
 			this.setState(newState, () => {
