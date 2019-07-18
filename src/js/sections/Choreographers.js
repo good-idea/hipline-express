@@ -14,6 +14,7 @@ import Meta from '../components/Meta'
 
 const Choreographers = props => {
 	if (!props.choreographers.length) return null
+	console.log(props.seo)
 	const hash = props.location.hash ? props.location.hash.replace(/^#/, '') : null
 	return (
 		<ScrollableContainer containerElement={document.body}>

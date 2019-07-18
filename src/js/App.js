@@ -32,7 +32,9 @@ class App extends React.Component {
 		// const apiRoot = (window.)
 		// Split the initial content & MBO requests into two:
 		// the MBO call may take longer, or the API server may be down
-		axios.get(`/api/content/initial?uri=${this.props.location.pathname}`).then(response => {
+		axios.get(`http://0.0.0.0:8090/api/initial?uri=${this.props.location.pathname}`).then(response => {
+			// axios.get(`/api/content/initial?uri=${this.props.location.pathname}`).then(response => {
+			console.log(response.data)
 			const newState = parseContent({ ...this.state, ...response.data })
 			this.setState(newState, () => {
 				this.props.emit('cmsContentLoaded')
@@ -60,6 +62,7 @@ class App extends React.Component {
 
 	render() {
 		if (!this.state.home) return null
+		console.log(this.state)
 		const currentSection = this.props.location.pathname.replace(/^\//, '').split('/')[0]
 		const hasAnnouncement = this.state.announcement ? 'withAnnouncement' : ''
 		return (
@@ -80,7 +83,7 @@ class App extends React.Component {
 							<Choreographers match={match} home={this.state.home} {...this.state.choreographers} seo={this.state.meta} />
 						)}
 					/>
-					<Route exact path="/pricing" render={() => <Pricing passes={this.state.passes} seo={this.state.passes.seo} />} />
+					<Route exact path="/passes" render={() => <Pricing passes={this.state.passes} seo={this.state.passes.seo} />} />
 					<Route
 						exact
 						path="/classes"

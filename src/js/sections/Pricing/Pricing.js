@@ -19,7 +19,7 @@ const Pricing = props => {
 				<Splash text={props.splashText} />
 				<section className="classes with-aside">
 					<main>
-						<h1 className="info__title">Pricing</h1>
+						<h1 className="info__title">Passes</h1>
 						<div className="column--xWide">
 							<div>
 								{props.passes.types.map(p => (

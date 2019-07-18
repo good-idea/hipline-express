@@ -84,6 +84,7 @@ ScrollableContainer.defaultProps = {
 
 class ScrollableChild extends React.Component {
 	componentDidMount() {
+		if (!this.props.children) return
 		this.context.scroll.register(this.props.slug, this.element)
 		if (this.props.autoScroll) this.context.scroll.scrollToElement(this.props.slug)
 	}
@@ -93,6 +94,7 @@ class ScrollableChild extends React.Component {
 	}
 
 	render() {
+		if (!this.props.children) return null
 		return React.cloneElement(this.props.children, {
 			ref: el => {
 				this.element = el
