@@ -8,7 +8,7 @@ const buildSitemap = (req, res) => {
 		console.log(Object.keys(response.data))
 		const homepageUrl = { url: '/', changeFreq: 'weekly', lastmodISO: home.lastModified, priority: 0.8 }
 		const classesUrl = { url: '/classes', changeFreq: 'weekly', lastModISO: classes.lastModified, priority: 0.8 }
-		const pricingUrl = { url: '/pricing', changeFreq: 'weekly', lastModISO: sourcePasses.lastModified, priority: 0.8 }
+		const pricingUrl = { url: '/passes', changeFreq: 'weekly', lastModISO: sourcePasses.lastModified, priority: 0.8 }
 		const infoPageUrls = infoPages
 			.filter(page => page.isVisible)
 			.map(page => ({
