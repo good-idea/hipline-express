@@ -4,7 +4,7 @@
 	flex-direction: column;
 	padding: calc($nav-height + 2rem) 2rem 2rem;
 	min-height: 25rem;
-  background-color: $orange-medium;
+  background-color: $seafoam-light;
 	position: sticky;
 	top: 0;
 }
@@ -16,7 +16,7 @@
 .splash,
 .intro__text {
 	font-family: $serif;
-  color: white;
+  color: $pink;
 	text-align: center;
 	font-weight: 900;
 

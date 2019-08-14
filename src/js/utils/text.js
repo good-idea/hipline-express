@@ -61,7 +61,7 @@ export const HTMLtoJSX = text => parser(text)
  * @type {[type]}
  */
 
-const wrapAndPrepare = tag =>
+export const wrapAndPrepare = tag =>
 	R.pipe(
 		fixKirbyTextAnchors,
 		fixKirbyTextEmailLinks,
@@ -74,7 +74,7 @@ const wrapAndPrepare = tag =>
 
 // const trace = (input) => { console.log(input); return input }
 
-const prepareIntroText = R.pipe(
+export const prepareIntroText = R.pipe(
 	// R.replace(/[\s?]inspire[\s?]/, '![inspire](/images/inspire.png)'),
 	// R.replace(/[\s?]empower[\s?]/, '![empower](/images/empower.png)'),
 	markdownToHTML,
@@ -85,7 +85,7 @@ const prepareIntroText = R.pipe(
 )
 
 
-const prepareSubtitleText = R.pipe(
+export const prepareSubtitleText = R.pipe(
 	markdownToHTML,
 	stripTags('<em><strong><br><img><ul><li>'),
 	removeWrappingTags,
@@ -97,20 +97,20 @@ const prepareSubtitleText = R.pipe(
  * Common pipes
  */
 
-const fixKirbyText = R.pipe(
+export const fixKirbyText = R.pipe(
 	fixKirbyTextFileLinks,
 	fixKirbyTextAnchors,
 	fixKirbyTextEmailLinks,
 )
 
-const markdownToJSX = R.pipe(
+export const markdownToJSX = R.pipe(
 	fixKirbyText,
 	markdownToHTML,
 	externalLinks,
 	HTMLtoJSX,
 )
 
-const makeParagraph = R.pipe(
+export const makeParagraph = R.pipe(
 	fixKirbyText,
 	markdownToHTML,
 	externalLinks,
@@ -118,15 +118,3 @@ const makeParagraph = R.pipe(
 	HTMLtoJSX,
 )
 
-module.exports = {
-	fixKirbyTextAnchors,
-	markdownToHTML,
-	HTMLtoJSX,
-	removeWrappingTags,
-	externalLinks,
-	markdownToJSX,
-	makeParagraph,
-	prepareIntroText,
-	prepareSubtitleText,
-	wrapAndPrepare,
-}

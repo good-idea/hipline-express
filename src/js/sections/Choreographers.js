@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
-
 import { ScrollableContainer, ScrollableChild } from '../UI/Scroll'
 import ChoreographerProfile from './ChoreographerProfile'
 import ChoreographersMenu from './ChoreographersMenu'
@@ -14,7 +13,6 @@ import Meta from '../components/Meta'
 
 const Choreographers = props => {
 	if (!props.choreographers.length) return null
-	console.log(props.seo)
 	const hash = props.location.hash ? props.location.hash.replace(/^#/, '') : null
 	return (
 		<ScrollableContainer containerElement={document.body}>
@@ -24,12 +22,7 @@ const Choreographers = props => {
 
 				<section className="home">
 					<main className="choreographers">
-						{/* <ScrollTrigger slug="profilesMenu">
-						<div className="sectionHeader">
-							<h4>Meet the Choreographers <span className="icon icon--down" /></h4>
-						</div>
-					</ScrollTrigger> */}
-						{props.header && props.header.length && <h3 className="choreographers__header">{props.header}</h3>}
+  					{props.header && props.header.length && <h3 className="choreographers__header">{props.header}</h3>}
 						<ScrollableChild slug="profilesMenu">
 							<ChoreographersMenu choreographers={props.choreographers} />
 						</ScrollableChild>

@@ -1,15 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { findDOMNode } from 'react-dom'
-import { toClass } from 'recompose'
-
 import { scrollTo, cn } from '../utils/helpers'
 
 /**
  * Container
  */
 
-class ScrollableContainer extends React.Component {
+export class ScrollableContainer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.elements = {}
@@ -21,8 +19,9 @@ class ScrollableContainer extends React.Component {
 	}
 
 	getChildContext() {
+    const { container } = this.state
 		return {
-			container: this.state.container,
+			container, 
 			scroll: {
 				register: this.register,
 				unregister: this.unregister,
@@ -82,7 +81,7 @@ ScrollableContainer.defaultProps = {
  * Child
  */
 
-class ScrollableChild extends React.Component {
+export class ScrollableChild extends React.Component {
 	componentDidMount() {
 		if (!this.props.children) return
 		this.context.scroll.register(this.props.slug, this.element)
@@ -121,7 +120,7 @@ ScrollableChild.contextTypes = {
  * Trigger
  */
 
-class ScrollTrigger extends React.Component {
+export class ScrollTrigger extends React.Component {
 	constructor(props) {
 		super(props)
 		this.handleClick = this.handleClick.bind(this)
@@ -134,7 +133,7 @@ class ScrollTrigger extends React.Component {
 
 	render() {
 		return (
-			<button onClick={this.handleClick} className={cn('scrollTrigger', this.props.className)}>
+			<button type="button" onClick={this.handleClick} className={cn('scrollTrigger', this.props.className)}>
 				{React.Children.map(this.props.children, c => c)}
 			</button>
 		)

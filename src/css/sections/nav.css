@@ -11,7 +11,6 @@ nav {
 	padding: 0rem 2rem;
 	transform: translateZ(0);
 	background-color: white;
-	// transition: 0.2s background-color;
 }
 
 .logo {
@@ -239,7 +238,6 @@ button.burger {
 	}
 
 	.nav--open {
-		// background-color: $pink;
 		color: white;
 
 		.logo {

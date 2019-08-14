@@ -1,6 +1,6 @@
 import tweenFunctions from 'tween-functions'
 
-const fillArray = (value, length) => {
+export const fillArray = (value, length) => {
 	const arr = []
 	while (arr.length < length) arr.push(value)
 	return arr
@@ -10,7 +10,7 @@ const fillArray = (value, length) => {
  * Cheap shallow equalitly checker
  */
 
-const isEqual = (obj1, obj2) => {
+export const isEqual = (obj1, obj2) => {
 	// return (JSON.stringify(obj1) === JSON.stringify(obj2))
 	const obj1keys = Object.keys(obj1)
 
@@ -27,11 +27,11 @@ const isEqual = (obj1, obj2) => {
  * Return the offset relative to the document
  */
 
-const getOffset = (element, container = {}) => {
+export const getOffset = (element, container = {}) => {
 	// crossbrowser version
 	const box = element.getBoundingClientRect()
 
-	const body = document.body
+	const { body } = document
 	const docEl = document.documentElement
 
 	const scrollTop = container.scrollTop || window.pageYOffset || docEl.scrollTop || body.scrollTop
@@ -50,7 +50,7 @@ const getOffset = (element, container = {}) => {
   - Validate destination as int or dom element
  */
 
-const scrollTo = (destination, overrides) => {
+export const scrollTo = (destination, overrides) => {
 	if (destination === undefined) {
 		console.warn('scollTo called with no destination')
 		return
@@ -102,7 +102,7 @@ const scrollTo = (destination, overrides) => {
  * @param  {string|array} input		'class1', ['class2', 'class1--modifier'], 'class3'
  * @return {string}       				'class1 class2 class1--modifier class3'
  */
-const cn = (...input) => {
+export const cn = (...input) => {
 	const allNames = []
 	for (const piece of input) {
 		if (piece) {
@@ -118,20 +118,11 @@ const cn = (...input) => {
 	return allNames.join(' ')
 }
 
-const findOne = (haystack, needles) => needles.some(needle => haystack.indexOf(needle) >= 0)
+export const findOne = (haystack, needles) => needles.some(needle => haystack.indexOf(needle) >= 0)
 
-const slugify = text =>
+export const slugify = text =>
 	text
 		.toString()
 		.toLowerCase()
 		.replace(/\s+/g, '-')
 
-module.exports = {
-	findOne,
-	slugify,
-	cn,
-	getOffset,
-	scrollTo,
-	isEqual,
-	fillArray,
-}
