@@ -1,162 +1,162 @@
 html {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 html,
 body {
-	height: 100%;
-	overflow-x: hidden;
+  height: 100%;
+  overflow-x: hidden;
 }
 
 body {
-	width: 100%;
-	top: 0;
-	height: 100%;
-	/*bottom: 0;*/
-	position: absolute;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  /*bottom: 0;*/
+  position: absolute;
 }
 
 #app {
-	background-color: white;
-	transition: background-color 0.2s;
+  background-color: white;
+  transition: background-color 0.2s;
 }
 
 section {
-	height: 100%;
+  height: 100%;
 
-	main {
-		padding-top: $nav-height;
-		padding-bottom: 4rem;
-		min-height: calc(100vh - 410px + 6rem);
-	}
+  main {
+    padding-top: $nav-height;
+    padding-bottom: 4rem;
+    min-height: calc(100vh - 410px + 6rem);
+  }
 }
 
 .column {
-	width: calc(100% - 4rem);
-	max-width: 70rem;
-	margin: 0 auto;
+  width: calc(100% - 4rem);
+  max-width: 70rem;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: $break-small) {
-	.column {
-		width: calc(100% - 6rem);
-	}
+  .column {
+    width: calc(100% - 6rem);
+  }
 }
 
 .column--left {
-	margin-left: 4rem;
+  margin-left: 4rem;
 }
 
 .column--xWide {
-	@extend .column;
-	max-width: 140rem;
+  @extend .column;
+  max-width: 140rem;
 }
 
 .column--wide {
-	@extend .column;
-	max-width: 120rem;
+  @extend .column;
+  max-width: 120rem;
 }
 
 .column--medium {
-	@extend .column;
-	max-width: 95rem;
+  @extend .column;
+  max-width: 95rem;
 }
 
 .column--narrow {
-	@extend .column;
-	max-width: 50rem;
+  @extend .column;
+  max-width: 50rem;
 }
 
 .column--mini {
-	@extend .column;
-	max-width: 30rem;
+  @extend .column;
+  max-width: 30rem;
 }
 
 .responsiveImage {
-	position: relative;
+  position: relative;
 
-	img {
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: contain;
-		opacity: 0;
-		transition: 0.2s;
-	}
+  img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: 0.2s;
+  }
 
-	.loading-placeholder {
-		position: relative;
-		z-index: -1;
-		background-color: $grey1;
-		transition: 0.2s;
-	}
+  .loading-placeholder {
+    position: relative;
+    z-index: -1;
+    background-color: $grey1;
+    transition: 0.2s;
+  }
 
-	&.loaded {
-		img {
-			opacity: 1;
-		}
-		.loading-placeholder {
-			opacity: 0;
-		}
-	}
+  &.loaded {
+    img {
+      opacity: 1;
+    }
+    .loading-placeholder {
+      opacity: 0;
+    }
+  }
 }
 
 figcaption {
-	margin-top: 0.5rem;
-	font-style: italic;
-	position: relative;
+  margin-top: 0.5rem;
+  font-style: italic;
+  position: relative;
 }
 
 .squiggle {
-	text-align: center;
+  text-align: center;
 }
 
 .scroll__outerContainer {
-	position: relative;
+  position: relative;
 }
 
 aside + main {
-	padding-left: calc($aside-width + 2rem);
+  padding-left: calc($aside-width + 2rem);
 }
 
 .aside-nav {
-	/* Deprecated */
-	display: none;
-	position: sticky;
-	padding-top: $top-line;
-	z-index: 10;
-	top: 0;
-	padding-left: 1rem;
-	width: $aside-width;
-	float: left;
-	flex-direction: column;
-	align-items: flex-end;
+  /* Deprecated */
+  display: none;
+  position: sticky;
+  padding-top: $top-line;
+  z-index: 10;
+  top: 0;
+  padding-left: 1rem;
+  width: $aside-width;
+  float: left;
+  flex-direction: column;
+  align-items: flex-end;
 
-	&:after {
-		content: '';
-		top: 3rem;
-		right: 0;
-		width: 0;
-		height: calc(100% - 2rem);
-		border-right: 1px solid currentColor;
-		position: absolute;
-	}
+  &:after {
+    content: '';
+    top: 3rem;
+    right: 0;
+    width: 0;
+    height: calc(100% - 2rem);
+    border-right: 1px solid currentColor;
+    position: absolute;
+  }
 }
 
 .aside-nav-item {
-	margin: 0.5em;
-	text-align: right;
+  margin: 0.5em;
+  text-align: right;
 }
 
 .aside-nav-header {
-	font-style: italic;
-	margin-right: 1em;
-	border-bottom: 1px solid currentColor;
-	color: $grey3;
+  font-style: italic;
+  margin-right: 1em;
+  border-bottom: 1px solid currentColor;
+  color: $grey3;
 }
 
 .aside-nav-item + .aside-nav-header {
-	margin-top: 2rem;
+  margin-top: 2rem;
 }

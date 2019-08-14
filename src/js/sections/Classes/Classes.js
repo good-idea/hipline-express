@@ -10,41 +10,41 @@ import Meta from '../../components/Meta'
  */
 
 const Classes = props => {
-	const visibleClasstypes = props.classtypes.filter(c => c.isVisible === true)
-	return (
-		<ScrollableContainer containerElement={document.body}>
-			<div>
-				<Meta seo={props.seo || {}} />
-				<Splash text={props.splashText} />
+  const visibleClasstypes = props.classtypes.filter(c => c.isVisible === true)
+  return (
+    <ScrollableContainer containerElement={document.body}>
+      <div>
+        <Meta seo={props.seo || {}} />
+        <Splash text={props.splashText} />
 
-				<section className="classes with-aside">
-					<main>
-						<div className="column--wide">
-							<div>
-								{visibleClasstypes.map(c => (
-									<ScrollableChild key={`trigger-classSection-${c.slug}`} slug={`classSection-${c.slug}`}>
-										<ClassSection {...c} />
-									</ScrollableChild>
-								))}
-							</div>
-						</div>
-					</main>
-				</section>
-			</div>
-		</ScrollableContainer>
-	)
+        <section className="classes with-aside">
+          <main>
+            <div className="column--wide">
+              <div>
+                {visibleClasstypes.map(c => (
+                  <ScrollableChild key={`trigger-classSection-${c.slug}`} slug={`classSection-${c.slug}`}>
+                    <ClassSection {...c} />
+                  </ScrollableChild>
+                ))}
+              </div>
+            </div>
+          </main>
+        </section>
+      </div>
+    </ScrollableContainer>
+  )
 }
 
 Classes.propTypes = {
-	classtypes: PropTypes.arrayOf(PropTypes.shape),
-	splashText: PropTypes.string,
-	seo: PropTypes.shape({}),
+  classtypes: PropTypes.arrayOf(PropTypes.shape),
+  splashText: PropTypes.string,
+  seo: PropTypes.shape({}),
 }
 
 Classes.defaultProps = {
-	classtypes: [],
-	splashText: '',
-	seo: {},
+  classtypes: [],
+  splashText: '',
+  seo: {},
 }
 
 export default Classes

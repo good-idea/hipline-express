@@ -25,24 +25,24 @@ $h5: 1.25rem;
 $p: 1.2rem;
 
 body {
-	font-family: $sans;
+  font-family: $sans;
 }
 h1 {
-	font-size: $h1;
+  font-size: $h1;
 }
 h2 {
-	font-size: $h2;
+  font-size: $h2;
 }
 h3 {
-	font-size: $h3;
+  font-size: $h3;
 }
 h4 {
-	font-size: $h4;
-	line-height: 1.6em;
+  font-size: $h4;
+  line-height: 1.6em;
 }
 p {
-	font-size: $h4;
-	line-height: 1.6em;
+  font-size: $h4;
+  line-height: 1.6em;
 }
 li,
 input,
@@ -50,15 +50,15 @@ button,
 textarea,
 select,
 label {
-	font-size: $p;
+  font-size: $p;
 }
 li {
-	font-family: $sans;
-	font-size: $h4;
-	line-height: 1.94rem;
+  font-family: $sans;
+  font-size: $h4;
+  line-height: 1.94rem;
 }
 h5 {
-	font-size: $h5;
+  font-size: $h5;
 }
 
 h1,
@@ -67,38 +67,38 @@ h3,
 h4,
 h5,
 h6 {
-	letter-spacing: 0.05em;
+  letter-spacing: 0.05em;
 }
 
 p + p {
-	margin-top: 1em;
+  margin-top: 1em;
 }
 
 strong {
-	font-weight: 700;
+  font-weight: 700;
 }
 em {
-	font-style: italic;
+  font-style: italic;
 }
 
 li {
-	list-style-type: none;
+  list-style-type: none;
 }
 
 @media screen and (max-width: $break-small) {
-	h1 {
-		font-size: 3rem;
-	}
-	h2 {
-		font-size: 2.4rem;
-	}
-	h3 {
-		font-size: 2rem;
-	}
-	h4 {
-		font-size: 1.5rem;
-	}
-	p {
-		font-size: 1.5rem;
-	}
+  h1 {
+    font-size: 3rem;
+  }
+  h2 {
+    font-size: 2.4rem;
+  }
+  h3 {
+    font-size: 2rem;
+  }
+  h4 {
+    font-size: 1.5rem;
+  }
+  p {
+    font-size: 1.5rem;
+  }
 }

@@ -11,42 +11,42 @@ import Meta from '../../components/Meta'
  */
 
 const Pricing = props => {
-	return (
-		<ScrollableContainer containerElement={document.body}>
-			<div>
-				<Meta seo={props.seo || {}} />
+  return (
+    <ScrollableContainer containerElement={document.body}>
+      <div>
+        <Meta seo={props.seo || {}} />
 
-				<Splash text={props.splashText} />
-				<section className="classes with-aside">
-					<main>
-						<h1 className="info__title">Passes</h1>
-						<div className="column--xWide">
-							<div>
-								{props.passes.types.map(p => (
-									<ScrollableChild key={`trigger-passSection-${p.slug}`} slug={`passSection-${p.slug}`}>
-										<PassSection {...p} />
-									</ScrollableChild>
-								))}
-							</div>
-						</div>
-					</main>
-				</section>
-			</div>
-		</ScrollableContainer>
-	)
+        <Splash text={props.splashText} />
+        <section className="classes with-aside">
+          <main>
+            <h1 className="info__title">Passes</h1>
+            <div className="column--xWide">
+              <div>
+                {props.passes.types.map(p => (
+                  <ScrollableChild key={`trigger-passSection-${p.slug}`} slug={`passSection-${p.slug}`}>
+                    <PassSection {...p} />
+                  </ScrollableChild>
+                ))}
+              </div>
+            </div>
+          </main>
+        </section>
+      </div>
+    </ScrollableContainer>
+  )
 }
 Pricing.propTypes = {
-	passes: PropTypes.shape({
-		types: PropTypes.arrayOf(PropTypes.shape({})),
-	}),
-	splashText: PropTypes.string,
-	seo: PropTypes.shape({}),
+  passes: PropTypes.shape({
+    types: PropTypes.arrayOf(PropTypes.shape({})),
+  }),
+  splashText: PropTypes.string,
+  seo: PropTypes.shape({}),
 }
 
 Pricing.defaultProps = {
-	passes: {},
-	splashText: '',
-	seo: {},
+  passes: {},
+  splashText: '',
+  seo: {},
 }
 
 export default Pricing

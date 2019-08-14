@@ -1,238 +1,238 @@
 section.classes main {
-	background-color: white;
-	position: relative;
-	padding: 10rem 0;
+  background-color: white;
+  position: relative;
+  padding: 10rem 0;
 }
 
 @media screen and (max-width: $break-medium) {
-	section.classes main {
-		padding-top: 4rem;
-	}
+  section.classes main {
+    padding-top: 4rem;
+  }
 }
 
 .classTypes {
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .classType {
-	width: calc(33% - 4rem);
-	min-width: 20rem;
+  width: calc(33% - 4rem);
+  min-width: 20rem;
 
-	.squiggle {
-		margin: 1rem auto;
-	}
+  .squiggle {
+    margin: 1rem auto;
+  }
 
-	button {
-		margin: 0 auto;
-	}
+  button {
+    margin: 0 auto;
+  }
 }
 
 .classType__title {
-	text-transform: uppercase;
-	text-align: center;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .classType__thumbnail {
-	width: calc(25% - 1rem);
-	margin: 0.5rem;
-	overflow: hidden;
-	position: relative;
+  width: calc(25% - 1rem);
+  margin: 0.5rem;
+  overflow: hidden;
+  position: relative;
 
-	figure {
-		@mixin abs-full-size;
-	}
+  figure {
+    @mixin abs-full-size;
+  }
 }
 
 .classType__description {
-	margin: 2rem 0;
+  margin: 2rem 0;
 }
 
 .classType__choreographers {
-	margin: 2rem 0;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+  margin: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 
-	h4 {
-		width: 100%;
-	}
+  h4 {
+    width: 100%;
+  }
 
-	li {
-		width: 50%;
-	}
+  li {
+    width: 50%;
+  }
 }
 
 .card--class {
-	background-color: initial;
-	border-radius: 0;
-	box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.3);
-	border-radius: 6px;
-	padding: 1rem;
-	color: transparent;
+  background-color: initial;
+  border-radius: 0;
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  padding: 1rem;
+  color: transparent;
 
-	.card__body {
-		flex-grow: initial;
-		min-height: 12rem;
-	}
-	.card__footer {
-		flex-grow: initial;
-		flex-basis: initial;
-	}
+  .card__body {
+    flex-grow: initial;
+    min-height: 12rem;
+  }
+  .card__footer {
+    flex-grow: initial;
+    flex-basis: initial;
+  }
 
-	/*.card__cover figure {
+  /*.card__cover figure {
 		mix-blend-mode: luminosity;
 	}*/
 }
 
 .card--class__choreographers {
-	margin-top: 2rem;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: flex-start;
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 
-	h3 {
-		flex-basis: 100%;
-		text-transform: uppercase;
-	}
+  h3 {
+    flex-basis: 100%;
+    text-transform: uppercase;
+  }
 
-	.avatar {
-		width: 7rem;
-		height: 7rem;
-		color: $pink;
-		pointer-events: none;
-	}
+  .avatar {
+    width: 7rem;
+    height: 7rem;
+    color: $pink;
+    pointer-events: none;
+  }
 }
 
 .card--class__avatarButtons {
-	margin-top: 1rem;
-	flex-grow: 1;
-	display: flex; /* fallback for old iOS */
-	flex-wrap: wrap;
-	justify-content: space-between;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	flex-basis: calc(100% - 9rem);
+  margin-top: 1rem;
+  flex-grow: 1;
+  display: flex; /* fallback for old iOS */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex-basis: calc(100% - 9rem);
 
-	button {
-		text-align: left;
-		margin-bottom: 0.5rem;
-		flex-basis: 50%;
+  button {
+    text-align: left;
+    margin-bottom: 0.5rem;
+    flex-basis: 50%;
 
-		p {
-			display: inline;
-			transition: color 0.2s;
-		}
+    p {
+      display: inline;
+      transition: color 0.2s;
+    }
 
-		p.active {
-			color: $pink;
-		}
-	}
+    p.active {
+      color: $pink;
+    }
+  }
 }
 
 .card--pass {
-	.card__cover {
-		position: static;
-		padding-bottom: initial;
-		margin: 2rem auto;
+  .card__cover {
+    position: static;
+    padding-bottom: initial;
+    margin: 2rem auto;
 
-		figure {
-			position: relative;
-			margin: 0 auto;
-			width: 10rem;
-			height: 10rem;
-		}
+    figure {
+      position: relative;
+      margin: 0 auto;
+      width: 10rem;
+      height: 10rem;
+    }
 
-		img {
-			object-fit: contain;
-		}
-	}
+    img {
+      object-fit: contain;
+    }
+  }
 
-	.card__body,
-	.card__footer {
-		text-align: center;
-	}
+  .card__body,
+  .card__footer {
+    text-align: center;
+  }
 }
 
 .info__section--passtype {
-	margin-top: 3rem;
-	.info__sectionTitle {
-		margin-bottom: 0;
-	}
-	.info__subtitle {
-		display: none;
-	}
-	.card {
-		color: $seafoam-light;
+  margin-top: 3rem;
+  .info__sectionTitle {
+    margin-bottom: 0;
+  }
+  .info__subtitle {
+    display: none;
+  }
+  .card {
+    color: $seafoam-light;
 
-		padding-top: 0;
-	}
+    padding-top: 0;
+  }
 }
 
 .info__section--passtype {
-	.info__sectionTitle {
-		font-family: $sans;
-		font-weight: 400;
-	}
+  .info__sectionTitle {
+    font-family: $sans;
+    font-weight: 400;
+  }
 }
 
 .info__section--classtype {
-	margin-bottom: 5rem;
+  margin-bottom: 5rem;
 
-	.highlight svg {
-		display: none;
-	}
+  .highlight svg {
+    display: none;
+  }
 }
 
 .info__section--passtype:nth-of-type(5n + 1) {
-	.highlight svg {
-		fill: $pink-medium-light;
-	}
+  .highlight svg {
+    fill: $pink-medium-light;
+  }
 
-	.card--pass {
-		color: $pink-light;
-	}
+  .card--pass {
+    color: $pink-light;
+  }
 }
 
 .info__section--passtype:nth-of-type(5n + 2) {
-	.highlight svg {
-		fill: $seafoam-light;
-	}
+  .highlight svg {
+    fill: $seafoam-light;
+  }
 
-	.card--pass {
-		color: $seafoam-light;
-	}
+  .card--pass {
+    color: $seafoam-light;
+  }
 }
 
 .info__section--passtype:nth-of-type(5n + 3) {
-	.highlight svg {
-		fill: $yellow;
-	}
+  .highlight svg {
+    fill: $yellow;
+  }
 
-	.card--pass {
-		color: $yellow;
-	}
+  .card--pass {
+    color: $yellow;
+  }
 }
 
 .info__section--passtype:nth-of-type(5n + 4) {
-	.highlight svg {
-		fill: $orange-light;
-	}
+  .highlight svg {
+    fill: $orange-light;
+  }
 
-	.card--pass {
-		color: $orange;
-	}
+  .card--pass {
+    color: $orange;
+  }
 }
 
 .info__section--werkshops,
 .info__section--love-club {
-	.card {
-		width: 50rem;
-	}
-	.card__body {
-		max-width: 30rem;
-	}
+  .card {
+    width: 50rem;
+  }
+  .card__body {
+    max-width: 30rem;
+  }
 }
 
 /*.card__cover--orange {

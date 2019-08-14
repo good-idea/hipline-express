@@ -7,28 +7,30 @@ import FieldContainer from '../../UI/FieldContainer'
  * LoginForm
  */
 
-const LoginForm = (props) => {
-	const { Username, Password } = props.fieldConfig
-	return (
-		<form onSubmit={props.onSubmit}>
-			<div className="fieldset horizontal--two">
-				<FieldContainer {...Username} />
-				<FieldContainer {...Password} />
-			</div>
-			<button className="cta" type="submit">Log In</button>
-			<div className="form__message">
-				<h4>{props.message}</h4>
-			</div>
-		</form>
-	)
+const LoginForm = props => {
+  const { Username, Password } = props.fieldConfig
+  return (
+    <form onSubmit={props.onSubmit}>
+      <div className="fieldset horizontal--two">
+        <FieldContainer {...Username} />
+        <FieldContainer {...Password} />
+      </div>
+      <button className="cta" type="submit">
+        Log In
+      </button>
+      <div className="form__message">
+        <h4>{props.message}</h4>
+      </div>
+    </form>
+  )
 }
 
 LoginForm.propTypes = {
-	// title: PropTypes.string
+  // title: PropTypes.string
 }
 
 LoginForm.defaultProps = {
-	// title: 'My Title'
+  // title: 'My Title'
 }
 
 export default asFreeForm(LoginForm)

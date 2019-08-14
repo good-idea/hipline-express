@@ -5,24 +5,24 @@ import Select from './Select'
 import Checkbox from './Checkbox'
 import Masked from './Masked'
 
-const Field = (props) => {
-	if (props.mask) return <Masked {...props} />
-	switch (props.type) {
-	case 'select':
-		return <Select {...props} />
-	case 'checkbox':
-		return <Checkbox {...props} />
-	default:
-		return <Input {...props} />
-	}
+const Field = props => {
+  if (props.mask) return <Masked {...props} />
+  switch (props.type) {
+    case 'select':
+      return <Select {...props} />
+    case 'checkbox':
+      return <Checkbox {...props} />
+    default:
+      return <Input {...props} />
+  }
 }
 
 Field.propTypes = {
-	type: PropTypes.string,
+  type: PropTypes.string,
 }
 
 Field.defaultProps = {
-	type: 'text',
+  type: 'text',
 }
 
 module.exports = { Field, Input, Select, Checkbox }

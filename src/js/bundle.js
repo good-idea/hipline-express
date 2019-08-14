@@ -6,25 +6,25 @@ import { init, RouteTracker } from './services/GoogleAnalytics'
 import App from './App'
 
 const renderApp = Component => {
-	ReactDOM.render(
-		<AppContainer>
-			<BrowserRouter>
-				<React.Fragment>
-					{init() && <RouteTracker />}
-					<Component />
-				</React.Fragment>
-			</BrowserRouter>
-		</AppContainer>,
-		document.getElementById('root'),
-	)
+  ReactDOM.render(
+    <AppContainer>
+      <BrowserRouter>
+        <React.Fragment>
+          {init() && <RouteTracker />}
+          <Component />
+        </React.Fragment>
+      </BrowserRouter>
+    </AppContainer>,
+    document.getElementById('root'),
+  )
 }
 
 renderApp(App)
 
 if (module.hot) {
-	module.hot.accept('./App.js', () => {
-		// eslint-disable-next-line
-		const NewApp = require('./App').default
-		renderApp(NewApp)
-	})
+  module.hot.accept('./App.js', () => {
+    // eslint-disable-next-line
+    const NewApp = require('./App').default
+    renderApp(NewApp)
+  })
 }

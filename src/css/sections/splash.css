@@ -1,57 +1,57 @@
 .splash {
-	@mixin flex-center;
+  @mixin flex-center;
 
-	flex-direction: column;
-	padding: calc($nav-height + 2rem) 2rem 2rem;
-	min-height: 25rem;
+  flex-direction: column;
+  padding: calc($nav-height + 2rem) 2rem 2rem;
+  min-height: 25rem;
   background-color: $seafoam-light;
-	position: sticky;
-	top: 0;
+  position: sticky;
+  top: 0;
 }
 
 .splash--full {
-	height: calc(100vh - 5rem);
+  height: calc(100vh - 5rem);
 }
 
 .splash,
 .intro__text {
-	font-family: $serif;
+  font-family: $serif;
   color: $pink;
-	text-align: center;
-	font-weight: 900;
+  text-align: center;
+  font-weight: 900;
 
-	h2 + h3 {
-		margin-top: 0.8em;
-	}
+  h2 + h3 {
+    margin-top: 0.8em;
+  }
 
-	img {
-		height: 1em;
-		margin: 0 0.2em;
-	}
+  img {
+    height: 1em;
+    margin: 0 0.2em;
+  }
 }
 
 .getinline {
-	position: relative;
-	/* display: block; */
-	display: none;
-	text-align: right;
-	margin: 0 0 2rem auto;
+  position: relative;
+  /* display: block; */
+  display: none;
+  text-align: right;
+  margin: 0 0 2rem auto;
 
-	h1 {
-		position: relative;
-		font-weight: 800;
-		font-style: italic;
-		background: linear-gradient(to bottom, $pink, $orange);
-		background-clip: text;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-	}
+  h1 {
+    position: relative;
+    font-weight: 800;
+    font-style: italic;
+    background: linear-gradient(to bottom, $pink, $orange);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
-	.squiggle {
-		position: absolute;
-		right: 0;
+  .squiggle {
+    position: absolute;
+    right: 0;
 
-		margin-left: auto;
-		margin-top: -1em;
-	}
+    margin-left: auto;
+    margin-top: -1em;
+  }
 }

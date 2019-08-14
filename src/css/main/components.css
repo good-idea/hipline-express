@@ -1,243 +1,243 @@
 .cards {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-	align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .card {
-	color: $pink-light;
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	text-align: center;
-	width: 27rem;
-	min-width: 27rem;
-	min-height: 15rem;
-	margin: 3rem 1.5rem 0;
-	padding-bottom: 2rem;
-	border: 4px solid currentColor;
+  color: $pink-light;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 27rem;
+  min-width: 27rem;
+  min-height: 15rem;
+  margin: 3rem 1.5rem 0;
+  padding-bottom: 2rem;
+  border: 4px solid currentColor;
 
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	ul,
-	ol,
-	span,
-	p {
-		color: black;
-	}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  ul,
+  ol,
+  span,
+  p {
+    color: black;
+  }
 
-	.squiggle {
-		margin: -1rem auto 1rem;
-	}
+  .squiggle {
+    margin: -1rem auto 1rem;
+  }
 
-	.card__cta {
-		text-align: center;
-		margin-top: 2rem;
+  .card__cta {
+    text-align: center;
+    margin-top: 2rem;
 
-		a {
-			display: inline-block;
-		}
-	}
+    a {
+      display: inline-block;
+    }
+  }
 }
 
 .card--large {
-	width: calc((100% / 3) - 3rem);
-	min-width: 320px;
+  width: calc((100% / 3) - 3rem);
+  min-width: 320px;
 
-	max-width: 380px;
+  max-width: 380px;
 }
 
 .card__description {
-	h1,
-	h2,
-	h3 {
-		margin: 0.6em 0;
-	}
+  h1,
+  h2,
+  h3 {
+    margin: 0.6em 0;
+  }
 }
 
 .card__header {
-	margin: 0;
-	padding: 1rem;
-	background-color: currentColor;
+  margin: 0;
+  padding: 1rem;
+  background-color: currentColor;
 }
 
 .card__subheader {
-	margin: 1em 0 0.5em;
+  margin: 1em 0 0.5em;
 }
 
 .card__title {
-	text-transform: uppercase;
-	margin-bottom: 0;
+  text-transform: uppercase;
+  margin-bottom: 0;
 }
 
 .card .card--subtitle {
-	color: gray;
+  color: gray;
 }
 
 .card__cover {
-	margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .card__body {
-	margin: 0rem auto 2rem;
-	padding: 1rem;
+  margin: 0rem auto 2rem;
+  padding: 1rem;
 }
 
 .card .card__body {
-	ul,
-	ol {
-		margin: 1em 0;
-		column-count: 1;
-		text-align: left;
-	}
+  ul,
+  ol {
+    margin: 1em 0;
+    column-count: 1;
+    text-align: left;
+  }
 }
 
 .card__body,
 .card__footer {
-	width: 100%;
-	flex-grow: 1;
-	text-align: left;
+  width: 100%;
+  flex-grow: 1;
+  text-align: left;
 }
 
 .card__footer > .card__cta:first-child {
-	margin-top: 0;
+  margin-top: 0;
 }
 
 .card--wide {
-	width: 32rem;
-	margin: 3rem 3% 0;
+  width: 32rem;
+  margin: 3rem 3% 0;
 }
 
 .card__cover {
-	position: relative;
-	width: 100%;
-	padding-bottom: 70%;
+  position: relative;
+  width: 100%;
+  padding-bottom: 70%;
 }
 
 .card__cover figure {
-	@mixin abs-full-size;
+  @mixin abs-full-size;
 
-	img {
-		object-fit: cover;
-	}
+  img {
+    object-fit: cover;
+  }
 
-	figure .loading-placeholder {
-		display: none;
-		padding-bottom: initial;
-		width: 100%;
-		height: 100%;
-	}
+  figure .loading-placeholder {
+    display: none;
+    padding-bottom: initial;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .sectionHeader {
-	width: 100%;
-	height: 5rem;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	padding: 0 2rem;
-	background-color: $yellow;
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 2rem;
+  background-color: $yellow;
 }
 
 .squiggle {
-	position: relative;
-	z-index: 10;
-	img {
-		width: 5rem;
-		transform: scale(2);
-	}
+  position: relative;
+  z-index: 10;
+  img {
+    width: 5rem;
+    transform: scale(2);
+  }
 }
 
 .icon {
-	border: 1px solid currentColor;
-	border-radius: 100px;
-	width: 40px;
-	height: 40px;
-	padding: 7px;
-	background-color: white;
+  border: 1px solid currentColor;
+  border-radius: 100px;
+  width: 40px;
+  height: 40px;
+  padding: 7px;
+  background-color: white;
 }
 
 .icon--down {
-	border: none;
-	height: 0.5em;
-	width: 1em;
-	padding: 0;
-	margin: 0;
-	display: inline-block;
-	position: relative;
+  border: none;
+  height: 0.5em;
+  width: 1em;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  position: relative;
 
-	&:before,
-	&:after {
-		content: '';
-		position: absolute;
-		bottom: 25%;
-		height: 1px;
-		width: 50%;
-		background-color: currentColor;
-	}
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 25%;
+    height: 1px;
+    width: 50%;
+    background-color: currentColor;
+  }
 
-	&:before {
-		right: calc(50%);
-		transform: rotate(45deg);
-		transform-origin: 100% 50%;
-	}
+  &:before {
+    right: calc(50%);
+    transform: rotate(45deg);
+    transform-origin: 100% 50%;
+  }
 
-	&:after {
-		left: calc(50% - 1px);
-		transform: rotate(-45deg);
-		transform-origin: 0% 50%;
-	}
+  &:after {
+    left: calc(50% - 1px);
+    transform: rotate(-45deg);
+    transform-origin: 0% 50%;
+  }
 }
 
 .avatar {
-	position: relative;
-	overflow: hidden;
+  position: relative;
+  overflow: hidden;
 
-	figure,
-	figure.responsiveImage,
-	.responsiveImage img,
-	video {
-		transition: 0.2s;
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		object-fit: cover;
-	}
+  figure,
+  figure.responsiveImage,
+  .responsiveImage img,
+  video {
+    transition: 0.2s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
 
-	figure {
-		opacity: 1;
-		z-index: 2;
-	}
+  figure {
+    opacity: 1;
+    z-index: 2;
+  }
 
-	video {
-		opacity: 0;
-		z-index: 1;
-	}
+  video {
+    opacity: 0;
+    z-index: 1;
+  }
 
-	&.avatar--playing {
-		figure {
-			opacity: 0;
-		}
-		video {
-			opacity: 1;
-		}
-	}
+  &.avatar--playing {
+    figure {
+      opacity: 0;
+    }
+    video {
+      opacity: 1;
+    }
+  }
 }
 
 .avatar--round {
-	border-radius: 100rem;
-	border: 2px solid currentColor;
-	z-index: 10;
+  border-radius: 100rem;
+  border: 2px solid currentColor;
+  z-index: 10;
 }
 
 .avatar__padding {
-	width: 100%;
+  width: 100%;
 }
 
 /*$purple: rgba(146, 141, 255, 1);
@@ -257,178 +257,178 @@ $grey3: #9b9b9b;
 $grey5: #4a4a4a;*/
 
 .squigglePaths {
-	position: fixed;
-	top: -100px;
-	left: -100px;
-	height: 0;
-	width: 0;
+  position: fixed;
+  top: -100px;
+  left: -100px;
+  height: 0;
+  width: 0;
 }
 
 .squiggle {
-	position: relative;
-	width: 8rem;
-	height: 5rem;
-	background-image: linear-gradient(to left, $purple, $purple-light, $purple);
-	background-repeat: repeat;
-	background-size: 200% 100%;
-	clip-path: url(#squiggle0);
-	outline: 1px solid white;
-	animation: scrollBackground 6s infinite cubic-bezier(0.86, 0.34, 0.6, 0.81);
+  position: relative;
+  width: 8rem;
+  height: 5rem;
+  background-image: linear-gradient(to left, $purple, $purple-light, $purple);
+  background-repeat: repeat;
+  background-size: 200% 100%;
+  clip-path: url(#squiggle0);
+  outline: 1px solid white;
+  animation: scrollBackground 6s infinite cubic-bezier(0.86, 0.34, 0.6, 0.81);
 }
 
 .squiggle--seafoam {
-	background-image: linear-gradient(to left, $seafoam, $seafoam-light, $seafoam);
+  background-image: linear-gradient(to left, $seafoam, $seafoam-light, $seafoam);
 }
 
 .squiggle--yellow {
-	background-image: linear-gradient(to left, $yellow, $yellow-orange, $yellow);
+  background-image: linear-gradient(to left, $yellow, $yellow-orange, $yellow);
 }
 
 .squiggle--pink {
-	background-image: linear-gradient(to left, $pink, $pink-light, $pink);
+  background-image: linear-gradient(to left, $pink, $pink-light, $pink);
 }
 
 .squiggle--orange {
-	background-image: linear-gradient(to left, $orange, $yellow-orange, $orange);
+  background-image: linear-gradient(to left, $orange, $yellow-orange, $orange);
 }
 
 @keyframes scrollBackground {
-	0% {
-		background-position: 0 0;
-	}
-	20% {
-		background-position: -130% 0;
-	}
-	100% {
-		background-position: -200% 0;
-	}
+  0% {
+    background-position: 0 0;
+  }
+  20% {
+    background-position: -130% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .squiggle--0 {
-	clip-path: url(#squiggle0);
-	animation-delay: 0s;
+  clip-path: url(#squiggle0);
+  animation-delay: 0s;
 }
 .squiggle--1 {
-	clip-path: url(#squiggle1);
-	animation-delay: 0.15s;
+  clip-path: url(#squiggle1);
+  animation-delay: 0.15s;
 }
 .squiggle--2 {
-	clip-path: url(#squiggle2);
-	animation-delay: 0.3s;
+  clip-path: url(#squiggle2);
+  animation-delay: 0.3s;
 }
 .squiggle--3 {
-	clip-path: url(#squiggle3);
-	animation-delay: 0.45s;
+  clip-path: url(#squiggle3);
+  animation-delay: 0.45s;
 }
 .squiggle--4 {
-	clip-path: url(#squiggle4);
-	animation-delay: 0.6s;
+  clip-path: url(#squiggle4);
+  animation-delay: 0.6s;
 }
 .squiggle--5 {
-	clip-path: url(#squiggle5);
-	animation-delay: 0.75s;
+  clip-path: url(#squiggle5);
+  animation-delay: 0.75s;
 }
 .squiggle--6 {
-	clip-path: url(#squiggle6);
-	animation-delay: 0.9s;
+  clip-path: url(#squiggle6);
+  animation-delay: 0.9s;
 }
 .squiggle--7 {
-	clip-path: url(#squiggle7);
-	animation-delay: 0.9s;
+  clip-path: url(#squiggle7);
+  animation-delay: 0.9s;
 }
 
 .highlight {
-	position: relative;
-	z-index: 10;
+  position: relative;
+  z-index: 10;
 
-	svg {
-		fill: $pink-medium-light;
-		z-index: -1;
-		position: absolute;
-		width: calc(100% + 2rem);
-		height: 100%;
-		left: -1rem;
-		top: 0.4em;
-		max-height: 1em;
-	}
+  svg {
+    fill: $pink-medium-light;
+    z-index: -1;
+    position: absolute;
+    width: calc(100% + 2rem);
+    height: 100%;
+    left: -1rem;
+    top: 0.4em;
+    max-height: 1em;
+  }
 }
 
 .highlight__inner {
-	position: relative;
-	display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .carousel {
-	position: relative;
+  position: relative;
 
-	&:hover {
-		.carousel__button {
-			opacity: 1;
-			pointer-events: initial;
-		}
-	}
+  &:hover {
+    .carousel__button {
+      opacity: 1;
+      pointer-events: initial;
+    }
+  }
 }
 
 .carousel__image--sizer {
-	opacity: 0;
-	pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .carousel__image {
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 
-	img {
-		object-fit: cover;
-	}
+  img {
+    object-fit: cover;
+  }
 }
 
 .carousel__image.carousel__image--active {
-	display: block;
+  display: block;
 }
 
 .carousel__button {
-	opacity: 0;
-	pointer-events: none;
-	transition: 0.2s;
-	width: 3.1rem;
-	height: 3.1rem;
-	position: absolute;
-	top: calc(50% - 1rem);
-	background-color: white;
-	z-index: 10;
-	border-radius: 3rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+  width: 3.1rem;
+  height: 3.1rem;
+  position: absolute;
+  top: calc(50% - 1rem);
+  background-color: white;
+  z-index: 10;
+  border-radius: 3rem;
 
-	&:before,
-	&:after {
-		content: '';
-		position: absolute;
-		width: 48%;
-		left: 32%;
-		top: calc(44%);
-		height: 12%;
-		background-color: currentColor;
-	}
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    width: 48%;
+    left: 32%;
+    top: calc(44%);
+    height: 12%;
+    background-color: currentColor;
+  }
 
-	&:before {
-		transform-origin: 5% 100%;
-		transform: rotate(-45deg);
-	}
-	&:after {
-		transform-origin: 5% 0;
-		transform: rotate(45deg);
-	}
+  &:before {
+    transform-origin: 5% 100%;
+    transform: rotate(-45deg);
+  }
+  &:after {
+    transform-origin: 5% 0;
+    transform: rotate(45deg);
+  }
 }
 
 .carousel__button--next {
-	right: 1rem;
-	transform: rotate(180deg);
+  right: 1rem;
+  transform: rotate(180deg);
 }
 
 .carousel__button--previous {
-	left: 1rem;
+  left: 1rem;
 }

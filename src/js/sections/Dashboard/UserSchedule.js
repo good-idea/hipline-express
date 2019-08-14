@@ -8,24 +8,25 @@ import UserClass from './UserClass'
  */
 
 const UserSchedule = ({ classes }) => {
-	if (!classes) return null
-	return (
-		<div className="column column--left userSchedule info__section">
-			<h2>Upcoming Classes</h2>
-			<div className="userSchedule__classes">
-				{classes.map(c => <UserClass key={c.ID} {...c} />)}
-			</div>
-		</div>
-	)
+  if (!classes) return null
+  return (
+    <div className="column column--left userSchedule info__section">
+      <h2>Upcoming Classes</h2>
+      <div className="userSchedule__classes">
+        {classes.map(c => (
+          <UserClass key={c.ID} {...c} />
+        ))}
+      </div>
+    </div>
+  )
 }
 
 UserSchedule.propTypes = {
-	// title: PropTypes.string
+  // title: PropTypes.string
 }
 
 UserSchedule.defaultProps = {
-	// title: 'My Title'
+  // title: 'My Title'
 }
-
 
 export default UserSchedule

@@ -1,111 +1,110 @@
-
 .choreographers {
-	position: relative;
-	padding-bottom: 0;
+  position: relative;
+  padding-bottom: 0;
 }
 
 .choreographers__header {
-	text-align: center;
+  text-align: center;
 }
 
 .choreographers__menu__wrapper {
-	background-color: white;
-	padding: 2rem 0 4rem;
-	min-height: calc(100vh - 6rem);
-	display: flex;
-	align-items: center;
+  background-color: white;
+  padding: 2rem 0 4rem;
+  min-height: calc(100vh - 6rem);
+  display: flex;
+  align-items: center;
 }
 
 .choreographers__menu {
-	display: flex;
-	/* width: 100%; */
-	width: 100%;
-	margin-left: 0;
-	flex-wrap: wrap;
+  display: flex;
+  /* width: 100%; */
+  width: 100%;
+  margin-left: 0;
+  flex-wrap: wrap;
 
-	.scrollTrigger {
-		display: block;
-	}
+  .scrollTrigger {
+    display: block;
+  }
 }
 
 .choreographer__avatar {
-	width: calc(25% - 1rem);
-	border: none;
-	margin: 0.5rem;
-	position: relative;
-	transition: 0.2s;
+  width: calc(25% - 1rem);
+  border: none;
+  margin: 0.5rem;
+  position: relative;
+  transition: 0.2s;
 
-	.avatar {
-		mix-blend-mode: darken;
-	}
+  .avatar {
+    mix-blend-mode: darken;
+  }
 
-	&:hover {
-		.choreographer__name {
-			display: flex;
-		}
-	}
-	.choreographer__name {
-		font-family: $sans;
-		font-weight: 800;
-		position: absolute;
-		width: 100%;
-		bottom: 0;
-		left: 0;
-		height: 3em;
-		text-align: center;
-		padding-left: 1em;
-		justify-content: center;
-		align-items: center;
-		font-weight: 900;
-		color: $pink;
-		z-index: 20;
-		display: none;
-		background: rgba(255, 255, 255, 0.8);
+  &:hover {
+    .choreographer__name {
+      display: flex;
+    }
+  }
+  .choreographer__name {
+    font-family: $sans;
+    font-weight: 800;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 3em;
+    text-align: center;
+    padding-left: 1em;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    color: $pink;
+    z-index: 20;
+    display: none;
+    background: rgba(255, 255, 255, 0.8);
 
-		h3 {
-			font-size: 1.5rem;
-			text-transform: uppercase;
-		}
-	}
+    h3 {
+      font-size: 1.5rem;
+      text-transform: uppercase;
+    }
+  }
 
-	.choreographer__viewProfile {
-		opacity: 0;
-	}
+  .choreographer__viewProfile {
+    opacity: 0;
+  }
 }
 
 @media screen and (max-width: $break-large) {
-	.choreographers__menu {
-		width: 100%;
-		margin-left: 0;
-	}
+  .choreographers__menu {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 
 .choreographer__avatar {
-	video,
-	figure.responsiveImage {
-		width: 100%;
-		left: 0%;
-	}
+  video,
+  figure.responsiveImage {
+    width: 100%;
+    left: 0%;
+  }
 }
 
 @media screen and (max-width: $break-medium) {
-	.choreographer__avatar {
-		width: calc(33% - 1rem);
-	}
+  .choreographer__avatar {
+    width: calc(33% - 1rem);
+  }
 }
 
 @media screen and (max-width: $break-small) {
-	.choreographer__avatar {
-		width: calc(50% - 1rem);
-	}
+  .choreographer__avatar {
+    width: calc(50% - 1rem);
+  }
 }
 
 .choreographer__avatar:hover {
-	background: $yellow;
+  background: $yellow;
 
-	.choreographer__viewProfile {
-		opacity: 1;
-	}
+  .choreographer__viewProfile {
+    opacity: 1;
+  }
 }
 
 /* .profile:nth-of-type(2n) {
@@ -119,230 +118,230 @@
 } */
 
 .profile {
-	padding: $nav-height 0;
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	min-height: 100vh;
-	background: $yellow;
-	border-top: 5rem solid white;
+  padding: $nav-height 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background: $yellow;
+  border-top: 5rem solid white;
 }
 
 .profile__top,
 .profile__bottom {
-	display: flex;
-	justify-content: space-between;
-	padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
 
-	.cta {
-		color: $orange;
-		margin-top: 1rem;
-	}
+  .cta {
+    color: $orange;
+    margin-top: 1rem;
+  }
 
-	p + p {
-		margin-top: 0em;
-	}
+  p + p {
+    margin-top: 0em;
+  }
 
-	.profile__link {
-		color: $purple;
-		text-decoration: underline;
-	}
+  .profile__link {
+    color: $purple;
+    text-decoration: underline;
+  }
 }
 
 .profile__title {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	width: 15%;
-	text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 15%;
+  text-align: center;
 }
 
 .profile__name {
-	font-family: $serif;
-	color: $purple;
-	font-weight: 600;
-	text-align: center;
+  font-family: $serif;
+  color: $purple;
+  font-weight: 600;
+  text-align: center;
 }
 
 .profile__socials {
-	margin: 1rem 0;
-	color: $pink;
-	display: flex;
-	justify-content: center;
+  margin: 1rem 0;
+  color: $pink;
+  display: flex;
+  justify-content: center;
 }
 
 .profile__social {
-	margin: 0 1rem;
+  margin: 0 1rem;
 }
 
 .profile__photo {
-	width: 30%;
-	mix-blend-mode: darken;
-	padding-right: 3rem;
+  width: 30%;
+  mix-blend-mode: darken;
+  padding-right: 3rem;
 
-	figure {
-		width: 60%;
-	}
+  figure {
+    width: 60%;
+  }
 }
 
 .profile__bio {
-	width: 50%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	padding-left: 3rem;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 3rem;
 }
 
 .profile__bottom {
-	margin-top: calc($nav-height * 2);
-	padding: 0 40px;
+  margin-top: calc($nav-height * 2);
+  padding: 0 40px;
 }
 
 .profile__bottom__title {
-	text-transform: uppercase;
-	text-align: center;
-	color: $grey3;
+  text-transform: uppercase;
+  text-align: center;
+  color: $grey3;
 
-	.squiggle {
-		margin: 0 auto;
-		margin-top: 10px;
-	}
+  .squiggle {
+    margin: 0 auto;
+    margin-top: 10px;
+  }
 }
 
 .profile__bottom__content h4 {
-	margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .profile__bottom__content p {
-	font-family: $sans;
+  font-family: $sans;
 }
 
 .profile__quote {
-	font-family: $serif;
-	font-style: italic;
-	margin-bottom: 2em;
-	color: $purple;
+  font-family: $serif;
+  font-style: italic;
+  margin-bottom: 2em;
+  color: $purple;
 }
 
 .profile__website {
-	color: $purple;
-	margin-top: 1em;
-	text-decoration: underline;
+  color: $purple;
+  margin-top: 1em;
+  text-decoration: underline;
 }
 
 .profile__playlist {
-	.profile__bottom__title {
-		margin-left: auto;
-	}
+  .profile__bottom__title {
+    margin-left: auto;
+  }
 }
 
 .profile__playlist,
 .profile__classes {
-	width: 25%;
+  width: 25%;
 }
 
 .profile__expectations {
-	width: 35%;
-	padding-right: 0rem;
+  width: 35%;
+  padding-right: 0rem;
 }
 
 .profile__bottom__title {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .profile__playlist,
 .profile__classes,
 .profile__expectations {
-	display: flex;
+  display: flex;
 }
 
 .profile__bottom__content {
-	padding-left: 3rem;
-	/* padding-top: $h2; */
-	padding-top: 0;
+  padding-left: 3rem;
+  /* padding-top: $h2; */
+  padding-top: 0;
 }
 
 @media screen and (max-width: $break-large) {
-	.profile__top {
-		flex-wrap: wrap;
-		justify-content: center;
-		text-align: center;
-		flex-direction: column;
-		padding: 0;
-	}
+  .profile__top {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 0;
+  }
 
-	.profile__title,
-	.profile__bio {
-		width: 100%;
-	}
+  .profile__title,
+  .profile__bio {
+    width: 100%;
+  }
 
-	.profile__photo {
-		padding-right: 0;
-		width: 100%;
-	}
+  .profile__photo {
+    padding-right: 0;
+    width: 100%;
+  }
 
-	.profile__bio {
-		width: 100%;
-		max-width: 50rem;
-		margin: 2rem auto 0;
-		padding-left: 0;
-	}
+  .profile__bio {
+    width: 100%;
+    max-width: 50rem;
+    margin: 2rem auto 0;
+    padding-left: 0;
+  }
 
-	.profile__bottom {
-		margin-top: 2rem;
-		display: block;
-		text-align: center;
-		padding: 0;
+  .profile__bottom {
+    margin-top: 2rem;
+    display: block;
+    text-align: center;
+    padding: 0;
 
-		.squiggle {
-			display: none;
-		}
+    .squiggle {
+      display: none;
+    }
 
-		.profile__link {
-			width: 100%;
-		}
-	}
+    .profile__link {
+      width: 100%;
+    }
+  }
 
-	.profile__classes,
-	.profile__expectations,
-	.profile__playlist {
-		display: block;
-		width: 100%;
-		padding: 0;
-		margin-top: 3rem;
-	}
+  .profile__classes,
+  .profile__expectations,
+  .profile__playlist {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-top: 3rem;
+  }
 
-	.profile__bottom__title {
-		margin-bottom: 1rem;
-	}
+  .profile__bottom__title {
+    margin-bottom: 1rem;
+  }
 
-	.profile__bottom__content {
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
-		padding-left: 0;
-		margin: 0 auto;
-		max-width: 50rem;
+  .profile__bottom__content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin: 0 auto;
+    max-width: 50rem;
 
-		> * {
-			margin: 0 0.5rem;
-		}
+    > * {
+      margin: 0 0.5rem;
+    }
 
-		.profile__cta {
-			width: 100%;
-		}
+    .profile__cta {
+      width: 100%;
+    }
 
-		.cta {
-			display: inline-block;
-		}
-	}
+    .cta {
+      display: inline-block;
+    }
+  }
 }
 
 @media screen and (max-width: 500px) {
-	.choreographer__avatar {
-		.choreographer__name {
-			display: flex;
-		}
-	}
+  .choreographer__avatar {
+    .choreographer__name {
+      display: flex;
+    }
+  }
 }
