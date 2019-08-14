@@ -1,7 +1,3 @@
-import Form from './OuterComponents/Form'
-import InputTypes from './InputTypes'
+export { default as Form  } from './OuterComponents/Form'
+export * from './InputTypes'
 
-module.exports = {
-  Form,
-  ...InputTypes,
-}

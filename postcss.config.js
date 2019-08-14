@@ -7,9 +7,9 @@ module.exports = (ctx) => {
 		plugins: {
 			'postcss-import': {},
 			'postcss-extend': {},
+			'postcss-mixins': {},
 			'postcss-advanced-variables': {},
 			'postcss-cssnext': { warnForDuplicates: false },
-			'postcss-mixins': {},
 			'postcss-nested': {},
 			cssnano: {},
 		},

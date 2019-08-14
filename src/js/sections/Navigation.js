@@ -104,13 +104,14 @@ class Navigation extends React.Component {
   }
 
   toggleMenu = () => {
-    this.setState({
-      open: !this.state.open,
-    })
+    this.setState(state => ({
+      open: !state.open,
+    }))
   }
 
   render() {
     const classNames = this.state.open ? 'nav__wrapper nav--open' : 'nav__wrapper'
+    console.log(this.state)
 
     return (
       <div className={classNames}>

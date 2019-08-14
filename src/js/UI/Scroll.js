@@ -156,4 +156,3 @@ ScrollTrigger.defaultProps = {
   className: '',
 }
 
-module.exports = { ScrollableContainer, ScrollableChild, ScrollTrigger }

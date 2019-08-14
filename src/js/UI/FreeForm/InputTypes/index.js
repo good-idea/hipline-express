@@ -1,28 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Input from './Input'
-import Select from './Select'
-import Checkbox from './Checkbox'
-import Masked from './Masked'
+export {default as Checkbox }from './Checkbox'
+export {default as Input}from './Input'
+export {default as Select}from './Select'
+export {default as Field}from './Field'
 
-const Field = props => {
-  if (props.mask) return <Masked {...props} />
-  switch (props.type) {
-    case 'select':
-      return <Select {...props} />
-    case 'checkbox':
-      return <Checkbox {...props} />
-    default:
-      return <Input {...props} />
-  }
-}
-
-Field.propTypes = {
-  type: PropTypes.string,
-}
-
-Field.defaultProps = {
-  type: 'text',
-}
-
-module.exports = { Field, Input, Select, Checkbox }

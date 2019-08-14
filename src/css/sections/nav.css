@@ -229,8 +229,6 @@ button.burger {
     display: none;
   }
 
-  .nav__submenu--list {
-  }
 
   .navlink--active {
     color: white;
