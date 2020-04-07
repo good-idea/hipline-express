@@ -9,6 +9,7 @@
 		"dev:css": "./node_modules/.bin/postcss src/css/*.css --dir public/css/ -c postcss.config.js -w",
 		"dev:serve": "webpack-dev-server --config webpack.config.development.js",
 		"build": "npm-run-all build:js build:css",
+		"stats": "webpack -p --progress --colors --json > stats.json",
 		"build:js": "webpack -p --progress --colors",
 		"build:css": "./node_modules/.bin/postcss src/css/*.css --dir public/css/ -c postcss.config.js",
 		"livereload": "livereload 'public/css'",

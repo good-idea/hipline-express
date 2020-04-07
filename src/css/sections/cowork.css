@@ -1,12 +1,15 @@
+.section--online-classes nav,
 .section--co-work nav {
   background-color: black;
 }
 
+#app.section--online-classes,
 #app.section--co-work {
   background-color: black;
   color: white;
 }
 
+.info--online-classes,
 .info--co-work {
   position: relative;
 
@@ -31,6 +34,7 @@
   }
 }
 
+.info--online-classes .info__section--pricing,
 .info--co-work .info__section--pricing {
   .info__blocks {
     display: flex;
