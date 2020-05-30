@@ -12,7 +12,7 @@ const Footer = ({ footertext, contact, footersocial, footerPages }) => (
   <footer>
     <div className="column">
       <div className="footer__nav">
-        {footerPages.map(p => (
+        {footerPages.map((p) => (
           <h4 key={p.slug}>
             <Link href={p.slug} to={p.slug}>
               {p.title}
@@ -20,7 +20,6 @@ const Footer = ({ footertext, contact, footersocial, footerPages }) => (
           </h4>
         ))}
       </div>
-      <img className="footer__logo" src="/images/loveclub-pink.png" alt="Hipline Oakland" />
       <h4 className="footer__text">{footertext}</h4>
       <h5 className="footer__address">
         <a href="https://goo.gl/maps/6RvpRVaocd82" target="_blank">
