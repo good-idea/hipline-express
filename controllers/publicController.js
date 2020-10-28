@@ -11,11 +11,12 @@ const { cms } = require('../config')
 // const setCache = promisify(client.set).bind(client)
 
 module.exports.site = function getPage(req, res, next) {
-	const uri = req.url
-	axios
-		.get(`${cms.apiRoot}/initial?uri=${uri}`)
-		.then(response => {
-			return res.render('index', { meta: response.data.meta || {}, rev: git.short() })
-		})
-		.catch(next)
+  const uri = req.url
+  axios
+    .get(`${cms.apiRoot}/initial?uri=${uri}`)
+    .then((response) => {
+      console.log(response.data.site)
+      return res.render('index', { site: response.data.site, meta: response.data.meta || {}, rev: git.short() })
+    })
+    .catch(next)
 }

@@ -104,14 +104,13 @@ class Navigation extends React.Component {
   }
 
   toggleMenu = () => {
-    this.setState(state => ({
+    this.setState((state) => ({
       open: !state.open,
     }))
   }
 
   render() {
     const classNames = this.state.open ? 'nav__wrapper nav--open' : 'nav__wrapper'
-    console.log(this.state)
 
     return (
       <div className={classNames}>
@@ -137,7 +136,7 @@ class Navigation extends React.Component {
 
           <div className="nav__items">
             {this.mainPages &&
-              this.mainPages.map(page => (
+              this.mainPages.map((page) => (
                 <NavItem
                   className="nav__item nav__item--primary"
                   key={page.slug}
@@ -166,7 +165,7 @@ class Navigation extends React.Component {
                   About <span className="icon--down" />
                 </h4>
                 <div className="nav__submenu--list">
-                  {this.submenuPages.map(page => (
+                  {this.submenuPages.map((page) => (
                     <NavItem
                       className="nav__submenu--item"
                       key={page.slug}

@@ -9,7 +9,7 @@ const logger = require('morgan')
 const router = require('./router')
 
 const config = require('./config')
-const securityMiddleware = require('./middleware/security')
+// const securityMiddleware = require('./middleware/security')
 const errorHandlersMiddleware = require('./middleware/errorHandlers')
 
 /**
@@ -19,7 +19,6 @@ const errorHandlersMiddleware = require('./middleware/errorHandlers')
 // const mongoURI = `mongodb://${config.database.user}:${config.database.secret}@${config.database.host}:${config.database.port}/${config.database.dbName}`
 // mongoose.createConnection(mongoURI)
 //
-
 
 /**
  * Initialization
@@ -40,17 +39,19 @@ app.set('view engine', 'pug')
 app.use(express.static(path.join(__dirname, 'public'), { maxage: '14d' }))
 
 app.use((req, res, next) => {
-	res.header('Access-Control-Allow-Origin', '*')
-	res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
-	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials')
-	res.header('Access-Control-Allow-Credentials', 'true')
-	next()
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials',
+  )
+  res.header('Access-Control-Allow-Credentials', 'true')
+  next()
 })
 
 /**
  * Middleware & Routes
  */
-
 
 // if (config.environment !== 'development') app.use(securityMiddleware)
 
@@ -63,5 +64,5 @@ app.use(errorHandlersMiddleware)
  */
 
 app.listen(config.server.port, () => {
-	console.log(`API [${config.environment}] Running on ${config.server.port}`)
+  console.log(`API [${config.environment}] Running on ${config.server.port}`)
 })

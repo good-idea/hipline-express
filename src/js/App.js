@@ -32,8 +32,7 @@ class App extends React.Component {
     // const apiRoot = (window.)
     // Split the initial content & MBO requests into two:
     // the MBO call may take longer, or the API server may be down
-    axios.get(`/api/content/initial?uri=${this.props.location.pathname}`).then(response => {
-      console.log(response.data)
+    axios.get(`/api/content/initial?uri=${this.props.location.pathname}`).then((response) => {
       const newState = parseContent({ ...this.state, ...response.data })
       this.setState(newState, () => {
         this.props.emit('cmsContentLoaded')
@@ -61,7 +60,6 @@ class App extends React.Component {
 
   render() {
     if (!this.state.home) return null
-    console.log(this.state)
     const currentSection = this.props.location.pathname.replace(/^\//, '').split('/')[0]
     const hasAnnouncement = this.state.announcement ? 'withAnnouncement' : ''
     return (
@@ -78,7 +76,7 @@ class App extends React.Component {
           <Route
             exact
             path="/"
-            render={match => (
+            render={(match) => (
               <Choreographers match={match} home={this.state.home} {...this.state.choreographers} seo={this.state.meta} />
             )}
           />
@@ -86,7 +84,7 @@ class App extends React.Component {
           <Route
             exact
             path="/classes"
-            render={match => (
+            render={(match) => (
               <Classes
                 match={match}
                 splashText={this.state.classes.intro}
@@ -95,10 +93,10 @@ class App extends React.Component {
               />
             )}
           />
-          {this.state.infoPages.map(page => (
+          {this.state.infoPages.map((page) => (
             <Route exact key={`info-${page.slug}`} path={`/${page.slug}`} render={() => <InfoPage {...page} />} />
           ))}
-          {this.state.footerPages.map(page => (
+          {this.state.footerPages.map((page) => (
             <Route exact key={`footer-${page.slug}`} path={`/${page.slug}`} render={() => <InfoPage {...page} />} />
           ))}
           <NotFound />

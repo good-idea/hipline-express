@@ -19,7 +19,7 @@ import { markdownToJSX, wrapAndPrepare } from '../utils/text'
  * InfoNavItem
  */
 
-const InfoNavItem = props => {
+const InfoNavItem = (props) => {
   return (
     <div className="subnav__item">
       <ScrollTrigger slug={`info-${props.slug}`}>
@@ -36,7 +36,7 @@ InfoNavItem.propTypes = {
   slug: PropTypes.string.isRequired,
 }
 
-const InfoBlock = props => {
+const InfoBlock = (props) => {
   return (
     <div className="info__block">
       <h4 className="info__block__header">{props.header}</h4>
@@ -109,12 +109,12 @@ class InfoSection extends React.PureComponent {
             </div>
             <Carousel settings={this.props.carousel_settings} images={this.props.images} />
             <div className="info__blocks">
-              {this.props.blocks.map(c => (
+              {this.props.blocks.map((c) => (
                 <InfoBlock key={`infoBlock-${slugify(c.header)}`} {...c} />
               ))}
             </div>
             <div className="info__buttons">
-              {this.props.buttons.map(b => (
+              {this.props.buttons.map((b) => (
                 <InfoButton key={`infoButton-${slugify(b.label)}`} {...b} />
               ))}
             </div>
@@ -147,7 +147,6 @@ InfoSection.defaultProps = {
 
 class InfoPage extends React.PureComponent {
   render() {
-    console.log(this.props)
     const cover = this.props.cover ? (
       <div className="info__cover">
         <ResponsiveImage {...this.props.cover} sizes="(max-width: 800px) 40vw, 100vw" />
@@ -164,7 +163,7 @@ class InfoPage extends React.PureComponent {
               <h1 className="info__title">{this.props.title}</h1>
             </div>
             {this.props.children &&
-              this.props.children.map(c => (
+              this.props.children.map((c) => (
                 <ScrollableChild
                   key={`info-scrollableChild-${this.props.slug}-${c.slug}`}
                   slug={`info-${this.props.slug}-${c.slug}`}
