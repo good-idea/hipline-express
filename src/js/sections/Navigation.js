@@ -23,9 +23,11 @@ const Logo = () => (
  * NavItem
  */
 
-const NavItem = ({ label, className, to, isExternal, onClick }) => (
+const NavItem = ({ children, label, className, to, isExternal, onClick }) => (
   <h4 className={className}>
-    {isExternal ? (
+    {children ? (
+      <>{children}</>
+    ) : isExternal ? (
       <a href={to} target="_blank" rel="noopener noreferrer" onClick={onClick}>
         {label}
       </a>
@@ -121,16 +123,6 @@ class Navigation extends React.Component {
             </NavLink>
           </div>
           <div className="nav__mobile">
-            <h4 className="nav__item nav__cta">
-              <a
-                className=""
-                target="_blank"
-                rel="noopener noreferrer"
-                href="http://clients.mindbodyonline.com/ws.asp?studioid=4561&stype=-7"
-              >
-                Sign Up
-              </a>
-            </h4>
             <button className="nav__item burger" onClick={this.toggleMenu} />
           </div>
 
@@ -152,13 +144,25 @@ class Navigation extends React.Component {
                   isExternal={Boolean(page.outboundlink && page.outboundlink.length > 0)}
                 />
               ))}
-            <NavItem
-              className="nav__item nav__item--primary"
-              onClick={this.closeMenu}
-              isExternal
-              label="Schedule"
-              to="https://clients.mindbodyonline.com/classic/mainclass?studioid=4561"
-            />
+            <NavItem className="nav__item nav__item--primary" onClick={this.closeMenu} label="Schedule" to="/schedule" />
+            <NavItem className="nav__item nav__item--primary" isExternal label="Login | Register">
+              <h4
+                className="nav__item"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                   <healcode-widget
+                            data-version="0.2"
+                            data-link-class="loginRegister"
+                            data-site-id="66740"
+                            data-mb-site-id="4561"
+                            data-type="account-link"
+                            data-inner-html="Login | Register"
+                          />
+                    `,
+                }}
+              />
+            </NavItem>
+
             {this.submenuPages.length && (
               <div className="nav__item nav__item--primary nav__submenu">
                 <h4 className="nav__submenu--title">

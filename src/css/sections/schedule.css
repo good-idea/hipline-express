@@ -11,6 +11,20 @@ $grey3: #9b9b9b;
 $grey5: #4a4a4a;
 */
 
+section.schedule {
+  max-width: 800px;
+  padding: 0 40px;
+  margin: 0 auto;
+}
+
+section.schedule main {
+  padding: 10rem 0;
+}
+
+.schedule__calendar {
+  margin: 4rem auto;
+}
+
 .schedule__nav {
   display: flex;
   justify-content: space-between;
