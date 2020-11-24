@@ -11,7 +11,6 @@ import Pricing from './sections/Pricing/Pricing'
 import InfoPage from './sections/InfoPage'
 import Footer from './sections/Footer'
 import NotFound from './sections/NotFound'
-import Schedule from './sections/Schedule'
 
 import { SquigglePaths } from './components/Squiggle'
 
@@ -82,7 +81,6 @@ class App extends React.Component {
             )}
           />
           <Route exact path="/passes" render={() => <Pricing passes={this.state.passes} seo={this.state.passes.seo} />} />
-          <Route exact path="/schedule" render={() => <Schedule seo={this.state.passes.seo} />} />
           <Route
             exact
             path="/classes"
