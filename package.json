@@ -111,7 +111,6 @@
 		"redis": "^2.8.0",
 		"redis-delete-pattern": "^0.1.0",
 		"response-time": "^2.3.2",
-		"sanitize-html": "^2.1.1",
 		"sitemap": "^4.0.2",
 		"strong-soap": "^1.21.0",
 		"to-markdown": "^3.1.1"
