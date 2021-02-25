@@ -46,7 +46,7 @@ const ChoreographerSocial = ({ accounts }) => {
   )
 }
 
-const ChoreographerProfile = props => {
+const ChoreographerProfile = (props) => {
   const bioBody = markdownToJSX(props.bio)
 
   const expectationsBody = markdownToJSX(props.expectations)
@@ -84,47 +84,53 @@ const ChoreographerProfile = props => {
           </div>
         </div>
         <div className="profile__bottom column column--wide">
-          <div className="profile__classes">
-            <div className="profile__bottom__title">
-              <h4>Classes</h4>
-              <Squiggle num={0} />
-            </div>
-            <div className="profile__bottom__content">
-              {classtypes.map(classType => (
-                <p key={classType}>{classType}</p>
-              ))}
-              <div className="profile__cta">
-                <p className="profile__link">
-                  <a href={mbolinks.schedule} target="_blank" rel="noopener noreferrer">
-                    View Schedule
-                  </a>
-                </p>
+          {classtypes.length > 0 ? (
+            <div className="profile__classes">
+              <div className="profile__bottom__title">
+                <h4>Classes</h4>
+                <Squiggle num={0} />
+              </div>
+              <div className="profile__bottom__content">
+                {classtypes.map((classType) => (
+                  <p key={classType}>{classType}</p>
+                ))}
+                <div className="profile__cta">
+                  <p className="profile__link">
+                    <a href={mbolinks.schedule} target="_blank" rel="noopener noreferrer">
+                      View Schedule
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="profile__expectations">
-            <div className="profile__bottom__title">
-              <h4>Expectations</h4>
-              <Squiggle num={1} />
+          ) : null}
+          {expectationsBody.length > 0 ? (
+            <div className="profile__expectations">
+              <div className="profile__bottom__title">
+                <h4>Expectations</h4>
+                <Squiggle num={1} />
+              </div>
+              <div className="profile__bottom__content">{expectationsBody}</div>
             </div>
-            <div className="profile__bottom__content">{expectationsBody}</div>
-          </div>
-          <div className="profile__playlist">
-            <div className="profile__bottom__title">
-              <h4>Playlist</h4>
-              <Squiggle num={3} />
+          ) : null}
+          {musicians.length > 0 || props.spotify_playlist ? (
+            <div className="profile__playlist">
+              <div className="profile__bottom__title">
+                <h4>Playlist</h4>
+                <Squiggle num={3} />
+              </div>
+              <div className="profile__bottom__content">
+                {musicians.map((artist) => (
+                  <p key={artist}>{artist}</p>
+                ))}
+                {props.spotify_playlist ? (
+                  <p className="profile__link">
+                    <a href={props.spotify_playlist}>View Playlist</a>
+                  </p>
+                ) : null}
+              </div>
             </div>
-            <div className="profile__bottom__content">
-              {musicians.map(artist => (
-                <p key={artist}>{artist}</p>
-              ))}
-              {props.spotify_playlist ? (
-                <p className="profile__link">
-                  <a href={props.spotify_playlist}>View Playlist</a>
-                </p>
-              ) : null}
-            </div>
-          </div>
+          ) : null}
         </div>
       </div>
     </ScrollableChild>
