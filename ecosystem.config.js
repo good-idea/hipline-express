@@ -1,3 +1,10 @@
+const defaultEnv = {
+  ENV: 'production',
+  CMS_PORT: 80,
+  CMS_HOST: 'panel.myhipline.com',
+  PORT: 3000,
+}
+
 module.exports = {
   apps: [
     {
@@ -6,12 +13,7 @@ module.exports = {
       autorestart: true,
       watch: false,
       max_memory_restart: '300M',
-      env_production: {
-        ENV: 'production',
-        CMS_PORT: 80,
-        CMS_HOST: 'panel.myhipline.com',
-        PORT: 3000,
-      },
+      env_production: defaultEnv,
     },
   ],
   deploy: {
@@ -22,6 +24,7 @@ module.exports = {
       repo: 'git@github.com:good-idea/hipline-express',
       path: '/home/appolonia/myhipline.com',
       'post-deploy': 'yarn install && yarn build && pm2 reload ecosystem.config.js --env production',
+      env: defaultEnv,
     },
   },
 }
