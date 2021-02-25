@@ -1,15 +1,16 @@
 doctype html
 head
-	title=meta.title
-	link(rel="stylesheet" href="/css/styles.css?v=" + rev)
-	link(rel="shortcut icon" href="/favicon.png")
+  title=meta.title
+  link(rel="stylesheet" href="/css/styles.css?v=" + rev)
+  link(rel="shortcut icon" href="/favicon.png")
 
-	meta(name="description" content=meta.description)
-	meta(property="og:title" content=meta.title)
-	meta(property="og:type" content="website")
-	meta(property="og:description" content=meta.description)
-	meta(property="og:image" content=meta.image.url)
-	meta(property="keywords" content=meta.keywords)
-	meta(name="viewport" content="width=device_width, initial-scale=1")
-	!= site.headsnippets
+  meta(name="description" content=meta.description)
+  meta(property="og:title" content=meta.title)
+  meta(property="og:type" content="website")
+  meta(property="og:description" content=meta.description)
+  meta(property="og:image" content=meta.image.url)
+  meta(property="keywords" content=meta.keywords)
+  meta(name="viewport" content="width=device_width, initial-scale=1")
+  script(src="https://widgets.mindbodyonline.com/javascripts/healcode.js" type="text/javascript")
+  != site.headsnippets
 

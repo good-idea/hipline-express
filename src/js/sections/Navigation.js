@@ -159,6 +159,13 @@ class Navigation extends React.Component {
               label="Schedule"
               to="https://clients.mindbodyonline.com/classic/mainclass?studioid=4561"
             />
+            <NavItem
+              className="nav__item nav__item--primary"
+              onClick={this.closeMenu}
+              isExternal
+              label="Login"
+              to="https://clients.mindbodyonline.com/ASP/su1.asp?studioid=4561"
+            />
             {this.submenuPages.length && (
               <div className="nav__item nav__item--primary nav__submenu">
                 <h4 className="nav__submenu--title">
