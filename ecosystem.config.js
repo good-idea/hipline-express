@@ -8,8 +8,9 @@ module.exports = {
       max_memory_restart: '300M',
       env: {
         ENV: 'production',
-        CMS_PORT: '80',
+        CMS_PORT: 80,
         CMS_HOST: 'panel.myhipline.com',
+        PORT: 3000,
       },
     },
   ],
