@@ -6,7 +6,7 @@ module.exports = {
       autorestart: true,
       watch: false,
       max_memory_restart: '300M',
-      env: {
+      env_production: {
         ENV: 'production',
         CMS_PORT: 80,
         CMS_HOST: 'panel.myhipline.com',

@@ -1,3 +1,3 @@
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv').config()
 
-module.exports = dotenv.parsed;
+module.exports = dotenv.parsed || {}
